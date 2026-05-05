@@ -84,7 +84,7 @@
     .nav-cta { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--black) !important; background: var(--gold); padding: 12px 28px; text-decoration: none; transition: background 0.25s, transform 0.2s; clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%); }
     .nav-cta:hover { background: var(--gold-light); transform: translateY(-1px); }
     .nav-cta::after { display: none !important; }
-    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: none; padding: 8px; }
+    .hamburger { display: none; flex-direction: column; gap: 5px;  padding: 8px; }
     .hamburger span { display: block; width: 28px; height: 2px; background: var(--white); }
 
     /* ── HERO ── */
@@ -172,7 +172,7 @@
     /* Video dots */
     .hero-video-dots { position: absolute; bottom: 110px; left: 60px; display: flex; gap: 8px; z-index: 4; opacity: 0; transition: opacity 1s 2s; }
     .hero-video-dots.animate { opacity: 1; }
-    .hero-dot { width: 24px; height: 2px; background: rgba(255,255,255,0.3); cursor: none; transition: background 0.3s, width 0.3s; }
+    .hero-dot { width: 24px; height: 2px; background: rgba(255,255,255,0.3);  transition: background 0.3s, width 0.3s; }
     .hero-dot.active { background: var(--gold); width: 40px; }
 
     /* Stats bar */
@@ -280,7 +280,7 @@
     /* Episode Cards — PREMIUM */
     .episodes-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 3px; }
 
-    .ep-card { position: relative; overflow: hidden; cursor: none; background: var(--grey-dark); transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), box-shadow 0.4s; }
+    .ep-card { position: relative; overflow: hidden;  background: var(--grey-dark); transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), box-shadow 0.4s; }
     .ep-card::before { content: ''; display: block; padding-top: 125%; }
     .ep-card.featured::before { padding-top: 70%; }
     .ep-card.featured::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--gold); z-index: 3; }
@@ -348,7 +348,7 @@
     .context-cards { display: flex; flex-direction: column; gap: 3px; }
 
     /* Context Cards — PREMIUM */
-    .ctx-card { border: 1px solid rgba(255,255,255,0.06); padding: 32px 36px; position: relative; overflow: hidden; cursor: none; transition: border-color 0.3s, background 0.3s, transform 0.35s cubic-bezier(0.16,1,0.3,1), box-shadow 0.35s; background: rgba(255,255,255,0.02); }
+    .ctx-card { border: 1px solid rgba(255,255,255,0.06); padding: 32px 36px; position: relative; overflow: hidden;  transition: border-color 0.3s, background 0.3s, transform 0.35s cubic-bezier(0.16,1,0.3,1), box-shadow 0.35s; background: rgba(255,255,255,0.02); }
     .ctx-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--gold); transform: scaleY(0); transform-origin: bottom; transition: transform 0.4s cubic-bezier(0.16,1,0.3,1); }
     .ctx-card-shine { position: absolute; inset: 0; background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.03) 50%, transparent 60%); transform: translateX(-100%); pointer-events: none; }
     .ctx-card:hover { border-color: var(--border-light); background: rgba(184,146,42,0.04); transform: translateX(6px); box-shadow: -4px 0 24px rgba(184,146,42,0.1); }
@@ -397,7 +397,7 @@
     .signup-input-row:focus-within { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(184,146,42,0.08); }
     .signup-input-row input { flex: 1; padding: 18px 24px; background: transparent; border: none; outline: none; font-family: 'Barlow', sans-serif; font-size: 14px; color: var(--black); }
     .signup-input-row input::placeholder { color: #999999; }
-    .signup-input-row button { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--black); background: var(--gold); border: none; padding: 18px 32px; cursor: none; transition: background 0.25s; white-space: nowrap; }
+    .signup-input-row button { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--black); background: var(--gold); border: none; padding: 18px 32px;  transition: background 0.25s; white-space: nowrap; }
     .signup-input-row button:hover { background: var(--gold-light); }
     .signup-fine { font-size: 11px; color: #999999; letter-spacing: 0.08em; }
     .signup-pillars { display: flex; gap: 32px; margin-top: 52px; padding-top: 40px; border-top: 1px solid rgba(0,0,0,0.08); }
@@ -428,11 +428,11 @@
     .hamburger span { display: block; width: 28px; height: 2px; background: var(--white); }
 
     @media (max-width: 1024px) {
-      body { cursor: auto; }
+      body { }
       .cursor-dot, .cursor-ring { display: none; }
       nav { padding: 0 24px; }
       .nav-center { display: none; }
-      .hamburger { display: flex; cursor: auto; }
+      .hamburger { display: flex; }
       .hero { padding: 100px 24px 0; }
       .scroll-indicator { display: none; }
       .hero-video-dots { left: 24px; }
@@ -669,27 +669,27 @@
         <div class="ctx-card">
           <div class="ctx-card-shine"></div>
           <div class="ctx-card-top"><div class="ctx-ep">Episode 01</div><div class="ctx-status live">Live Now</div></div>
-          <div class="ctx-title">The Prophecy Problem</div>
-          <div class="ctx-verse">"For we know in part and we prophesy in part" — 1 Corinthians 13:9</div>
+          <div class="ctx-title">We've Been Quoting This Scripture Wrong for Years</div>
+          <div class="ctx-verse">"Call those things that be not as though they were" - Romans 4:17</div>
           <div class="ctx-arrow">→</div>
         </div>
         <div class="ctx-card">
           <div class="ctx-card-shine"></div>
           <div class="ctx-card-top"><div class="ctx-ep">Episode 02</div><div class="ctx-status coming">Coming Soon</div></div>
-          <div class="ctx-title">Prosperity Was Never the Promise</div>
-          <div class="ctx-verse">"Beloved, I pray that in all respects you may prosper" — 3 John 1:2</div>
+          <div class="ctx-title">Did David Promise You Your Dream Life?</div>
+          <div class="ctx-verse">"Delight yourself in the Lord" - Psalm 37:4</div>
           <div class="ctx-arrow">→</div>
         </div>
         <div class="ctx-card">
           <div class="ctx-card-shine"></div>
           <div class="ctx-card-top"><div class="ctx-ep">Episode 03</div><div class="ctx-status coming">Coming Soon</div></div>
-          <div class="ctx-title">Touch Not Mine Anointed</div>
-          <div class="ctx-verse">"Do not touch My anointed ones" — Psalm 105:15</div>
+          <div class="ctx-title">Do We Owe Job's Wife an Apology?</div>
+          <div class="ctx-verse">"Curse God and die" - Job 2:9</div>
           <div class="ctx-arrow">→</div>
         </div>
         <div class="ctx-card">
           <div class="ctx-card-shine"></div>
-          <div class="ctx-card-top"><div class="ctx-ep">Season 1</div><div class="ctx-status coming">In Production</div></div>
+          <div class="ctx-card-top"><div class="ctx-ep">New Episode</div><div class="ctx-status coming">Every Week</div></div>
           <div class="ctx-title">More Corrections. Every Week.</div>
           <div class="ctx-verse">Subscribe to stay in the truth.</div>
           <div class="ctx-arrow">→</div>
