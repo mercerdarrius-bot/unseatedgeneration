@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Unseated Series — Unseated Generation</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --black: #0A0A0A; --charcoal: #1A1A1A; --grey-dark: #2C2C2C;
+      --grey-mid: #4A4A4A; --grey-light: #8A8A8A; --grey-pale: #C8C8C8;
+      --white: #F2F0ED; --pure-white: #FFFFFF;
+      --gold: #B8922A; --gold-light: #D4A840;
+      --border-dark: rgba(184,146,42,0.15); --border-light: rgba(184,146,42,0.3);
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Barlow', sans-serif; background: var(--black); color: var(--white); overflow-x: hidden; }
+    body::after { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E"); pointer-events: none; z-index: 9999; opacity: 0.5; }
+
+    /* PROGRESS BAR */
+    .progress-bar { position: fixed; top: 0; left: 0; height: 2px; background: linear-gradient(to right, var(--gold-light), var(--gold)); width: 0%; z-index: 9998; transition: width 0.1s linear; box-shadow: 0 0 8px rgba(184,146,42,0.6); }
+
+    /* PAGE TRANSITION */
+    .page-transition { position: fixed; inset: 0; background: var(--black); z-index: 99990; transform: translateY(100%); pointer-events: none; }
+    .page-transition.exit { animation: pageExit 0.5s cubic-bezier(0.76,0,0.24,1) forwards; }
+    .page-transition.enter { animation: pageEnter 0.5s cubic-bezier(0.76,0,0.24,1) forwards; }
+    @keyframes pageExit { from{transform:translateY(100%);} to{transform:translateY(0);} }
+    @keyframes pageEnter { from{transform:translateY(0);} to{transform:translateY(-100%);} }
+
+    /* NAV */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 500; height: 80px; display: flex; align-items: center; justify-content: space-between; padding: 0 60px; background: rgba(10,10,10,0.96); border-bottom: 1px solid var(--border-dark); backdrop-filter: blur(16px); }
+    .nav-logo { display: flex; flex-direction: column; line-height: 1; text-decoration: none; }
+    .nav-wordmark { font-family: 'Barlow Condensed', sans-serif; font-size: 26px; font-weight: 800; letter-spacing: 0.18em; color: var(--white); text-transform: uppercase; }
+    .nav-wordmark span { color: var(--gold); }
+    .nav-sub { font-size: 8px; letter-spacing: 0.38em; text-transform: uppercase; color: var(--grey-light); margin-top: 3px; }
+    .nav-center { display: flex; align-items: center; gap: 44px; list-style: none; }
+    .nav-center a { font-size: 12px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--grey-pale); text-decoration: none; position: relative; transition: color 0.25s; }
+    .nav-center a::after { content: ''; position: absolute; bottom: -4px; left: 0; right: 0; height: 1px; background: var(--gold); transform: scaleX(0); transform-origin: left; transition: transform 0.3s; }
+    .nav-center a:hover { color: var(--white); }
+    .nav-center a:hover::after { transform: scaleX(1); }
+    .nav-center a.active { color: var(--gold); }
+    .nav-center a.active::after { transform: scaleX(1); }
+    .nav-cta { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--black) !important; background: var(--gold); padding: 12px 28px; text-decoration: none; transition: background 0.25s, transform 0.2s, box-shadow 0.25s; clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%); }
+    .nav-cta:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(184,146,42,0.3); }
+    .nav-cta::after { display: none !important; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; }
+    .hamburger span { display: block; width: 28px; height: 2px; background: var(--white); }
+
+    /* PAGE HERO — WHITE with overlap */
+    .page-hero {
+      padding: 160px 60px 120px;
+      background: var(--pure-white);
+      position: relative;
+      overflow: hidden;
+      z-index: 2;
+      margin-bottom: -60px;
+      border-radius: 0 0 40px 40px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+    .page-hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--gold); transform: scaleX(0); transform-origin: left; transition: transform 1s cubic-bezier(0.16,1,0.3,1); }
+    .page-hero::before.animate { transform: scaleX(1); }
+    .hero-top-line { position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--gold); transform: scaleX(0); transform-origin: left; transition: transform 1s cubic-bezier(0.16,1,0.3,1); }
+    .hero-top-line.animate { transform: scaleX(1); }
+
+    .page-hero-bg { position: absolute; inset: 0; background-image: linear-gradient(rgba(184,146,42,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(184,146,42,0.06) 1px, transparent 1px); background-size: 60px 60px; }
+    .page-hero-word { position: absolute; right: -20px; bottom: -40px; font-family: 'Barlow Condensed', sans-serif; font-size: clamp(120px, 16vw, 240px); font-weight: 800; color: rgba(0,0,0,0.05); line-height: 1; pointer-events: none; text-transform: uppercase; }
+    .page-hero-inner { position: relative; z-index: 2; max-width: 800px; }
+
+    /* Word animation */
+    .word { display: inline-block; overflow: visible; padding-bottom: 0.15em; margin-bottom: -0.15em; }
+    .word-inner { display: inline-block; transform: translateY(110%); opacity: 0; transition: transform 0.7s cubic-bezier(0.16,1,0.3,1), opacity 0.5s; }
+    .word-inner.animate { transform: translateY(0); opacity: 1; }
+    .gold-shimmer {
+      background: linear-gradient(90deg, var(--gold) 0%, var(--gold-light) 40%, #fff8e7 50%, var(--gold-light) 60%, var(--gold) 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: shimmer 4s linear infinite;
+      animation-delay: 2s;
+    }
+    @keyframes shimmer { 0%{background-position:200% center;} 100%{background-position:-200% center;} }
+
+    .page-eyebrow { display: flex; align-items: center; gap: 14px; margin-bottom: 24px; }
+    .page-eyebrow-line { width: 0; height: 1px; background: var(--gold); transition: width 0.8s 0.3s ease; }
+    .page-eyebrow-line.animate { width: 36px; }
+    .page-eyebrow-text { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.34em; text-transform: uppercase; color: var(--gold); opacity: 0; transform: translateX(-8px); transition: opacity 0.6s 0.5s, transform 0.6s 0.5s; }
+    .page-eyebrow-text.animate { opacity: 1; transform: translateX(0); }
+    .page-title { font-family: 'Playfair Display', serif; font-size: clamp(44px, 6vw, 80px); font-weight: 900; line-height: 1.0; color: var(--black); margin-bottom: 24px; }
+    .page-title em { font-style: italic; color: var(--gold); }
+    .page-divider { width: 0; height: 2px; background: linear-gradient(to right, var(--gold), transparent); margin-bottom: 28px; transition: width 0.8s 0.8s ease; }
+    .page-divider.animate { width: 60px; }
+    .page-desc { font-size: 17px; font-weight: 300; line-height: 1.8; color: #444444; max-width: 600px; opacity: 0; transform: translateY(16px); transition: opacity 0.8s 1s, transform 0.8s 1s; }
+    .page-desc.animate { opacity: 1; transform: translateY(0); }
+
+    /* SEASONS — overlapping the hero */
+    .seasons-section {
+      padding: 100px 60px 100px;
+      background: var(--black);
+      position: relative;
+      z-index: 1;
+      padding-top: 120px;
+    }
+    .seasons-eyebrow { display: flex; align-items: center; gap: 14px; margin-bottom: 60px; }
+    .seasons-eyebrow-line { width: 0; height: 1px; background: var(--gold); transition: width 0.8s cubic-bezier(0.16,1,0.3,1); }
+    .seasons-eyebrow-line.animate { width: 36px; }
+    .seasons-eyebrow-text { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.34em; text-transform: uppercase; color: var(--gold); }
+    .seasons-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px; }
+
+    /* Season Cards — PREMIUM tilt + lift */
+    .season-card {
+      position: relative; overflow: hidden; text-decoration: none; display: block;
+      transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), box-shadow 0.4s;
+      transform-style: preserve-3d;
+      will-change: transform;
+    }
+    .season-card::before { content: ''; display: block; padding-top: 130%; }
+    .season-card:hover { box-shadow: 0 32px 64px rgba(0,0,0,0.5), 0 0 40px rgba(184,146,42,0.15); }
+
+    .season-card-bg { position: absolute; inset: 0; transition: transform 0.6s cubic-bezier(0.16,1,0.3,1); }
+    .season-card:hover .season-card-bg { transform: scale(1.04); }
+
+    /* Shine sweep */
+    .season-card-shine { position: absolute; inset: 0; z-index: 3; pointer-events: none; background: linear-gradient(105deg, transparent 35%, rgba(255,255,255,0.07) 50%, transparent 65%); transform: translateX(-100%); }
+    .season-card:hover .season-card-shine { transform: translateX(100%); transition: transform 0.7s ease; }
+
+    /* Gold border glow */
+    .season-card-glow { position: absolute; inset: 0; z-index: 4; pointer-events: none; border: 1px solid transparent; transition: border-color 0.4s; }
+    .season-card:hover .season-card-glow { border-color: rgba(184,146,42,0.5); }
+
+    .s1-bg { background: linear-gradient(160deg, #0f0c06 0%, #2a1f08 40%, #1a1408 100%); }
+    .s2-bg { background: linear-gradient(160deg, #0a0810 0%, #1a1428 50%, #0a0810 100%); }
+    .s3-bg { background: var(--grey-dark); }
+    .season-card-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.1) 100%); transition: background 0.4s; }
+    .season-card:hover .season-card-overlay { background: linear-gradient(to top, rgba(0,0,0,0.98) 0%, rgba(0,0,0,0.55) 50%, rgba(184,146,42,0.06) 100%); }
+    .season-card.active::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--gold); z-index: 5; }
+    .season-card-content { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: flex-end; padding: 36px; z-index: 2; }
+    .season-num { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.3em; color: var(--gold); text-transform: uppercase; margin-bottom: 10px; transition: letter-spacing 0.3s; }
+    .season-card:hover .season-num { letter-spacing: 0.4em; }
+    .season-title { font-family: 'Playfair Display', serif; font-size: clamp(18px, 2vw, 26px); font-weight: 700; color: var(--white); line-height: 1.2; margin-bottom: 10px; transition: transform 0.3s; }
+    .season-card:hover .season-title { transform: translateY(-4px); }
+    .season-date { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.2em; color: var(--grey-light); text-transform: uppercase; margin-bottom: 16px; }
+    .season-cta { display: inline-flex; align-items: center; gap: 8px; font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--black); background: var(--gold); padding: 12px 24px; clip-path: polygon(6px 0%, 100% 0%, calc(100% - 6px) 100%, 0% 100%); transition: background 0.25s, transform 0.2s, box-shadow 0.25s; margin-top: 8px; align-self: flex-start; }
+    .season-card:hover .season-cta { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 8px 20px rgba(184,146,42,0.3); }
+    .season-coming-badge { display: inline-flex; align-items: center; gap: 8px; font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.24em; text-transform: uppercase; color: var(--grey-mid); border: 1px solid rgba(255,255,255,0.1); padding: 10px 20px; margin-top: 8px; }
+    .season-card.locked { cursor: default; }
+    .season-card.locked .season-card-bg { filter: brightness(0.6); }
+    .season-card.locked:hover .season-card-bg { transform: none; }
+    .season-card.locked:hover { box-shadow: none; }
+    .s3-placeholder { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; }
+    .s3-placeholder-icon { width: 48px; height: 48px; border: 1px solid var(--border-light); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--gold); opacity: 0.4; }
+    .s3-placeholder-text { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.28em; color: var(--grey-mid); text-transform: uppercase; }
+
+    /* SUBSCRIBE — overlapping seasons */
+    .subscribe-section {
+      padding: 120px 60px 100px;
+      background: var(--charcoal);
+      position: relative;
+      z-index: 2;
+      margin-top: -40px;
+      border-radius: 40px 40px 0 0;
+      box-shadow: 0 -20px 60px rgba(0,0,0,0.3);
+    }
+    .subscribe-line { position: absolute; top: 40px; left: 60px; right: 60px; height: 1px; background: linear-gradient(to right, transparent, var(--gold), transparent); transform: scaleX(0); transform-origin: center; transition: transform 1s cubic-bezier(0.16,1,0.3,1); }
+    .subscribe-line.animate { transform: scaleX(1); }
+    .subscribe-inner { max-width: 640px; margin: 0 auto; text-align: center; }
+    .subscribe-eyebrow { display: flex; align-items: center; justify-content: center; gap: 14px; margin-bottom: 20px; }
+    .subscribe-eyebrow-line { width: 36px; height: 1px; background: var(--gold); }
+    .subscribe-eyebrow-text { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.34em; text-transform: uppercase; color: var(--gold); }
+    .subscribe-title { font-family: 'Playfair Display', serif; font-size: clamp(32px, 4vw, 52px); font-weight: 900; line-height: 1.1; color: var(--white); margin-bottom: 20px; }
+    .subscribe-title em { font-style: italic; color: var(--gold); }
+    .subscribe-desc { font-size: 16px; font-weight: 300; line-height: 1.8; color: var(--grey-pale); margin-bottom: 48px; }
+    .subscribe-form { display: flex; max-width: 520px; margin: 0 auto 16px; border: 1px solid rgba(255,255,255,0.1); transition: border-color 0.3s, box-shadow 0.3s; }
+    .subscribe-form:focus-within { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(184,146,42,0.1); }
+    .subscribe-form input { flex: 1; padding: 18px 24px; background: transparent; border: none; outline: none; font-family: 'Barlow', sans-serif; font-size: 14px; color: var(--white); }
+    .subscribe-form input::placeholder { color: var(--grey-mid); }
+    .subscribe-form button { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--black); background: var(--gold); border: none; padding: 18px 32px; cursor: pointer; transition: background 0.25s, transform 0.2s; white-space: nowrap; }
+    .subscribe-form button:hover { background: var(--gold-light); transform: translateY(-1px); }
+    .subscribe-fine { font-size: 11px; color: var(--grey-mid); }
+
+    /* MAGNETIC BUTTON */
+    .magnetic { display: inline-block; }
+
+    /* FOOTER */
+    footer { background: var(--black); border-top: 1px solid var(--border-dark); padding: 80px 60px 40px; position: relative; z-index: 1; }
+    .footer-top { display: grid; grid-template-columns: 2.5fr 1fr 1fr 1fr; gap: 60px; padding-bottom: 60px; border-bottom: 1px solid rgba(255,255,255,0.06); margin-bottom: 40px; }
+    .footer-brand .wordmark { font-family: 'Barlow Condensed', sans-serif; font-size: 30px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; color: var(--white); margin-bottom: 4px; }
+    .footer-brand .wordmark span { color: var(--gold); }
+    .footer-brand .tagline { font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--grey-mid); margin-bottom: 24px; }
+    .footer-brand p { font-size: 14px; font-weight: 300; line-height: 1.75; color: var(--grey-light); max-width: 300px; }
+    .footer-col-head { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 24px; padding-bottom: 12px; border-bottom: 1px solid var(--border-dark); }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .footer-links a { font-size: 13px; color: var(--grey-light); text-decoration: none; transition: color 0.2s, transform 0.2s; display: inline-block; }
+    .footer-links a:hover { color: var(--gold); transform: translateX(4px); }
+    .footer-bottom { display: flex; align-items: center; justify-content: space-between; }
+    .footer-copy { font-size: 12px; color: var(--grey-mid); letter-spacing: 0.08em; }
+    .footer-socials { display: flex; gap: 24px; }
+    .footer-socials a { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--grey-mid); text-decoration: none; transition: color 0.2s, transform 0.2s; display: inline-block; }
+    .footer-socials a:hover { color: var(--gold); transform: translateY(-2px); }
+
+    /* REVEAL */
+    .reveal { opacity: 0; transform: translateY(48px); transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1); }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.22s; }
+    .reveal-delay-3 { transition-delay: 0.34s; }
+
+    @media (max-width: 1024px) {
+      nav { padding: 0 24px; }
+      .nav-center { display: none; }
+      .hamburger { display: flex; }
+      .page-hero { padding: 120px 24px 80px; border-radius: 0 0 24px 24px; margin-bottom: -40px; }
+      .seasons-section { padding: 80px 24px; padding-top: 80px; }
+      .seasons-grid { grid-template-columns: 1fr; gap: 3px; }
+      .season-card::before { padding-top: 80%; }
+      .subscribe-section { padding: 80px 24px; border-radius: 24px 24px 0 0; margin-top: -24px; }
+      footer { padding: 60px 24px 32px; }
+      .footer-top { grid-template-columns: 1fr 1fr; gap: 40px; }
+      .footer-bottom { flex-direction: column; gap: 20px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="progress-bar" id="progressBar"></div>
+  <div class="page-transition" id="pageTransition"></div>
+
+  <nav>
+    <a href="index.html" class="nav-logo">
+      <div class="nav-wordmark">UN/<span>SEATED</span></div>
+      <div class="nav-sub">Generation</div>
+    </a>
+    <ul class="nav-center">
+      <li><a href="series.html" class="active">The Unseated Series</a></li>
+      <li><a href="context.html">Context Matters</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="community.html">Community</a></li>
+      <li><a href="community.html" class="nav-cta magnetic">Join the Remnant</a></li>
+    </ul>
+    <div class="hamburger" id="hamburger">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <div class="hero-top-line" id="heroTopLine"></div>
+    <div class="page-hero-bg"></div>
+    <div class="page-hero-word">SERIES</div>
+    <div class="page-hero-inner">
+      <div class="page-eyebrow">
+        <div class="page-eyebrow-line" id="eyebrowLine"></div>
+        <span class="page-eyebrow-text" id="eyebrowText">The Unseated Series</span>
+      </div>
+      <h1 class="page-title">
+        <span class="word"><span class="word-inner">Every</span></span>&#32;<span class="word"><span class="word-inner">Season.</span></span><br>
+        <span class="word"><span class="word-inner">One</span></span>&#32;<span class="word"><span class="word-inner gold-shimmer" style="font-style:italic;color:var(--gold);">Mission.</span></span>
+      </h1>
+      <div class="page-divider" id="pageDivider"></div>
+      <p class="page-desc" id="pageDesc">Every season. One assignment. To confront what has been left unexamined in the church and call the remnant into the depth of formation God requires. Select a season to begin.</p>
+    </div>
+  </section>
+
+  <!-- SEASONS -->
+  <section class="seasons-section">
+    <div class="seasons-eyebrow reveal">
+      <div class="seasons-eyebrow-line"></div>
+      <span class="seasons-eyebrow-text">All Seasons</span>
+    </div>
+    <div class="seasons-grid">
+
+      <a href="season1.html" class="season-card active reveal reveal-delay-1" id="card0">
+        <div class="season-card-bg s1-bg"></div>
+        <div class="season-card-overlay"></div>
+        <div class="season-card-shine"></div>
+        <div class="season-card-glow"></div>
+        <div class="season-card-content">
+          <div class="season-num">Season One · Now Live</div>
+          <div class="season-title">Unseating Performance</div>
+          <div class="season-date">June 2026</div>
+          <div class="season-cta magnetic">
+            Enter Season
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </div>
+        </div>
+      </a>
+
+      <div class="season-card locked reveal reveal-delay-2" id="card1">
+        <div class="season-card-bg s2-bg"></div>
+        <div class="season-card-overlay"></div>
+        <div class="season-card-shine"></div>
+        <div class="season-card-glow"></div>
+        <div class="season-card-content">
+          <div class="season-num">Season Two · Coming Soon</div>
+          <div class="season-title">Unseating Church Elitism</div>
+          <div class="season-date">July 2026</div>
+          <div class="season-coming-badge">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            Coming July 2026
+          </div>
+        </div>
+      </div>
+
+      <div class="season-card locked reveal reveal-delay-3" id="card2">
+        <div class="season-card-bg s3-bg">
+          <div class="s3-placeholder">
+            <div class="s3-placeholder-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 5v14M5 12h14"/></svg></div>
+            <div class="s3-placeholder-text">Season Three</div>
+          </div>
+        </div>
+        <div class="season-card-overlay"></div>
+        <div class="season-card-shine"></div>
+        <div class="season-card-glow"></div>
+        <div class="season-card-content">
+          <div class="season-num">Season Three</div>
+          <div class="season-title">Coming Soon</div>
+          <div class="season-date">2026</div>
+          <div class="season-coming-badge">In Development</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SUBSCRIBE -->
+  <section class="subscribe-section">
+    <div class="subscribe-line" id="subscribeLine"></div>
+    <div class="subscribe-inner reveal">
+      <div class="subscribe-eyebrow">
+        <div class="subscribe-eyebrow-line"></div>
+        <span class="subscribe-eyebrow-text">Never Miss a Season</span>
+      </div>
+      <h2 class="subscribe-title">New Season.<br><em>Every Month.</em></h2>
+      <p class="subscribe-desc">Join the Remnant and be the first to know when new seasons and episodes drop.</p>
+      <div class="subscribe-form">
+        <input type="email" placeholder="Enter your email address" />
+        <button type="button" class="magnetic">Notify Me</button>
+      </div>
+      <p class="subscribe-fine">No spam. No performance. Just the truth you came for.</p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="wordmark">UN/<span>SEATED</span></div>
+        <div class="tagline">Generation · Called. Refined. Sent.</div>
+        <p>A platform that exists to confront the systems, mindsets and patterns that prevent maturity and limit kingdom impact. A safe place for the remnant.</p>
+      </div>
+      <div>
+        <div class="footer-col-head">Content</div>
+        <ul class="footer-links">
+          <li><a href="series.html">The Unseated Series</a></li>
+          <li><a href="context.html">Context Matters</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-head">Platform</div>
+        <ul class="footer-links">
+          <li><a href="about.html">About</a></li>
+          <li><a href="community.html">Community</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-head">Follow</div>
+        <ul class="footer-links">
+          <li><a href="#">YouTube</a></li>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">TikTok</a></li>
+          <li><a href="#">Facebook</a></li>
+          <li><a href="#">Threads</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2026 Unseated Generation. All rights reserved.</p>
+      <div class="footer-socials">
+        <a href="#">YouTube</a>
+        <a href="#">Instagram</a>
+        <a href="#">TikTok</a>
+        <a href="#">Threads</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // PROGRESS BAR
+    const progressBar = document.getElementById('progressBar');
+    window.addEventListener('scroll', () => {
+      const h = document.documentElement;
+      const pct = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
+      progressBar.style.width = pct + '%';
+    }, { passive: true });
+
+    // PAGE TRANSITION
+    const transition = document.getElementById('pageTransition');
+    document.querySelectorAll('a[href]').forEach(link => {
+      const href = link.getAttribute('href');
+      if (!href || href.startsWith('#') || href.startsWith('http') || href.startsWith('mailto')) return;
+      link.addEventListener('click', e => {
+        e.preventDefault();
+        transition.classList.add('exit');
+        setTimeout(() => { window.location.href = href; }, 500);
+      });
+    });
+    window.addEventListener('pageshow', () => {
+      transition.classList.remove('exit');
+      transition.classList.add('enter');
+      setTimeout(() => transition.classList.remove('enter'), 600);
+    });
+
+    // HERO ANIMATIONS
+    setTimeout(() => {
+      document.getElementById('heroTopLine').classList.add('animate');
+      document.getElementById('eyebrowLine').classList.add('animate');
+      document.getElementById('eyebrowText').classList.add('animate');
+    }, 100);
+    document.querySelectorAll('.word-inner').forEach((w, i) => {
+      setTimeout(() => w.classList.add('animate'), 300 + i * 120);
+    });
+    setTimeout(() => document.getElementById('pageDivider').classList.add('animate'), 900);
+    setTimeout(() => document.getElementById('pageDesc').classList.add('animate'), 1100);
+
+    // SCROLL REVEAL
+    const reveals = document.querySelectorAll('.reveal');
+    const revealObs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) { entry.target.classList.add('visible'); revealObs.unobserve(entry.target); }
+      });
+    }, { threshold: 0.1 });
+    reveals.forEach(el => revealObs.observe(el));
+
+    // ANIMATED LINES
+    const lineObs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) { entry.target.classList.add('animate'); lineObs.unobserve(entry.target); }
+      });
+    }, { threshold: 0.3 });
+    document.querySelectorAll('.seasons-eyebrow-line, .subscribe-line').forEach(el => lineObs.observe(el));
+
+    // CARD 3D TILT
+    document.querySelectorAll('.season-card:not(.locked)').forEach(card => {
+      card.addEventListener('mousemove', e => {
+        const rect = card.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
+        card.style.transform = `perspective(800px) rotateY(${x * 8}deg) rotateX(${-y * 8}deg) translateY(-8px)`;
+      });
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = 'perspective(800px) rotateY(0deg) rotateX(0deg) translateY(0)';
+        card.style.transition = 'transform 0.6s cubic-bezier(0.16,1,0.3,1), box-shadow 0.4s';
+      });
+      card.addEventListener('mouseenter', () => {
+        card.style.transition = 'transform 0.1s, box-shadow 0.4s';
+      });
+    });
+
+    // MAGNETIC BUTTONS
+    document.querySelectorAll('.magnetic').forEach(btn => {
+      btn.addEventListener('mousemove', e => {
+        const rect = btn.getBoundingClientRect();
+        const x = (e.clientX - rect.left - rect.width / 2) * 0.25;
+        const y = (e.clientY - rect.top - rect.height / 2) * 0.25;
+        btn.style.transform = `translate(${x}px, ${y}px)`;
+      });
+      btn.addEventListener('mouseleave', () => {
+        btn.style.transform = 'translate(0, 0)';
+        btn.style.transition = 'transform 0.5s cubic-bezier(0.16,1,0.3,1)';
+      });
+      btn.addEventListener('mouseenter', () => {
+        btn.style.transition = 'transform 0.1s';
+      });
+    });
+
+    // MOBILE NAV
+    document.getElementById('hamburger').addEventListener('click', () => {
+      const nc = document.querySelector('.nav-center');
+      if (nc.style.display === 'flex') {
+        nc.style.display = 'none';
+      } else {
+        nc.style.cssText = 'display:flex;flex-direction:column;position:absolute;top:80px;left:0;right:0;background:rgba(10,10,10,0.98);padding:32px;gap:24px;border-bottom:1px solid rgba(184,146,42,0.15);z-index:500;';
+      }
+    });
+  </script>
+</body>
+</html>

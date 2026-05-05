@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Join the Remnant — Unseated Generation</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --black: #0A0A0A; --charcoal: #1A1A1A; --grey-dark: #2C2C2C;
+      --grey-mid: #4A4A4A; --grey-light: #8A8A8A; --grey-pale: #C8C8C8;
+      --white: #F2F0ED; --pure-white: #FFFFFF;
+      --gold: #B8922A; --gold-light: #D4A840;
+      --border-dark: rgba(184,146,42,0.15); --border-light: rgba(184,146,42,0.3);
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Barlow', sans-serif; background: var(--black); color: var(--white); overflow-x: hidden; }
+    body::after { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E"); pointer-events: none; z-index: 9999; opacity: 0.5; }
+    ::selection { background: var(--gold); color: var(--black); }
+    ::-moz-selection { background: var(--gold); color: var(--black); }
+
+    /* PROGRESS BAR */
+    .progress-bar { position: fixed; top: 0; left: 0; height: 2px; background: linear-gradient(to right, var(--gold-light), var(--gold)); width: 0%; z-index: 9998; transition: width 0.1s linear; box-shadow: 0 0 8px rgba(184,146,42,0.6); }
+
+    /* PAGE TRANSITION */
+    .page-transition { position: fixed; inset: 0; background: var(--black); z-index: 99990; transform: translateY(100%); pointer-events: none; }
+    .page-transition.exit { animation: pageExit 0.5s cubic-bezier(0.76,0,0.24,1) forwards; }
+    .page-transition.enter { animation: pageEnter 0.5s cubic-bezier(0.76,0,0.24,1) forwards; }
+    @keyframes pageExit { from{transform:translateY(100%);} to{transform:translateY(0);} }
+    @keyframes pageEnter { from{transform:translateY(0);} to{transform:translateY(-100%);} }
+
+    /* NAV */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 500; height: 80px; display: flex; align-items: center; justify-content: space-between; padding: 0 60px; background: rgba(10,10,10,0.96); border-bottom: 1px solid var(--border-dark); backdrop-filter: blur(16px); }
+    .nav-logo { display: flex; flex-direction: column; line-height: 1; text-decoration: none; }
+    .nav-wordmark { font-family: 'Barlow Condensed', sans-serif; font-size: 26px; font-weight: 800; letter-spacing: 0.18em; color: var(--white); text-transform: uppercase; }
+    .nav-wordmark span { color: var(--gold); }
+    .nav-sub { font-size: 8px; letter-spacing: 0.38em; text-transform: uppercase; color: var(--grey-light); margin-top: 3px; }
+    .nav-center { display: flex; align-items: center; gap: 44px; list-style: none; }
+    .nav-center a { font-size: 12px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--grey-pale); text-decoration: none; position: relative; transition: color 0.25s; }
+    .nav-center a::after { content: ''; position: absolute; bottom: -4px; left: 0; right: 0; height: 1px; background: var(--gold); transform: scaleX(0); transform-origin: left; transition: transform 0.3s; }
+    .nav-center a:hover { color: var(--white); }
+    .nav-center a:hover::after { transform: scaleX(1); }
+    .nav-center a.active { color: var(--gold); }
+    .nav-center a.active::after { transform: scaleX(1); }
+    .nav-cta { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--black) !important; background: var(--gold); padding: 12px 28px; text-decoration: none; transition: background 0.25s, transform 0.2s, box-shadow 0.25s; clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%); position: relative; overflow: hidden; }
+    .nav-cta::before { content: ''; position: absolute; inset: 0; background: var(--gold-light); transform: translateX(-100%); transition: transform 0.4s cubic-bezier(0.16,1,0.3,1); z-index: 0; }
+    .nav-cta:hover::before { transform: translateX(0); }
+    .nav-cta span { position: relative; z-index: 1; }
+    .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(184,146,42,0.3); }
+    .nav-cta::after { display: none !important; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; }
+    .hamburger span { display: block; width: 28px; height: 2px; background: var(--white); }
+
+    /* WORD ANIMATION */
+    .word { display: inline-block; overflow: visible; padding-bottom: 0.15em; margin-bottom: -0.15em; }
+    .word-inner { display: inline-block; transform: translateY(110%); opacity: 0; transition: transform 0.7s cubic-bezier(0.16,1,0.3,1), opacity 0.5s; }
+    .word-inner.animate { transform: translateY(0); opacity: 1; }
+    .gold-shimmer { background: linear-gradient(90deg, var(--gold) 0%, var(--gold-light) 40%, #fff8e7 50%, var(--gold-light) 60%, var(--gold) 100%); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; animation: shimmer 4s linear infinite; animation-delay: 2s; }
+    @keyframes shimmer { 0%{background-position:200% center;} 100%{background-position:-200% center;} }
+
+    /* HERO */
+    .page-hero { min-height: 100vh; padding: 160px 60px 140px; background: var(--black); position: relative; overflow: hidden; z-index: 2; margin-bottom: -60px; border-radius: 0 0 40px 40px; box-shadow: 0 20px 60px rgba(0,0,0,0.5); display: flex; flex-direction: column; justify-content: center; }
+    .hero-top-line { position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--gold); transform: scaleX(0); transform-origin: left; transition: transform 1s cubic-bezier(0.16,1,0.3,1); }
+    .hero-top-line.animate { transform: scaleX(1); }
+    .page-hero-bg { position: absolute; inset: 0; background-image: linear-gradient(rgba(184,146,42,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(184,146,42,0.03) 1px, transparent 1px); background-size: 80px 80px; animation: gridDrift 20s linear infinite; }
+    @keyframes gridDrift { 0%{transform:translateY(0);} 100%{transform:translateY(80px);} }
+    .hero-vignette { position: absolute; inset: 0; background: radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.6) 100%); pointer-events: none; }
+    .hero-bar { position: absolute; left: 0; top: 0; bottom: 0; width: 5px; background: linear-gradient(to bottom, transparent, var(--gold) 30%, var(--gold) 70%, transparent); opacity: 0.7; }
+    .page-hero-bg-word { position: absolute; right: -40px; bottom: -60px; font-family: 'Barlow Condensed', sans-serif; font-size: clamp(160px, 22vw, 340px); font-weight: 800; color: rgba(255,255,255,0.025); line-height: 1; pointer-events: none; text-transform: uppercase; letter-spacing: -0.02em; }
+    .page-hero-inner { position: relative; z-index: 2; max-width: 900px; }
+    .page-eyebrow { display: flex; align-items: center; gap: 14px; margin-bottom: 32px; }
+    .page-eyebrow-line { width: 0; height: 1px; background: var(--gold); transition: width 0.8s 0.3s ease; }
+    .page-eyebrow-line.animate { width: 36px; }
+    .page-eyebrow-text { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.34em; text-transform: uppercase; color: var(--gold); opacity: 0; transform: translateX(-8px); transition: opacity 0.6s 0.5s, transform 0.6s 0.5s; }
+    .page-eyebrow-text.animate { opacity: 1; transform: translateX(0); }
+    .page-title { font-family: 'Playfair Display', serif; font-size: clamp(48px, 7vw, 96px); font-weight: 900; line-height: 0.95; color: var(--white); margin-bottom: 40px; }
+    .page-divider { width: 0; height: 2px; background: linear-gradient(to right, var(--gold), transparent); margin-bottom: 36px; transition: width 0.8s 0.9s ease; }
+    .page-divider.animate { width: 60px; }
+    .page-desc { font-size: 19px; font-weight: 300; line-height: 1.9; color: var(--grey-pale); max-width: 680px; opacity: 0; transform: translateY(16px); transition: opacity 0.8s 1.1s, transform 0.8s 1.1s; margin-bottom: 56px; }
+    .page-desc.animate { opacity: 1; transform: translateY(0); }
+    .page-desc strong { color: var(--white); font-weight: 500; }
+
+    /* Hero CTA */
+    .hero-cta { display: flex; align-items: center; gap: 20px; opacity: 0; transform: translateY(16px); transition: opacity 0.8s 1.3s, transform 0.8s 1.3s; }
+    .hero-cta.animate { opacity: 1; transform: translateY(0); }
+    .btn-primary { font-family: 'Barlow Condensed', sans-serif; font-size: 15px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--black); background: var(--gold); padding: 20px 52px; text-decoration: none; display: inline-flex; align-items: center; gap: 10px; clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%); position: relative; overflow: hidden; z-index: 0; transition: transform 0.2s, box-shadow 0.25s; }
+    .btn-primary::before { content: ''; position: absolute; inset: 0; background: var(--gold-light); transform: translateX(-100%); transition: transform 0.4s cubic-bezier(0.16,1,0.3,1); z-index: -1; }
+    .btn-primary:hover::before { transform: translateX(0); }
+    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 16px 40px rgba(184,146,42,0.35); }
+    .btn-secondary { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--grey-pale); display: inline-flex; align-items: center; gap: 8px; text-decoration: none; transition: color 0.25s; }
+    .btn-secondary:hover { color: var(--gold); }
+    .btn-secondary svg { transition: transform 0.25s; }
+    .btn-secondary:hover svg { transform: translateY(3px); }
+
+    /* IDENTITY */
+    .identity-section { padding: 120px 60px; background: var(--charcoal); position: relative; z-index: 1; overflow: hidden; }
+    .identity-section-line { position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(to right, transparent, var(--gold), transparent); transform: scaleX(0); transform-origin: center; transition: transform 1s cubic-bezier(0.16,1,0.3,1); }
+    .identity-section-line.animate { transform: scaleX(1); }
+    .identity-bg { position: absolute; right: -20px; bottom: -20px; font-family: 'Barlow Condensed', sans-serif; font-size: clamp(120px, 16vw, 240px); font-weight: 800; color: rgba(255,255,255,0.025); line-height: 1; pointer-events: none; text-transform: uppercase; }
+    .identity-header { text-align: center; max-width: 700px; margin: 0 auto 80px; position: relative; z-index: 2; }
+    .identity-eyebrow { display: flex; align-items: center; justify-content: center; gap: 14px; margin-bottom: 20px; }
+    .identity-eyebrow-line { width: 0; height: 1px; background: var(--gold); transition: width 0.8s cubic-bezier(0.16,1,0.3,1); }
+    .identity-eyebrow-line.animate { width: 36px; }
+    .identity-eyebrow-text { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.34em; text-transform: uppercase; color: var(--gold); }
+    .identity-header h2 { font-family: 'Playfair Display', serif; font-size: clamp(32px, 4vw, 56px); font-weight: 900; line-height: 1.05; color: var(--white); margin-bottom: 20px; }
+    .identity-header h2 em { font-style: italic; color: var(--gold); }
+    .identity-header p { font-size: 17px; font-weight: 300; line-height: 1.85; color: var(--grey-pale); }
+
+    /* Identity cards */
+    .identity-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 3px; position: relative; z-index: 2; }
+    .identity-card { padding: 48px 44px; border: 1px solid rgba(255,255,255,0.06); background: rgba(255,255,255,0.02); position: relative; overflow: hidden; transition: border-color 0.3s, background 0.3s, transform 0.4s cubic-bezier(0.16,1,0.3,1), box-shadow 0.4s; }
+    .identity-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--gold); transform: scaleX(0); transform-origin: left; transition: transform 0.4s cubic-bezier(0.16,1,0.3,1); }
+    .identity-card-shine { position: absolute; inset: 0; background: linear-gradient(105deg, transparent 35%, rgba(255,255,255,0.03) 50%, transparent 65%); transform: translateX(-100%); pointer-events: none; }
+    .identity-card:hover { border-color: var(--border-light); background: rgba(184,146,42,0.04); transform: translateY(-6px); box-shadow: 0 20px 48px rgba(0,0,0,0.3), 0 0 24px rgba(184,146,42,0.08); }
+    .identity-card:hover::before { transform: scaleX(1); }
+    .identity-card:hover .identity-card-shine { transform: translateX(100%); transition: transform 0.6s ease; }
+    .identity-card-label { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.3em; color: var(--gold); text-transform: uppercase; margin-bottom: 16px; }
+    .identity-card-title { font-family: 'Playfair Display', serif; font-size: clamp(20px, 2vw, 28px); font-weight: 700; color: var(--white); line-height: 1.2; margin-bottom: 16px; transition: transform 0.3s; }
+    .identity-card:hover .identity-card-title { transform: translateY(-4px); }
+    .identity-card-text { font-size: 15px; font-weight: 300; color: var(--grey-light); line-height: 1.8; }
+
+    /* SIGNUP */
+    .signup-section { padding: 120px 60px; background: var(--gold); position: relative; z-index: 2; margin-top: -40px; border-radius: 40px 40px 0 0; overflow: hidden; }
+    .signup-bg { position: absolute; inset: 0; background-image: linear-gradient(rgba(0,0,0,0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.07) 1px, transparent 1px); background-size: 60px 60px; }
+    .signup-inner { position: relative; z-index: 2; display: grid; grid-template-columns: 1fr 1fr; gap: 100px; align-items: center; }
+    .signup-left h2 { font-family: 'Playfair Display', serif; font-size: clamp(32px, 4vw, 56px); font-weight: 900; line-height: 1.05; color: var(--black); margin-bottom: 20px; }
+    .signup-left h2 em { font-style: italic; }
+    .signup-left p { font-size: 17px; font-weight: 300; line-height: 1.85; color: rgba(0,0,0,0.65); margin-bottom: 0; }
+    .signup-right { display: flex; flex-direction: column; gap: 16px; }
+    .signup-field { display: flex; background: var(--pure-white); border: 1px solid rgba(0,0,0,0.1); transition: border-color 0.3s, box-shadow 0.3s; }
+    .signup-field:focus-within { border-color: var(--black); box-shadow: 0 0 0 3px rgba(0,0,0,0.08); }
+    .signup-field input { flex: 1; padding: 20px 24px; background: transparent; border: none; outline: none; font-family: 'Barlow', sans-serif; font-size: 15px; color: var(--black); }
+    .signup-field input::placeholder { color: #999999; }
+    .signup-submit { font-family: 'Barlow Condensed', sans-serif; font-size: 15px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--pure-white); background: var(--black); border: none; padding: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 12px; transition: background 0.25s, transform 0.2s; position: relative; overflow: hidden; z-index: 0; }
+    .signup-submit::before { content: ''; position: absolute; inset: 0; background: var(--charcoal); transform: translateX(-100%); transition: transform 0.4s cubic-bezier(0.16,1,0.3,1); z-index: -1; }
+    .signup-submit:hover::before { transform: translateX(0); }
+    .signup-submit:hover { transform: translateY(-2px); }
+    .signup-fine { font-size: 12px; color: rgba(0,0,0,0.45); letter-spacing: 0.06em; }
+
+    /* WHAT YOU GET */
+    .benefits-section { padding: 120px 60px; background: var(--black); position: relative; z-index: 3; margin-top: -40px; border-radius: 40px 40px 0 0; box-shadow: 0 -20px 60px rgba(0,0,0,0.3); overflow: hidden; }
+    .benefits-section-line { position: absolute; top: 40px; left: 60px; right: 60px; height: 1px; background: linear-gradient(to right, transparent, var(--gold), transparent); transform: scaleX(0); transform-origin: center; transition: transform 1s cubic-bezier(0.16,1,0.3,1); }
+    .benefits-section-line.animate { transform: scaleX(1); }
+    .benefits-bg { position: absolute; left: -20px; bottom: -20px; font-family: 'Barlow Condensed', sans-serif; font-size: clamp(100px, 14vw, 200px); font-weight: 800; color: rgba(184,146,42,0.04); line-height: 1; pointer-events: none; text-transform: uppercase; }
+    .benefits-header { margin-bottom: 72px; }
+    .benefits-eyebrow { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; }
+    .benefits-eyebrow-line { width: 0; height: 1px; background: var(--gold); transition: width 0.8s cubic-bezier(0.16,1,0.3,1); }
+    .benefits-eyebrow-line.animate { width: 36px; }
+    .benefits-eyebrow-text { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.34em; text-transform: uppercase; color: var(--gold); }
+    .benefits-header h2 { font-family: 'Playfair Display', serif; font-size: clamp(32px, 3.5vw, 52px); font-weight: 900; line-height: 1.05; color: var(--white); }
+    .benefits-header h2 em { font-style: italic; color: var(--gold); }
+    .benefits-list { display: flex; flex-direction: column; gap: 3px; }
+    .benefit-item { display: grid; grid-template-columns: 80px 1fr; gap: 0; border: 1px solid rgba(255,255,255,0.06); background: rgba(255,255,255,0.02); overflow: hidden; transition: border-color 0.3s, background 0.3s, transform 0.35s cubic-bezier(0.16,1,0.3,1), box-shadow 0.35s; position: relative; }
+    .benefit-item::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--gold); transform: scaleY(0); transform-origin: bottom; transition: transform 0.4s cubic-bezier(0.16,1,0.3,1); }
+    .benefit-item:hover { border-color: var(--border-light); background: rgba(184,146,42,0.04); transform: translateX(6px); box-shadow: -6px 0 32px rgba(184,146,42,0.1); }
+    .benefit-item:hover::before { transform: scaleY(1); }
+    .benefit-num { display: flex; align-items: center; justify-content: center; border-right: 1px solid rgba(255,255,255,0.06); font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 700; color: rgba(184,146,42,0.3); transition: color 0.3s; padding: 32px; }
+    .benefit-item:hover .benefit-num { color: var(--gold); }
+    .benefit-content { padding: 32px 40px; }
+    .benefit-title { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; color: var(--white); margin-bottom: 8px; transition: transform 0.3s; }
+    .benefit-item:hover .benefit-title { transform: translateX(4px); }
+    .benefit-desc { font-size: 14px; font-weight: 300; color: var(--grey-light); line-height: 1.75; }
+
+    /* SOCIAL */
+    .social-section { padding: 120px 60px; background: var(--charcoal); position: relative; z-index: 4; margin-top: -40px; border-radius: 40px 40px 0 0; box-shadow: 0 -20px 60px rgba(0,0,0,0.3); overflow: hidden; }
+    .social-section-line { position: absolute; top: 40px; left: 60px; right: 60px; height: 1px; background: linear-gradient(to right, transparent, var(--gold), transparent); transform: scaleX(0); transform-origin: center; transition: transform 1s cubic-bezier(0.16,1,0.3,1); }
+    .social-section-line.animate { transform: scaleX(1); }
+    .social-header { text-align: center; max-width: 600px; margin: 0 auto 72px; }
+    .social-eyebrow { display: flex; align-items: center; justify-content: center; gap: 14px; margin-bottom: 20px; }
+    .social-eyebrow-line { width: 36px; height: 1px; background: var(--gold); }
+    .social-eyebrow-text { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.34em; text-transform: uppercase; color: var(--gold); }
+    .social-header h2 { font-family: 'Playfair Display', serif; font-size: clamp(28px, 3.5vw, 48px); font-weight: 900; line-height: 1.05; color: var(--white); margin-bottom: 16px; }
+    .social-header h2 em { font-style: italic; color: var(--gold); }
+    .social-header p { font-size: 16px; font-weight: 300; color: var(--grey-pale); line-height: 1.8; }
+    .social-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px; }
+    .social-card { padding: 44px 36px; border: 1px solid rgba(255,255,255,0.06); background: rgba(255,255,255,0.02); text-decoration: none; display: block; position: relative; overflow: hidden; transition: border-color 0.3s, background 0.3s, transform 0.4s cubic-bezier(0.16,1,0.3,1), box-shadow 0.4s; }
+    .social-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--gold); transform: scaleX(0); transform-origin: left; transition: transform 0.4s cubic-bezier(0.16,1,0.3,1); }
+    .social-card-shine { position: absolute; inset: 0; background: linear-gradient(105deg, transparent 35%, rgba(255,255,255,0.03) 50%, transparent 65%); transform: translateX(-100%); pointer-events: none; }
+    .social-card:hover { border-color: var(--border-light); background: rgba(184,146,42,0.04); transform: translateY(-6px); box-shadow: 0 20px 48px rgba(0,0,0,0.3), 0 0 24px rgba(184,146,42,0.08); }
+    .social-card:hover::before { transform: scaleX(1); }
+    .social-card:hover .social-card-shine { transform: translateX(100%); transition: transform 0.6s ease; }
+    .social-card-icon { width: 48px; height: 48px; border: 1px solid var(--border-light); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--gold); margin-bottom: 20px; transition: transform 0.3s, border-color 0.3s; }
+    .social-card:hover .social-card-icon { transform: scale(1.1); border-color: var(--gold); }
+    .social-card-platform { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.28em; color: var(--gold); text-transform: uppercase; margin-bottom: 10px; }
+    .social-card-title { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; color: var(--white); margin-bottom: 10px; transition: transform 0.3s; }
+    .social-card:hover .social-card-title { transform: translateY(-3px); }
+    .social-card-desc { font-size: 14px; font-weight: 300; color: var(--grey-light); line-height: 1.7; margin-bottom: 24px; }
+    .social-card-link { font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); display: inline-flex; align-items: center; gap: 8px; transition: gap 0.25s; }
+    .social-card:hover .social-card-link { gap: 12px; }
+
+    /* FOOTER */
+    footer { background: var(--black); border-top: 1px solid var(--border-dark); padding: 80px 60px 40px; position: relative; z-index: 5; margin-top: -40px; border-radius: 40px 40px 0 0; box-shadow: 0 -20px 60px rgba(0,0,0,0.3); }
+    .footer-top { display: grid; grid-template-columns: 2.5fr 1fr 1fr 1fr; gap: 60px; padding-bottom: 60px; border-bottom: 1px solid rgba(255,255,255,0.06); margin-bottom: 40px; }
+    .footer-brand .wordmark { font-family: 'Barlow Condensed', sans-serif; font-size: 30px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; color: var(--white); margin-bottom: 4px; }
+    .footer-brand .wordmark span { color: var(--gold); }
+    .footer-brand .tagline { font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--grey-mid); margin-bottom: 24px; }
+    .footer-brand p { font-size: 14px; font-weight: 300; line-height: 1.75; color: var(--grey-light); max-width: 300px; }
+    .footer-col-head { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 24px; padding-bottom: 12px; border-bottom: 1px solid var(--border-dark); }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .footer-links a { font-size: 13px; color: var(--grey-light); text-decoration: none; transition: color 0.2s, transform 0.2s; display: inline-block; }
+    .footer-links a:hover { color: var(--gold); transform: translateX(4px); }
+    .footer-bottom { display: flex; align-items: center; justify-content: space-between; }
+    .footer-copy { font-size: 12px; color: var(--grey-mid); letter-spacing: 0.08em; }
+    .footer-socials { display: flex; gap: 24px; }
+    .footer-socials a { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--grey-mid); text-decoration: none; transition: color 0.2s, transform 0.2s; display: inline-block; }
+    .footer-socials a:hover { color: var(--gold); transform: translateY(-2px); }
+
+    /* REVEAL */
+    .reveal { opacity: 0; transform: translateY(48px); transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1); }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.22s; }
+    .reveal-delay-3 { transition-delay: 0.34s; }
+    .reveal-delay-4 { transition-delay: 0.46s; }
+    .reveal-delay-5 { transition-delay: 0.58s; }
+
+    @media (max-width: 1024px) {
+      nav { padding: 0 24px; }
+      .nav-center { display: none; }
+      .hamburger { display: flex; }
+      .page-hero { padding: 120px 24px 80px; border-radius: 0 0 24px 24px; margin-bottom: -40px; min-height: auto; }
+      .identity-section { padding: 80px 24px; }
+      .identity-grid { grid-template-columns: 1fr; }
+      .signup-section { padding: 80px 24px; border-radius: 24px 24px 0 0; margin-top: -24px; }
+      .signup-inner { grid-template-columns: 1fr; gap: 48px; }
+      .benefits-section { padding: 80px 24px; border-radius: 24px 24px 0 0; margin-top: -24px; }
+      .benefit-item { grid-template-columns: 60px 1fr; }
+      .social-section { padding: 80px 24px; border-radius: 24px 24px 0 0; margin-top: -24px; }
+      .social-grid { grid-template-columns: 1fr; }
+      footer { padding: 60px 24px 32px; border-radius: 24px 24px 0 0; margin-top: -24px; }
+      .footer-top { grid-template-columns: 1fr 1fr; gap: 40px; }
+      .footer-bottom { flex-direction: column; gap: 20px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="progress-bar" id="progressBar"></div>
+  <div class="page-transition" id="pageTransition"></div>
+
+  <nav>
+    <a href="index.html" class="nav-logo">
+      <div class="nav-wordmark">UN/<span>SEATED</span></div>
+      <div class="nav-sub">Generation</div>
+    </a>
+    <ul class="nav-center">
+      <li><a href="series.html">The Unseated Series</a></li>
+      <li><a href="context.html">Context Matters</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="community.html" class="active">Community</a></li>
+      <li><a href="community.html" class="nav-cta"><span>Join the Remnant</span></a></li>
+    </ul>
+    <div class="hamburger" id="hamburger">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="page-hero">
+    <div class="hero-top-line" id="heroTopLine"></div>
+    <div class="page-hero-bg"></div>
+    <div class="hero-vignette"></div>
+    <div class="hero-bar"></div>
+    <div class="page-hero-bg-word">REMNANT</div>
+    <div class="page-hero-inner">
+      <div class="page-eyebrow">
+        <div class="page-eyebrow-line" id="eyebrowLine"></div>
+        <span class="page-eyebrow-text" id="eyebrowText">The Remnant</span>
+      </div>
+      <h1 class="page-title">
+        <span class="word"><span class="word-inner">You've</span></span>&#32;<span class="word"><span class="word-inner">Felt</span></span><br>
+        <span class="word"><span class="word-inner">This</span></span>&#32;<span class="word"><span class="word-inner gold-shimmer" style="font-style:italic;">Before.</span></span>
+      </h1>
+      <div class="page-divider" id="pageDivider"></div>
+      <p class="page-desc" id="pageDesc">That feeling that something is missing. That the room was loud but you left unchanged. That you love God genuinely but something about the environment around you doesn't feel like the full picture. You are not alone. And you are not wrong. <strong>There is a community for what you're carrying.</strong></p>
+      <div class="hero-cta" id="heroCta">
+        <a href="#signup" class="btn-primary">
+          I'm In
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="#follow" class="btn-secondary">
+          Follow Along
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHO IS THE REMNANT -->
+  <section class="identity-section">
+    <div class="identity-section-line" id="identityLine"></div>
+    <div class="identity-bg">REMNANT</div>
+    <div class="identity-header reveal">
+      <div class="identity-eyebrow">
+        <div class="identity-eyebrow-line"></div>
+        <span class="identity-eyebrow-text">Who Is the Remnant</span>
+      </div>
+      <h2>Not the Loudest Room.<br><em>The Most Formed One.</em></h2>
+      <p>The remnant is not defined by how long they've been in church. It's defined by their willingness to be confronted, refined, and sent. If you recognize yourself in any of these, you belong here.</p>
+    </div>
+    <div class="identity-grid">
+      <div class="identity-card reveal reveal-delay-1">
+        <div class="identity-card-shine"></div>
+        <div class="identity-card-label">The Remnant Is</div>
+        <div class="identity-card-title">Hungry for Truth Over Comfort</div>
+        <div class="identity-card-text">You would rather sit with a hard truth than be comforted by something that doesn't hold up under Scripture. You are tired of the performance and ready for the real thing.</div>
+      </div>
+      <div class="identity-card reveal reveal-delay-2">
+        <div class="identity-card-shine"></div>
+        <div class="identity-card-label">The Remnant Is</div>
+        <div class="identity-card-title">Willing to Be Formed</div>
+        <div class="identity-card-text">You understand that formation is a process, not a moment. You are not looking for another experience. You are looking for something that changes who you actually are.</div>
+      </div>
+      <div class="identity-card reveal reveal-delay-3">
+        <div class="identity-card-shine"></div>
+        <div class="identity-card-label">The Remnant Is</div>
+        <div class="identity-card-title">Carrying a Burden for the Church</div>
+        <div class="identity-card-text">You love the church too much to stay silent. You see the drift. You feel the weight of it. And you believe God is calling something better out of His people.</div>
+      </div>
+      <div class="identity-card reveal reveal-delay-4">
+        <div class="identity-card-shine"></div>
+        <div class="identity-card-label">The Remnant Is</div>
+        <div class="identity-card-title">Ready for the Assignment</div>
+        <div class="identity-card-text">You understand that confrontation is preparation. That God is not just awakening you for your own sake. He is preparing you to be part of what He is doing in this hour.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SIGNUP -->
+  <section class="signup-section" id="signup">
+    <div class="signup-bg"></div>
+    <div class="signup-inner reveal">
+      <div class="signup-left">
+        <h2>Join<br><em>The Remnant.</em></h2>
+        <p>New episodes the moment they drop. Weekly content from the Remnant Feed. Resources to help you go deeper. All delivered directly to you. No spam. No performance. Just the truth you came for.</p>
+      </div>
+      <div class="signup-right">
+        <div class="signup-field">
+          <input type="email" placeholder="Enter your email address" />
+        </div>
+        <button class="signup-submit" type="button">
+          Count Me In
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+        <p class="signup-fine">No spam. No performance. Just the truth you came for.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT YOU GET -->
+  <section class="benefits-section">
+    <div class="benefits-section-line" id="benefitsLine"></div>
+    <div class="benefits-bg">FORMED</div>
+    <div class="benefits-header reveal">
+      <div class="benefits-eyebrow">
+        <div class="benefits-eyebrow-line"></div>
+        <span class="benefits-eyebrow-text">What You Receive</span>
+      </div>
+      <h2>Everything You Need<br>to Stay <em>Rooted.</em></h2>
+    </div>
+    <div class="benefits-list">
+      <div class="benefit-item reveal reveal-delay-1">
+        <div class="benefit-num">01</div>
+        <div class="benefit-content">
+          <div class="benefit-title">New Episodes the Moment They Drop</div>
+          <div class="benefit-desc">Every new episode of The Unseated Series and Context Matters delivered directly to your inbox before anyone else sees it.</div>
+        </div>
+      </div>
+      <div class="benefit-item reveal reveal-delay-2">
+        <div class="benefit-num">02</div>
+        <div class="benefit-content">
+          <div class="benefit-title">Social Content Across Platforms</div>
+          <div class="benefit-desc">Organic content and insights shared across social platforms as the Spirit leads. Follow along on YouTube, Instagram, TikTok, Facebook, and Threads to stay connected.</div>
+        </div>
+      </div>
+      <div class="benefit-item reveal reveal-delay-3">
+        <div class="benefit-num">03</div>
+        <div class="benefit-content">
+          <div class="benefit-title">Resources for Deeper Study</div>
+          <div class="benefit-desc">Supplemental resources connected to each episode so you can go beyond the teaching and engage the text yourself with integrity.</div>
+        </div>
+      </div>
+      <div class="benefit-item reveal reveal-delay-4">
+        <div class="benefit-num">04</div>
+        <div class="benefit-content">
+          <div class="benefit-title">Platform Updates and New Season Announcements</div>
+          <div class="benefit-desc">Be the first to know when new seasons launch, new series are announced, and new content lanes open up on the platform.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOCIAL -->
+  <section class="social-section" id="follow">
+    <div class="social-section-line" id="socialLine"></div>
+    <div class="social-header reveal">
+      <div class="social-eyebrow">
+        <div class="social-eyebrow-line"></div>
+        <span class="social-eyebrow-text">Follow the Platform</span>
+      </div>
+      <h2>Find Us<br><em>Everywhere.</em></h2>
+      <p>The remnant shows up across every platform. Find us where you are and join the conversation.</p>
+    </div>
+    <div class="social-grid">
+      <a href="#" target="_blank" class="social-card reveal reveal-delay-1">
+        <div class="social-card-shine"></div>
+        <div class="social-card-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M21.8 8s-.2-1.4-.8-2c-.8-.8-1.6-.8-2-.9C16.8 5 12 5 12 5s-4.8 0-7 .1c-.4.1-1.2.1-2 .9-.6.6-.8 2-.8 2S2 9.6 2 11.2v1.5c0 1.6.2 3.2.2 3.2s.2 1.4.8 2c.8.8 1.8.8 2.2.8C6.8 19 12 19 12 19s4.8 0 7-.2c.4-.1 1.2-.1 2-.9.6-.6.8-2 .8-2s.2-1.6.2-3.2v-1.5C22 9.6 21.8 8 21.8 8zM10 15V9l5.5 3-5.5 3z"/></svg>
+        </div>
+        <div class="social-card-platform">YouTube</div>
+        <div class="social-card-title">Full Episodes</div>
+        <div class="social-card-desc">Every full episode of The Unseated Series and Context Matters. Subscribe so you never miss a drop.</div>
+        <div class="social-card-link">Subscribe <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+      </a>
+      <a href="#" target="_blank" class="social-card reveal reveal-delay-2">
+        <div class="social-card-shine"></div>
+        <div class="social-card-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><rect x="2" y="2" width="20" height="20" rx="5" ry="5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" fill="none" stroke="currentColor" stroke-width="2"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke="currentColor" stroke-width="2"/></svg>
+        </div>
+        <div class="social-card-platform">Instagram</div>
+        <div class="social-card-title">Daily Remnant Content</div>
+        <div class="social-card-desc">Mirror Moments, prophetic posts, and content designed to confront what keeps us from alignment.</div>
+        <div class="social-card-link">Follow <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+      </a>
+      <a href="#" target="_blank" class="social-card reveal reveal-delay-3">
+        <div class="social-card-shine"></div>
+        <div class="social-card-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.27 8.27 0 0 0 4.84 1.55V6.79a4.85 4.85 0 0 1-1.07-.1z"/></svg>
+        </div>
+        <div class="social-card-platform">TikTok</div>
+        <div class="social-card-title">Episode Clips</div>
+        <div class="social-card-desc">Short clips from every episode. The moments that hit hardest, cut down and delivered where you are.</div>
+        <div class="social-card-link">Follow <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+      </a>
+      <a href="#" target="_blank" class="social-card reveal reveal-delay-4">
+        <div class="social-card-shine"></div>
+        <div class="social-card-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+        </div>
+        <div class="social-card-platform">Facebook</div>
+        <div class="social-card-title">Community Discussion</div>
+        <div class="social-card-desc">Episodes, announcements, and community conversations for believers walking this road together.</div>
+        <div class="social-card-link">Follow <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+      </a>
+      <a href="#" target="_blank" class="social-card reveal reveal-delay-5">
+        <div class="social-card-shine"></div>
+        <div class="social-card-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 0 0-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
+        </div>
+        <div class="social-card-platform">Threads</div>
+        <div class="social-card-title">Real Time Thoughts</div>
+        <div class="social-card-desc">Unfiltered, in the moment thoughts on formation, culture, and what the Spirit is saying to the church right now.</div>
+        <div class="social-card-link">Follow <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+      </a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="wordmark">UN/<span>SEATED</span></div>
+        <div class="tagline">Generation · Called. Refined. Sent.</div>
+        <p>A platform that exists to confront the systems, mindsets and patterns that prevent maturity and limit kingdom impact. A safe place for the remnant.</p>
+      </div>
+      <div>
+        <div class="footer-col-head">Content</div>
+        <ul class="footer-links">
+          <li><a href="series.html">The Unseated Series</a></li>
+          <li><a href="context.html">Context Matters</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-head">Platform</div>
+        <ul class="footer-links">
+          <li><a href="about.html">About</a></li>
+          <li><a href="community.html">Community</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-head">Follow</div>
+        <ul class="footer-links">
+          <li><a href="#">YouTube</a></li>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">TikTok</a></li>
+          <li><a href="#">Facebook</a></li>
+          <li><a href="#">Threads</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">2026 Unseated Generation. All rights reserved.</p>
+      <div class="footer-socials">
+        <a href="#">YouTube</a>
+        <a href="#">Instagram</a>
+        <a href="#">TikTok</a>
+        <a href="#">Threads</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const progressBar = document.getElementById('progressBar');
+    window.addEventListener('scroll', () => {
+      const h = document.documentElement;
+      progressBar.style.width = (h.scrollTop / (h.scrollHeight - h.clientHeight) * 100) + '%';
+    }, { passive: true });
+
+    const transition = document.getElementById('pageTransition');
+    document.querySelectorAll('a[href]').forEach(link => {
+      const href = link.getAttribute('href');
+      if (!href || href.startsWith('#') || href.startsWith('http') || href.startsWith('mailto')) return;
+      link.addEventListener('click', e => {
+        e.preventDefault();
+        transition.classList.add('exit');
+        setTimeout(() => { window.location.href = href; }, 500);
+      });
+    });
+    window.addEventListener('pageshow', () => {
+      transition.classList.remove('exit');
+      transition.classList.add('enter');
+      setTimeout(() => transition.classList.remove('enter'), 600);
+    });
+
+    setTimeout(() => {
+      document.getElementById('heroTopLine').classList.add('animate');
+      document.getElementById('eyebrowLine').classList.add('animate');
+      document.getElementById('eyebrowText').classList.add('animate');
+    }, 100);
+    document.querySelectorAll('.word-inner').forEach((w, i) => {
+      setTimeout(() => w.classList.add('animate'), 300 + i * 130);
+    });
+    setTimeout(() => document.getElementById('pageDivider').classList.add('animate'), 900);
+    setTimeout(() => document.getElementById('pageDesc').classList.add('animate'), 1100);
+    setTimeout(() => document.getElementById('heroCta').classList.add('animate'), 1300);
+
+    const reveals = document.querySelectorAll('.reveal');
+    const revealObs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) { entry.target.classList.add('visible'); revealObs.unobserve(entry.target); }
+      });
+    }, { threshold: 0.08 });
+    reveals.forEach(el => revealObs.observe(el));
+
+    const lineObs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) { entry.target.classList.add('animate'); lineObs.unobserve(entry.target); }
+      });
+    }, { threshold: 0.3 });
+    document.querySelectorAll('.identity-section-line, .benefits-section-line, .social-section-line, .identity-eyebrow-line, .benefits-eyebrow-line').forEach(el => lineObs.observe(el));
+
+    document.getElementById('hamburger').addEventListener('click', () => {
+      const nc = document.querySelector('.nav-center');
+      if (nc.style.display === 'flex') {
+        nc.style.display = 'none';
+      } else {
+        nc.style.cssText = 'display:flex;flex-direction:column;position:absolute;top:80px;left:0;right:0;background:rgba(10,10,10,0.98);padding:32px;gap:24px;border-bottom:1px solid rgba(184,146,42,0.15);z-index:500;';
+      }
+    });
+  </script>
+</body>
+</html>

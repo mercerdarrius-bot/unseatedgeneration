@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Season One: Unseating Performance — Unseated Generation</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --black: #0A0A0A; --charcoal: #1A1A1A; --grey-dark: #2C2C2C;
+      --grey-mid: #4A4A4A; --grey-light: #8A8A8A; --grey-pale: #C8C8C8;
+      --white: #F2F0ED; --pure-white: #FFFFFF;
+      --gold: #B8922A; --gold-light: #D4A840;
+      --border-dark: rgba(184,146,42,0.15); --border-light: rgba(184,146,42,0.3);
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Barlow', sans-serif; background: var(--black); color: var(--white); overflow-x: hidden; }
+    body::after { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E"); pointer-events: none; z-index: 9999; opacity: 0.5; }
+
+    /* PROGRESS BAR */
+    .progress-bar { position: fixed; top: 0; left: 0; height: 2px; background: linear-gradient(to right, var(--gold-light), var(--gold)); width: 0%; z-index: 9998; transition: width 0.1s linear; box-shadow: 0 0 8px rgba(184,146,42,0.6); }
+
+    /* PAGE TRANSITION */
+    .page-transition { position: fixed; inset: 0; background: var(--black); z-index: 99990; transform: translateY(100%); pointer-events: none; }
+    .page-transition.exit { animation: pageExit 0.5s cubic-bezier(0.76,0,0.24,1) forwards; }
+    .page-transition.enter { animation: pageEnter 0.5s cubic-bezier(0.76,0,0.24,1) forwards; }
+    @keyframes pageExit { from{transform:translateY(100%);} to{transform:translateY(0);} }
+    @keyframes pageEnter { from{transform:translateY(0);} to{transform:translateY(-100%);} }
+
+    /* NAV */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 500; height: 80px; display: flex; align-items: center; justify-content: space-between; padding: 0 60px; background: rgba(10,10,10,0.96); border-bottom: 1px solid var(--border-dark); backdrop-filter: blur(16px); }
+    .nav-logo { display: flex; flex-direction: column; line-height: 1; text-decoration: none; }
+    .nav-wordmark { font-family: 'Barlow Condensed', sans-serif; font-size: 26px; font-weight: 800; letter-spacing: 0.18em; color: var(--white); text-transform: uppercase; }
+    .nav-wordmark span { color: var(--gold); }
+    .nav-sub { font-size: 8px; letter-spacing: 0.38em; text-transform: uppercase; color: var(--grey-light); margin-top: 3px; }
+    .nav-center { display: flex; align-items: center; gap: 44px; list-style: none; }
+    .nav-center a { font-size: 12px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--grey-pale); text-decoration: none; position: relative; transition: color 0.25s; }
+    .nav-center a::after { content: ''; position: absolute; bottom: -4px; left: 0; right: 0; height: 1px; background: var(--gold); transform: scaleX(0); transform-origin: left; transition: transform 0.3s; }
+    .nav-center a:hover { color: var(--white); }
+    .nav-center a:hover::after { transform: scaleX(1); }
+    .nav-center a.active { color: var(--gold); }
+    .nav-center a.active::after { transform: scaleX(1); }
+    .nav-cta { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--black) !important; background: var(--gold); padding: 12px 28px; text-decoration: none; transition: background 0.25s, transform 0.2s, box-shadow 0.25s; clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%); }
+    .nav-cta:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(184,146,42,0.3); }
+    .nav-cta::after { display: none !important; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; }
+    .hamburger span { display: block; width: 28px; height: 2px; background: var(--white); }
+
+    /* Word animation */
+    .word { display: inline-block; overflow: visible; padding-bottom: 0.15em; margin-bottom: -0.15em; }
+    .word-inner { display: inline-block; transform: translateY(110%); opacity: 0; transition: transform 0.7s cubic-bezier(0.16,1,0.3,1), opacity 0.5s; }
+    .word-inner.animate { transform: translateY(0); opacity: 1; }
+    .gold-shimmer {
+      background: linear-gradient(90deg, var(--gold) 0%, var(--gold-light) 40%, #fff8e7 50%, var(--gold-light) 60%, var(--gold) 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: shimmer 4s linear infinite;
+      animation-delay: 2s;
+    }
+    @keyframes shimmer { 0%{background-position:200% center;} 100%{background-position:-200% center;} }
+
+    /* PAGE HERO — WHITE with overlap */
+    .page-hero {
+      padding: 160px 60px 120px;
+      background: var(--pure-white);
+      position: relative;
+      overflow: hidden;
+      z-index: 2;
+      margin-bottom: -60px;
+      border-radius: 0 0 40px 40px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+    .hero-top-line { position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--gold); transform: scaleX(0); transform-origin: left; transition: transform 1s cubic-bezier(0.16,1,0.3,1); }
+    .hero-top-line.animate { transform: scaleX(1); }
+    .page-hero-bg { position: absolute; inset: 0; background-image: linear-gradient(rgba(184,146,42,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(184,146,42,0.06) 1px, transparent 1px); background-size: 60px 60px; }
+    .page-hero-word { position: absolute; right: -20px; bottom: -40px; font-family: 'Barlow Condensed', sans-serif; font-size: clamp(120px, 16vw, 240px); font-weight: 800; color: rgba(0,0,0,0.05); line-height: 1; pointer-events: none; text-transform: uppercase; }
+    .page-hero-inner { position: relative; z-index: 2; max-width: 800px; }
+
+    .back-link { display: inline-flex; align-items: center; gap: 8px; font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.26em; text-transform: uppercase; color: var(--gold); text-decoration: none; margin-bottom: 32px; transition: gap 0.25s; opacity: 0; transform: translateX(-10px); }
+    .back-link.animate { opacity: 1; transform: translateX(0); transition: opacity 0.6s 0.1s, transform 0.6s 0.1s, gap 0.25s; }
+    .back-link:hover { gap: 14px; }
+
+    .page-eyebrow { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; }
+    .page-eyebrow-line { width: 0; height: 1px; background: var(--gold); transition: width 0.8s 0.3s ease; }
+    .page-eyebrow-line.animate { width: 36px; }
+    .page-eyebrow-text { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.34em; text-transform: uppercase; color: var(--gold); opacity: 0; transform: translateX(-8px); transition: opacity 0.6s 0.5s, transform 0.6s 0.5s; }
+    .page-eyebrow-text.animate { opacity: 1; transform: translateX(0); }
+    .page-season-label { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(13px, 1.5vw, 16px); font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: #888888; margin-bottom: 12px; opacity: 0; transition: opacity 0.6s 0.6s; }
+    .page-season-label.animate { opacity: 1; }
+    .page-title { font-family: 'Playfair Display', serif; font-size: clamp(40px, 5.5vw, 72px); font-weight: 900; line-height: 1.0; color: var(--black); margin-bottom: 24px; }
+    .page-title em { font-style: italic; color: var(--gold); }
+    .page-divider { width: 0; height: 2px; background: linear-gradient(to right, var(--gold), transparent); margin-bottom: 28px; transition: width 0.8s 0.9s ease; }
+    .page-divider.animate { width: 60px; }
+    .page-desc { font-size: 17px; font-weight: 300; line-height: 1.8; color: #444444; max-width: 600px; margin-bottom: 32px; opacity: 0; transform: translateY(16px); transition: opacity 0.8s 1.1s, transform 0.8s 1.1s; }
+    .page-desc.animate { opacity: 1; transform: translateY(0); }
+    .page-meta { display: flex; align-items: center; gap: 32px; opacity: 0; transition: opacity 0.8s 1.3s; }
+    .page-meta.animate { opacity: 1; }
+    .page-meta-item { display: flex; flex-direction: column; gap: 4px; }
+    .page-meta-label { font-size: 9px; font-weight: 700; letter-spacing: 0.28em; text-transform: uppercase; color: #999999; }
+    .page-meta-value { font-family: 'Barlow Condensed', sans-serif; font-size: 16px; font-weight: 700; letter-spacing: 0.1em; color: var(--black); }
+    .page-meta-value.gold { color: var(--gold); }
+    .page-meta-divider { width: 1px; height: 36px; background: rgba(0,0,0,0.1); }
+
+    /* EPISODES SECTION — overlapping hero */
+    .episodes-section {
+      padding: 120px 60px 100px;
+      background: var(--black);
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Sticky season label */
+    .sticky-label {
+      position: sticky;
+      top: 80px;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 0;
+      margin-bottom: 40px;
+      background: var(--black);
+      border-bottom: 1px solid var(--border-dark);
+    }
+    .sticky-label-line { width: 36px; height: 1px; background: var(--gold); }
+    .sticky-label-text { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.34em; text-transform: uppercase; color: var(--gold); }
+
+    /* Episode Cards — PREMIUM horizontal list with tilt */
+    .ep-list { display: flex; flex-direction: column; gap: 3px; }
+
+    .ep-item {
+      display: grid;
+      grid-template-columns: 260px 1fr auto;
+      overflow: hidden;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.06);
+      position: relative;
+      transition: border-color 0.3s, background 0.3s, transform 0.4s cubic-bezier(0.16,1,0.3,1), box-shadow 0.4s;
+    }
+    .ep-item::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--gold); transform: scaleY(0); transform-origin: bottom; transition: transform 0.4s cubic-bezier(0.16,1,0.3,1); }
+
+    /* Shine */
+    .ep-item-shine { position: absolute; inset: 0; background: linear-gradient(105deg, transparent 35%, rgba(255,255,255,0.03) 50%, transparent 65%); transform: translateX(-100%); pointer-events: none; z-index: 2; }
+
+    .ep-item:hover { border-color: var(--border-light); background: rgba(184,146,42,0.04); transform: translateX(6px); box-shadow: -6px 0 32px rgba(184,146,42,0.1), inset 0 0 0 1px rgba(184,146,42,0.1); }
+    .ep-item:hover::before { transform: scaleY(1); }
+    .ep-item:hover .ep-item-shine { transform: translateX(100%); transition: transform 0.6s ease; }
+    .ep-item.live { border-color: var(--border-dark); background: rgba(184,146,42,0.05); }
+    .ep-item.live::before { transform: scaleY(1); }
+
+    .ep-thumb { position: relative; overflow: hidden; min-height: 180px; }
+    .ep-thumb-bg { position: absolute; inset: 0; transition: transform 0.6s cubic-bezier(0.16,1,0.3,1); }
+    .ep-item:hover .ep-thumb-bg { transform: scale(1.06); }
+    .ep-thumb-overlay { position: absolute; inset: 0; background: linear-gradient(to right, rgba(0,0,0,0.2), transparent); }
+    .ep1-bg { background: linear-gradient(135deg, #1a1408 0%, #3d2d10 50%, #1a1408 100%); }
+    .ep2-bg { background: linear-gradient(135deg, #0d0614 0%, #2a1040 50%, #0d0614 100%); }
+    .ep3-bg { background: linear-gradient(135deg, #060810 0%, #0d1c3d 50%, #060810 100%); }
+    .ep4-bg { background: linear-gradient(135deg, #0a0f06 0%, #1a2d0a 50%, #0a0f06 100%); }
+    .ep-thumb-num { position: absolute; top: 16px; left: 16px; font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.28em; color: var(--gold); text-transform: uppercase; transition: letter-spacing 0.3s; }
+    .ep-item:hover .ep-thumb-num { letter-spacing: 0.36em; }
+    .ep-thumb-play { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%) scale(0); width: 48px; height: 48px; border-radius: 50%; border: 2px solid var(--gold); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s, transform 0.4s cubic-bezier(0.34,1.56,0.64,1); background: rgba(184,146,42,0.1); backdrop-filter: blur(4px); }
+    .ep-item:hover .ep-thumb-play { opacity: 1; transform: translate(-50%,-50%) scale(1); }
+    .ep-thumb-status { position: absolute; bottom: 14px; left: 14px; font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; padding: 4px 10px; }
+    .ep-thumb-status.live { background: rgba(184,146,42,0.9); color: var(--black); }
+    .ep-thumb-status.coming { background: rgba(255,255,255,0.08); color: var(--grey-pale); border: 1px solid rgba(255,255,255,0.12); }
+
+    .ep-info { padding: 32px 40px; display: flex; flex-direction: column; justify-content: center; gap: 12px; position: relative; z-index: 1; }
+    .ep-tag { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.28em; color: var(--grey-mid); text-transform: uppercase; }
+    .ep-title { font-family: 'Playfair Display', serif; font-size: clamp(18px, 2vw, 28px); font-weight: 700; color: var(--white); line-height: 1.2; transition: transform 0.3s; }
+    .ep-item:hover .ep-title { transform: translateX(4px); }
+    .ep-verse { font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.18em; color: var(--gold); text-transform: uppercase; }
+    .ep-desc { font-size: 14px; font-weight: 300; line-height: 1.75; color: var(--grey-light); max-width: 500px; }
+
+    .ep-actions { padding: 32px 40px; display: flex; flex-direction: column; align-items: flex-end; justify-content: center; gap: 12px; border-left: 1px solid rgba(255,255,255,0.04); min-width: 200px; position: relative; z-index: 1; }
+    .btn-watch { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--black); background: var(--gold); padding: 14px 28px; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: background 0.25s, transform 0.2s, box-shadow 0.25s; clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%); white-space: nowrap; }
+    .btn-watch:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 8px 20px rgba(184,146,42,0.3); }
+    .btn-youtube { font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--grey-light); border: 1px solid rgba(255,255,255,0.12); padding: 12px 24px; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: border-color 0.25s, color 0.25s, transform 0.2s; white-space: nowrap; }
+    .btn-youtube:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
+    .ep-coming-tag { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.26em; color: var(--grey-mid); text-transform: uppercase; text-align: center; }
+
+    /* WATCH EMBED — overlapping episodes */
+    .embed-section {
+      padding: 120px 60px 100px;
+      background: var(--charcoal);
+      position: relative;
+      z-index: 2;
+      margin-top: -40px;
+      border-radius: 40px 40px 0 0;
+      box-shadow: 0 -20px 60px rgba(0,0,0,0.3);
+    }
+    .embed-section-line { position: absolute; top: 40px; left: 60px; right: 60px; height: 1px; background: linear-gradient(to right, transparent, var(--gold), transparent); transform: scaleX(0); transform-origin: center; transition: transform 1s cubic-bezier(0.16,1,0.3,1); }
+    .embed-section-line.animate { transform: scaleX(1); }
+    .embed-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .embed-left .eyebrow { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; }
+    .embed-left .eyebrow-line { width: 36px; height: 1px; background: var(--gold); }
+    .embed-left .eyebrow-text { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.34em; text-transform: uppercase; color: var(--gold); }
+    .embed-left h2 { font-family: 'Playfair Display', serif; font-size: clamp(28px, 3vw, 42px); font-weight: 900; line-height: 1.1; color: var(--white); margin-bottom: 20px; }
+    .embed-left h2 em { font-style: italic; color: var(--gold); }
+    .embed-left p { font-size: 15px; font-weight: 300; line-height: 1.8; color: var(--grey-pale); margin-bottom: 32px; }
+    .embed-wrapper { position: relative; padding-bottom: 56.25%; background: var(--grey-dark); overflow: hidden; }
+    .embed-wrapper iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; }
+    .embed-placeholder { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; background: var(--grey-dark); border: 1px solid var(--border-dark); }
+    .embed-placeholder-icon { width: 64px; height: 64px; border-radius: 50%; border: 2px solid var(--border-light); display: flex; align-items: center; justify-content: center; color: var(--gold); }
+    .embed-placeholder strong { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; color: var(--gold); display: block; text-align: center; }
+    .embed-placeholder p { font-size: 13px; color: var(--grey-light); text-align: center; line-height: 1.6; max-width: 240px; }
+
+    /* SUBSCRIBE */
+    .subscribe-section {
+      padding: 120px 60px 100px;
+      background: var(--black);
+      position: relative;
+      z-index: 1;
+      text-align: center;
+    }
+    .subscribe-section-line { position: absolute; top: 0; left: 60px; right: 60px; height: 1px; background: linear-gradient(to right, transparent, var(--gold), transparent); transform: scaleX(0); transform-origin: center; transition: transform 1s cubic-bezier(0.16,1,0.3,1); }
+    .subscribe-section-line.animate { transform: scaleX(1); }
+    .subscribe-inner { max-width: 640px; margin: 0 auto; }
+    .subscribe-eyebrow { display: flex; align-items: center; justify-content: center; gap: 14px; margin-bottom: 20px; }
+    .subscribe-eyebrow-line { width: 36px; height: 1px; background: var(--gold); }
+    .subscribe-eyebrow-text { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.34em; text-transform: uppercase; color: var(--gold); }
+    .subscribe-title { font-family: 'Playfair Display', serif; font-size: clamp(32px, 4vw, 52px); font-weight: 900; line-height: 1.1; color: var(--white); margin-bottom: 20px; }
+    .subscribe-title em { font-style: italic; color: var(--gold); }
+    .subscribe-desc { font-size: 16px; font-weight: 300; line-height: 1.8; color: var(--grey-pale); margin-bottom: 48px; }
+    .subscribe-form { display: flex; max-width: 520px; margin: 0 auto 16px; border: 1px solid rgba(255,255,255,0.1); transition: border-color 0.3s, box-shadow 0.3s; }
+    .subscribe-form:focus-within { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(184,146,42,0.1); }
+    .subscribe-form input { flex: 1; padding: 18px 24px; background: transparent; border: none; outline: none; font-family: 'Barlow', sans-serif; font-size: 14px; color: var(--white); }
+    .subscribe-form input::placeholder { color: var(--grey-mid); }
+    .subscribe-form button { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--black); background: var(--gold); border: none; padding: 18px 32px; cursor: pointer; transition: background 0.25s, transform 0.2s; white-space: nowrap; }
+    .subscribe-form button:hover { background: var(--gold-light); transform: translateY(-1px); }
+    .subscribe-fine { font-size: 11px; color: var(--grey-mid); }
+
+    /* FOOTER */
+    footer { background: var(--black); border-top: 1px solid var(--border-dark); padding: 80px 60px 40px; }
+    .footer-top { display: grid; grid-template-columns: 2.5fr 1fr 1fr 1fr; gap: 60px; padding-bottom: 60px; border-bottom: 1px solid rgba(255,255,255,0.06); margin-bottom: 40px; }
+    .footer-brand .wordmark { font-family: 'Barlow Condensed', sans-serif; font-size: 30px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; color: var(--white); margin-bottom: 4px; }
+    .footer-brand .wordmark span { color: var(--gold); }
+    .footer-brand .tagline { font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--grey-mid); margin-bottom: 24px; }
+    .footer-brand p { font-size: 14px; font-weight: 300; line-height: 1.75; color: var(--grey-light); max-width: 300px; }
+    .footer-col-head { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 24px; padding-bottom: 12px; border-bottom: 1px solid var(--border-dark); }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .footer-links a { font-size: 13px; color: var(--grey-light); text-decoration: none; transition: color 0.2s, transform 0.2s; display: inline-block; }
+    .footer-links a:hover { color: var(--gold); transform: translateX(4px); }
+    .footer-bottom { display: flex; align-items: center; justify-content: space-between; }
+    .footer-copy { font-size: 12px; color: var(--grey-mid); letter-spacing: 0.08em; }
+    .footer-socials { display: flex; gap: 24px; }
+    .footer-socials a { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--grey-mid); text-decoration: none; transition: color 0.2s, transform 0.2s; display: inline-block; }
+    .footer-socials a:hover { color: var(--gold); transform: translateY(-2px); }
+
+    /* REVEAL */
+    .reveal { opacity: 0; transform: translateY(48px); transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1); }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+
+    @media (max-width: 1024px) {
+      nav { padding: 0 24px; }
+      .nav-center { display: none; }
+      .hamburger { display: flex; }
+      .page-hero { padding: 120px 24px 80px; border-radius: 0 0 24px 24px; margin-bottom: -40px; }
+      .episodes-section { padding: 80px 24px; }
+      .ep-item { grid-template-columns: 1fr; }
+      .ep-thumb { min-height: 200px; }
+      .ep-actions { flex-direction: row; border-left: none; border-top: 1px solid rgba(255,255,255,0.04); padding: 20px 32px; min-width: unset; align-items: center; justify-content: flex-start; }
+      .embed-section { padding: 80px 24px; border-radius: 24px 24px 0 0; margin-top: -24px; }
+      .embed-inner { grid-template-columns: 1fr; gap: 40px; }
+      .subscribe-section { padding: 80px 24px; }
+      footer { padding: 60px 24px 32px; }
+      .footer-top { grid-template-columns: 1fr 1fr; gap: 40px; }
+      .footer-bottom { flex-direction: column; gap: 20px; text-align: center; }
+      .page-meta { flex-wrap: wrap; gap: 20px; }
+      .page-meta-divider { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="progress-bar" id="progressBar"></div>
+  <div class="page-transition" id="pageTransition"></div>
+
+  <nav>
+    <a href="index.html" class="nav-logo">
+      <div class="nav-wordmark">UN/<span>SEATED</span></div>
+      <div class="nav-sub">Generation</div>
+    </a>
+    <ul class="nav-center">
+      <li><a href="series.html" class="active">The Unseated Series</a></li>
+      <li><a href="context.html">Context Matters</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="community.html">Community</a></li>
+      <li><a href="community.html" class="nav-cta">Join the Remnant</a></li>
+    </ul>
+    <div class="hamburger" id="hamburger">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <div class="hero-top-line" id="heroTopLine"></div>
+    <div class="page-hero-bg"></div>
+    <div class="page-hero-word">SEASON</div>
+    <div class="page-hero-inner">
+      <a href="series.html" class="back-link" id="backLink">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+        All Seasons
+      </a>
+      <div class="page-eyebrow">
+        <div class="page-eyebrow-line" id="eyebrowLine"></div>
+        <span class="page-eyebrow-text" id="eyebrowText">Season One · June 2026</span>
+      </div>
+      <div class="page-season-label" id="seasonLabel">The Unseated Series</div>
+      <h1 class="page-title">
+        <span class="word"><span class="word-inner">Unseating</span></span>&#32;<span class="word"><span class="word-inner gold-shimmer" style="font-style:italic;">Performance</span></span>
+      </h1>
+      <div class="page-divider" id="pageDivider"></div>
+      <p class="page-desc" id="pageDesc">The church hasn't lost its power. It's lost its posture. This season confronts what happens when ministry becomes performance and calls the remnant back to the only thing that produces lasting kingdom impact — formation.</p>
+      <div class="page-meta" id="pageMeta">
+        <div class="page-meta-item">
+          <span class="page-meta-label">Episodes</span>
+          <span class="page-meta-value" id="epCount">0</span>
+        </div>
+        <div class="page-meta-divider"></div>
+        <div class="page-meta-item">
+          <span class="page-meta-label">Status</span>
+          <span class="page-meta-value gold">Now Live</span>
+        </div>
+        <div class="page-meta-divider"></div>
+        <div class="page-meta-item">
+          <span class="page-meta-label">Launched</span>
+          <span class="page-meta-value">June 2026</span>
+        </div>
+        <div class="page-meta-divider"></div>
+        <div class="page-meta-item">
+          <span class="page-meta-label">Scripture</span>
+          <span class="page-meta-value">NASB</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EPISODES -->
+  <section class="episodes-section">
+    <div class="sticky-label">
+      <div class="sticky-label-line"></div>
+      <span class="sticky-label-text">Season One · Unseating Performance</span>
+    </div>
+
+    <div class="ep-list">
+
+      <div class="ep-item live reveal reveal-delay-1">
+        <div class="ep-item-shine"></div>
+        <div class="ep-thumb">
+          <div class="ep-thumb-bg ep1-bg"></div>
+          <div class="ep-thumb-overlay"></div>
+          <div class="ep-thumb-num">Episode 01</div>
+          <div class="ep-thumb-play"><svg width="16" height="16" viewBox="0 0 24 24" fill="#B8922A"><path d="M8 5v14l11-7z"/></svg></div>
+          <div class="ep-thumb-status live">Live Now</div>
+        </div>
+        <div class="ep-info">
+          <div class="ep-tag">Unseating Performance · S1E1</div>
+          <div class="ep-title">When Ministry Outpaces Maturity</div>
+          <div class="ep-verse">1 Corinthians 13:1–3 · NASB</div>
+          <div class="ep-desc">What happens when someone carries a genuine gift but an unformed character? This episode confronts the danger of ministry that outpaces the maturity needed to sustain it.</div>
+        </div>
+        <div class="ep-actions">
+          <a href="#" class="btn-watch magnetic">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            Watch Now
+          </a>
+          <a href="#" target="_blank" class="btn-youtube">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M21.8 8s-.2-1.4-.8-2c-.8-.8-1.6-.8-2-.9C16.8 5 12 5 12 5s-4.8 0-7 .1c-.4.1-1.2.1-2 .9-.6.6-.8 2-.8 2S2 9.6 2 11.2v1.5c0 1.6.2 3.2.2 3.2s.2 1.4.8 2c.8.8 1.8.8 2.2.8C6.8 19 12 19 12 19s4.8 0 7-.2c.4-.1 1.2-.1 2-.9.6-.6.8-2 .8-2s.2-1.6.2-3.2v-1.5C22 9.6 21.8 8 21.8 8zM10 15V9l5.5 3-5.5 3z"/></svg>
+            Open in YouTube
+          </a>
+        </div>
+      </div>
+
+      <div class="ep-item reveal reveal-delay-2">
+        <div class="ep-item-shine"></div>
+        <div class="ep-thumb">
+          <div class="ep-thumb-bg ep2-bg"></div>
+          <div class="ep-thumb-overlay"></div>
+          <div class="ep-thumb-num">Episode 02</div>
+          <div class="ep-thumb-play"><svg width="16" height="16" viewBox="0 0 24 24" fill="#B8922A"><path d="M8 5v14l11-7z"/></svg></div>
+          <div class="ep-thumb-status coming">Coming Soon</div>
+        </div>
+        <div class="ep-info">
+          <div class="ep-tag">Unseating Performance · S1E2</div>
+          <div class="ep-title">The Drug Called Power</div>
+          <div class="ep-verse">Acts 8:9–11 · NASB</div>
+          <div class="ep-desc">The desire for supernatural power can quietly replace intimacy with God. This episode examines how performance is born when God becomes a means to an end instead of the end.</div>
+        </div>
+        <div class="ep-actions">
+          <span class="ep-coming-tag">Coming Soon</span>
+          <a href="community.html" class="btn-youtube">Get Notified</a>
+        </div>
+      </div>
+
+      <div class="ep-item reveal reveal-delay-3">
+        <div class="ep-item-shine"></div>
+        <div class="ep-thumb">
+          <div class="ep-thumb-bg ep3-bg"></div>
+          <div class="ep-thumb-overlay"></div>
+          <div class="ep-thumb-num">Episode 03</div>
+          <div class="ep-thumb-play"><svg width="16" height="16" viewBox="0 0 24 24" fill="#B8922A"><path d="M8 5v14l11-7z"/></svg></div>
+          <div class="ep-thumb-status coming">Coming Soon</div>
+        </div>
+        <div class="ep-info">
+          <div class="ep-tag">Unseating Performance · S1E3</div>
+          <div class="ep-title">When Glory Goes Missing</div>
+          <div class="ep-verse">1 Samuel 4:19–22 · NASB</div>
+          <div class="ep-desc">It is possible for the church to remain active, expressive, and loud while the glory has already departed. This episode examines what happens when a system survives but the presence withdraws.</div>
+        </div>
+        <div class="ep-actions">
+          <span class="ep-coming-tag">Coming Soon</span>
+          <a href="community.html" class="btn-youtube">Get Notified</a>
+        </div>
+      </div>
+
+      <div class="ep-item reveal reveal-delay-4">
+        <div class="ep-item-shine"></div>
+        <div class="ep-thumb">
+          <div class="ep-thumb-bg ep4-bg"></div>
+          <div class="ep-thumb-overlay"></div>
+          <div class="ep-thumb-num">Episode 04</div>
+          <div class="ep-thumb-play"><svg width="16" height="16" viewBox="0 0 24 24" fill="#B8922A"><path d="M8 5v14l11-7z"/></svg></div>
+          <div class="ep-thumb-status coming">Coming Soon</div>
+        </div>
+        <div class="ep-info">
+          <div class="ep-tag">Unseating Performance · S1E4</div>
+          <div class="ep-title">The Great Reconstruction</div>
+          <div class="ep-verse">1 Kings 18:30–32 · NASB</div>
+          <div class="ep-desc">We didn't lose the fire. We dismantled the altar. This episode exposes how divided loyalty destroys authority and what it costs to rebuild what was torn down.</div>
+        </div>
+        <div class="ep-actions">
+          <span class="ep-coming-tag">Coming Soon</span>
+          <a href="community.html" class="btn-youtube">Get Notified</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- WATCH EMBED -->
+  <section class="embed-section">
+    <div class="embed-section-line" id="embedLine"></div>
+    <div class="embed-inner">
+      <div class="embed-left reveal">
+        <div class="eyebrow">
+          <div class="eyebrow-line"></div>
+          <span class="eyebrow-text">Watch Now</span>
+        </div>
+        <h2>Start With <em>Episode One</em></h2>
+        <p>When Ministry Outpaces Maturity is now live. Watch directly here or open in YouTube to subscribe and stay notified when new episodes drop.</p>
+        <a href="#" target="_blank" class="btn-watch magnetic">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M21.8 8s-.2-1.4-.8-2c-.8-.8-1.6-.8-2-.9C16.8 5 12 5 12 5s-4.8 0-7 .1c-.4.1-1.2.1-2 .9-.6.6-.8 2-.8 2S2 9.6 2 11.2v1.5c0 1.6.2 3.2.2 3.2s.2 1.4.8 2c.8.8 1.8.8 2.2.8C6.8 19 12 19 12 19s4.8 0 7-.2c.4-.1 1.2-.1 2-.9.6-.6.8-2 .8-2s.2-1.6.2-3.2v-1.5C22 9.6 21.8 8 21.8 8zM10 15V9l5.5 3-5.5 3z"/></svg>
+          Subscribe on YouTube
+        </a>
+      </div>
+      <div class="reveal reveal-delay-2">
+        <div class="embed-wrapper">
+          <div class="embed-placeholder">
+            <div class="embed-placeholder-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M10 8l6 4-6 4V8z"/></svg></div>
+            <strong>YouTube Embed</strong>
+            <p>When your channel is live, replace this with your episode embed code.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SUBSCRIBE -->
+  <section class="subscribe-section">
+    <div class="subscribe-section-line" id="subscribeLine"></div>
+    <div class="subscribe-inner reveal">
+      <div class="subscribe-eyebrow">
+        <div class="subscribe-eyebrow-line"></div>
+        <span class="subscribe-eyebrow-text">Never Miss an Episode</span>
+      </div>
+      <h2 class="subscribe-title">New Episode.<br><em>Every Week.</em></h2>
+      <p class="subscribe-desc">Join the Remnant and get notified the moment new episodes drop. No spam. Just the truth you came for.</p>
+      <div class="subscribe-form">
+        <input type="email" placeholder="Enter your email address" />
+        <button type="button" class="magnetic">Notify Me</button>
+      </div>
+      <p class="subscribe-fine">No spam. No performance. Just the truth you came for.</p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="wordmark">UN/<span>SEATED</span></div>
+        <div class="tagline">Generation · Called. Refined. Sent.</div>
+        <p>A platform that exists to confront the systems, mindsets and patterns that prevent maturity and limit kingdom impact. A safe place for the remnant.</p>
+      </div>
+      <div>
+        <div class="footer-col-head">Content</div>
+        <ul class="footer-links">
+          <li><a href="series.html">The Unseated Series</a></li>
+          <li><a href="context.html">Context Matters</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-head">Platform</div>
+        <ul class="footer-links">
+          <li><a href="about.html">About</a></li>
+          <li><a href="community.html">Community</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-head">Follow</div>
+        <ul class="footer-links">
+          <li><a href="#">YouTube</a></li>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">TikTok</a></li>
+          <li><a href="#">Facebook</a></li>
+          <li><a href="#">Threads</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2026 Unseated Generation. All rights reserved.</p>
+      <div class="footer-socials">
+        <a href="#">YouTube</a>
+        <a href="#">Instagram</a>
+        <a href="#">TikTok</a>
+        <a href="#">Threads</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // PROGRESS BAR
+    const progressBar = document.getElementById('progressBar');
+    window.addEventListener('scroll', () => {
+      const h = document.documentElement;
+      const pct = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
+      progressBar.style.width = pct + '%';
+    }, { passive: true });
+
+    // PAGE TRANSITION
+    const transition = document.getElementById('pageTransition');
+    document.querySelectorAll('a[href]').forEach(link => {
+      const href = link.getAttribute('href');
+      if (!href || href.startsWith('#') || href.startsWith('http') || href.startsWith('mailto')) return;
+      link.addEventListener('click', e => {
+        e.preventDefault();
+        transition.classList.add('exit');
+        setTimeout(() => { window.location.href = href; }, 500);
+      });
+    });
+    window.addEventListener('pageshow', () => {
+      transition.classList.remove('exit');
+      transition.classList.add('enter');
+      setTimeout(() => transition.classList.remove('enter'), 600);
+    });
+
+    // HERO ANIMATIONS
+    setTimeout(() => {
+      document.getElementById('heroTopLine').classList.add('animate');
+      document.getElementById('backLink').classList.add('animate');
+      document.getElementById('eyebrowLine').classList.add('animate');
+      document.getElementById('eyebrowText').classList.add('animate');
+      document.getElementById('seasonLabel').classList.add('animate');
+    }, 100);
+    document.querySelectorAll('.word-inner').forEach((w, i) => {
+      setTimeout(() => w.classList.add('animate'), 400 + i * 140);
+    });
+    setTimeout(() => document.getElementById('pageDivider').classList.add('animate'), 900);
+    setTimeout(() => document.getElementById('pageDesc').classList.add('animate'), 1100);
+    setTimeout(() => document.getElementById('pageMeta').classList.add('animate'), 1300);
+
+    // COUNTER ANIMATION
+    function animateCounter(el, target, duration) {
+      let start = 0;
+      const step = target / (duration / 16);
+      const timer = setInterval(() => {
+        start += step;
+        if (start >= target) { el.textContent = target; clearInterval(timer); return; }
+        el.textContent = Math.floor(start);
+      }, 16);
+    }
+    setTimeout(() => animateCounter(document.getElementById('epCount'), 4, 1000), 1300);
+
+    // SCROLL REVEAL
+    const reveals = document.querySelectorAll('.reveal');
+    const revealObs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) { entry.target.classList.add('visible'); revealObs.unobserve(entry.target); }
+      });
+    }, { threshold: 0.08 });
+    reveals.forEach(el => revealObs.observe(el));
+
+    // ANIMATED LINES
+    const lineObs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) { entry.target.classList.add('animate'); lineObs.unobserve(entry.target); }
+      });
+    }, { threshold: 0.3 });
+    document.querySelectorAll('.embed-section-line, .subscribe-section-line').forEach(el => lineObs.observe(el));
+
+    // MAGNETIC BUTTONS
+    document.querySelectorAll('.magnetic').forEach(btn => {
+      btn.addEventListener('mousemove', e => {
+        const rect = btn.getBoundingClientRect();
+        const x = (e.clientX - rect.left - rect.width / 2) * 0.25;
+        const y = (e.clientY - rect.top - rect.height / 2) * 0.25;
+        btn.style.transform = `translate(${x}px, ${y}px)`;
+      });
+      btn.addEventListener('mouseleave', () => {
+        btn.style.transform = 'translate(0, 0)';
+        btn.style.transition = 'transform 0.5s cubic-bezier(0.16,1,0.3,1)';
+      });
+      btn.addEventListener('mouseenter', () => {
+        btn.style.transition = 'transform 0.1s';
+      });
+    });
+
+    // MOBILE NAV
+    document.getElementById('hamburger').addEventListener('click', () => {
+      const nc = document.querySelector('.nav-center');
+      if (nc.style.display === 'flex') {
+        nc.style.display = 'none';
+      } else {
+        nc.style.cssText = 'display:flex;flex-direction:column;position:absolute;top:80px;left:0;right:0;background:rgba(10,10,10,0.98);padding:32px;gap:24px;border-bottom:1px solid rgba(184,146,42,0.15);z-index:500;';
+      }
+    });
+  </script>
+</body>
+</html>

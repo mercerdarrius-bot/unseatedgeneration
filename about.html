@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About — Unseated Generation</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --black: #0A0A0A; --charcoal: #1A1A1A; --grey-dark: #2C2C2C;
+      --grey-mid: #4A4A4A; --grey-light: #8A8A8A; --grey-pale: #C8C8C8;
+      --white: #F2F0ED; --pure-white: #FFFFFF;
+      --gold: #B8922A; --gold-light: #D4A840;
+      --border-dark: rgba(184,146,42,0.15); --border-light: rgba(184,146,42,0.3);
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Barlow', sans-serif; background: var(--black); color: var(--white); overflow-x: hidden; }
+    body::after { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E"); pointer-events: none; z-index: 9999; opacity: 0.5; }
+    ::selection { background: var(--gold); color: var(--black); }
+    ::-moz-selection { background: var(--gold); color: var(--black); }
+
+    /* PROGRESS BAR */
+    .progress-bar { position: fixed; top: 0; left: 0; height: 2px; background: linear-gradient(to right, var(--gold-light), var(--gold)); width: 0%; z-index: 9998; transition: width 0.1s linear; box-shadow: 0 0 8px rgba(184,146,42,0.6); }
+
+    /* PAGE TRANSITION */
+    .page-transition { position: fixed; inset: 0; background: var(--black); z-index: 99990; transform: translateY(100%); pointer-events: none; }
+    .page-transition.exit { animation: pageExit 0.5s cubic-bezier(0.76,0,0.24,1) forwards; }
+    .page-transition.enter { animation: pageEnter 0.5s cubic-bezier(0.76,0,0.24,1) forwards; }
+    @keyframes pageExit { from{transform:translateY(100%);} to{transform:translateY(0);} }
+    @keyframes pageEnter { from{transform:translateY(0);} to{transform:translateY(-100%);} }
+
+    /* NAV */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 500; height: 80px; display: flex; align-items: center; justify-content: space-between; padding: 0 60px; background: rgba(10,10,10,0.96); border-bottom: 1px solid var(--border-dark); backdrop-filter: blur(16px); }
+    .nav-logo { display: flex; flex-direction: column; line-height: 1; text-decoration: none; }
+    .nav-wordmark { font-family: 'Barlow Condensed', sans-serif; font-size: 26px; font-weight: 800; letter-spacing: 0.18em; color: var(--white); text-transform: uppercase; }
+    .nav-wordmark span { color: var(--gold); }
+    .nav-sub { font-size: 8px; letter-spacing: 0.38em; text-transform: uppercase; color: var(--grey-light); margin-top: 3px; }
+    .nav-center { display: flex; align-items: center; gap: 44px; list-style: none; }
+    .nav-center a { font-size: 12px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--grey-pale); text-decoration: none; position: relative; transition: color 0.25s; }
+    .nav-center a::after { content: ''; position: absolute; bottom: -4px; left: 0; right: 0; height: 1px; background: var(--gold); transform: scaleX(0); transform-origin: left; transition: transform 0.3s; }
+    .nav-center a:hover { color: var(--white); }
+    .nav-center a:hover::after { transform: scaleX(1); }
+    .nav-center a.active { color: var(--gold); }
+    .nav-center a.active::after { transform: scaleX(1); }
+    .nav-cta { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--black) !important; background: var(--gold); padding: 12px 28px; text-decoration: none; transition: background 0.25s, transform 0.2s, box-shadow 0.25s; clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%); position: relative; overflow: hidden; }
+    .nav-cta::before { content: ''; position: absolute; inset: 0; background: var(--gold-light); transform: translateX(-100%); transition: transform 0.4s cubic-bezier(0.16,1,0.3,1); z-index: 0; }
+    .nav-cta:hover::before { transform: translateX(0); }
+    .nav-cta span { position: relative; z-index: 1; }
+    .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(184,146,42,0.3); }
+    .nav-cta::after { display: none !important; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; }
+    .hamburger span { display: block; width: 28px; height: 2px; background: var(--white); }
+
+    /* WORD ANIMATION */
+    .word { display: inline-block; overflow: visible; padding-bottom: 0.15em; margin-bottom: -0.15em; }
+    .word-inner { display: inline-block; transform: translateY(110%); opacity: 0; transition: transform 0.7s cubic-bezier(0.16,1,0.3,1), opacity 0.5s; }
+    .word-inner.animate { transform: translateY(0); opacity: 1; }
+    .gold-shimmer { background: linear-gradient(90deg, var(--gold) 0%, var(--gold-light) 40%, #fff8e7 50%, var(--gold-light) 60%, var(--gold) 100%); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; animation: shimmer 4s linear infinite; animation-delay: 2s; }
+    @keyframes shimmer { 0%{background-position:200% center;} 100%{background-position:-200% center;} }
+
+    /* PAGE HERO */
+    .page-hero { padding: 160px 60px 120px; background: var(--black); position: relative; overflow: hidden; z-index: 2; margin-bottom: -60px; border-radius: 0 0 40px 40px; box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
+    .hero-top-line { position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--gold); transform: scaleX(0); transform-origin: left; transition: transform 1s cubic-bezier(0.16,1,0.3,1); }
+    .hero-top-line.animate { transform: scaleX(1); }
+    .page-hero-bg { position: absolute; inset: 0; background-image: linear-gradient(rgba(184,146,42,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(184,146,42,0.03) 1px, transparent 1px); background-size: 80px 80px; }
+    .page-hero-bg-word { position: absolute; right: -40px; bottom: -60px; font-family: 'Barlow Condensed', sans-serif; font-size: clamp(160px, 22vw, 340px); font-weight: 800; color: rgba(255,255,255,0.025); line-height: 1; pointer-events: none; text-transform: uppercase; letter-spacing: -0.02em; }
+    .hero-bar { position: absolute; left: 0; top: 0; bottom: 0; width: 5px; background: linear-gradient(to bottom, transparent, var(--gold) 30%, var(--gold) 70%, transparent); opacity: 0.7; }
+    .page-hero-inner { position: relative; z-index: 2; max-width: 800px; }
+    .page-eyebrow { display: flex; align-items: center; gap: 14px; margin-bottom: 24px; }
+    .page-eyebrow-line { width: 0; height: 1px; background: var(--gold); transition: width 0.8s 0.3s ease; }
+    .page-eyebrow-line.animate { width: 36px; }
+    .page-eyebrow-text { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.34em; text-transform: uppercase; color: var(--gold); opacity: 0; transform: translateX(-8px); transition: opacity 0.6s 0.5s, transform 0.6s 0.5s; }
+    .page-eyebrow-text.animate { opacity: 1; transform: translateX(0); }
+    .page-title { font-family: 'Playfair Display', serif; font-size: clamp(44px, 6vw, 82px); font-weight: 900; line-height: 1.0; color: var(--white); margin-bottom: 24px; }
+    .page-divider { width: 0; height: 2px; background: linear-gradient(to right, var(--gold), transparent); margin-bottom: 32px; transition: width 0.8s 0.9s ease; }
+    .page-divider.animate { width: 60px; }
+    .page-desc { font-size: 18px; font-weight: 300; line-height: 1.9; color: var(--grey-pale); max-width: 700px; opacity: 0; transform: translateY(16px); transition: opacity 0.8s 1.1s, transform 0.8s 1.1s; }
+    .page-desc.animate { opacity: 1; transform: translateY(0); }
+
+    /* MISSION AND BURDEN */
+    .mission-section { padding: 120px 60px; background: var(--charcoal); position: relative; z-index: 1; overflow: hidden; }
+    .mission-section-line { position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(to right, transparent, var(--gold), transparent); transform: scaleX(0); transform-origin: center; transition: transform 1s cubic-bezier(0.16,1,0.3,1); }
+    .mission-section-line.animate { transform: scaleX(1); }
+    .mission-bg { position: absolute; right: -20px; bottom: -20px; font-family: 'Barlow Condensed', sans-serif; font-size: clamp(120px, 16vw, 240px); font-weight: 800; color: rgba(255,255,255,0.025); line-height: 1; pointer-events: none; text-transform: uppercase; }
+    .mission-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 100px; align-items: start; }
+    .mission-left .eyebrow { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; }
+    .mission-left .eyebrow-line { width: 0; height: 1px; background: var(--gold); transition: width 0.8s cubic-bezier(0.16,1,0.3,1); }
+    .mission-left .eyebrow-line.animate { width: 36px; }
+    .mission-left .eyebrow-text { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.34em; text-transform: uppercase; color: var(--gold); }
+    .mission-left h2 { font-family: 'Playfair Display', serif; font-size: clamp(32px, 3.5vw, 52px); font-weight: 900; line-height: 1.05; color: var(--white); margin-bottom: 32px; }
+    .mission-left h2 em { font-style: italic; color: var(--gold); }
+    .mission-left p { font-size: 16px; font-weight: 300; line-height: 1.9; color: var(--grey-pale); margin-bottom: 24px; }
+    .mission-pillars { display: flex; flex-direction: column; gap: 3px; }
+    .mission-pillar { padding: 24px 28px; border: 1px solid rgba(255,255,255,0.06); background: rgba(255,255,255,0.02); position: relative; transition: border-color 0.3s, background 0.3s, transform 0.35s cubic-bezier(0.16,1,0.3,1); }
+    .mission-pillar::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--gold); transform: scaleY(0); transform-origin: bottom; transition: transform 0.4s cubic-bezier(0.16,1,0.3,1); }
+    .mission-pillar:hover { border-color: var(--border-light); background: rgba(184,146,42,0.04); transform: translateX(6px); }
+    .mission-pillar:hover::before { transform: scaleY(1); }
+    .mission-pillar-label { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.28em; color: var(--gold); text-transform: uppercase; margin-bottom: 6px; }
+    .mission-pillar-text { font-size: 15px; font-weight: 300; color: var(--grey-pale); line-height: 1.6; }
+
+    /* ASSIGNMENT */
+    .assignment-section { padding: 120px 60px; background: var(--black); position: relative; z-index: 2; margin-top: -40px; border-radius: 40px 40px 0 0; box-shadow: 0 -20px 60px rgba(0,0,0,0.3); overflow: hidden; }
+    .assignment-bg { position: absolute; left: -20px; top: -20px; font-family: 'Barlow Condensed', sans-serif; font-size: clamp(100px, 14vw, 200px); font-weight: 800; color: rgba(184,146,42,0.04); line-height: 1; pointer-events: none; text-transform: uppercase; }
+    .assignment-section-line { position: absolute; top: 40px; left: 60px; right: 60px; height: 1px; background: linear-gradient(to right, transparent, var(--gold), transparent); transform: scaleX(0); transform-origin: center; transition: transform 1s cubic-bezier(0.16,1,0.3,1); }
+    .assignment-section-line.animate { transform: scaleX(1); }
+    .assignment-inner { max-width: 860px; margin: 0 auto; }
+    .assignment-eyebrow { display: flex; align-items: center; gap: 14px; margin-bottom: 24px; }
+    .assignment-eyebrow-line { width: 0; height: 1px; background: var(--gold); transition: width 0.8s cubic-bezier(0.16,1,0.3,1); }
+    .assignment-eyebrow-line.animate { width: 36px; }
+    .assignment-eyebrow-text { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.34em; text-transform: uppercase; color: var(--gold); }
+    .assignment-inner h2 { font-family: 'Playfair Display', serif; font-size: clamp(32px, 3.5vw, 52px); font-weight: 900; line-height: 1.05; color: var(--white); margin-bottom: 32px; }
+    .assignment-inner h2 em { font-style: italic; color: var(--gold); }
+    .assignment-inner p { font-size: 17px; font-weight: 300; line-height: 1.9; color: var(--grey-pale); margin-bottom: 24px; max-width: 760px; }
+    .assignment-three { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px; margin-top: 60px; }
+    .assignment-item { padding: 36px 32px; border: 1px solid rgba(255,255,255,0.06); background: rgba(255,255,255,0.02); position: relative; overflow: hidden; transition: border-color 0.3s, background 0.3s, transform 0.35s cubic-bezier(0.16,1,0.3,1), box-shadow 0.35s; }
+    .assignment-item::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--gold); transform: scaleX(0); transform-origin: left; transition: transform 0.4s cubic-bezier(0.16,1,0.3,1); }
+    .assignment-item:hover { border-color: var(--border-light); background: rgba(184,146,42,0.04); transform: translateY(-6px); box-shadow: 0 16px 40px rgba(0,0,0,0.3), 0 0 20px rgba(184,146,42,0.08); }
+    .assignment-item:hover::before { transform: scaleX(1); }
+    .assignment-item-num { font-family: 'Playfair Display', serif; font-size: 48px; font-weight: 700; color: rgba(184,146,42,0.2); line-height: 1; margin-bottom: 16px; transition: color 0.3s; }
+    .assignment-item:hover .assignment-item-num { color: rgba(184,146,42,0.4); }
+    .assignment-item-title { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; color: var(--white); margin-bottom: 12px; line-height: 1.2; }
+    .assignment-item-desc { font-size: 14px; font-weight: 300; color: var(--grey-light); line-height: 1.75; }
+
+    /* PULLQUOTE */
+    .quote-section { padding: 100px 60px; background: var(--gold); position: relative; z-index: 3; margin-top: -40px; border-radius: 40px 40px 0 0; overflow: hidden; }
+    .quote-bg { position: absolute; inset: 0; background-image: linear-gradient(rgba(0,0,0,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.08) 1px, transparent 1px); background-size: 60px 60px; }
+    .quote-inner { position: relative; z-index: 2; max-width: 900px; margin: 0 auto; text-align: center; }
+    .quote-mark { font-family: 'Playfair Display', serif; font-size: 120px; color: rgba(0,0,0,0.12); line-height: 0.6; margin-bottom: 16px; }
+    .quote-text { font-family: 'Playfair Display', serif; font-size: clamp(24px, 3.5vw, 44px); font-weight: 700; font-style: italic; color: var(--black); line-height: 1.3; margin-bottom: 32px; }
+    .quote-source { font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.28em; text-transform: uppercase; color: rgba(0,0,0,0.5); }
+
+    /* FOUNDER */
+    .founder-section { padding: 120px 60px; background: var(--charcoal); position: relative; z-index: 4; margin-top: -40px; border-radius: 40px 40px 0 0; box-shadow: 0 -20px 60px rgba(0,0,0,0.3); overflow: hidden; }
+    .founder-section-line { position: absolute; top: 40px; left: 60px; right: 60px; height: 1px; background: linear-gradient(to right, transparent, var(--gold), transparent); transform: scaleX(0); transform-origin: center; transition: transform 1s cubic-bezier(0.16,1,0.3,1); }
+    .founder-section-line.animate { transform: scaleX(1); }
+    .founder-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 100px; align-items: center; }
+    .founder-photo-wrap { position: relative; }
+    .founder-photo-frame { position: relative; overflow: hidden; }
+    .founder-photo-frame::before { content: ''; position: absolute; top: -3px; left: -3px; right: -3px; bottom: -3px; border: 1px solid var(--border-light); z-index: 2; pointer-events: none; }
+    .founder-photo-frame::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--gold); z-index: 3; }
+    .founder-photo { width: 100%; display: block; filter: grayscale(15%) contrast(1.05); transition: filter 0.4s; }
+    .founder-photo-wrap:hover .founder-photo { filter: grayscale(0%) contrast(1.05); }
+    .founder-photo-accent { position: absolute; bottom: -20px; right: -20px; width: 120px; height: 120px; border: 1px solid var(--border-light); background: rgba(184,146,42,0.06); z-index: -1; }
+    .founder-info .eyebrow { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; }
+    .founder-info .eyebrow-line { width: 0; height: 1px; background: var(--gold); transition: width 0.8s cubic-bezier(0.16,1,0.3,1); }
+    .founder-info .eyebrow-line.animate { width: 36px; }
+    .founder-info .eyebrow-text { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.34em; text-transform: uppercase; color: var(--gold); }
+    .founder-name { font-family: 'Playfair Display', serif; font-size: clamp(32px, 3.5vw, 48px); font-weight: 900; color: var(--white); margin-bottom: 6px; line-height: 1.1; }
+    .founder-title { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 32px; }
+    .founder-divider { width: 0; height: 1px; background: linear-gradient(to right, var(--gold), transparent); margin-bottom: 32px; transition: width 0.8s cubic-bezier(0.16,1,0.3,1); }
+    .founder-divider.animate { width: 48px; }
+    .founder-info p { font-size: 16px; font-weight: 300; line-height: 1.9; color: var(--grey-pale); margin-bottom: 20px; }
+    .founder-info p:last-of-type { margin-bottom: 32px; }
+    .founder-credential { display: flex; align-items: center; gap: 16px; padding: 20px 24px; border: 1px solid var(--border-dark); background: rgba(184,146,42,0.04); margin-top: 8px; transition: border-color 0.3s, background 0.3s; }
+    .founder-credential:hover { border-color: var(--border-light); background: rgba(184,146,42,0.08); }
+    .founder-credential-icon { width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--border-light); display: flex; align-items: center; justify-content: center; color: var(--gold); flex-shrink: 0; }
+    .founder-credential-text { font-size: 13px; font-weight: 300; color: var(--grey-pale); line-height: 1.5; }
+    .founder-credential-text strong { font-weight: 600; color: var(--white); display: block; font-size: 14px; margin-bottom: 2px; }
+
+    /* SUBSCRIBE */
+    .subscribe-section { padding: 120px 60px 100px; background: var(--pure-white); position: relative; z-index: 5; margin-top: -40px; border-radius: 40px 40px 0 0; box-shadow: 0 -20px 60px rgba(0,0,0,0.2); text-align: center; }
+    .subscribe-section-line { position: absolute; top: 40px; left: 60px; right: 60px; height: 1px; background: linear-gradient(to right, transparent, var(--gold), transparent); transform: scaleX(0); transform-origin: center; transition: transform 1s cubic-bezier(0.16,1,0.3,1); }
+    .subscribe-section-line.animate { transform: scaleX(1); }
+    .subscribe-inner { max-width: 640px; margin: 0 auto; }
+    .subscribe-eyebrow { display: flex; align-items: center; justify-content: center; gap: 14px; margin-bottom: 20px; }
+    .subscribe-eyebrow-line { width: 36px; height: 1px; background: var(--gold); }
+    .subscribe-eyebrow-text { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.34em; text-transform: uppercase; color: var(--gold); }
+    .subscribe-title { font-family: 'Playfair Display', serif; font-size: clamp(32px, 4vw, 52px); font-weight: 900; line-height: 1.1; color: var(--black); margin-bottom: 20px; }
+    .subscribe-title em { font-style: italic; color: var(--gold); }
+    .subscribe-desc { font-size: 16px; font-weight: 300; line-height: 1.8; color: #444444; margin-bottom: 48px; }
+    .subscribe-form { display: flex; max-width: 520px; margin: 0 auto 16px; border: 1px solid rgba(0,0,0,0.15); transition: border-color 0.3s, box-shadow 0.3s; }
+    .subscribe-form:focus-within { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(184,146,42,0.08); }
+    .subscribe-form input { flex: 1; padding: 18px 24px; background: transparent; border: none; outline: none; font-family: 'Barlow', sans-serif; font-size: 14px; color: var(--black); }
+    .subscribe-form input::placeholder { color: #999999; }
+    .subscribe-form button { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--black); background: var(--gold); border: none; padding: 18px 32px; cursor: pointer; white-space: nowrap; position: relative; overflow: hidden; z-index: 0; }
+    .subscribe-form button::before { content: ''; position: absolute; inset: 0; background: var(--gold-light); transform: translateX(-100%); transition: transform 0.4s cubic-bezier(0.16,1,0.3,1); z-index: -1; }
+    .subscribe-form button:hover::before { transform: translateX(0); }
+    .subscribe-fine { font-size: 11px; color: #999999; }
+
+    /* FOOTER */
+    footer { background: var(--black); border-top: 1px solid var(--border-dark); padding: 80px 60px 40px; position: relative; z-index: 6; margin-top: -40px; border-radius: 40px 40px 0 0; box-shadow: 0 -20px 60px rgba(0,0,0,0.3); }
+    .footer-top { display: grid; grid-template-columns: 2.5fr 1fr 1fr 1fr; gap: 60px; padding-bottom: 60px; border-bottom: 1px solid rgba(255,255,255,0.06); margin-bottom: 40px; }
+    .footer-brand .wordmark { font-family: 'Barlow Condensed', sans-serif; font-size: 30px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; color: var(--white); margin-bottom: 4px; }
+    .footer-brand .wordmark span { color: var(--gold); }
+    .footer-brand .tagline { font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--grey-mid); margin-bottom: 24px; }
+    .footer-brand p { font-size: 14px; font-weight: 300; line-height: 1.75; color: var(--grey-light); max-width: 300px; }
+    .footer-col-head { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 24px; padding-bottom: 12px; border-bottom: 1px solid var(--border-dark); }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .footer-links a { font-size: 13px; color: var(--grey-light); text-decoration: none; transition: color 0.2s, transform 0.2s; display: inline-block; }
+    .footer-links a:hover { color: var(--gold); transform: translateX(4px); }
+    .footer-bottom { display: flex; align-items: center; justify-content: space-between; }
+    .footer-copy { font-size: 12px; color: var(--grey-mid); letter-spacing: 0.08em; }
+    .footer-socials { display: flex; gap: 24px; }
+    .footer-socials a { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--grey-mid); text-decoration: none; transition: color 0.2s, transform 0.2s; display: inline-block; }
+    .footer-socials a:hover { color: var(--gold); transform: translateY(-2px); }
+
+    /* REVEAL */
+    .reveal { opacity: 0; transform: translateY(48px); transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1); }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.22s; }
+    .reveal-delay-3 { transition-delay: 0.34s; }
+
+    @media (max-width: 1024px) {
+      nav { padding: 0 24px; }
+      .nav-center { display: none; }
+      .hamburger { display: flex; }
+      .page-hero { padding: 120px 24px 80px; border-radius: 0 0 24px 24px; margin-bottom: -40px; }
+      .mission-section { padding: 80px 24px; }
+      .mission-grid { grid-template-columns: 1fr; gap: 48px; }
+      .assignment-section { padding: 80px 24px; border-radius: 24px 24px 0 0; margin-top: -24px; }
+      .assignment-three { grid-template-columns: 1fr; }
+      .quote-section { padding: 60px 24px; border-radius: 24px 24px 0 0; margin-top: -24px; }
+      .founder-section { padding: 80px 24px; border-radius: 24px 24px 0 0; margin-top: -24px; }
+      .founder-grid { grid-template-columns: 1fr; gap: 48px; }
+      .founder-photo-accent { display: none; }
+      .subscribe-section { padding: 80px 24px; border-radius: 24px 24px 0 0; margin-top: -24px; }
+      footer { padding: 60px 24px 32px; border-radius: 24px 24px 0 0; margin-top: -24px; }
+      .footer-top { grid-template-columns: 1fr 1fr; gap: 40px; }
+      .footer-bottom { flex-direction: column; gap: 20px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="progress-bar" id="progressBar"></div>
+  <div class="page-transition" id="pageTransition"></div>
+
+  <nav>
+    <a href="index.html" class="nav-logo">
+      <div class="nav-wordmark">UN/<span>SEATED</span></div>
+      <div class="nav-sub">Generation</div>
+    </a>
+    <ul class="nav-center">
+      <li><a href="series.html">The Unseated Series</a></li>
+      <li><a href="context.html">Context Matters</a></li>
+      <li><a href="about.html" class="active">About</a></li>
+      <li><a href="community.html">Community</a></li>
+      <li><a href="community.html" class="nav-cta"><span>Join the Remnant</span></a></li>
+    </ul>
+    <div class="hamburger" id="hamburger">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="page-hero">
+    <div class="hero-top-line" id="heroTopLine"></div>
+    <div class="page-hero-bg"></div>
+    <div class="page-hero-bg-word">UNSEATED</div>
+    <div class="hero-bar"></div>
+    <div class="page-hero-inner">
+      <div class="page-eyebrow">
+        <div class="page-eyebrow-line" id="eyebrowLine"></div>
+        <span class="page-eyebrow-text" id="eyebrowText">The Platform</span>
+      </div>
+      <h1 class="page-title">
+        <span class="word"><span class="word-inner">About</span></span><br>
+        <span class="word"><span class="word-inner">Unseated</span></span>&#32;<span class="word"><span class="word-inner gold-shimmer" style="font-style:italic;">Generation.</span></span>
+      </h1>
+      <div class="page-divider" id="pageDivider"></div>
+      <p class="page-desc" id="pageDesc">This is not a platform built around a personality. It is a platform built around a burden. A burden for the people of God to be free, formed, and walking in the fullness of their identity in Christ.</p>
+    </div>
+  </section>
+
+  <!-- MISSION AND BURDEN -->
+  <section class="mission-section">
+    <div class="mission-section-line" id="missionLine"></div>
+    <div class="mission-bg">BURDEN</div>
+    <div class="mission-grid">
+      <div class="mission-left reveal">
+        <div class="eyebrow">
+          <div class="eyebrow-line"></div>
+          <span class="eyebrow-text">The Burden</span>
+        </div>
+        <h2>The Church Has <em>Drifted.</em></h2>
+        <p>Many of us were never taught any differently. What we call church culture is simply the water we grew up in. Performance wasn't chosen. It was inherited. And what is inherited feels like truth until something or Someone shows you otherwise.</p>
+        <p>The desire to be financially prosperous, to have huge followings, to carry enormous influence — these things were presented to us as the fruit of faithfulness. But all of it is meaningless apart from the transformative power of Christ.</p>
+        <p>This is the burden Unseated Generation was built to address. Not to condemn the people formed by these systems, but to offer what the Holy Spirit offered us — a clearer picture of what God actually intended.</p>
+      </div>
+      <div class="mission-pillars reveal reveal-delay-2">
+        <div class="mission-pillar">
+          <div class="mission-pillar-label">The Problem</div>
+          <div class="mission-pillar-text">Most people in performative culture are sincere. They love God genuinely. But sincerity without formation produces people who are devoted and yet still distant from the depth God intended.</div>
+        </div>
+        <div class="mission-pillar">
+          <div class="mission-pillar-label">The Pattern</div>
+          <div class="mission-pillar-text">When performance is all you have seen modeled, it becomes your standard. Not by rebellion but by formation. The environment shapes us more than we realize.</div>
+        </div>
+        <div class="mission-pillar">
+          <div class="mission-pillar-label">The Drift</div>
+          <div class="mission-pillar-text">This is not about bad intentions. It is about inherited frameworks. We carry what we were given until the Holy Spirit shows us something better.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- THE ASSIGNMENT -->
+  <section class="assignment-section">
+    <div class="assignment-section-line" id="assignmentLine"></div>
+    <div class="assignment-bg">CALL</div>
+    <div class="assignment-inner">
+      <div class="assignment-eyebrow reveal">
+        <div class="assignment-eyebrow-line"></div>
+        <span class="assignment-eyebrow-text">The Assignment</span>
+      </div>
+      <h2 class="reveal" style="font-family:'Playfair Display',serif;font-size:clamp(32px,3.5vw,52px);font-weight:900;line-height:1.05;color:var(--white);margin-bottom:32px;">To Awaken the <em style="font-style:italic;color:var(--gold);">Remnant.</em></h2>
+      <p class="reveal">The assignment of Unseated Generation is to call the church back into alignment with its identity. To expose what has occupied the seat that belongs to God and to call for the rebuilding of the sacred altar.</p>
+      <p class="reveal">That calling moves through a specific confrontation, of the systems, patterns, and mindsets that prevent alignment with God. Because the remnant cannot walk in their assignment until what has formed them out of alignment has been named, confronted, and surrendered. This is preparation. Confrontation is not the end. It is the doorway to the call God has placed on this generation and to being part of what He is doing in this hour.</p>
+      <p class="reveal">That rebuilding does not happen through better programming or larger platforms. It happens through surrender to God, offering our bodies as living sacrifices, and returning to the truth of Scripture handled with integrity and reverence.</p>
+      <div class="assignment-three">
+        <div class="assignment-item reveal reveal-delay-1">
+          <div class="assignment-item-num">01</div>
+          <div class="assignment-item-title">Surrender to God</div>
+          <div class="assignment-item-desc">Not to a system. Not to a movement. Not to a personality. Full surrender to the Lordship of Christ over every area of life and ministry.</div>
+        </div>
+        <div class="assignment-item reveal reveal-delay-2">
+          <div class="assignment-item-num">02</div>
+          <div class="assignment-item-title">Rebuild the Altar</div>
+          <div class="assignment-item-desc">The altar of genuine relationship with God. Of daily surrender. Of private devotion that has no audience. Of letting formation do its work.</div>
+        </div>
+        <div class="assignment-item reveal reveal-delay-3">
+          <div class="assignment-item-num">03</div>
+          <div class="assignment-item-title">Return to Truth</div>
+          <div class="assignment-item-desc">Scripture handled with rigor, reverence, and honesty. Not mined for comfort but received for formation. The text prosecutes first.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PULLQUOTE -->
+  <section class="quote-section">
+    <div class="quote-bg"></div>
+    <div class="quote-inner reveal">
+      <div class="quote-mark">"</div>
+      <p class="quote-text">I am not qualified by ability. I am qualified by identity. And my identity is found in Christ alone.</p>
+      <div class="quote-source">Darrius · Founder, Unseated Generation</div>
+    </div>
+  </section>
+
+  <!-- FOUNDER -->
+  <section class="founder-section">
+    <div class="founder-section-line" id="founderLine"></div>
+    <div class="founder-grid">
+      <div class="founder-photo-wrap reveal">
+        <div class="founder-photo-frame">
+          <img src="photos/DarriusPhoto.JPG" alt="Darrius, Founder of Unseated Generation" class="founder-photo" />
+        </div>
+        <div class="founder-photo-accent"></div>
+      </div>
+      <div class="founder-info reveal reveal-delay-2">
+        <div class="eyebrow">
+          <div class="eyebrow-line"></div>
+          <span class="eyebrow-text">The Founder</span>
+        </div>
+        <div class="founder-name">Darrius</div>
+        <div class="founder-title">Founder · Unseated Generation</div>
+        <div class="founder-divider" id="founderDivider"></div>
+        <p>Like many, Darrius walked in the ignorance that comes from performative church culture. He made his faith self-centered, took scripture out of context, and built a version of Christianity shaped more by the environment around him than by the Word of God.</p>
+        <p>In his own personal study, led by the Holy Spirit, he began to see how far the church had drifted and how he himself had been formed by things that contradicted Scripture. That discovery became a burden. That burden became an assignment.</p>
+        <p>Unseated Generation launched in 2022. Life happened. Discouragement came. But the burden never left. Now more grounded, more equipped, and more certain of the call than ever before, he moves forward not in his own ability but in the identity and anointing he carries in Christ.</p>
+        <div class="founder-credential">
+          <div class="founder-credential-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+          </div>
+          <div class="founder-credential-text">
+            <strong>Gordon-Conwell Theological Seminary</strong>
+            Currently pursuing a Master of Divinity (M.Div)
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SUBSCRIBE -->
+  <section class="subscribe-section">
+    <div class="subscribe-section-line" id="subscribeLine"></div>
+    <div class="subscribe-inner reveal">
+      <div class="subscribe-eyebrow">
+        <div class="subscribe-eyebrow-line"></div>
+        <span class="subscribe-eyebrow-text">Join the Remnant</span>
+      </div>
+      <h2 class="subscribe-title">You Were Made<br>For <em>More.</em></h2>
+      <p class="subscribe-desc">Join a community of believers committed to being formed by God. New episodes, weekly content, and resources delivered directly to you.</p>
+      <div class="subscribe-form">
+        <input type="email" placeholder="Enter your email address" />
+        <button type="button">Join the Remnant</button>
+      </div>
+      <p class="subscribe-fine">No spam. No performance. Just the truth you came for.</p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="wordmark">UN/<span>SEATED</span></div>
+        <div class="tagline">Generation · Called. Refined. Sent.</div>
+        <p>A platform that exists to confront the systems, mindsets and patterns that prevent maturity and limit kingdom impact. A safe place for the remnant.</p>
+      </div>
+      <div>
+        <div class="footer-col-head">Content</div>
+        <ul class="footer-links">
+          <li><a href="series.html">The Unseated Series</a></li>
+          <li><a href="context.html">Context Matters</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-head">Platform</div>
+        <ul class="footer-links">
+          <li><a href="about.html">About</a></li>
+          <li><a href="community.html">Community</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-head">Follow</div>
+        <ul class="footer-links">
+          <li><a href="#">YouTube</a></li>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">TikTok</a></li>
+          <li><a href="#">Facebook</a></li>
+          <li><a href="#">Threads</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">2026 Unseated Generation. All rights reserved.</p>
+      <div class="footer-socials">
+        <a href="#">YouTube</a>
+        <a href="#">Instagram</a>
+        <a href="#">TikTok</a>
+        <a href="#">Threads</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const progressBar = document.getElementById('progressBar');
+    window.addEventListener('scroll', () => {
+      const h = document.documentElement;
+      progressBar.style.width = (h.scrollTop / (h.scrollHeight - h.clientHeight) * 100) + '%';
+    }, { passive: true });
+
+    const transition = document.getElementById('pageTransition');
+    document.querySelectorAll('a[href]').forEach(link => {
+      const href = link.getAttribute('href');
+      if (!href || href.startsWith('#') || href.startsWith('http') || href.startsWith('mailto')) return;
+      link.addEventListener('click', e => {
+        e.preventDefault();
+        transition.classList.add('exit');
+        setTimeout(() => { window.location.href = href; }, 500);
+      });
+    });
+    window.addEventListener('pageshow', () => {
+      transition.classList.remove('exit');
+      transition.classList.add('enter');
+      setTimeout(() => transition.classList.remove('enter'), 600);
+    });
+
+    setTimeout(() => {
+      document.getElementById('heroTopLine').classList.add('animate');
+      document.getElementById('eyebrowLine').classList.add('animate');
+      document.getElementById('eyebrowText').classList.add('animate');
+    }, 100);
+    document.querySelectorAll('.word-inner').forEach((w, i) => {
+      setTimeout(() => w.classList.add('animate'), 300 + i * 130);
+    });
+    setTimeout(() => document.getElementById('pageDivider').classList.add('animate'), 900);
+    setTimeout(() => document.getElementById('pageDesc').classList.add('animate'), 1100);
+
+    const reveals = document.querySelectorAll('.reveal');
+    const revealObs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) { entry.target.classList.add('visible'); revealObs.unobserve(entry.target); }
+      });
+    }, { threshold: 0.08 });
+    reveals.forEach(el => revealObs.observe(el));
+
+    const lineObs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) { entry.target.classList.add('animate'); lineObs.unobserve(entry.target); }
+      });
+    }, { threshold: 0.3 });
+    document.querySelectorAll('.mission-section-line, .assignment-section-line, .founder-section-line, .subscribe-section-line, .eyebrow-line, .assignment-eyebrow-line, .founder-divider').forEach(el => lineObs.observe(el));
+
+    document.getElementById('hamburger').addEventListener('click', () => {
+      const nc = document.querySelector('.nav-center');
+      if (nc.style.display === 'flex') {
+        nc.style.display = 'none';
+      } else {
+        nc.style.cssText = 'display:flex;flex-direction:column;position:absolute;top:80px;left:0;right:0;background:rgba(10,10,10,0.98);padding:32px;gap:24px;border-bottom:1px solid rgba(184,146,42,0.15);z-index:500;';
+      }
+    });
+  </script>
+</body>
+</html>
