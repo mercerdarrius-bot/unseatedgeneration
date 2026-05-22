@@ -103,8 +103,12 @@
 
     /* VIDEO */
     .hero-video-wrap { position: absolute; inset: 0; z-index: 0; }
-    .hero-video-wrap video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 1.5s ease; }
+    .hero-video-wrap video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center center; opacity: 0; transition: opacity 1.5s ease; }
     .hero-video-wrap video.active { opacity: 1; }
+
+    @media (max-width: 768px) {
+      .hero-video-wrap video { object-position: 60% center; }
+    }
     .hero-video-overlay {
       position: absolute; inset: 0;
       background: linear-gradient(to right, rgba(10,10,10,0.82) 0%, rgba(10,10,10,0.55) 45%, rgba(10,10,10,0.25) 100%);
