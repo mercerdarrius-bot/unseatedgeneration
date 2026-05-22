@@ -430,28 +430,68 @@
     @media (max-width: 1024px) {
       body { }
       .cursor-dot, .cursor-ring { display: none; }
-      nav { padding: 0 24px; }
+      nav { padding: 0 20px; }
       .nav-center { display: none; }
       .hamburger { display: flex; }
-      .hero { padding: 100px 24px 0; }
+
+      /* HERO MOBILE */
+      .hero { padding: 100px 20px 0; min-height: 100svh; }
       .scroll-indicator { display: none; }
-      .hero-video-dots { left: 24px; }
-      .hero-stats { position: static; flex-direction: column; margin-top: 60px; }
-      .hero-stat { border-right: none; border-top: 1px solid var(--border-dark); }
-      .series-section, .context-section { padding: 80px 24px; border-radius: 24px 24px 0 0; }
-      .series-header { grid-template-columns: 1fr; gap: 32px; }
-      .episodes-grid { grid-template-columns: 1fr; }
-      .ep-card::before, .ep-card.featured::before { padding-top: 70%; }
+      .hero-video-dots { left: 20px; bottom: 80px; }
+      .hero-headline { font-size: clamp(44px, 12vw, 64px); }
+      .hero-headline-line2 { font-size: clamp(36px, 10vw, 52px); }
+      .hero-subhead { font-size: 16px; margin-bottom: 40px; }
+      .hero-actions { flex-direction: column; align-items: flex-start; gap: 12px; }
+      .btn-gold, .btn-outline-light { width: 100%; justify-content: center; padding: 16px 24px; }
+      .hero-stats { position: static; flex-direction: column; margin-top: 40px; }
+      .hero-stat { border-right: none; border-top: 1px solid var(--border-dark); padding: 20px 16px; }
+      .hero-stat-num { font-size: 28px; }
+
+      /* SECTIONS MOBILE */
+      .series-section { padding: 80px 20px 60px; border-radius: 24px 24px 0 0; margin-top: -40px; }
+      .context-section { padding: 80px 20px 60px; border-radius: 24px 24px 0 0; }
+      .signup-section { border-radius: 24px 24px 0 0; }
+
+      /* SERIES CARDS MOBILE */
+      .series-header { grid-template-columns: 1fr; gap: 24px; }
+      .series-header-right { align-items: flex-start; }
+      .episodes-grid { grid-template-columns: 1fr; gap: 3px; }
+      .ep-card::before { padding-top: 65%; }
+      .ep-card.featured::before { padding-top: 65%; }
       .ep-card:hover { transform: translateY(-4px); }
-      .context-inner { grid-template-columns: 1fr; gap: 48px; }
+      .ep-card-content { padding: 20px; }
+      .ep-title { font-size: 18px; }
+
+      /* CONTEXT MOBILE */
+      .context-inner { grid-template-columns: 1fr; gap: 40px; }
       .context-left { position: static; }
-      .context-signature { font-size: 60px; }
+      .context-signature { font-size: 48px; }
+      .ctx-card { padding: 24px 20px; }
+      .ctx-title { font-size: 17px; }
+
+      /* SIGNUP MOBILE */
       .signup-grid { grid-template-columns: 1fr; }
-      .signup-left, .signup-right { padding: 60px 24px; }
+      .signup-left { padding: 60px 20px 32px; }
+      .signup-right { padding: 0 20px 60px; }
       .signup-left::after { display: none; }
-      footer { padding: 60px 24px 32px; }
-      .footer-top { grid-template-columns: 1fr 1fr; gap: 40px; }
-      .footer-bottom { flex-direction: column; gap: 20px; text-align: center; }
+      .signup-pillars { gap: 20px; }
+
+      /* FOOTER MOBILE */
+      footer { padding: 60px 20px 32px; border-radius: 24px 24px 0 0; }
+      .footer-top { grid-template-columns: 1fr 1fr; gap: 32px; }
+      .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
+      .footer-socials { flex-wrap: wrap; justify-content: center; gap: 16px; }
+    }
+
+    @media (max-width: 480px) {
+      .hero { padding: 90px 16px 0; }
+      .hero-headline { font-size: clamp(38px, 11vw, 52px); }
+      .hero-headline-line2 { font-size: clamp(32px, 9vw, 44px); }
+      .series-section, .context-section { padding: 60px 16px; }
+      .footer-top { grid-template-columns: 1fr; gap: 32px; }
+      nav { padding: 0 16px; }
+      .signup-left, .signup-right { padding-left: 16px; padding-right: 16px; }
+      footer { padding: 48px 16px 28px; }
     }
   </style>
 </head>
@@ -485,9 +525,9 @@
   <!-- HERO -->
   <section class="hero">
     <div class="hero-video-wrap" id="videoWrap">
-      <video id="vid0" muted playsinline preload="auto"><source src="Videos/Hero1.mp4" type="video/mp4"></video>
-      <video id="vid1" muted playsinline preload="auto"><source src="Videos/Hero2.mp4" type="video/mp4"></video>
-      <video id="vid2" muted playsinline preload="auto"><source src="Videos/Hero3.mp4" type="video/mp4"></video>
+      <video id="vid0" autoplay muted loop playsinline preload="auto" poster="Photos/DarriusPhoto.JPG"><source src="Videos/Hero1.mp4" type="video/mp4"></video>
+      <video id="vid1" autoplay muted loop playsinline preload="auto" poster="Photos/DarriusPhoto.JPG"><source src="Videos/Hero2.mp4" type="video/mp4"></video>
+      <video id="vid2" autoplay muted loop playsinline preload="auto" poster="Photos/DarriusPhoto.JPG"><source src="Videos/Hero3.mp4" type="video/mp4"></video>
     </div>
     <div class="hero-video-overlay"></div>
     <div class="hero-vignette"></div>
