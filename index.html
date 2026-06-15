@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Unseated Generation — Called. Refined. Sent.</title>
+  <title>Unseated Generation · Called. Refined. Sent.</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@400;600;700;800&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -92,7 +92,7 @@
       position: relative; min-height: 100vh;
       display: flex; flex-direction: column;
       justify-content: center; align-items: flex-start;
-      overflow: hidden; padding: 0 60px 150px;
+      overflow: hidden; padding: 100px 60px 120px;
     }
 
     /* Vignette */
@@ -134,7 +134,7 @@
 
     /* Word split headline */
     .hero-headline { font-family: 'Playfair Display', serif; font-size: clamp(52px, 7.5vw, 110px); font-weight: 900; line-height: 0.95; letter-spacing: -0.02em; color: var(--white); margin-bottom: 12px; }
-    .hero-headline-line2 { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(44px, 6.5vw, 96px); font-weight: 800; line-height: 1; letter-spacing: 0.04em; text-transform: uppercase; color: var(--white); margin-bottom: 40px; }
+    .hero-headline-line2 { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(44px, 6.5vw, 96px); font-weight: 800; line-height: 1; letter-spacing: 0.04em; text-transform: uppercase; color: var(--white); margin-bottom: 24px; }
 
     .word { display: inline-block; overflow: visible; padding-bottom: 0.15em; margin-bottom: -0.15em; }
     .word-inner { display: inline-block; transform: translateY(110%); opacity: 0; transition: transform 0.7s cubic-bezier(0.16,1,0.3,1), opacity 0.5s; }
@@ -156,10 +156,10 @@
     }
     @keyframes shimmer { 0% { background-position: 200% center; } 100% { background-position: -200% center; } }
 
-    .hero-divider { width: 0; height: 2px; background: linear-gradient(to right, var(--gold), transparent); margin-bottom: 32px; transition: width 1s 1.2s ease; }
+    .hero-divider { width: 0; height: 2px; background: linear-gradient(to right, var(--gold), transparent); margin-bottom: 24px; transition: width 1s 1.2s ease; }
     .hero-divider.animate { width: 80px; }
 
-    .hero-subhead { font-size: 18px; font-weight: 300; line-height: 1.7; color: var(--grey-pale); max-width: 580px; margin-bottom: 56px; opacity: 0; transform: translateY(20px); transition: opacity 0.8s 1.4s, transform 0.8s 1.4s; text-shadow: 0 1px 12px rgba(0,0,0,0.6); }
+    .hero-subhead { font-size: 18px; font-weight: 300; line-height: 1.7; color: var(--grey-pale); max-width: 580px; margin-bottom: 20px; opacity: 0; transform: translateY(20px); transition: opacity 0.8s 1.4s, transform 0.8s 1.4s; text-shadow: 0 1px 12px rgba(0,0,0,0.6); }
     .hero-subhead.animate { opacity: 1; transform: translateY(0); }
     .hero-subhead strong { color: var(--white); font-weight: 600; }
 
@@ -378,12 +378,30 @@
     .context-closing-text { font-family: 'Playfair Display', serif; font-size: 16px; font-style: italic; color: var(--grey-pale); line-height: 1.6; }
     .context-closing-text strong { color: var(--gold); font-style: normal; font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; display: block; margin-top: 4px; }
 
+    /* SENT BRIDGE: charcoal section with overlap */
+    .sent-bridge {
+      padding: 130px 60px;
+      background: var(--charcoal);
+      position: relative;
+      overflow: hidden;
+      z-index: 4;
+      margin-top: -40px;
+      border-radius: 40px 40px 0 0;
+      box-shadow: 0 -20px 60px rgba(0,0,0,0.4);
+    }
+    .sent-bridge-line { position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(to right, transparent, var(--gold), transparent); transform: scaleX(0); transform-origin: center; transition: transform 1s cubic-bezier(0.16,1,0.3,1); }
+    .sent-bridge-line.animate { transform: scaleX(1); }
+    .sent-bridge-bg { position: absolute; bottom: -34px; right: -20px; font-family: 'Barlow Condensed', sans-serif; font-size: clamp(140px, 18vw, 280px); font-weight: 800; color: rgba(184,146,42,0.05); line-height: 1; pointer-events: none; text-transform: uppercase; }
+    .sent-bridge-inner { position: relative; z-index: 2; max-width: 760px; }
+    .sent-bridge-inner h2 { margin: 18px 0 24px; }
+    .sent-bridge-inner p { font-size: 17px; font-weight: 300; line-height: 1.85; color: var(--grey-pale); max-width: 620px; margin-bottom: 36px; }
+
     /* ── SIGNUP — WHITE with overlap ── */
     .signup-section {
       background: var(--pure-white);
       position: relative;
       overflow: hidden;
-      z-index: 4;
+      z-index: 5;
       margin-top: -40px;
       border-radius: 40px 40px 0 0;
       box-shadow: 0 -20px 60px rgba(0,0,0,0.2);
@@ -413,7 +431,7 @@
     .pillar-label { font-size: 10px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: #888888; }
 
     /* ── FOOTER ── */
-    footer { background: var(--black); border-top: 1px solid var(--border-dark); padding: 80px 60px 40px; position: relative; z-index: 5; margin-top: -40px; border-radius: 40px 40px 0 0; box-shadow: 0 -20px 60px rgba(0,0,0,0.3); }
+    footer { background: var(--black); border-top: 1px solid var(--border-dark); padding: 80px 60px 40px; position: relative; z-index: 6; margin-top: -40px; border-radius: 40px 40px 0 0; box-shadow: 0 -20px 60px rgba(0,0,0,0.3); }
     .footer-top { display: grid; grid-template-columns: 2.5fr 1fr 1fr 1fr; gap: 60px; padding-bottom: 60px; border-bottom: 1px solid rgba(255,255,255,0.06); margin-bottom: 40px; }
     .footer-brand .wordmark { font-family: 'Barlow Condensed', sans-serif; font-size: 30px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; color: var(--white); margin-bottom: 4px; }
     .footer-brand .wordmark span { color: var(--gold); }
@@ -520,7 +538,8 @@
       <li><a href="series.html">The Unseated Series</a></li>
       <li><a href="context.html">Context Matters</a></li>
       <li><a href="about.html">About</a></li>
-      <li><a href="community.html">Community</a></li>
+      <li><a href="sent.html">Sent</a></li>
+      <li><a href="community.html">The Remnant</a></li>
       <li><a href="community.html" class="nav-cta">Join the Remnant</a></li>
     </ul>
     <div class="hamburger" id="hamburger">
@@ -743,6 +762,23 @@
     </div>
   </section>
 
+  <!-- SENT BRIDGE -->
+  <section class="sent-bridge" id="sent">
+    <div class="sent-bridge-line"></div>
+    <div class="sent-bridge-bg">SENT</div>
+    <div class="sent-bridge-inner reveal">
+      <div class="section-eyebrow">
+        <div class="section-eyebrow-line"></div>
+        <span class="section-eyebrow-text">Sent</span>
+      </div>
+      <h2 class="section-title-dark">More Than a Platform.<br>A People <em>Sent.</em></h2>
+      <p>The teaching is only half of it. Unseated Generation is also a faith-based ministry being built to express the love of Christ in tangible ways, in our city and beyond. Formation that never leaves the screen was never the goal.</p>
+      <a href="sent.html" class="btn-gold">See the Mission
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </section>
+
   <!-- SIGNUP -->
   <section class="signup-section" id="signup">
     <div class="signup-section-line" id="signupLine"></div>
@@ -780,7 +816,7 @@
       <div class="footer-brand">
         <div class="wordmark">UN/<span>SEATED</span></div>
         <div class="tagline">Generation · Called. Refined. Sent.</div>
-        <p>A platform that exists to confront the systems, mindsets and patterns that prevent maturity and limit kingdom impact. A safe place for the remnant.</p>
+        <p>Unseated Generation is a faith-based ministry. We confront the systems, mindsets, and patterns that prevent maturity and limit kingdom impact, and we work to express the love of Christ in tangible ways. Called. Refined. Sent.</p>
       </div>
       <div>
         <div class="footer-col-head">Content</div>
@@ -794,7 +830,8 @@
         <div class="footer-col-head">Platform</div>
         <ul class="footer-links">
           <li><a href="about.html">About</a></li>
-          <li><a href="community.html">Community</a></li>
+          <li><a href="sent.html">Sent</a></li>
+          <li><a href="community.html">The Remnant</a></li>
           <li><a href="#">Contact</a></li>
         </ul>
       </div>
@@ -909,7 +946,7 @@
         if (entry.isIntersecting) { entry.target.classList.add('animate'); lineObs.unobserve(entry.target); }
       });
     }, { threshold: 0.3 });
-    document.querySelectorAll('.series-section-line, .context-section-line, .signup-section-line, .section-eyebrow-line').forEach(el => lineObs.observe(el));
+    document.querySelectorAll('.series-section-line, .context-section-line, .sent-bridge-line, .signup-section-line, .section-eyebrow-line').forEach(el => lineObs.observe(el));
 
     // ── MOBILE NAV ──
     document.getElementById('hamburger').addEventListener('click', () => {
