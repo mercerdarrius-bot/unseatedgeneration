@@ -541,15 +541,6 @@
 
     <div class="hero-parallax" id="heroParallax">
       <div class="hero-content">
-        <div class="hero-eyebrow">
-          <div class="hero-eyebrow-line" id="eyebrowLine"></div>
-          <span class="hero-eyebrow-text" id="eyebrowText">
-            Systems <span class="hero-eyebrow-dot">·</span>
-            Mindsets <span class="hero-eyebrow-dot">·</span>
-            Patterns
-          </span>
-        </div>
-
         <h1 class="hero-headline" id="heroHeadline">
           <span class="word"><span class="word-inner">Unseating</span></span>&#32;<span class="word"><span class="word-inner gold-word gold-shimmer">Everything</span></span>
         </h1>
@@ -876,11 +867,6 @@
 
     // ── HERO ANIMATIONS ──
     function initHero() {
-      setTimeout(() => {
-        document.getElementById('eyebrowLine').classList.add('animate');
-        document.getElementById('eyebrowText').classList.add('animate');
-      }, 200);
-
       const words = document.querySelectorAll('.word-inner');
       words.forEach((w, i) => {
         setTimeout(() => w.classList.add('animate'), 400 + i * 120);
