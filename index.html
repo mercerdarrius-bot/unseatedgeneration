@@ -550,9 +550,9 @@
   <!-- HERO -->
   <section class="hero">
     <div class="hero-video-wrap" id="videoWrap">
-      <video id="vid0" autoplay muted loop playsinline preload="auto" poster="Photos/DarriusPhoto.JPG"><source src="Videos/Hero1.mp4" type="video/mp4"></video>
-      <video id="vid1" autoplay muted loop playsinline preload="auto" poster="Photos/DarriusPhoto.JPG"><source src="Videos/Hero2.mp4" type="video/mp4"></video>
-      <video id="vid2" autoplay muted loop playsinline preload="auto" poster="Photos/DarriusPhoto.JPG"><source src="Videos/Hero3.mp4" type="video/mp4"></video>
+      <video id="vid0" autoplay muted loop playsinline webkit-playsinline="true" preload="auto" poster="Photos/DarriusPhoto.JPG"><source src="Videos/Hero1.mp4" type="video/mp4"></video>
+      <video id="vid1" autoplay muted loop playsinline webkit-playsinline="true" preload="auto" poster="Photos/DarriusPhoto.JPG"><source src="Videos/Hero2.mp4" type="video/mp4"></video>
+      <video id="vid2" autoplay muted loop playsinline webkit-playsinline="true" preload="auto" poster="Photos/DarriusPhoto.JPG"><source src="Videos/Hero3.mp4" type="video/mp4"></video>
     </div>
     <div class="hero-video-overlay"></div>
     <div class="hero-vignette"></div>
@@ -963,20 +963,39 @@
     const dots = document.querySelectorAll('.hero-dot');
     let current = 0, timer = null;
 
+    // iOS/mobile autoplay needs the muted property set in JS, not just the attribute.
+    videos.forEach(v => { v.muted = true; v.defaultMuted = true; });
+
+    // Play the active video. If a mobile browser blocks autoplay, retry once
+    // on the first user gesture instead of leaving the poster frozen.
+    function playActive() {
+      const v = videos[current];
+      const p = v.play();
+      if (p && typeof p.catch === 'function') {
+        p.catch(() => {
+          const retry = () => {
+            v.play().catch(() => {});
+            ['touchstart', 'click', 'scroll'].forEach(e => window.removeEventListener(e, retry));
+          };
+          ['touchstart', 'click', 'scroll'].forEach(e => window.addEventListener(e, retry, { once: true, passive: true }));
+        });
+      }
+    }
+
     function switchVideo(index) {
       videos[current].classList.remove('active');
       dots[current].classList.remove('active');
       current = index;
       videos[current].classList.add('active');
       videos[current].currentTime = 0;
-      videos[current].play().catch(() => {});
       dots[current].classList.add('active');
+      playActive();
       clearInterval(timer);
       timer = setInterval(nextVideo, 15000);
     }
     function nextVideo() { switchVideo((current + 1) % videos.length); }
     videos[0].classList.add('active');
-    videos[0].play().catch(() => {});
+    playActive();
     timer = setInterval(nextVideo, 15000);
     videos.forEach((v, i) => { v.addEventListener('ended', () => switchVideo((i + 1) % videos.length)); });
   </script>
