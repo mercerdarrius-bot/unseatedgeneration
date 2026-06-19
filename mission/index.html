@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Give · Unseated Generation</title>
+  <title>Sent · Unseated Generation</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@400;600;700;800&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -220,6 +220,53 @@
       .footer-top { grid-template-columns: 1fr 1fr; gap: 40px; }
       .footer-bottom { flex-direction: column; gap: 20px; text-align: center; }
     }
+
+    /* ===== SENT PAGE ADDITIONS ===== */
+    .page-actions { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; margin-top: 44px; opacity: 0; transform: translateY(16px); transition: opacity 0.8s 1.3s, transform 0.8s 1.3s; }
+    .page-actions.animate { opacity: 1; transform: translateY(0); }
+    .btn-gold { font-family: 'Barlow Condensed', sans-serif; font-size: 14px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--black); background: var(--gold); padding: 18px 44px; text-decoration: none; display: inline-flex; align-items: center; gap: 10px; transition: background 0.25s, transform 0.2s, box-shadow 0.25s; clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%); }
+    .btn-gold:hover { background: var(--gold-light); transform: translateY(-3px); box-shadow: 0 12px 32px rgba(184,146,42,0.35); }
+    .btn-outline-light { font-family: 'Barlow Condensed', sans-serif; font-size: 14px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--white); border: 1px solid rgba(255,255,255,0.3); padding: 17px 40px; text-decoration: none; display: inline-flex; align-items: center; gap: 10px; transition: border-color 0.25s, color 0.25s, transform 0.2s, box-shadow 0.25s; background: rgba(255,255,255,0.05); }
+    .btn-outline-light:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.3); }
+
+    .honesty-line { margin-top: 44px; padding: 22px 26px; border: 1px solid var(--border-dark); border-left: 3px solid var(--gold); background: rgba(184,146,42,0.05); max-width: 760px; }
+    .honesty-line p { font-size: 13px; font-weight: 300; line-height: 1.7; color: var(--grey-light); margin: 0; max-width: none; }
+
+    .work-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 3px; margin-top: 56px; }
+
+    /* FOUNDING BOARD (gated until launch) */
+    .board-section { padding: 120px 60px; background: var(--charcoal); position: relative; z-index: 4; margin-top: -40px; border-radius: 40px 40px 0 0; box-shadow: 0 -20px 60px rgba(0,0,0,0.3); overflow: hidden; }
+    .board-section-line { position: absolute; top: 40px; left: 60px; right: 60px; height: 1px; background: linear-gradient(to right, transparent, var(--gold), transparent); transform: scaleX(0); transform-origin: center; transition: transform 1s cubic-bezier(0.16,1,0.3,1); }
+    .board-section-line.animate { transform: scaleX(1); }
+    .board-inner { max-width: 1140px; margin: 0 auto; }
+    .board-section h2 { font-family: 'Playfair Display', serif; font-size: clamp(32px, 3.5vw, 52px); font-weight: 900; line-height: 1.05; color: var(--white); margin-bottom: 48px; }
+    .board-section h2 em { font-style: italic; color: var(--gold); }
+    .board-intro { font-size: 16px; font-weight: 300; line-height: 1.8; color: var(--grey-pale); max-width: 620px; margin-bottom: 56px; }
+    .board-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+    .board-card { display: flex; flex-direction: column; }
+    .board-portrait { position: relative; aspect-ratio: 1 / 1; background: linear-gradient(150deg, #15110a 0%, #241b0b 50%, #15110a 100%); border: 1px solid var(--border-light); overflow: hidden; }
+    .board-portrait::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--gold); z-index: 3; }
+    .board-monogram { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-size: clamp(36px, 4vw, 48px); font-weight: 700; letter-spacing: 0.05em; color: var(--gold); opacity: 0.9; z-index: 1; }
+    .board-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 2; filter: grayscale(12%) contrast(1.04); }
+    .board-name { font-family: 'Playfair Display', serif; font-size: 19px; font-weight: 700; color: var(--white); margin-top: 20px; line-height: 1.25; }
+    .board-title { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-top: 6px; }
+    .board-card.seat .board-portrait { background: rgba(255,255,255,0.02); border-style: dashed; }
+    .board-card.seat .board-portrait::after { background: rgba(184,146,42,0.35); }
+    .board-card.seat .board-seat-mark { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; color: var(--grey-mid); z-index: 1; }
+    .board-card.seat .board-name { color: var(--grey-light); }
+    .board-card.seat .board-title { color: var(--grey-mid); }
+
+    @media (max-width: 1024px) {
+      .board-section { padding: 80px 24px; border-radius: 24px 24px 0 0; margin-top: -24px; }
+      .work-grid { grid-template-columns: 1fr 1fr; }
+      .board-grid { grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    }
+    @media (max-width: 680px) {
+      .work-grid { grid-template-columns: 1fr; }
+      .board-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
+      .page-actions { flex-direction: column; align-items: stretch; }
+      .btn-gold, .btn-outline-light { justify-content: center; }
+    }
   </style>
 </head>
 <body>
@@ -228,17 +275,17 @@
   <div class="page-transition" id="pageTransition"></div>
 
   <nav>
-    <a href="index.html" class="nav-logo">
+    <a href="/" class="nav-logo">
       <div class="nav-wordmark">UN/<span>SEATED</span></div>
       <div class="nav-sub">Generation</div>
     </a>
     <ul class="nav-center">
-      <li><a href="sent.html">The Mission</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="series.html">The Unseated Series</a></li>
-      <li><a href="context.html">Context Matters</a></li>
-      <li><a href="community.html">The Remnant</a></li>
-      <li><a href="give.html" class="nav-cta"><span>Give</span></a></li>
+      <li><a href="/mission" class="active">The Mission</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/series">The Unseated Series</a></li>
+      <li><a href="/context">Context Matters</a></li>
+      <li><a href="/community">The Remnant</a></li>
+      <li><a href="/give" class="nav-cta"><span>Give</span></a></li>
     </ul>
     <div class="hamburger" id="hamburger">
       <span></span><span></span><span></span>
@@ -249,63 +296,103 @@
   <section class="page-hero">
     <div class="hero-top-line" id="heroTopLine"></div>
     <div class="page-hero-bg"></div>
-    <div class="page-hero-bg-word">GIVE</div>
+    <div class="page-hero-bg-word">SENT</div>
     <div class="hero-bar"></div>
     <div class="page-hero-inner">
       <div class="page-eyebrow">
         <div class="page-eyebrow-line" id="eyebrowLine"></div>
-        <span class="page-eyebrow-text" id="eyebrowText">Give</span>
+        <span class="page-eyebrow-text" id="eyebrowText">Sent</span>
       </div>
       <h1 class="page-title">
-        <span class="word"><span class="word-inner">Generosity</span></span>&#32;<span class="word"><span class="word-inner gold-shimmer" style="font-style:italic;">Soon.</span></span>
+        <span class="word"><span class="word-inner">Love</span></span>&#32;<span class="word"><span class="word-inner">Made</span></span>&#32;<span class="word"><span class="word-inner gold-shimmer" style="font-style:italic;">Tangible.</span></span>
       </h1>
       <div class="page-divider" id="pageDivider"></div>
-      <p class="page-desc" id="pageDesc">Giving is not open yet. We are preparing to launch it the right way. Leave your email and we will tell you the moment it opens, or partner with the work in other ways today.</p>
+      <p class="page-desc" id="pageDesc">Formation was never the finish line. We are formed to be sent. Unseated Generation is a faith-based ministry committed to expressing the love of Christ in ways you can see, touch, and stand on.</p>
+      <div class="page-actions" id="pageActions">
+        <a href="#partner" class="btn-gold">Build With Us
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="/about" class="btn-outline-light">Our Story
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
     </div>
   </section>
 
-  <!-- GIVING SOON -->
+  <!-- THE MISSION -->
   <section class="mission-section">
-    <div class="mission-section-line" id="givingLine"></div>
-    <div class="mission-bg">SOON</div>
+    <div class="mission-section-line" id="missionLine"></div>
+    <div class="mission-bg">SENT</div>
     <div class="assignment-inner">
       <div class="assignment-eyebrow reveal">
         <div class="assignment-eyebrow-line"></div>
-        <span class="assignment-eyebrow-text">The Plan</span>
+        <span class="assignment-eyebrow-text">The Mission</span>
       </div>
-      <h2 class="reveal" style="font-family:'Playfair Display',serif;font-size:clamp(32px,3.5vw,52px);font-weight:900;line-height:1.05;color:var(--white);margin-bottom:32px;">Giving Opens <em style="font-style:italic;color:var(--gold);">Soon.</em></h2>
-      <p class="reveal">We are building the foundation to receive and steward generosity with integrity. Until that is in place, giving stays closed. When it opens, this is where it will live.</p>
-      <div class="founder-credential reveal" style="margin-top:8px;max-width:760px;">
-        <div class="founder-credential-icon">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
-        </div>
-        <div class="founder-credential-text">
-          <strong>Secure giving opens soon</strong>
-          This is the future home of giving. It is not live yet, and no gifts are being collected here today.
-        </div>
-      </div>
-      <!-- DONATION FLOW PLACEHOLDER: the live giving experience (secure form or
-           processor embed) will be placed here once giving launches and the
-           required state registration is complete. Do not add amount fields, a
-           payment transaction, or any tax or status claims until then. -->
+      <h2 class="reveal">Faith That Shows Up.<br>Christ's Love, <em>Tangible.</em></h2>
+      <p class="reveal">Unseated Generation is a faith-based ministry in Jacksonville, Florida. We teach the truth that forms people, and we put that truth to work in the city around us. We disciple people in the Word, and we build practical programs that strengthen families, invest in the next generation, and meet real needs. Everyone is welcome. Everyone is served.</p>
     </div>
   </section>
 
-  <!-- STAY INFORMED -->
-  <section class="subscribe-section">
+  <!-- THE WORK -->
+  <section class="assignment-section">
+    <div class="assignment-section-line" id="workLine"></div>
+    <div class="assignment-bg">GO</div>
+    <div class="assignment-inner">
+      <div class="assignment-eyebrow reveal">
+        <div class="assignment-eyebrow-line"></div>
+        <span class="assignment-eyebrow-text">The Work</span>
+      </div>
+      <h2 class="reveal">Where Formation Becomes <em>Action.</em></h2>
+      <p class="reveal">These are the lanes we are building.</p>
+      <div class="work-grid">
+        <div class="assignment-item reveal reveal-delay-1"><div class="assignment-item-num">01</div><div class="assignment-item-title">Spiritual Formation &amp; Discipleship</div><div class="assignment-item-desc">Teaching, study, and discipleship that forms people in the truth of Scripture, in person and through our content.</div></div>
+        <div class="assignment-item reveal reveal-delay-2"><div class="assignment-item-num">02</div><div class="assignment-item-title">Youth &amp; Collegiate Outreach</div><div class="assignment-item-desc">Investing in students and young adults with mentorship and truth.</div></div>
+        <div class="assignment-item reveal reveal-delay-3"><div class="assignment-item-num">03</div><div class="assignment-item-title">Financial Literacy</div><div class="assignment-item-desc">Practical workshops that help families steward money with wisdom and freedom.</div></div>
+        <div class="assignment-item reveal reveal-delay-1"><div class="assignment-item-num">04</div><div class="assignment-item-title">Family Support</div><div class="assignment-item-desc">Strengthening households as the first place faith is lived and passed down.</div></div>
+        <div class="assignment-item reveal reveal-delay-2"><div class="assignment-item-num">05</div><div class="assignment-item-title">Housing &amp; Stability</div><div class="assignment-item-desc">Walking with people through seasons of transition toward stable footing.</div></div>
+        <div class="assignment-item reveal reveal-delay-3"><div class="assignment-item-num">06</div><div class="assignment-item-title">Mental &amp; Emotional Health</div><div class="assignment-item-desc">Caring for the whole person and connecting people to support.</div></div>
+        <div class="assignment-item reveal reveal-delay-1"><div class="assignment-item-num">07</div><div class="assignment-item-title">Feeding &amp; Practical Care</div><div class="assignment-item-desc">Meeting immediate needs with dignity.</div></div>
+        <div class="assignment-item reveal reveal-delay-2"><div class="assignment-item-num">08</div><div class="assignment-item-title">Economic Opportunity</div><div class="assignment-item-desc">Opening doors to skills, work, and dignity that last.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- THE FOUNDING BOARD
+       Monogram placeholders show until headshots are added. To add a photo,
+       save it at Photos/board/[firstname].jpg (lowercase: darrius, carrington,
+       april, aliyah, spenser, chris), then inside that person's
+       div.board-portrait, right before the div.board-monogram, add an IMG with
+       class board-photo, src that path, and alt the person's name. The photo
+       covers the monogram automatically. No other change needed. -->
+  <section class="board-section">
+    <div class="board-section-line" id="boardLine"></div>
+    <div class="board-inner">
+      <h2 class="reveal">The Founding Board</h2>
+      <div class="board-grid">
+        <div class="board-card reveal"><div class="board-portrait"><div class="board-monogram">DM</div></div><div class="board-name">Darrius Mercer</div><div class="board-title">Founder &amp; Executive Director</div></div>
+        <div class="board-card reveal"><div class="board-portrait"><div class="board-monogram">CM</div></div><div class="board-name">Carrington Mercer</div><div class="board-title">Co-Founder, Programs &amp; Grants</div></div>
+        <div class="board-card reveal"><div class="board-portrait"><div class="board-monogram">AJ</div></div><div class="board-name">April Jordan</div><div class="board-title">Creative &amp; Communications</div></div>
+        <div class="board-card reveal"><div class="board-portrait"><div class="board-monogram">AD</div></div><div class="board-name">Aliyah Davis</div><div class="board-title">Branding &amp; Visibility</div></div>
+        <div class="board-card reveal"><div class="board-portrait"><div class="board-monogram">SJ</div></div><div class="board-name">Spenser Jones</div><div class="board-title">Theology &amp; Content</div></div>
+        <div class="board-card reveal"><div class="board-portrait"><div class="board-monogram">CW</div></div><div class="board-name">Chris White</div><div class="board-title">Evangelism</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PARTNER -->
+  <section class="subscribe-section" id="partner">
     <div class="subscribe-section-line" id="subscribeLine"></div>
     <div class="subscribe-inner reveal">
       <div class="subscribe-eyebrow">
         <div class="subscribe-eyebrow-line"></div>
-        <span class="subscribe-eyebrow-text">Stay Informed</span>
+        <span class="subscribe-eyebrow-text">Partner</span>
       </div>
-      <h2 class="subscribe-title">Be the First to <em>Know.</em></h2>
-      <p class="subscribe-desc">Leave your email and we will reach out the moment giving opens. No spam, no pressure, just a note when the door is open.</p>
+      <h2 class="subscribe-title">Build This With <em>Us.</em></h2>
+      <p class="subscribe-desc">This work moves forward on the shoulders of people who believe in it. Partner with us, lend your time and skill, or pray alongside us.</p>
       <div class="subscribe-form">
         <input type="email" placeholder="Enter your email address" />
-        <button type="button">Stay Informed</button>
+        <button type="button">Partner With Us</button>
       </div>
-      <p class="subscribe-fine">You can also explore the mission or partner with the work today.</p>
     </div>
   </section>
 
@@ -320,16 +407,16 @@
       <div>
         <div class="footer-col-head">Content</div>
         <ul class="footer-links">
-          <li><a href="series.html">The Unseated Series</a></li>
-          <li><a href="context.html">Context Matters</a></li>
+          <li><a href="/series">The Unseated Series</a></li>
+          <li><a href="/context">Context Matters</a></li>
         </ul>
       </div>
       <div>
         <div class="footer-col-head">Platform</div>
         <ul class="footer-links">
-          <li><a href="sent.html">The Mission</a></li>
-          <li><a href="about.html">About</a></li>
-          <li><a href="community.html">The Remnant</a></li>
+          <li><a href="/mission">The Mission</a></li>
+          <li><a href="/about">About</a></li>
+          <li><a href="/community">The Remnant</a></li>
           <li><a href="#">Contact</a></li>
         </ul>
       </div>
@@ -388,6 +475,7 @@
     });
     setTimeout(() => document.getElementById('pageDivider').classList.add('animate'), 900);
     setTimeout(() => document.getElementById('pageDesc').classList.add('animate'), 1100);
+    setTimeout(() => document.getElementById('pageActions').classList.add('animate'), 1300);
 
     const reveals = document.querySelectorAll('.reveal');
     const revealObs = new IntersectionObserver((entries) => {
@@ -402,7 +490,7 @@
         if (entry.isIntersecting) { entry.target.classList.add('animate'); lineObs.unobserve(entry.target); }
       });
     }, { threshold: 0.3 });
-    document.querySelectorAll('.mission-section-line, .assignment-section-line, .founder-section-line, .subscribe-section-line, .eyebrow-line, .assignment-eyebrow-line, .founder-divider').forEach(el => lineObs.observe(el));
+    document.querySelectorAll('.mission-section-line, .assignment-section-line, .board-section-line, .subscribe-section-line, .eyebrow-line, .assignment-eyebrow-line').forEach(el => lineObs.observe(el));
 
     document.getElementById('hamburger').addEventListener('click', () => {
       const nc = document.querySelector('.nav-center');
