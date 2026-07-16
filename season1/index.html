@@ -156,6 +156,14 @@
     .ep-item:hover .ep-thumb-bg { transform: scale(1.06); }
     .ep-thumb-overlay { position: absolute; inset: 0; background: linear-gradient(to right, rgba(0,0,0,0.2), transparent); }
     .ep1-bg { background: linear-gradient(135deg, #1a1408 0%, #3d2d10 50%, #1a1408 100%); }
+    /* S1E1 square thumbnail on the live (Episode 01) panel. Position biased slightly up so
+       faces survive the wide top/bottom trim on mobile; desktop trim is only ~5%. */
+    .ep-item.live .ep-thumb-bg { background: #1a1408 url('/Photos/S1E1-Square.jpg') center center / cover no-repeat; }
+    /* Mobile: the thumb becomes a wide short band, so bias the crop upward to keep both faces in view. */
+    @media (max-width: 1024px) { .ep-item.live .ep-thumb-bg { background-position: center 32%; } }
+    /* Legibility scrim: very strong at top (gold EPISODE 01 label over bright blue lights),
+       clear through the middle (subjects), moderate at bottom (LIVE NOW over dark crowd). */
+    .ep-item.live .ep-thumb-overlay { background: linear-gradient(to bottom, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.9) 10%, rgba(0,0,0,0.5) 24%, rgba(0,0,0,0.12) 40%, transparent 56%, transparent 76%, rgba(0,0,0,0.32) 90%, rgba(0,0,0,0.52) 100%); }
     .ep2-bg { background: linear-gradient(135deg, #0d0614 0%, #2a1040 50%, #0d0614 100%); }
     .ep3-bg { background: linear-gradient(135deg, #060810 0%, #0d1c3d 50%, #060810 100%); }
     .ep4-bg { background: linear-gradient(135deg, #0a0f06 0%, #1a2d0a 50%, #0a0f06 100%); }
