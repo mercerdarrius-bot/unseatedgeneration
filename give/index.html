@@ -236,11 +236,12 @@
     .btn-give { font-family: 'Barlow Condensed', sans-serif; font-size: 15px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--black); background: var(--gold); padding: 20px 52px; text-decoration: none; display: inline-flex; align-items: center; gap: 12px; transition: background 0.25s, transform 0.2s, box-shadow 0.25s; clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%); }
     .btn-give:hover { background: var(--gold-light); transform: translateY(-3px); box-shadow: 0 12px 32px rgba(184,146,42,0.35); }
     .give-note { font-size: 13px; font-weight: 300; color: var(--grey-light); margin-top: 20px; margin-bottom: 0; }
+    .give-sub { font-size: 13px; font-weight: 300; color: var(--grey-light); margin-top: 18px; letter-spacing: 0.02em; }
 
     /* Not-yet-wired state: link placeholder still in place */
     [data-give-link][data-pending="true"] { opacity: 0.55; cursor: not-allowed; }
     [data-give-link][data-pending="true"]:hover { transform: none; box-shadow: none; background: var(--gold); }
-    .give-pending-note { display: none; font-size: 13px; font-weight: 300; line-height: 1.7; color: var(--gold); margin-top: 18px; }
+    .give-pending-note { display: none; font-size: 13px; font-weight: 300; line-height: 1.7; color: var(--gold); margin-top: 10px; }
     .give-pending-note.show { display: block; }
 
     /* Trust and disclosure */
@@ -284,7 +285,7 @@
     </div>
   </nav>
 
-  <!-- HERO -->
+  <!-- HERO: the ask, and the button, immediately -->
   <section class="page-hero">
     <div class="hero-top-line" id="heroTopLine"></div>
     <div class="page-hero-bg"></div>
@@ -299,19 +300,18 @@
         <span class="word"><span class="word-inner">Generosity</span></span>&#32;<span class="word"><span class="word-inner">Made</span></span>&#32;<span class="word"><span class="word-inner gold-shimmer" style="font-style:italic;">Tangible.</span></span>
       </h1>
       <div class="page-divider" id="pageDivider"></div>
-      <p class="page-desc" id="pageDesc">Unseated Generation is a 501(c)(3) nonprofit ministry. Your gift funds discipleship, youth and collegiate outreach, family support, and practical care in Jacksonville and beyond.</p>
+      <p class="page-desc" id="pageDesc">Your gift funds discipleship and practical help in Jacksonville and beyond. Give once, or give monthly.</p>
       <div class="page-actions" id="pageActions">
-        <a href="#" data-give-link class="btn-gold">Give Now
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </a>
-        <a href="/mission" class="btn-outline-light">See the Mission
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        <a href="#" data-give-link class="btn-give">Give Now
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </a>
       </div>
+      <p class="give-sub">Secure giving through Givelify. Tax-deductible.</p>
+      <p class="give-pending-note">Online giving opens as soon as our Givelify account setup is complete.</p>
     </div>
   </section>
 
-  <!-- WHERE IT GOES -->
+  <!-- WHERE IT GOES: brief, scannable -->
   <section class="mission-section">
     <div class="mission-section-line" id="givingLine"></div>
     <div class="mission-bg">GIVE</div>
@@ -321,17 +321,16 @@
         <span class="assignment-eyebrow-text">Your Gift</span>
       </div>
       <h2 class="reveal">Where It <em>Goes.</em></h2>
-      <p class="reveal">Giving here funds the lanes laid out on the mission page. Truth that forms people, and programs that meet real needs in the city.</p>
       <div class="assignment-three">
         <div class="assignment-item reveal reveal-delay-1">
           <div class="assignment-item-num">01</div>
           <div class="assignment-item-title">Formation &amp; Discipleship</div>
-          <div class="assignment-item-desc">Teaching, study, and content that forms people in the truth of Scripture, in person and online.</div>
+          <div class="assignment-item-desc">Teaching and content that forms people in the truth of Scripture.</div>
         </div>
         <div class="assignment-item reveal reveal-delay-2">
           <div class="assignment-item-num">02</div>
           <div class="assignment-item-title">Community Programs</div>
-          <div class="assignment-item-desc">Youth and collegiate outreach, family support, financial literacy, and practical care.</div>
+          <div class="assignment-item-desc">Youth outreach, family support, financial literacy, and practical care.</div>
         </div>
         <div class="assignment-item reveal reveal-delay-3">
           <div class="assignment-item-num">03</div>
@@ -342,79 +341,43 @@
     </div>
   </section>
 
-  <!-- HOW TO GIVE -->
+  <!-- CREDIBILITY: for anyone who wants the details -->
   <section class="assignment-section">
-    <div class="assignment-section-line" id="howLine"></div>
-    <div class="assignment-bg">GIVE</div>
+    <div class="assignment-section-line" id="trustLine"></div>
+    <div class="assignment-bg">TRUST</div>
     <div class="assignment-inner">
       <div class="assignment-eyebrow reveal">
         <div class="assignment-eyebrow-line"></div>
-        <span class="assignment-eyebrow-text">How to Give</span>
+        <span class="assignment-eyebrow-text">The Details</span>
       </div>
-      <h2 class="reveal">Simple and <em>Secure.</em></h2>
-      <p class="reveal">We receive gifts through Givelify, a secure giving platform built for churches and nonprofits. Give once, or set up a recurring gift that carries the work month after month.</p>
+      <h2 class="reveal">Registered and <em>Accountable.</em></h2>
+      <p class="reveal">If you want the paperwork before you give, here it is.</p>
+      <div class="trust-grid">
+        <div class="trust-item reveal reveal-delay-1">
+          <div class="trust-label">501(c)(3) Nonprofit</div>
+          <div class="trust-text">The Unseated Generation Network Inc is a 501(c)(3) public charity. EIN 42-3479798. Contributions are tax-deductible to the extent allowed by law.</div>
+        </div>
+        <div class="trust-item reveal reveal-delay-2">
+          <div class="trust-label">Registered in Florida</div>
+          <div class="trust-text">Registered with the Florida Department of Agriculture and Consumer Services to solicit charitable contributions. Florida Registration CH84182.</div>
+        </div>
+      </div>
+      <!-- Required Florida solicitation disclosure. Wording and registration number
+           are taken verbatim from the FDACS letter dated July 8, 2026 (DTN4281021).
+           The statement must stay in capital letters and the registration number
+           must stay conspicuously displayed. Registration renews July 8, 2027. -->
+      <div class="disclosure reveal">
+        <p>FLORIDA REGISTRATION #CH84182</p>
+        <p>"A COPY OF THE OFFICIAL REGISTRATION AND FINANCIAL INFORMATION MAY BE OBTAINED FROM THE DIVISION OF CONSUMER SERVICES BY CALLING TOLL-FREE (800-435-7352) WITHIN THE STATE. REGISTRATION DOES NOT IMPLY ENDORSEMENT, APPROVAL, OR RECOMMENDATION BY THE STATE."</p>
+      </div>
       <div class="give-cta reveal">
-        <h3>Give Through Givelify</h3>
-        <p>You will be taken to our secure Givelify page to complete your gift. Givelify processes the transaction. We never see or store your card information.</p>
+        <h3>Ready When You Are</h3>
+        <p>Give once or set up a monthly gift. Givelify processes the transaction. We never see or store your card information.</p>
         <a href="#" data-give-link class="btn-give">Give Now
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </a>
         <p class="give-pending-note">Online giving opens as soon as our Givelify account setup is complete.</p>
-        <p class="give-note">To give monthly, choose the recurring option on the Givelify page.</p>
       </div>
-    </div>
-  </section>
-
-  <!-- TRANSPARENCY -->
-  <section class="founder-section">
-    <div class="founder-section-line" id="trustLine"></div>
-    <div class="assignment-inner">
-      <div class="assignment-eyebrow reveal">
-        <div class="assignment-eyebrow-line"></div>
-        <span class="assignment-eyebrow-text">Transparency</span>
-      </div>
-      <h2 class="reveal" style="font-family:'Playfair Display',serif;font-size:clamp(32px,3.5vw,52px);font-weight:900;line-height:1.05;color:var(--white);margin-bottom:24px;">Stewarded With <em style="font-style:italic;color:var(--gold);">Care.</em></h2>
-      <p class="reveal">We take the trust behind every gift seriously. Here is where we stand.</p>
-      <div class="trust-grid">
-        <div class="trust-item reveal reveal-delay-1">
-          <div class="trust-label">Tax Deductible</div>
-          <div class="trust-text">Unseated Generation is a 501(c)(3) nonprofit organization. Your gift is tax-deductible to the extent allowed by law, and you will receive a receipt for every gift.</div>
-        </div>
-        <div class="trust-item reveal reveal-delay-2">
-          <div class="trust-label">Registered to Solicit</div>
-          <div class="trust-text">We are registered with the Florida Department of Agriculture and Consumer Services to solicit charitable contributions in the state of Florida.</div>
-        </div>
-      </div>
-      <!-- ============================================================
-           REQUIRED DISCLOSURE. Two bracketed placeholders in the block below
-           must be filled in before this page solicits publicly:
-             1. the EIN placeholder   -> your IRS EIN, format 12-3456789
-             2. the FLORIDA placeholder -> your FDACS number, format CH12345
-           Confirm the exact required wording and number against the
-           registration letter FDACS issued you.
-           ============================================================ -->
-      <div class="disclosure reveal">
-        <p>UNSEATED GENERATION IS A 501(C)(3) NONPROFIT ORGANIZATION. EIN [ADD EIN]. CONTRIBUTIONS ARE TAX-DEDUCTIBLE TO THE EXTENT ALLOWED BY LAW.</p>
-        <p>A COPY OF THE OFFICIAL REGISTRATION AND FINANCIAL INFORMATION MAY BE OBTAINED FROM THE DIVISION OF CONSUMER SERVICES BY CALLING TOLL-FREE 1-800-435-7352 WITHIN THE STATE OR AT WWW.FDACS.GOV. REGISTRATION DOES NOT IMPLY ENDORSEMENT, APPROVAL, OR RECOMMENDATION BY THE STATE. FLORIDA REGISTRATION [ADD FL REGISTRATION #].</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- PARTNER BEYOND GIVING -->
-  <section class="subscribe-section">
-    <div class="subscribe-section-line" id="subscribeLine"></div>
-    <div class="subscribe-inner reveal">
-      <div class="subscribe-eyebrow">
-        <div class="subscribe-eyebrow-line"></div>
-        <span class="subscribe-eyebrow-text">Partner</span>
-      </div>
-      <h2 class="subscribe-title">More Than a <em>Gift.</em></h2>
-      <p class="subscribe-desc">Giving is one way in. If you want to serve, pray, or simply follow the work as it grows, leave your email and we will be in touch.</p>
-      <div class="subscribe-form">
-        <input type="email" placeholder="Enter your email address" />
-        <button type="button">Stay Connected</button>
-      </div>
-      <p class="subscribe-fine">No spam. No performance. Just the truth you came for.</p>
     </div>
   </section>
 
