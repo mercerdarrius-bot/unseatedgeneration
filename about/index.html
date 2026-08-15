@@ -83,21 +83,17 @@
     .mission-section-line { position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(to right, transparent, var(--gold), transparent); transform: scaleX(0); transform-origin: center; transition: transform 1s cubic-bezier(0.16,1,0.3,1); }
     .mission-section-line.animate { transform: scaleX(1); }
     .mission-bg { position: absolute; right: -20px; bottom: -20px; font-family: 'Barlow Condensed', sans-serif; font-size: clamp(120px, 16vw, 240px); font-weight: 800; color: rgba(255,255,255,0.025); line-height: 1; pointer-events: none; text-transform: uppercase; }
-    .mission-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 100px; align-items: start; }
-    .mission-left .eyebrow { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; }
-    .mission-left .eyebrow-line { width: 0; height: 1px; background: var(--gold); transition: width 0.8s cubic-bezier(0.16,1,0.3,1); }
-    .mission-left .eyebrow-line.animate { width: 36px; }
-    .mission-left .eyebrow-text { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.34em; text-transform: uppercase; color: var(--gold); }
-    .mission-left h2 { font-family: 'Playfair Display', serif; font-size: clamp(32px, 3.5vw, 52px); font-weight: 900; line-height: 1.05; color: var(--white); margin-bottom: 32px; }
-    .mission-left h2 em { font-style: italic; color: var(--gold); }
-    .mission-left p { font-size: 16px; font-weight: 300; line-height: 1.9; color: var(--grey-pale); margin-bottom: 24px; }
-    .mission-pillars { display: flex; flex-direction: column; gap: 3px; }
-    .mission-pillar { padding: 24px 28px; border: 1px solid rgba(255,255,255,0.06); background: rgba(255,255,255,0.02); position: relative; transition: border-color 0.3s, background 0.3s, transform 0.35s cubic-bezier(0.16,1,0.3,1); }
-    .mission-pillar::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--gold); transform: scaleY(0); transform-origin: bottom; transition: transform 0.4s cubic-bezier(0.16,1,0.3,1); }
-    .mission-pillar:hover { border-color: var(--border-light); background: rgba(184,146,42,0.04); transform: translateX(6px); }
-    .mission-pillar:hover::before { transform: scaleY(1); }
-    .mission-pillar-label { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.28em; color: var(--gold); text-transform: uppercase; margin-bottom: 6px; }
-    .mission-pillar-text { font-size: 15px; font-weight: 300; color: var(--grey-pale); line-height: 1.6; }
+    /* two-line eyebrow: second line keeps its own case */
+    .eyebrow-sub { display: block; margin-top: 7px; font-size: 10px; font-weight: 600; letter-spacing: 0.28em; text-transform: none; color: var(--grey-light); }
+    /* arrow link inside a numbered card, matching the site's back-link treatment */
+    /* avoid a short orphan last line on narrow screens (progressive enhancement) */
+    .assignment-inner p { text-wrap: pretty; }
+    .card-link { display: inline-flex; align-items: center; gap: 8px; margin-top: 20px; font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.26em; text-transform: uppercase; color: var(--gold); text-decoration: none; transition: gap 0.25s; }
+    .card-link:hover { gap: 14px; }
+    /* founder section heading block above the photo/bio grid */
+    .founder-head { margin-bottom: 56px; }
+    .founder-head h2 { font-family: 'Playfair Display', serif; font-size: clamp(32px, 3.5vw, 52px); font-weight: 900; line-height: 1.05; color: var(--white); max-width: 900px; margin-top: 20px; }
+    .founder-head h2 em { font-style: italic; color: var(--gold); }
 
     /* ASSIGNMENT */
     .assignment-section { padding: 120px 60px; background: var(--black); position: relative; z-index: 2; margin-top: -40px; border-radius: 40px 40px 0 0; box-shadow: 0 -20px 60px rgba(0,0,0,0.3); overflow: hidden; }
@@ -142,10 +138,6 @@
     .founder-photo { width: 100%; display: block; filter: grayscale(15%) contrast(1.05); transition: filter 0.4s; }
     .founder-photo-wrap:hover .founder-photo { filter: grayscale(0%) contrast(1.05); }
     .founder-photo-accent { position: absolute; bottom: -20px; right: -20px; width: 120px; height: 120px; border: 1px solid var(--border-light); background: rgba(184,146,42,0.06); z-index: -1; }
-    .founder-info .eyebrow { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; }
-    .founder-info .eyebrow-line { width: 0; height: 1px; background: var(--gold); transition: width 0.8s cubic-bezier(0.16,1,0.3,1); }
-    .founder-info .eyebrow-line.animate { width: 36px; }
-    .founder-info .eyebrow-text { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.34em; text-transform: uppercase; color: var(--gold); }
     .founder-name { font-family: 'Playfair Display', serif; font-size: clamp(32px, 3.5vw, 48px); font-weight: 900; color: var(--white); margin-bottom: 6px; line-height: 1.1; }
     .founder-title { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 32px; }
     .founder-divider { width: 0; height: 1px; background: linear-gradient(to right, var(--gold), transparent); margin-bottom: 32px; transition: width 0.8s cubic-bezier(0.16,1,0.3,1); }
@@ -183,7 +175,8 @@
     .footer-top { display: grid; grid-template-columns: 2.5fr 1fr 1fr 1fr; gap: 60px; padding-bottom: 60px; border-bottom: 1px solid rgba(255,255,255,0.06); margin-bottom: 40px; }
     .footer-brand .wordmark { font-family: 'Barlow Condensed', sans-serif; font-size: 30px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; color: var(--white); margin-bottom: 4px; }
     .footer-brand .wordmark span { color: var(--gold); }
-    .footer-brand .tagline { font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--grey-mid); margin-bottom: 24px; }
+    .footer-brand .tagline { font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--grey-mid); margin-bottom: 6px; }
+    .footer-brand .founded { font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--grey-mid); margin-bottom: 24px; }
     .footer-brand p { font-size: 14px; font-weight: 300; line-height: 1.75; color: var(--grey-light); max-width: 300px; }
     .footer-col-head { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 24px; padding-bottom: 12px; border-bottom: 1px solid var(--border-dark); }
     .footer-links { list-style: none; display: flex; flex-direction: column; gap: 12px; }
@@ -208,7 +201,6 @@
       .hamburger { display: flex; }
       .page-hero { padding: 120px 24px 80px; border-radius: 0 0 24px 24px; margin-bottom: -40px; }
       .mission-section { padding: 80px 24px; }
-      .mission-grid { grid-template-columns: 1fr; gap: 48px; }
       .assignment-section { padding: 80px 24px; border-radius: 24px 24px 0 0; margin-top: -24px; }
       .assignment-three { grid-template-columns: 1fr; }
       .quote-section { padding: 60px 24px; border-radius: 24px 24px 0 0; margin-top: -24px; }
@@ -254,126 +246,116 @@
     <div class="page-hero-inner">
       <div class="page-eyebrow">
         <div class="page-eyebrow-line" id="eyebrowLine"></div>
-        <span class="page-eyebrow-text" id="eyebrowText">The Platform</span>
+        <span class="page-eyebrow-text" id="eyebrowText">Unseated<span class="eyebrow-sub">The Platform</span></span>
       </div>
       <h1 class="page-title">
         <span class="word"><span class="word-inner">About</span></span><br>
         <span class="word"><span class="word-inner">Unseated</span></span>&#32;<span class="word"><span class="word-inner gold-shimmer" style="font-style:italic;">Generation.</span></span>
       </h1>
       <div class="page-divider" id="pageDivider"></div>
-      <p class="page-desc" id="pageDesc">This is not a platform built around a personality. It is a platform built around a burden. A burden for the people of God to be free, formed, and walking in the fullness of their identity in Christ.</p>
+      <p class="page-desc" id="pageDesc">Unseated Generation was not built around a personality. It was built around a burden. We exist to strengthen believers answering God's call, restore those whose devotion has grown weary, and reach people who do not yet know Christ. That assignment has not changed since 2022. What deepened is our understanding of what stands in its way.</p>
     </div>
   </section>
 
-  <!-- MISSION AND BURDEN -->
+  <!-- SECTION 01: THE SEAT -->
   <section class="mission-section">
     <div class="mission-section-line" id="missionLine"></div>
-    <div class="mission-bg">BURDEN</div>
-    <div class="mission-grid">
-      <div class="mission-left reveal">
-        <div class="eyebrow">
-          <div class="eyebrow-line"></div>
-          <span class="eyebrow-text">The Burden</span>
-        </div>
-        <h2>The Church Has <em>Drifted.</em></h2>
-        <p>Many of us were never taught any differently. What we call church culture is simply the water we grew up in. Performance wasn't chosen. It was inherited. And what is inherited feels like truth until something or Someone shows you otherwise.</p>
-        <p>The desire to be financially prosperous, to have huge followings, to carry enormous influence. These things were presented to us as the fruit of faithfulness. But all of it is meaningless apart from the transformative power of Christ.</p>
-        <p>This is the burden Unseated Generation was built to address. Not to condemn the people formed by these systems, but to offer what the Holy Spirit offered us, a clearer picture of what God actually intended.</p>
+    <div class="mission-bg">SEAT</div>
+    <div class="assignment-inner">
+      <div class="assignment-eyebrow reveal">
+        <div class="assignment-eyebrow-line"></div>
+        <span class="assignment-eyebrow-text">The Seat<span class="eyebrow-sub">The Name</span></span>
       </div>
-      <div class="mission-pillars reveal reveal-delay-2">
-        <div class="mission-pillar">
-          <div class="mission-pillar-label">The Problem</div>
-          <div class="mission-pillar-text">Most people in performative culture are sincere. They love God genuinely. But sincerity without formation produces people who are devoted and yet still distant from the depth God intended.</div>
-        </div>
-        <div class="mission-pillar">
-          <div class="mission-pillar-label">The Pattern</div>
-          <div class="mission-pillar-text">When performance is all you have seen modeled, it becomes your standard. Not by rebellion but by formation. The environment shapes us more than we realize.</div>
-        </div>
-        <div class="mission-pillar">
-          <div class="mission-pillar-label">The Drift</div>
-          <div class="mission-pillar-text">This is not about bad intentions. It is about inherited frameworks. We carry what we were given until the Holy Spirit shows us something better.</div>
-        </div>
-      </div>
+      <h2 class="reveal">Something Has Taken the <em>Seat.</em></h2>
+      <p class="reveal">At the center of the Christian life is a question of lordship. What actually governs us? Jesus does not ask to be included among the important things. He is Lord, and whatever occupies the place that belongs to Him has to be unseated.</p>
+      <p class="reveal">Little of what competes for that place looks like rebellion. It arrives as tradition, as gifting, as approval, as comfort, as ministry itself. Some of it we inherited before we knew enough to examine it. Some of it we kept because it affirmed what we wanted to believe about ourselves.</p>
+      <p class="reveal">What has taken the seat in the church? In our theology? In our culture? And what has taken it in me?</p>
+      <p class="reveal">That last question is the one that costs something. Before we ask where a pastor confused gifting with maturity, we ask where we have. Before we critique a culture built on visibility, we ask why being unseen makes us feel insignificant. We never use Scripture to confront what is around us without letting Scripture confront what is in us.</p>
     </div>
   </section>
 
-  <!-- THE ASSIGNMENT -->
+  <!-- SECTION 02: THE CALL -->
   <section class="assignment-section">
     <div class="assignment-section-line" id="assignmentLine"></div>
     <div class="assignment-bg">CALL</div>
     <div class="assignment-inner">
       <div class="assignment-eyebrow reveal">
         <div class="assignment-eyebrow-line"></div>
-        <span class="assignment-eyebrow-text">The Assignment</span>
+        <span class="assignment-eyebrow-text">The Call<span class="eyebrow-sub">The Assignment</span></span>
       </div>
-      <h2 class="reveal" style="font-family:'Playfair Display',serif;font-size:clamp(32px,3.5vw,52px);font-weight:900;line-height:1.05;color:var(--white);margin-bottom:32px;">To Awaken the <em style="font-style:italic;color:var(--gold);">Remnant.</em></h2>
-      <p class="reveal">The assignment of Unseated Generation is to call the church back into alignment with its identity. To expose what has occupied the seat that belongs to God and to call for the rebuilding of the sacred altar.</p>
-      <p class="reveal">That calling moves through a specific confrontation, of the systems, patterns, and mindsets that prevent alignment with God. Because the remnant cannot walk in their assignment until what has formed them out of alignment has been named, confronted, and surrendered. This is preparation. Confrontation is not the end. It is the doorway to the call God has placed on this generation and to being part of what He is doing in this hour.</p>
-      <p class="reveal">That rebuilding does not happen through better programming or larger platforms. It happens through surrender to God, offering our bodies as living sacrifices, and returning to the truth of Scripture handled with integrity and reverence.</p>
+      <h2 class="reveal">Called. Refined. <em>Sent.</em></h2>
+      <p class="reveal">Three words carry how the work moves, and they move in order. Confrontation is part of the process. It was never the destination.</p>
       <div class="assignment-three">
         <div class="assignment-item reveal reveal-delay-1">
           <div class="assignment-item-num">01</div>
-          <div class="assignment-item-title">Surrender to God</div>
-          <div class="assignment-item-desc">Not to a system. Not to a movement. Not to a personality. Full surrender to the Lordship of Christ over every area of life and ministry.</div>
+          <div class="assignment-item-title">Called</div>
+          <div class="assignment-item-desc">Before we are called to a platform, an assignment, or a purpose, we are called to Christ. God calls us out of the identities we built for ourselves and into relationship with Him. Everything else follows from that.</div>
         </div>
         <div class="assignment-item reveal reveal-delay-2">
           <div class="assignment-item-num">02</div>
-          <div class="assignment-item-title">Rebuild the Altar</div>
-          <div class="assignment-item-desc">The altar of genuine relationship with God. Of daily surrender. Of private devotion that has no audience. Of letting formation do its work.</div>
+          <div class="assignment-item-title">Refined</div>
+          <div class="assignment-item-desc">God does not only intend to correct what we believe. He intends to transform who we are. Truth is not collected so we can win arguments. It is submitted to so we can become disciples.</div>
         </div>
         <div class="assignment-item reveal reveal-delay-3">
           <div class="assignment-item-num">03</div>
-          <div class="assignment-item-title">Return to Truth</div>
-          <div class="assignment-item-desc">Scripture handled with rigor, reverence, and honesty. Not mined for comfort but received for formation. The text prosecutes first.</div>
+          <div class="assignment-item-title">Sent</div>
+          <div class="assignment-item-desc">Formation turns outward or it was never formation. We are sent to proclaim Christ and make His love tangible: evangelism, discipleship, serving our city, strengthening families, investing in students, meeting real needs.</div>
+          <a href="/mission" class="card-link">See the Mission
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- PULLQUOTE -->
+  <!-- SECTION 03: THE STORY (pull quote + founder) -->
   <section class="quote-section">
     <div class="quote-bg"></div>
     <div class="quote-inner reveal">
       <div class="quote-mark">"</div>
       <p class="quote-text">I am not qualified by ability. I am qualified by identity. And my identity is found in Christ alone.</p>
-      <div class="quote-source">Darrius · Founder, Unseated Generation</div>
+      <div class="quote-source">Darrius Mercer · Founder, Unseated Generation</div>
     </div>
   </section>
 
-  <!-- FOUNDER -->
   <section class="founder-section">
     <div class="founder-section-line" id="founderLine"></div>
+    <div class="founder-head reveal">
+      <div class="assignment-eyebrow">
+        <div class="assignment-eyebrow-line"></div>
+        <span class="assignment-eyebrow-text">The Story<span class="eyebrow-sub">The Founder</span></span>
+      </div>
+      <h2>Before Unseated Was a Message, It Was <em>Personal.</em></h2>
+    </div>
     <div class="founder-grid">
       <div class="founder-photo-wrap reveal">
         <div class="founder-photo-frame">
-          <img src="/Photos/DarriusPhoto.JPG" alt="Darrius, Founder of Unseated Generation" class="founder-photo" />
+          <img src="/Photos/DarriusPhoto.JPG" alt="Darrius Mercer, Founder of Unseated Generation" class="founder-photo" />
         </div>
         <div class="founder-photo-accent"></div>
       </div>
       <div class="founder-info reveal reveal-delay-2">
-        <div class="eyebrow">
-          <div class="eyebrow-line"></div>
-          <span class="eyebrow-text">The Founder</span>
-        </div>
-        <div class="founder-name">Darrius</div>
+        <div class="founder-name">Darrius Mercer</div>
         <div class="founder-title">Founder · Unseated Generation</div>
         <div class="founder-divider" id="founderDivider"></div>
-        <p>Like many, Darrius once walked in the ignorance that performative church culture produces. But by the leading of the Holy Spirit, he began to pursue truth and study the Scriptures deeply, and his eyes were opened to the drift, in the church and in himself. What he saw became a burden, and that burden became this assignment.</p>
-        <p>That season of formation gave him clarity, not only that something had to be confronted, but a clear picture of what this assignment was to be and how it would be built. The call is plain to him now. <em style="font-style:italic;color:var(--gold);">Called to confront systems. Formed to love. Assigned to build.</em></p>
+        <p>Unseated Generation began in prayer in 2022. Darrius Mercer received a name and an assignment before there was anything built to carry either one, and the first version of this ministry was built around it.</p>
+        <p>Then the work went quiet. He and Carrington walked through loss and a season of hardship that asked everything they had, and the platform was set down for what mattered more. What looked like an interruption is where this ministry was formed.</p>
+        <p>In those years Darrius began testing beliefs he had been handed and never questioned. Some held. Some needed context he had never been given. Others had to be surrendered. What mattered most was not finding things around him that needed correction. It was finding things in him that needed to be unseated. Unseated happened to him before it became anything he said to anyone else.</p>
+        <p><em style="font-style:italic;color:var(--gold);">Called to confront systems. Formed to love. Assigned to build.</em></p>
         <div class="founder-credential">
           <div class="founder-credential-icon">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
           </div>
           <div class="founder-credential-text">
             <strong>Gordon-Conwell Theological Seminary</strong>
-            Currently pursuing a Master of Divinity (M.Div)
+            Currently pursuing a Master of Divinity
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- SUBSCRIBE -->
+  <!-- CTA -->
   <section class="subscribe-section">
     <div class="subscribe-section-line" id="subscribeLine"></div>
     <div class="subscribe-inner reveal">
@@ -381,13 +363,13 @@
         <div class="subscribe-eyebrow-line"></div>
         <span class="subscribe-eyebrow-text">Join the Remnant</span>
       </div>
-      <h2 class="subscribe-title">You Were Made<br>For <em>More.</em></h2>
-      <p class="subscribe-desc">Join a community of believers committed to being formed by God. New episodes, weekly content, and resources delivered directly to you.</p>
+      <h2 class="subscribe-title">Be Formed. Be <em>Sent.</em></h2>
+      <p class="subscribe-desc">Unseated Generation is for believers willing to be formed rather than only affirmed. New teaching, resources, and opportunities to serve, delivered directly to you.</p>
       <div class="subscribe-form">
         <input type="email" placeholder="Enter your email address" />
-        <button type="button">Join the Remnant</button>
+        <button type="button">Join the Generation</button>
       </div>
-      <p class="subscribe-fine">No spam. No performance. Just the truth you came for.</p>
+      <p class="subscribe-fine">No spam. No performance. Scripture handled honestly.</p>
     </div>
   </section>
 
@@ -397,6 +379,7 @@
       <div class="footer-brand">
         <div class="wordmark">UN/<span>SEATED</span></div>
         <div class="tagline">Generation · Called. Refined. Sent.</div>
+        <div class="founded">Founded 2022</div>
         <p>Unseated Generation is a faith-based ministry. We confront the systems, mindsets, and patterns that prevent maturity and limit kingdom impact, and we work to express the love of Christ in tangible ways. Called. Refined. Sent.</p>
       </div>
       <div>
@@ -427,7 +410,7 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <p class="footer-copy">2026 Unseated Generation. All rights reserved.</p>
+      <p class="footer-copy">© 2026 Unseated Generation. All rights reserved.</p>
       <div class="footer-socials">
         <a href="#">YouTube</a>
         <a href="#">Instagram</a>
