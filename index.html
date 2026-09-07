@@ -32,7 +32,7 @@
       pointer-events: none; z-index: 9999; opacity: 0.5;
     }
 
-    /* ── GOLD KEY CURSOR ── */
+    /* GOLD KEY CURSOR */
     .cursor-dot {
       display: none;
     }
@@ -49,7 +49,7 @@
     .cursor-dot.hovering { width: 6px; height: 6px; background: var(--gold-light); }
     .cursor-ring.hovering { width: 52px; height: 52px; border-color: var(--gold); }
 
-    /* ── PAGE TRANSITION ── */
+    /* PAGE TRANSITION */
     .page-transition {
       position: fixed; inset: 0;
       background: var(--black);
@@ -62,7 +62,7 @@
     @keyframes pageExit { from { transform: translateY(100%); } to { transform: translateY(0); } }
     @keyframes pageEnter { from { transform: translateY(0); } to { transform: translateY(-100%); } }
 
-    /* ── NAV ── */
+    /* NAV */
     nav {
       position: fixed; top: 0; left: 0; right: 0;
       z-index: 500; height: 80px;
@@ -87,7 +87,7 @@
     .hamburger { display: none; flex-direction: column; gap: 5px;  padding: 8px; }
     .hamburger span { display: block; width: 28px; height: 2px; background: var(--white); }
 
-    /* ── HERO ── */
+    /* HERO */
     .hero {
       position: relative; min-height: 100vh;
       display: flex; flex-direction: column;
@@ -194,7 +194,7 @@
     .scroll-line { width: 1px; height: 60px; background: linear-gradient(to bottom, rgba(255,255,255,0.3), transparent); animation: scrollPulse 2s ease-in-out infinite; }
     @keyframes scrollPulse { 0%,100%{opacity:0.3;} 50%{opacity:1;} }
 
-    /* ── TICKER ── */
+    /* TICKER */
     .ticker-wrap { background: var(--gold); overflow: hidden; height: 48px; display: flex; align-items: center; position: relative; }
     .ticker-wrap::before, .ticker-wrap::after { content: ''; position: absolute; top: 0; bottom: 0; width: 60px; z-index: 2; }
     .ticker-wrap::before { left: 0; background: linear-gradient(to right, var(--gold), transparent); }
@@ -205,11 +205,11 @@
     .ticker-sep { color: rgba(0,0,0,0.25); font-size: 16px; }
     @keyframes tickerMove { 0%{transform:translateX(0);} 100%{transform:translateX(-50%);} }
 
-    /* ── TEXT SELECTION COLOR ── */
+    /* TEXT SELECTION COLOR */
     ::selection { background: var(--gold); color: var(--black); }
     ::-moz-selection { background: var(--gold); color: var(--black); }
 
-    /* ── BUTTON FILL ANIMATION ── */
+    /* BUTTON FILL ANIMATION */
     .btn-gold {
       position: relative;
       overflow: hidden;
@@ -325,7 +325,7 @@
     .ep-row-verse { font-size: 11px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; font-style: italic; color: #8A8A8A; }
     .ep-row-status { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.26em; text-transform: uppercase; color: #9A9A9A; border: 1px solid rgba(10,10,10,0.13); padding: 8px 15px; white-space: nowrap; }
 
-    /* ── CONTEXT SECTION with overlap ── */
+    /* CONTEXT SECTION with overlap */
     .context-section {
       padding: 130px 60px;
       background: var(--black);
@@ -344,7 +344,7 @@
     .context-signature { font-family: 'Barlow Condensed', sans-serif; font-size: 100px; font-weight: 800; color: rgba(184,146,42,0.08); line-height: 0.9; letter-spacing: -0.02em; text-transform: uppercase; margin-bottom: -20px; }
     .context-cards { display: flex; flex-direction: column; gap: 3px; }
 
-    /* Context Cards — PREMIUM */
+    /* Context Cards: PREMIUM */
     .ctx-card { border: 1px solid rgba(255,255,255,0.06); padding: 32px 36px; position: relative; overflow: hidden;  transition: border-color 0.3s, background 0.3s, transform 0.35s cubic-bezier(0.16,1,0.3,1), box-shadow 0.35s; background: rgba(255,255,255,0.02); }
     .ctx-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--gold); transform: scaleY(0); transform-origin: bottom; transition: transform 0.4s cubic-bezier(0.16,1,0.3,1); }
     .ctx-card-shine { position: absolute; inset: 0; background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.03) 50%, transparent 60%); transform: translateX(-100%); pointer-events: none; }
@@ -363,11 +363,6 @@
     .ctx-arrow { position: absolute; right: 32px; bottom: 32px; color: var(--gold); opacity: 0; transform: translateX(-12px); transition: opacity 0.3s, transform 0.3s; font-size: 20px; }
     .ctx-card:hover .ctx-arrow { opacity: 1; transform: translateX(0); }
 
-    .context-closing { margin-top: 48px; padding: 28px 36px; border: 1px solid var(--border-dark); background: rgba(184,146,42,0.04); display: flex; align-items: center; gap: 20px; transition: background 0.3s, border-color 0.3s, transform 0.3s; }
-    .context-closing:hover { background: rgba(184,146,42,0.08); border-color: var(--border-light); transform: translateY(-2px); }
-    .context-closing-line { width: 3px; height: 40px; background: var(--gold); flex-shrink: 0; }
-    .context-closing-text { font-family: 'Playfair Display', serif; font-size: 16px; font-style: italic; color: var(--grey-pale); line-height: 1.6; }
-    .context-closing-text strong { color: var(--gold); font-style: normal; font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; display: block; margin-top: 4px; }
 
     /* SENT BRIDGE: charcoal section with overlap */
     .sent-bridge {
@@ -387,7 +382,7 @@
     .sent-bridge-inner h2 { margin: 18px 0 24px; }
     .sent-bridge-inner p { font-size: 17px; font-weight: 300; line-height: 1.85; color: var(--grey-pale); max-width: 620px; margin-bottom: 36px; }
 
-    /* ── SIGNUP — WHITE with overlap ── */
+    /* SIGNUP: WHITE with overlap */
     .signup-section {
       background: var(--pure-white);
       position: relative;
@@ -421,7 +416,7 @@
     .pillar-num { font-family: 'Barlow Condensed', sans-serif; font-size: 32px; font-weight: 800; color: var(--gold); line-height: 1; }
     .pillar-label { font-size: 10px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: #888888; }
 
-    /* ── FOOTER ── */
+    /* FOOTER */
     footer { background: var(--black); border-top: 1px solid var(--border-dark); padding: 80px 60px 40px; position: relative; z-index: 6; margin-top: -40px; border-radius: 40px 40px 0 0; box-shadow: 0 -20px 60px rgba(0,0,0,0.3); }
     .footer-top { display: grid; grid-template-columns: 2.5fr 1fr 1fr 1fr; gap: 60px; padding-bottom: 60px; border-bottom: 1px solid rgba(255,255,255,0.06); margin-bottom: 40px; }
     .footer-brand .wordmark { font-family: 'Barlow Condensed', sans-serif; font-size: 30px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; color: var(--white); margin-bottom: 4px; }
@@ -699,13 +694,6 @@
           Explore the Series
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </a>
-        <div class="context-closing">
-          <div class="context-closing-line"></div>
-          <div class="context-closing-text">
-            Every episode ends the same way.
-            <strong>That's Why Context Matters.</strong>
-          </div>
-        </div>
       </div>
       <div class="context-cards reveal reveal-delay-2">
         <div class="ctx-card">
@@ -727,13 +715,6 @@
           <div class="ctx-card-top"><div class="ctx-ep">Episode 03</div><div class="ctx-status coming">Coming Soon</div></div>
           <div class="ctx-title">Do We Owe Job's Wife an Apology?</div>
           <div class="ctx-verse">"Curse God and die" - Job 2:9</div>
-          <div class="ctx-arrow">→</div>
-        </div>
-        <div class="ctx-card">
-          <div class="ctx-card-shine"></div>
-          <div class="ctx-card-top"><div class="ctx-ep">New Episode</div><div class="ctx-status coming">Every Week</div></div>
-          <div class="ctx-title">More Corrections. Every Week.</div>
-          <div class="ctx-verse">Subscribe to stay in the truth.</div>
           <div class="ctx-arrow">→</div>
         </div>
       </div>
