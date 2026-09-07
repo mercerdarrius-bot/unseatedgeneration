@@ -232,12 +232,6 @@
     .subscribe-title { font-family: 'Playfair Display', serif; font-size: clamp(32px, 4vw, 52px); font-weight: 900; line-height: 1.1; color: var(--white); margin-bottom: 20px; }
     .subscribe-title em { font-style: italic; color: var(--gold); }
     .subscribe-desc { font-size: 16px; font-weight: 300; line-height: 1.8; color: var(--grey-pale); margin-bottom: 48px; }
-    .subscribe-form { display: flex; max-width: 520px; margin: 0 auto 16px; border: 1px solid rgba(255,255,255,0.1); transition: border-color 0.3s, box-shadow 0.3s; }
-    .subscribe-form:focus-within { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(184,146,42,0.1); }
-    .subscribe-form input { flex: 1; padding: 18px 24px; background: transparent; border: none; outline: none; font-family: 'Barlow', sans-serif; font-size: 14px; color: var(--white); }
-    .subscribe-form input::placeholder { color: var(--grey-mid); }
-    .subscribe-form button { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--black); background: var(--gold); border: none; padding: 18px 32px; cursor: pointer; transition: background 0.25s, transform 0.2s; white-space: nowrap; }
-    .subscribe-form button:hover { background: var(--gold-light); transform: translateY(-1px); }
     .subscribe-fine { font-size: 11px; color: var(--grey-mid); }
 
     /* FOOTER */
@@ -283,6 +277,8 @@
       .page-meta { flex-wrap: wrap; gap: 20px; }
       .page-meta-divider { display: none; }
     }
+    .join-cta { display: inline-flex; align-items: center; align-self: flex-start; width: fit-content; gap: 10px; font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--black); background: var(--gold); padding: 18px 36px; text-decoration: none; transition: background 0.25s, transform 0.2s, box-shadow 0.25s; clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%); }
+    .join-cta:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 10px 26px rgba(184,146,42,0.28); }
   </style>
 </head>
 <body>
@@ -488,15 +484,14 @@
     <div class="subscribe-inner reveal">
       <div class="subscribe-eyebrow">
         <div class="subscribe-eyebrow-line"></div>
-        <span class="subscribe-eyebrow-text">Never Miss an Episode</span>
+        <span class="subscribe-eyebrow-text">Get Involved</span>
       </div>
-      <h2 class="subscribe-title">New Episode.<br><em>Every Week.</em></h2>
-      <p class="subscribe-desc">Join the Remnant and get notified the moment new episodes drop. No spam. Just the truth you came for.</p>
-      <div class="subscribe-form">
-        <input type="email" placeholder="Enter your email address" />
-        <button type="button" class="magnetic">Notify Me</button>
-      </div>
-      <p class="subscribe-fine">No spam. No performance. Just the truth you came for.</p>
+      <h2 class="subscribe-title">Help Carry<br>The <em>Work.</em></h2>
+      <p class="subscribe-desc">Every episode takes a team to make. If you want to help move this forward, tell us where you fit.</p>
+      <a href="/join" class="join-cta">Find Your Place
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <p class="subscribe-fine">Takes two minutes. Raising your hand is not a commitment.</p>
     </div>
   </section>
 
@@ -521,6 +516,7 @@
           <li><a href="/mission">The Mission</a></li>
           <li><a href="/about">About</a></li>
           <li><a href="/community">The Remnant</a></li>
+          <li><a href="/join">Join the Work</a></li>
           <li><a href="#">Contact</a></li>
         </ul>
       </div>

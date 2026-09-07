@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sent · Unseated Generation</title>
+  <title>Join the Work · Unseated Generation</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@400;600;700;800&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -214,7 +214,7 @@
       .footer-bottom { flex-direction: column; gap: 20px; text-align: center; }
     }
 
-    /* ===== SENT PAGE ADDITIONS ===== */
+    /* ===== GIVE PAGE ADDITIONS ===== */
     .page-actions { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; margin-top: 44px; opacity: 0; transform: translateY(16px); transition: opacity 0.8s 1.3s, transform 0.8s 1.3s; }
     .page-actions.animate { opacity: 1; transform: translateY(0); }
     .btn-gold { font-family: 'Barlow Condensed', sans-serif; font-size: 14px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--black); background: var(--gold); padding: 18px 44px; text-decoration: none; display: inline-flex; align-items: center; gap: 10px; transition: background 0.25s, transform 0.2s, box-shadow 0.25s; clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%); }
@@ -222,48 +222,100 @@
     .btn-outline-light { font-family: 'Barlow Condensed', sans-serif; font-size: 14px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--white); border: 1px solid rgba(255,255,255,0.3); padding: 17px 40px; text-decoration: none; display: inline-flex; align-items: center; gap: 10px; transition: border-color 0.25s, color 0.25s, transform 0.2s, box-shadow 0.25s; background: rgba(255,255,255,0.05); }
     .btn-outline-light:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.3); }
 
-    .honesty-line { margin-top: 44px; padding: 22px 26px; border: 1px solid var(--border-dark); border-left: 3px solid var(--gold); background: rgba(184,146,42,0.05); max-width: 760px; }
-    .honesty-line p { font-size: 13px; font-weight: 300; line-height: 1.7; color: var(--grey-light); margin: 0; max-width: none; }
+    /* Primary giving block */
+    .give-cta { margin-top: 48px; padding: 40px 44px; border: 1px solid var(--border-light); background: rgba(184,146,42,0.05); max-width: 760px; }
+    .give-cta h3 { font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 700; color: var(--white); margin-bottom: 12px; }
+    .give-cta p { font-size: 15px; font-weight: 300; line-height: 1.8; color: var(--grey-pale); margin-bottom: 28px; max-width: 560px; }
+    .btn-give { font-family: 'Barlow Condensed', sans-serif; font-size: 15px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--black); background: var(--gold); padding: 20px 52px; text-decoration: none; display: inline-flex; align-items: center; gap: 12px; transition: background 0.25s, transform 0.2s, box-shadow 0.25s; clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%); }
+    .btn-give:hover { background: var(--gold-light); transform: translateY(-3px); box-shadow: 0 12px 32px rgba(184,146,42,0.35); }
+    .give-note { font-size: 13px; font-weight: 300; color: var(--grey-light); margin-top: 20px; margin-bottom: 0; }
+    .give-sub { font-size: 13px; font-weight: 300; color: var(--grey-light); margin-top: 18px; letter-spacing: 0.02em; }
 
-    .work-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 3px; margin-top: 56px; }
+    /* Not-yet-wired state: link placeholder still in place */
+    [data-give-link][data-pending="true"] { opacity: 0.55; cursor: not-allowed; }
+    [data-give-link][data-pending="true"]:hover { transform: none; box-shadow: none; background: var(--gold); }
+    .give-pending-note { display: none; font-size: 13px; font-weight: 300; line-height: 1.7; color: var(--gold); margin-top: 10px; }
+    .give-pending-note.show { display: block; }
 
-    /* FOUNDING BOARD (gated until launch) */
-    .board-section { padding: 120px 60px; background: var(--charcoal); position: relative; z-index: 4; margin-top: -40px; border-radius: 40px 40px 0 0; box-shadow: 0 -20px 60px rgba(0,0,0,0.3); overflow: hidden; }
-    .board-section-line { position: absolute; top: 40px; left: 60px; right: 60px; height: 1px; background: linear-gradient(to right, transparent, var(--gold), transparent); transform: scaleX(0); transform-origin: center; transition: transform 1s cubic-bezier(0.16,1,0.3,1); }
-    .board-section-line.animate { transform: scaleX(1); }
-    .board-inner { max-width: 1140px; margin: 0 auto; }
-    .board-section h2 { font-family: 'Playfair Display', serif; font-size: clamp(32px, 3.5vw, 52px); font-weight: 900; line-height: 1.05; color: var(--white); margin-bottom: 48px; }
-    .board-section h2 em { font-style: italic; color: var(--gold); }
-    .board-intro { font-size: 16px; font-weight: 300; line-height: 1.8; color: var(--grey-pale); max-width: 620px; margin-bottom: 56px; }
-    .board-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
-    .board-card { display: flex; flex-direction: column; }
-    .board-portrait { position: relative; aspect-ratio: 1 / 1; background: linear-gradient(150deg, #15110a 0%, #241b0b 50%, #15110a 100%); border: 1px solid var(--border-light); overflow: hidden; }
-    .board-portrait::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--gold); z-index: 3; }
-    .board-monogram { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-size: clamp(36px, 4vw, 48px); font-weight: 700; letter-spacing: 0.05em; color: var(--gold); opacity: 0.9; z-index: 1; }
-    .board-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 2; filter: grayscale(12%) contrast(1.04); }
-    .board-name { font-family: 'Playfair Display', serif; font-size: 19px; font-weight: 700; color: var(--white); margin-top: 20px; line-height: 1.25; }
-    .board-title { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-top: 6px; }
-    .board-card.seat .board-portrait { background: rgba(255,255,255,0.02); border-style: dashed; }
-    .board-card.seat .board-portrait::after { background: rgba(184,146,42,0.35); }
-    .board-card.seat .board-seat-mark { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; color: var(--grey-mid); z-index: 1; }
-    .board-card.seat .board-name { color: var(--grey-light); }
-    .board-card.seat .board-title { color: var(--grey-mid); }
+    /* Trust and disclosure */
+    .trust-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 3px; margin-top: 52px; }
+    .trust-item { padding: 30px 32px; border: 1px solid rgba(255,255,255,0.06); background: rgba(255,255,255,0.02); transition: border-color 0.3s, background 0.3s; }
+    .trust-item:hover { border-color: var(--border-light); background: rgba(184,146,42,0.04); }
+    .trust-label { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.28em; color: var(--gold); text-transform: uppercase; margin-bottom: 10px; }
+    .trust-text { font-size: 14px; font-weight: 300; line-height: 1.8; color: var(--grey-pale); }
+    .disclosure { margin-top: 40px; padding: 26px 30px; border: 1px solid var(--border-dark); border-left: 3px solid var(--gold); background: rgba(255,255,255,0.02); }
+    .disclosure p { font-size: 12px; font-weight: 400; line-height: 1.85; color: var(--grey-light); letter-spacing: 0.04em; margin: 0; max-width: none; }
+    .disclosure p + p { margin-top: 12px; }
 
     @media (max-width: 1024px) {
-      .board-section { padding: 80px 24px; border-radius: 24px 24px 0 0; margin-top: -24px; }
-      .work-grid { grid-template-columns: 1fr 1fr; }
-      .board-grid { grid-template-columns: repeat(3, 1fr); gap: 20px; }
-    }
-    @media (max-width: 680px) {
-      .work-grid { grid-template-columns: 1fr; }
-      .board-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
       .page-actions { flex-direction: column; align-items: stretch; }
-      .btn-gold, .btn-outline-light { justify-content: center; }
+      .btn-gold, .btn-outline-light, .btn-give { justify-content: center; }
+      .give-cta { padding: 28px 22px; }
+      .trust-grid { grid-template-columns: 1fr; }
     }
-    .join-cta { display: inline-flex; align-items: center; align-self: flex-start; width: fit-content; gap: 10px; font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--black); background: var(--gold); padding: 18px 36px; text-decoration: none; transition: background 0.25s, transform 0.2s, box-shadow 0.25s; clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%); }
-    .join-cta:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 10px 26px rgba(184,146,42,0.28); }
+
+    /* JOIN: interest form */
+    .join-section { background: var(--pure-white); position: relative; z-index: 2; margin-top: -60px; border-radius: 40px 40px 0 0; box-shadow: 0 -20px 60px rgba(0,0,0,0.25); padding: 110px 60px 120px; }
+    .join-line { position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--gold); transform: scaleX(0); transform-origin: left; transition: transform 1s cubic-bezier(0.16,1,0.3,1); }
+    .join-line.animate { transform: scaleX(1); }
+    .join-grid { display: grid; grid-template-columns: 1.45fr 1fr; gap: 80px; max-width: 1240px; margin: 0 auto; align-items: start; }
+
+    .form-eyebrow { display: flex; align-items: center; gap: 14px; }
+    .form-eyebrow-line { width: 36px; height: 1px; background: var(--gold); flex-shrink: 0; }
+    .form-eyebrow-text { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.34em; text-transform: uppercase; color: var(--gold); }
+    .form-head { margin-bottom: 46px; }
+    .form-head h2 { font-family: 'Playfair Display', serif; font-size: clamp(28px, 3vw, 42px); font-weight: 900; line-height: 1.08; color: #0A0A0A; margin-top: 18px; }
+    .form-head h2 em { font-style: italic; color: var(--gold); }
+    .form-head p { font-size: 15px; font-weight: 300; line-height: 1.75; color: #555555; margin-top: 18px; max-width: 560px; }
+
+    .field { margin-bottom: 30px; }
+    .field-label { display: block; font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.26em; text-transform: uppercase; color: #1A1A1A; margin-bottom: 10px; }
+    .field-label .req { color: var(--gold); }
+    .field-label .opt-tag { color: #A5A5A5; letter-spacing: 0.2em; }
+    .field-hint { font-size: 12.5px; color: #8A8A8A; margin: -4px 0 12px; }
+    .field input[type="text"], .field input[type="email"], .field textarea {
+      width: 100%; padding: 16px 18px; border: 1px solid rgba(0,0,0,0.16); background: var(--pure-white);
+      font-family: 'Barlow', sans-serif; font-size: 15px; color: var(--black); outline: none;
+      transition: border-color 0.25s, box-shadow 0.25s;
+    }
+    .field textarea { min-height: 118px; resize: vertical; line-height: 1.6; }
+    .field input:focus, .field textarea:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(184,146,42,0.10); }
+    .field input::placeholder, .field textarea::placeholder { color: #ADADAD; }
+    .field input[aria-invalid="true"], .field textarea[aria-invalid="true"] { border-color: #A6392F; }
+
+    .opt-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .opt { display: flex; align-items: center; gap: 11px; padding: 13px 15px; border: 1px solid rgba(0,0,0,0.13); cursor: pointer; font-size: 14px; color: #333333; line-height: 1.35; transition: border-color 0.25s, background 0.25s; }
+    .opt:hover { border-color: rgba(184,146,42,0.55); background: rgba(184,146,42,0.035); }
+    .opt input { accent-color: #B8922A; width: 16px; height: 16px; flex-shrink: 0; margin: 0; }
+    .opt:has(input:checked) { border-color: var(--gold); background: rgba(184,146,42,0.08); }
+    .opt-grid[aria-invalid="true"] .opt { border-color: rgba(166,57,47,0.5); }
+
+    .btn-submit { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--black); background: var(--gold); border: none; padding: 18px 42px; cursor: pointer; transition: background 0.25s, transform 0.2s, box-shadow 0.25s; clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%); }
+    .btn-submit:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 10px 26px rgba(184,146,42,0.28); }
+    .btn-submit:disabled { opacity: 0.55; cursor: not-allowed; transform: none; box-shadow: none; }
+    .form-foot { margin-top: 8px; }
+    .form-note { font-size: 12px; color: #8A8A8A; margin-top: 16px; line-height: 1.65; }
+    .form-msg { margin-top: 20px; padding: 16px 18px; border-left: 3px solid var(--gold); background: rgba(184,146,42,0.07); font-size: 14px; line-height: 1.65; color: #2C2C2C; }
+    .form-msg.is-error { border-left-color: #A6392F; background: rgba(166,57,47,0.06); }
+    .form-pending { margin-bottom: 22px; padding: 14px 16px; border: 1px dashed rgba(0,0,0,0.2); background: rgba(0,0,0,0.02); font-size: 13px; line-height: 1.6; color: #6A6A6A; }
+
+    .join-aside { position: sticky; top: 112px; padding: 34px 32px; border: 1px solid rgba(0,0,0,0.10); background: #FAF9F7; }
+    .join-aside h3 { font-family: 'Playfair Display', serif; font-size: 21px; font-weight: 700; color: #141414; margin-bottom: 20px; }
+    .next-item { display: flex; gap: 14px; padding: 16px 0; border-top: 1px solid rgba(0,0,0,0.08); }
+    .next-item:first-of-type { border-top: none; padding-top: 0; }
+    .next-num { font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.18em; color: var(--gold); flex-shrink: 0; padding-top: 3px; }
+    .next-text { font-size: 14px; line-height: 1.65; color: #555555; }
+    .aside-foot { margin-top: 24px; padding-top: 20px; border-top: 1px solid rgba(0,0,0,0.08); font-size: 13px; line-height: 1.7; color: #777777; }
+
+    @media (max-width: 900px) {
+      .join-section { padding: 70px 20px 80px; border-radius: 24px 24px 0 0; margin-top: -40px; }
+      .join-grid { grid-template-columns: 1fr; gap: 46px; }
+      .opt-grid { grid-template-columns: 1fr; }
+      .join-aside { position: static; padding: 26px 22px; }
+      .btn-submit { width: 100%; }
+    }
   </style>
-</head>
+
 <body>
 
   <div class="progress-bar" id="progressBar"></div>
@@ -275,7 +327,7 @@
       <div class="nav-sub">Generation</div>
     </a>
     <ul class="nav-center">
-      <li><a href="/mission" class="active">The Mission</a></li>
+      <li><a href="/mission">The Mission</a></li>
       <li><a href="/about">About</a></li>
       <li><a href="/series">The Unseated Series</a></li>
       <li><a href="/context">Context Matters</a></li>
@@ -291,103 +343,110 @@
   <section class="page-hero">
     <div class="hero-top-line" id="heroTopLine"></div>
     <div class="page-hero-bg"></div>
-    <div class="page-hero-bg-word">SENT</div>
+    <div class="page-hero-bg-word">JOIN</div>
     <div class="hero-bar"></div>
     <div class="page-hero-inner">
       <div class="page-eyebrow">
         <div class="page-eyebrow-line" id="eyebrowLine"></div>
-        <span class="page-eyebrow-text" id="eyebrowText">Sent</span>
+        <span class="page-eyebrow-text" id="eyebrowText">Get Involved</span>
       </div>
       <h1 class="page-title">
-        <span class="word"><span class="word-inner">Love</span></span>&#32;<span class="word"><span class="word-inner">Made</span></span>&#32;<span class="word"><span class="word-inner gold-shimmer" style="font-style:italic;">Tangible.</span></span>
+        <span class="word"><span class="word-inner">Find</span></span>&#32;<span class="word"><span class="word-inner">Your</span></span>&#32;<span class="word"><span class="word-inner">Place</span></span>&#32;<span class="word"><span class="word-inner">in</span></span>&#32;<span class="word"><span class="word-inner">the</span></span>&#32;<span class="word"><span class="word-inner gold-shimmer" style="font-style:italic;">Work.</span></span>
       </h1>
       <div class="page-divider" id="pageDivider"></div>
-      <p class="page-desc" id="pageDesc">Formation was never the finish line. We are formed to be sent. Unseated Generation is a faith-based ministry committed to expressing the love of Christ in ways you can see, touch, and stand on.</p>
-      <div class="page-actions" id="pageActions">
-        <a href="#partner" class="btn-gold">Build With Us
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </a>
-        <a href="/about" class="btn-outline-light">Our Story
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </a>
-      </div>
+      <p class="page-desc" id="pageDesc">Unseated Generation is being built by people who decided to help carry it. If something in this work belongs to you, tell us where, and we will follow up personally.</p>
     </div>
   </section>
 
-  <!-- THE MISSION -->
-  <section class="mission-section">
-    <div class="mission-section-line" id="missionLine"></div>
-    <div class="mission-bg">SENT</div>
-    <div class="assignment-inner">
-      <div class="assignment-eyebrow reveal">
-        <div class="assignment-eyebrow-line"></div>
-        <span class="assignment-eyebrow-text">The Mission</span>
-      </div>
-      <h2 class="reveal">Faith That Shows Up.<br>Christ's Love, <em>Tangible.</em></h2>
-      <p class="reveal">Unseated Generation is a faith-based ministry in Jacksonville, Florida. We teach the truth that forms people, and we put that truth to work in the city around us. We disciple people in the Word, and we build practical programs that strengthen families, invest in the next generation, and meet real needs. Everyone is welcome. Everyone is served.</p>
-    </div>
-  </section>
+  <!-- INTEREST FORM -->
+  <section class="join-section">
+    <div class="join-line" id="joinLine"></div>
+    <div class="join-grid">
 
-  <!-- THE WORK -->
-  <section class="assignment-section">
-    <div class="assignment-section-line" id="workLine"></div>
-    <div class="assignment-bg">GO</div>
-    <div class="assignment-inner">
-      <div class="assignment-eyebrow reveal">
-        <div class="assignment-eyebrow-line"></div>
-        <span class="assignment-eyebrow-text">The Work</span>
-      </div>
-      <h2 class="reveal">Where Formation Becomes <em>Action.</em></h2>
-      <p class="reveal">These are the lanes we are building.</p>
-      <div class="work-grid">
-        <div class="assignment-item reveal reveal-delay-1"><div class="assignment-item-num">01</div><div class="assignment-item-title">Spiritual Formation &amp; Discipleship</div><div class="assignment-item-desc">Teaching, study, and discipleship that forms people in the truth of Scripture, in person and through our content.</div></div>
-        <div class="assignment-item reveal reveal-delay-2"><div class="assignment-item-num">02</div><div class="assignment-item-title">Youth &amp; Collegiate Outreach</div><div class="assignment-item-desc">Investing in students and young adults with mentorship and truth.</div></div>
-        <div class="assignment-item reveal reveal-delay-3"><div class="assignment-item-num">03</div><div class="assignment-item-title">Financial Literacy</div><div class="assignment-item-desc">Practical workshops that help families steward money with wisdom and freedom.</div></div>
-        <div class="assignment-item reveal reveal-delay-1"><div class="assignment-item-num">04</div><div class="assignment-item-title">Family Support</div><div class="assignment-item-desc">Strengthening households as the first place faith is lived and passed down.</div></div>
-        <div class="assignment-item reveal reveal-delay-2"><div class="assignment-item-num">05</div><div class="assignment-item-title">Housing &amp; Stability</div><div class="assignment-item-desc">Walking with people through seasons of transition toward stable footing.</div></div>
-        <div class="assignment-item reveal reveal-delay-3"><div class="assignment-item-num">06</div><div class="assignment-item-title">Mental &amp; Emotional Health</div><div class="assignment-item-desc">Caring for the whole person and connecting people to support.</div></div>
-        <div class="assignment-item reveal reveal-delay-1"><div class="assignment-item-num">07</div><div class="assignment-item-title">Feeding &amp; Practical Care</div><div class="assignment-item-desc">Meeting immediate needs with dignity.</div></div>
-        <div class="assignment-item reveal reveal-delay-2"><div class="assignment-item-num">08</div><div class="assignment-item-title">Economic Opportunity</div><div class="assignment-item-desc">Opening doors to skills, work, and dignity that last.</div></div>
-      </div>
-    </div>
-  </section>
+      <div class="reveal">
+        <div class="form-head">
+          <div class="form-eyebrow">
+            <div class="form-eyebrow-line"></div>
+            <span class="form-eyebrow-text">Interest Form</span>
+          </div>
+          <h2>Tell Us Where You <em>Fit.</em></h2>
+          <p>This is not a newsletter signup. It is how we find the people who want to help move this forward, and put them where they actually belong.</p>
+        </div>
 
-  <!-- THE FOUNDING BOARD
-       Monogram placeholders show until headshots are added. To add a photo,
-       save it at Photos/board/[firstname].jpg (lowercase: darrius, carrington,
-       april, aliyah, spenser, chris), then inside that person's
-       div.board-portrait, right before the div.board-monogram, add an IMG with
-       class board-photo, src that path, and alt the person's name. The photo
-       covers the monogram automatically. No other change needed. -->
-  <section class="board-section">
-    <div class="board-section-line" id="boardLine"></div>
-    <div class="board-inner">
-      <h2 class="reveal">The Founding Board</h2>
-      <div class="board-grid">
-        <div class="board-card reveal"><div class="board-portrait"><img class="board-photo" src="/Photos/board/darrius.jpg" alt="Darrius Mercer" loading="lazy" decoding="async"><div class="board-monogram">DM</div></div><div class="board-name">Darrius Mercer</div><div class="board-title">Founder &amp; Executive Director</div></div>
-        <div class="board-card reveal"><div class="board-portrait"><img class="board-photo" src="/Photos/board/carrington.jpg" alt="Carrington Mercer" loading="lazy" decoding="async"><div class="board-monogram">CM</div></div><div class="board-name">Carrington Mercer</div><div class="board-title">Co-Founder, Programs &amp; Grants</div></div>
-        <div class="board-card reveal"><div class="board-portrait"><img class="board-photo" src="/Photos/board/april.jpg" alt="April Jordan" loading="lazy" decoding="async"><div class="board-monogram">AJ</div></div><div class="board-name">April Jordan</div><div class="board-title">Creative &amp; Communications</div></div>
-        <div class="board-card reveal"><div class="board-portrait"><img class="board-photo" src="/Photos/board/aliyah.jpg" alt="Aliyah Davis" loading="lazy" decoding="async"><div class="board-monogram">AD</div></div><div class="board-name">Aliyah Davis</div><div class="board-title">Branding &amp; Visibility</div></div>
-        <div class="board-card reveal"><div class="board-portrait"><img class="board-photo" src="/Photos/board/spenser.jpg" alt="Spenser Jones" loading="lazy" decoding="async"><div class="board-monogram">SJ</div></div><div class="board-name">Spenser Jones</div><div class="board-title">Theology &amp; Content</div></div>
-        <div class="board-card reveal"><div class="board-portrait"><img class="board-photo" src="/Photos/board/chris.jpg" alt="Chris White" loading="lazy" decoding="async"><div class="board-monogram">CW</div></div><div class="board-name">Chris White</div><div class="board-title">Evangelism</div></div>
-      </div>
-    </div>
-  </section>
+        <form id="joinForm" novalidate>
+          <div class="field">
+            <label class="field-label" for="jf-name">Name <span class="req">*</span></label>
+            <input type="text" id="jf-name" name="name" autocomplete="name" placeholder="First and last" required />
+          </div>
 
-  <!-- PARTNER -->
-  <section class="subscribe-section" id="partner">
-    <div class="subscribe-section-line" id="subscribeLine"></div>
-    <div class="subscribe-inner reveal">
-      <div class="subscribe-eyebrow">
-        <div class="subscribe-eyebrow-line"></div>
-        <span class="subscribe-eyebrow-text">Partner</span>
+          <div class="field">
+            <label class="field-label" for="jf-email">Email <span class="req">*</span></label>
+            <input type="email" id="jf-email" name="email" autocomplete="email" placeholder="you@example.com" required />
+          </div>
+
+          <div class="field">
+            <label class="field-label" for="jf-city">City <span class="opt-tag">(Optional)</span></label>
+            <input type="text" id="jf-city" name="city" autocomplete="address-level2" placeholder="Where you are based" />
+          </div>
+
+          <div class="field">
+            <span class="field-label">Where do you want to help? <span class="req">*</span></span>
+            <div class="field-hint">Choose as many as apply. If none of them fit yet, pick the last one.</div>
+            <div class="opt-grid" id="areaGrid">
+            <label class="opt"><input type="checkbox" name="areas" value="Spiritual Formation and Discipleship" />Spiritual Formation &amp; Discipleship</label>
+            <label class="opt"><input type="checkbox" name="areas" value="Youth and Collegiate Outreach" />Youth &amp; Collegiate Outreach</label>
+            <label class="opt"><input type="checkbox" name="areas" value="Financial Literacy" />Financial Literacy</label>
+            <label class="opt"><input type="checkbox" name="areas" value="Family Support" />Family Support</label>
+            <label class="opt"><input type="checkbox" name="areas" value="Housing and Stability" />Housing &amp; Stability</label>
+            <label class="opt"><input type="checkbox" name="areas" value="Mental and Emotional Health" />Mental &amp; Emotional Health</label>
+            <label class="opt"><input type="checkbox" name="areas" value="Feeding and Practical Care" />Feeding &amp; Practical Care</label>
+            <label class="opt"><input type="checkbox" name="areas" value="Economic Opportunity" />Economic Opportunity</label>
+              <label class="opt"><input type="checkbox" name="areas" value="Not sure yet" />Not sure yet, help me find a fit</label>
+            </div>
+          </div>
+
+          <div class="field">
+            <span class="field-label">How much time can you give? <span class="opt-tag">(Optional)</span></span>
+            <div class="opt-grid">
+            <label class="opt"><input type="radio" name="time" value="A few hours a month" />A few hours a month</label>
+            <label class="opt"><input type="radio" name="time" value="A few hours a week" />A few hours a week</label>
+            <label class="opt"><input type="radio" name="time" value="Project by project" />Project by project</label>
+            <label class="opt"><input type="radio" name="time" value="Not sure yet" />Not sure yet</label>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="field-label" for="jf-notes">Anything else we should know? <span class="opt-tag">(Optional)</span></label>
+            <div class="field-hint">Skills, experience, or questions. Whatever helps us place you well.</div>
+            <textarea id="jf-notes" name="notes" placeholder="Tell us what you bring."></textarea>
+          </div>
+
+          <div class="form-foot">
+            <div id="formPending" class="form-pending" hidden></div>
+            <button type="submit" class="btn-submit" id="joinSubmit">Submit Interest</button>
+            <p class="form-note">We use what you send here to follow up with you about serving. Nothing else.</p>
+            <div id="formMsg" class="form-msg" hidden role="status" aria-live="polite"></div>
+          </div>
+        </form>
       </div>
-      <h2 class="subscribe-title">Build This With <em>Us.</em></h2>
-      <p class="subscribe-desc">This work moves forward on the shoulders of people who believe in it. Partner with us, lend your time and skill, or pray alongside us.</p>
-      <a href="/join" class="join-cta">Partner With Us
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-      </a>
-      <p class="subscribe-fine">Takes two minutes. Raising your hand is not a commitment.</p>
+
+      <aside class="join-aside reveal reveal-delay-2">
+        <h3>What Happens Next</h3>
+        <div class="next-item">
+          <div class="next-num">01</div>
+          <div class="next-text">A person reads it. Every response goes to the team directly, not into a list.</div>
+        </div>
+        <div class="next-item">
+          <div class="next-num">02</div>
+          <div class="next-text">We follow up with you about where you fit, based on what you told us.</div>
+        </div>
+        <div class="next-item">
+          <div class="next-num">03</div>
+          <div class="next-text">You decide from there. Raising your hand is not a commitment.</div>
+        </div>
+        <div class="aside-foot">The areas listed here are the work described on <a href="/mission" style="color:#B8922A;text-decoration:none;font-weight:600;">The Mission</a>. If you would rather give than serve, or do both, the <a href="/give" style="color:#B8922A;text-decoration:none;font-weight:600;">Give</a> page is there.</div>
+      </aside>
+
     </div>
   </section>
 
@@ -471,7 +530,6 @@
     });
     setTimeout(() => document.getElementById('pageDivider').classList.add('animate'), 900);
     setTimeout(() => document.getElementById('pageDesc').classList.add('animate'), 1100);
-    setTimeout(() => document.getElementById('pageActions').classList.add('animate'), 1300);
 
     const reveals = document.querySelectorAll('.reveal');
     const revealObs = new IntersectionObserver((entries) => {
@@ -486,7 +544,35 @@
         if (entry.isIntersecting) { entry.target.classList.add('animate'); lineObs.unobserve(entry.target); }
       });
     }, { threshold: 0.3 });
-    document.querySelectorAll('.mission-section-line, .assignment-section-line, .board-section-line, .subscribe-section-line, .eyebrow-line, .assignment-eyebrow-line').forEach(el => lineObs.observe(el));
+    document.querySelectorAll('.mission-section-line, .assignment-section-line, .founder-section-line, .subscribe-section-line, .eyebrow-line, .assignment-eyebrow-line, .founder-divider').forEach(el => lineObs.observe(el));
+
+    // ── GIVELIFY LINK ─────────────────────────────────────────────────
+    // WIRE THIS: paste the Givelify giving URL between the quotes below.
+    // Format looks like https://giv.li/xxxxxx or https://www.givelify.com/donate/...
+    // While it stays the placeholder, the Give buttons render but are not
+    // clickable, so a dead donate link is never published.
+    const GIVELIFY_URL = 'PASTE_GIVELIFY_URL_HERE';
+
+    (function wireGiving() {
+      const ready = GIVELIFY_URL && GIVELIFY_URL.indexOf('PASTE_GIVELIFY_URL') === -1;
+      document.querySelectorAll('[data-give-link]').forEach(function (el) {
+        if (ready) {
+          el.setAttribute('href', GIVELIFY_URL);
+          el.setAttribute('target', '_blank');
+          el.setAttribute('rel', 'noopener noreferrer');
+          el.removeAttribute('data-pending');
+          el.removeAttribute('aria-disabled');
+        } else {
+          el.setAttribute('href', '#');
+          el.setAttribute('data-pending', 'true');
+          el.setAttribute('aria-disabled', 'true');
+          el.addEventListener('click', function (e) { e.preventDefault(); });
+        }
+      });
+      document.querySelectorAll('.give-pending-note').forEach(function (n) {
+        n.classList.toggle('show', !ready);
+      });
+    })();
 
     document.getElementById('hamburger').addEventListener('click', () => {
       const nc = document.querySelector('.nav-center');
@@ -496,6 +582,95 @@
         nc.style.cssText = 'display:flex;flex-direction:column;position:absolute;top:80px;left:0;right:0;background:rgba(10,10,10,0.98);padding:32px;gap:24px;border-bottom:1px solid rgba(184,146,42,0.15);z-index:500;';
       }
     });
+  </script>
+  <script>
+    /* ------------------------------------------------------------------
+       WIRE THE FORM HERE.
+       Replace the placeholder below with your form endpoint URL, for
+       example a Formspree endpoint that looks like
+       https://formspree.io/f/abcdwxyz
+       Until this is a real URL the form will not pretend to submit: it
+       tells the visitor plainly that nothing was sent.
+       ------------------------------------------------------------------ */
+    const FORM_ENDPOINT = 'PASTE_FORM_ENDPOINT_HERE';
+
+    (function () {
+      const form    = document.getElementById('joinForm');
+      const btn     = document.getElementById('joinSubmit');
+      const msg     = document.getElementById('formMsg');
+      const pending = document.getElementById('formPending');
+      const grid    = document.getElementById('areaGrid');
+      if (!form) return;
+
+      const isWired = /^https?:\/\//.test(FORM_ENDPOINT);
+
+      if (!isWired) {
+        pending.textContent = 'This form is not connected yet, so it cannot receive submissions. It is being set up now.';
+        pending.hidden = false;
+      }
+
+      function show(text, isError) {
+        msg.textContent = text;
+        msg.classList.toggle('is-error', !!isError);
+        msg.hidden = false;
+      }
+
+      form.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        msg.hidden = true;
+
+        const name  = document.getElementById('jf-name');
+        const email = document.getElementById('jf-email');
+        const areas = grid.querySelectorAll('input[name="areas"]:checked');
+
+        [name, email].forEach(el => el.setAttribute('aria-invalid', 'false'));
+        grid.setAttribute('aria-invalid', 'false');
+
+        if (!name.value.trim()) {
+          name.setAttribute('aria-invalid', 'true'); name.focus();
+          return show('Please add your name so we know who we are talking to.', true);
+        }
+        if (!email.checkValidity() || !email.value.trim()) {
+          email.setAttribute('aria-invalid', 'true'); email.focus();
+          return show('Please add an email address we can reach you at.', true);
+        }
+        if (areas.length === 0) {
+          grid.setAttribute('aria-invalid', 'true');
+          grid.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          return show('Please choose at least one area, or pick "Not sure yet".', true);
+        }
+
+        if (!isWired) {
+          return show('Nothing was sent. This form is not connected yet, so please check back shortly.', true);
+        }
+
+        btn.disabled = true;
+        const original = btn.textContent;
+        btn.textContent = 'Sending...';
+        try {
+          const res = await fetch(FORM_ENDPOINT, {
+            method: 'POST',
+            headers: { 'Accept': 'application/json' },
+            body: new FormData(form)
+          });
+          if (!res.ok) throw new Error('Request failed with status ' + res.status);
+          form.hidden = true;
+          show('Thank you. We have your response and someone will follow up with you personally.');
+          msg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        } catch (err) {
+          btn.disabled = false;
+          btn.textContent = original;
+          show('Something went wrong and your response was not sent. Please try again in a moment.', true);
+        }
+      });
+
+      const line = document.getElementById('joinLine');
+      if (line) {
+        new IntersectionObserver((entries, obs) => {
+          entries.forEach(en => { if (en.isIntersecting) { line.classList.add('animate'); obs.unobserve(en.target); } });
+        }, { threshold: 0.1 }).observe(line.parentElement);
+      }
+    })();
   </script>
 </body>
 </html>
