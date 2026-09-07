@@ -267,7 +267,7 @@
     .reveal-delay-3 { transition-delay: 0.34s; }
     .reveal-delay-4 { transition-delay: 0.46s; }
 
-    /* ── SERIES SECTION — WHITE with overlap ── */
+    /* SERIES SECTION: white, overlapping */
     .series-section {
       padding: 130px 60px;
       background: var(--pure-white);
@@ -288,60 +288,49 @@
     .series-eyebrow-line { width: 36px; height: 1px; background: var(--gold); }
     .series-eyebrow-text { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.34em; text-transform: uppercase; color: var(--gold); }
 
-    /* Episode Cards — PREMIUM */
-    .episodes-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px; }
-
-    .ep-card { position: relative; overflow: hidden;  background: var(--grey-dark); transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), box-shadow 0.4s; }
-    .ep-card::before { content: ''; display: block; padding-top: 125%; }
-    .ep-card.featured { grid-column: 1 / -1; }
-    .ep-card.featured::before { padding-top: 42%; }
-    .ep-card.featured::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--gold); z-index: 3; }
-
-    /* Lift on hover */
-    .ep-card:hover { transform: translateY(-8px); box-shadow: 0 24px 48px rgba(184,146,42,0.2), 0 8px 16px rgba(0,0,0,0.4); }
-
-    /* Border glow */
-    .ep-card-glow { position: absolute; inset: 0; border: 1px solid transparent; transition: border-color 0.4s; z-index: 4; pointer-events: none; }
-    .ep-card:hover .ep-card-glow { border-color: rgba(184,146,42,0.4); }
-
-    /* Light sweep */
-    .ep-card-shine {
-      position: absolute; inset: 0; z-index: 4; pointer-events: none;
-      background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.06) 50%, transparent 60%);
-      transform: translateX(-100%);
-      transition: transform 0s;
+    /* EPISODE SHOWCASE: featured panel + up next list */
+    .ep-feature {
+      display: grid; grid-template-columns: 1.32fr 1fr;
+      position: relative; background: var(--black);
+      text-decoration: none; overflow: hidden;
+      box-shadow: 0 26px 60px rgba(0,0,0,0.20);
+      transition: transform 0.5s cubic-bezier(0.16,1,0.3,1), box-shadow 0.5s;
     }
-    .ep-card:hover .ep-card-shine { transform: translateX(100%); transition: transform 0.6s ease; }
+    .ep-feature::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--gold); z-index: 4; }
+    .ep-feature:hover { transform: translateY(-6px); box-shadow: 0 40px 84px rgba(0,0,0,0.30); }
 
-    .ep-card-bg { position: absolute; inset: 0; transition: transform 0.6s cubic-bezier(0.16,1,0.3,1); }
-    .ep-card:hover .ep-card-bg { transform: scale(1.04); }
+    .ep-feature-media { position: relative; aspect-ratio: 16 / 9; align-self: center; overflow: hidden; background: #0d0a04; }
+    .ep-feature-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.7s cubic-bezier(0.16,1,0.3,1); }
+    .ep-feature:hover .ep-feature-media img { transform: scale(1.035); }
+    .ep-feature-veil { position: absolute; inset: 0; background: linear-gradient(90deg, transparent 62%, rgba(10,10,10,0.5) 100%); pointer-events: none; }
 
-    .ep1-bg { background: linear-gradient(160deg, #0f0c06 0%, #2a1f08 40%, #1a1408 100%); }
-    /* S1E1 thumbnail (wide) on the featured Episode 01 card; overlay below is bottom-weighted for the title */
-    .ep-card.featured .ep-card-bg { background: #1a1408 url('/Photos/S1E1-Wide.jpg') center center / cover no-repeat; }
-    .ep2-bg { background: linear-gradient(160deg, #0d0614 0%, #2a1040 40%, #0d0614 100%); }
-    .ep3-bg { background: linear-gradient(160deg, #060810 0%, #0d1c3d 40%, #060810 100%); }
-    .ep4-bg { background: linear-gradient(160deg, #0a0f06 0%, #1a2d0a 40%, #0a0f06 100%); }
+    /* corner badge, not centered: the artwork carries its own headline */
+    .ep-play { position: absolute; left: 22px; bottom: 22px; width: 52px; height: 52px; border-radius: 50%; border: 1px solid rgba(212,168,64,0.7); display: flex; align-items: center; justify-content: center; background: rgba(10,10,10,0.55); backdrop-filter: blur(4px); z-index: 3; transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1), background 0.35s, border-color 0.35s; }
+    .ep-feature:hover .ep-play { transform: scale(1.09); background: rgba(184,146,42,0.9); border-color: var(--gold-light); }
+    .ep-feature:hover .ep-play svg { fill: var(--black); }
+    .ep-play svg { transition: fill 0.35s; margin-left: 3px; }
 
-    .ep-card-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.3) 50%, transparent 100%); transition: background 0.4s; }
-    .ep-card:hover .ep-card-overlay { background: linear-gradient(to top, rgba(0,0,0,0.98) 0%, rgba(0,0,0,0.5) 50%, rgba(184,146,42,0.06) 100%); }
+    .ep-feature-body { display: flex; flex-direction: column; justify-content: center; padding: 48px 52px; }
+    .ep-live { display: inline-flex; align-items: center; gap: 9px; font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 22px; }
+    .ep-live-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); animation: liveDot 2.4s ease-out infinite; }
+    @keyframes liveDot { 0% { box-shadow: 0 0 0 0 rgba(184,146,42,0.55); } 70% { box-shadow: 0 0 0 9px rgba(184,146,42,0); } 100% { box-shadow: 0 0 0 0 rgba(184,146,42,0); } }
+    .ep-feature-num { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.26em; text-transform: uppercase; color: var(--grey-light); margin-bottom: 12px; }
+    .ep-feature-title { font-family: 'Playfair Display', serif; font-size: clamp(26px, 2.3vw, 36px); font-weight: 700; line-height: 1.14; color: var(--white); margin-bottom: 16px; }
+    .ep-feature-verse { font-size: 11px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; font-style: italic; color: var(--grey-light); margin-bottom: 30px; }
+    .ep-feature-cta { display: inline-flex; align-items: center; gap: 10px; font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.26em; text-transform: uppercase; color: var(--gold); transition: gap 0.3s; }
+    .ep-feature:hover .ep-feature-cta { gap: 16px; }
 
-    .ep-card-content { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: flex-end; padding: 36px; z-index: 2; }
-    .ep-number { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.3em; color: var(--gold); text-transform: uppercase; margin-bottom: 10px; transition: letter-spacing 0.3s; }
-    .ep-card:hover .ep-number { letter-spacing: 0.4em; }
-    .ep-title { font-family: 'Playfair Display', serif; font-size: clamp(18px, 2vw, 28px); font-weight: 700; color: var(--white); line-height: 1.2; margin-bottom: 12px; transition: transform 0.3s; }
-    .ep-card:hover .ep-title { transform: translateY(-4px); }
-    .ep-card:not(.featured) .ep-title { font-size: 18px; }
-    .ep-verse { font-size: 11px; font-weight: 500; letter-spacing: 0.12em; color: var(--grey-light); text-transform: uppercase; font-style: italic; }
-
-    .ep-play { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%) scale(0); width: 64px; height: 64px; border-radius: 50%; border: 2px solid var(--gold); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s, transform 0.4s cubic-bezier(0.34,1.56,0.64,1); z-index: 3; background: rgba(184,146,42,0.1); backdrop-filter: blur(4px); }
-    .ep-card:hover .ep-play { opacity: 1; transform: translate(-50%,-50%) scale(1); }
-
-    .ep-coming { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 12px; padding: 40px 24px; position: absolute; inset: 0; }
-    .ep-coming-icon { width: 48px; height: 48px; border: 1px solid var(--border-light); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--gold); transition: transform 0.3s; }
-    .ep-card:hover .ep-coming-icon { transform: rotate(15deg) scale(1.1); }
-    .ep-coming-label { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.28em; color: var(--gold); text-transform: uppercase; }
-    .ep-coming-text { font-size: 14px; color: var(--grey-light); line-height: 1.5; }
+    .ep-next { margin-top: 76px; }
+    .ep-next-head { display: flex; align-items: center; gap: 14px; margin-bottom: 10px; }
+    .ep-list { list-style: none; }
+    .ep-row { display: grid; grid-template-columns: 58px 1fr auto; align-items: center; gap: 26px; padding: 27px 10px; border-top: 1px solid rgba(10,10,10,0.10); transition: background 0.35s, padding-left 0.35s; }
+    .ep-row:last-child { border-bottom: 1px solid rgba(10,10,10,0.10); }
+    .ep-row:hover { background: rgba(184,146,42,0.05); padding-left: 22px; }
+    .ep-row-num { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 900; line-height: 1; color: rgba(10,10,10,0.20); transition: color 0.35s; }
+    .ep-row:hover .ep-row-num { color: var(--gold); }
+    .ep-row-title { font-family: 'Playfair Display', serif; font-size: 21px; font-weight: 700; line-height: 1.25; color: #141414; margin-bottom: 6px; }
+    .ep-row-verse { font-size: 11px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; font-style: italic; color: #8A8A8A; }
+    .ep-row-status { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.26em; text-transform: uppercase; color: #9A9A9A; border: 1px solid rgba(10,10,10,0.13); padding: 8px 15px; white-space: nowrap; }
 
     /* ── CONTEXT SECTION with overlap ── */
     .context-section {
@@ -488,12 +477,18 @@
       /* SERIES CARDS MOBILE */
       .series-header { grid-template-columns: 1fr; gap: 24px; }
       .series-header-right { align-items: flex-start; }
-      .episodes-grid { grid-template-columns: 1fr; gap: 3px; }
-      .ep-card::before { padding-top: 65%; }
-      .ep-card.featured::before { padding-top: 65%; }
-      .ep-card:hover { transform: translateY(-4px); }
-      .ep-card-content { padding: 20px; }
-      .ep-title { font-size: 18px; }
+      .ep-feature { grid-template-columns: 1fr; }
+      .ep-feature:hover { transform: translateY(-3px); }
+      .ep-feature-veil { background: linear-gradient(180deg, transparent 68%, rgba(10,10,10,0.55) 100%); }
+      .ep-feature-body { padding: 28px 22px 32px; }
+      .ep-live { margin-bottom: 16px; }
+      .ep-feature-verse { margin-bottom: 24px; }
+      .ep-next { margin-top: 48px; }
+      .ep-row { grid-template-columns: 40px 1fr; gap: 16px; padding: 20px 4px; }
+      .ep-row:hover { padding-left: 4px; }
+      .ep-row-num { font-size: 21px; }
+      .ep-row-title { font-size: 18px; }
+      .ep-row-status { grid-column: 2; justify-self: start; margin-top: 12px; }
 
       /* CONTEXT MOBILE */
       .context-inner { grid-template-columns: 1fr; gap: 40px; }
@@ -666,55 +661,52 @@
       </div>
     </div>
 
-    <div class="episodes-grid reveal">
-      <div class="ep-card featured">
-        <div class="ep-card-bg ep1-bg"></div>
-        <div class="ep-card-overlay"></div>
-        <div class="ep-card-glow"></div>
-        <div class="ep-card-shine"></div>
-        <div class="ep-play"><svg width="22" height="22" viewBox="0 0 24 24" fill="#B8922A"><path d="M8 5v14l11-7z"/></svg></div>
-        <div class="ep-card-content">
-          <div class="ep-number">Episode 01 · Now Live</div>
-          <div class="ep-title">When Ministry Outpaces Maturity</div>
-          <div class="ep-verse">1 Corinthians 13:1–3 · NASB</div>
-        </div>
+    <a href="/season1" class="ep-feature reveal">
+      <div class="ep-feature-media">
+        <img src="/Photos/S1E1-Wide.jpg" alt="Episode 01 artwork: Gifted But Immature?" />
+        <div class="ep-feature-veil"></div>
+        <div class="ep-play"><svg width="20" height="20" viewBox="0 0 24 24" fill="#D4A840"><path d="M8 5v14l11-7z"/></svg></div>
       </div>
-      <div class="ep-card">
-        <div class="ep-card-bg ep2-bg"></div>
-        <div class="ep-card-overlay"></div>
-        <div class="ep-card-glow"></div>
-        <div class="ep-card-shine"></div>
-        <div class="ep-play"><svg width="18" height="18" viewBox="0 0 24 24" fill="#B8922A"><path d="M8 5v14l11-7z"/></svg></div>
-        <div class="ep-card-content">
-          <div class="ep-number">Episode 02 · Coming Soon</div>
-          <div class="ep-title">The Drug Called Power</div>
-          <div class="ep-verse">Acts 8:9–11 · NASB</div>
-        </div>
+      <div class="ep-feature-body">
+        <span class="ep-live"><span class="ep-live-dot"></span>Now Live</span>
+        <div class="ep-feature-num">Episode 01</div>
+        <h3 class="ep-feature-title">When Ministry Outpaces Maturity</h3>
+        <div class="ep-feature-verse">1 Corinthians 13:1–3 · NASB</div>
+        <span class="ep-feature-cta">Watch Episode <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
       </div>
-      <div class="ep-card">
-        <div class="ep-card-bg ep3-bg"></div>
-        <div class="ep-card-overlay"></div>
-        <div class="ep-card-glow"></div>
-        <div class="ep-card-shine"></div>
-        <div class="ep-play"><svg width="18" height="18" viewBox="0 0 24 24" fill="#B8922A"><path d="M8 5v14l11-7z"/></svg></div>
-        <div class="ep-card-content">
-          <div class="ep-number">Episode 03 · Coming Soon</div>
-          <div class="ep-title">When Glory Goes Missing</div>
-          <div class="ep-verse">1 Samuel 4:19–22 · NASB</div>
-        </div>
+    </a>
+
+    <div class="ep-next reveal reveal-delay-2">
+      <div class="ep-next-head">
+        <div class="series-eyebrow-line"></div>
+        <span class="series-eyebrow-text">Up Next</span>
       </div>
-      <div class="ep-card">
-        <div class="ep-card-bg ep4-bg"></div>
-        <div class="ep-card-overlay"></div>
-        <div class="ep-card-glow"></div>
-        <div class="ep-card-shine"></div>
-        <div class="ep-play"><svg width="18" height="18" viewBox="0 0 24 24" fill="#B8922A"><path d="M8 5v14l11-7z"/></svg></div>
-        <div class="ep-card-content">
-          <div class="ep-number">Episode 04 · Coming Soon</div>
-          <div class="ep-title">The Great Reconstruction</div>
-          <div class="ep-verse">1 Kings 18:30–32 · NASB</div>
-        </div>
-      </div>
+      <ul class="ep-list">
+        <li class="ep-row">
+          <span class="ep-row-num">02</span>
+          <div>
+            <h4 class="ep-row-title">The Drug Called Power</h4>
+            <span class="ep-row-verse">Acts 8:9–11 · NASB</span>
+          </div>
+          <span class="ep-row-status">Coming Soon</span>
+        </li>
+        <li class="ep-row">
+          <span class="ep-row-num">03</span>
+          <div>
+            <h4 class="ep-row-title">When Glory Goes Missing</h4>
+            <span class="ep-row-verse">1 Samuel 4:19–22 · NASB</span>
+          </div>
+          <span class="ep-row-status">Coming Soon</span>
+        </li>
+        <li class="ep-row">
+          <span class="ep-row-num">04</span>
+          <div>
+            <h4 class="ep-row-title">The Great Reconstruction</h4>
+            <span class="ep-row-verse">1 Kings 18:30–32 · NASB</span>
+          </div>
+          <span class="ep-row-status">Coming Soon</span>
+        </li>
+      </ul>
     </div>
   </section>
 
@@ -893,7 +885,7 @@
     }
     animateRing();
 
-    document.querySelectorAll('a, button, .ep-card, .ctx-card, .hero-dot, .hero-stat').forEach(el => {
+    document.querySelectorAll('a, button, .ep-feature, .ctx-card, .hero-dot, .hero-stat').forEach(el => {
       el.addEventListener('mouseenter', () => { dot.classList.add('hovering'); ring.classList.add('hovering'); });
       el.addEventListener('mouseleave', () => { dot.classList.remove('hovering'); ring.classList.remove('hovering'); });
     });
