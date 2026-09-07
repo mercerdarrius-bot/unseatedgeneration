@@ -92,7 +92,7 @@
       position: relative; min-height: 100vh;
       display: flex; flex-direction: column;
       justify-content: center; align-items: flex-start;
-      overflow: hidden; padding: 100px 60px 120px;
+      overflow: hidden; padding: 100px 60px;
     }
 
     /* Vignette */
@@ -174,7 +174,7 @@
     .btn-outline-dark:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-3px); box-shadow: 0 8px 24px rgba(184,146,42,0.15); }
 
     /* Video dots */
-    .hero-video-dots { position: absolute; bottom: 110px; left: 60px; display: flex; gap: 8px; z-index: 4; opacity: 0; transition: opacity 1s 2s; }
+    .hero-video-dots { position: absolute; bottom: 48px; left: 60px; display: flex; gap: 8px; z-index: 4; opacity: 0; transition: opacity 1s 2s; }
     .hero-video-dots.animate { opacity: 1; }
     .hero-dot { width: 24px; height: 2px; background: rgba(255,255,255,0.3);  transition: background 0.3s, width 0.3s; }
     .hero-dot.active { background: var(--gold); width: 40px; }
@@ -187,15 +187,8 @@
     @keyframes heroPlayPulse { 0%, 100% { box-shadow: 0 8px 28px rgba(0,0,0,0.45), 0 0 0 0 rgba(184,146,42,0.4); } 50% { box-shadow: 0 8px 28px rgba(0,0,0,0.45), 0 0 0 16px rgba(184,146,42,0); } }
 
     /* Stats bar */
-    .hero-stats { position: absolute; bottom: 0; left: 0; right: 0; display: flex; align-items: stretch; border-top: 1px solid var(--border-dark); z-index: 4; opacity: 0; transform: translateY(20px); transition: opacity 0.8s 1.8s, transform 0.8s 1.8s; }
-    .hero-stats.animate { opacity: 1; transform: translateY(0); }
-    .hero-stat { flex: 1; padding: 28px 40px; border-right: 1px solid var(--border-dark); display: flex; align-items: center; gap: 20px; background: rgba(10,10,10,0.75); backdrop-filter: blur(12px); transition: background 0.3s, transform 0.3s; }
-    .hero-stat:last-child { border-right: none; }
-    .hero-stat:hover { background: rgba(184,146,42,0.08); transform: translateY(-2px); }
-    .hero-stat-num { font-family: 'Playfair Display', serif; font-size: 40px; font-weight: 700; color: var(--gold); line-height: 1; }
-    .hero-stat-label { font-size: 11px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--grey-light); line-height: 1.4; }
 
-    .scroll-indicator { position: absolute; right: 60px; bottom: 120px; display: flex; flex-direction: column; align-items: center; gap: 10px; z-index: 4; opacity: 0; transition: opacity 1s 2.2s; }
+    .scroll-indicator { position: absolute; right: 60px; bottom: 48px; display: flex; flex-direction: column; align-items: center; gap: 10px; z-index: 4; opacity: 0; transition: opacity 1s 2.2s; }
     .scroll-indicator.animate { opacity: 1; }
     .scroll-indicator span { font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase; color: rgba(255,255,255,0.4); writing-mode: vertical-rl; }
     .scroll-line { width: 1px; height: 60px; background: linear-gradient(to bottom, rgba(255,255,255,0.3), transparent); animation: scrollPulse 2s ease-in-out infinite; }
@@ -457,7 +450,7 @@
       .hamburger { display: flex; }
 
       /* HERO MOBILE */
-      .hero { padding: 100px 20px 0; min-height: 100svh; }
+      .hero { padding: 100px 20px 120px; min-height: 100svh; }
       .scroll-indicator { display: none; }
       .hero-video-dots { left: 20px; bottom: 80px; }
       .hero-headline { font-size: clamp(44px, 12vw, 64px); }
@@ -465,9 +458,6 @@
       .hero-subhead { font-size: 16px; margin-bottom: 40px; }
       .hero-actions { flex-direction: column; align-items: flex-start; gap: 12px; }
       .btn-gold, .btn-outline-light { width: 100%; justify-content: center; padding: 16px 24px; }
-      .hero-stats { position: static; flex-direction: column; margin-top: 40px; }
-      .hero-stat { border-right: none; border-top: 1px solid var(--border-dark); padding: 20px 16px; }
-      .hero-stat-num { font-size: 28px; }
 
       /* SECTIONS MOBILE */
       .series-section { padding: 80px 20px 60px; border-radius: 24px 24px 0 0; margin-top: -40px; }
@@ -606,24 +596,6 @@
       <span>Scroll</span>
     </div>
 
-    <div class="hero-stats" id="heroStats">
-      <div class="hero-stat">
-        <div class="hero-stat-num">3+</div>
-        <div class="hero-stat-label">Content<br>Series</div>
-      </div>
-      <div class="hero-stat">
-        <div class="hero-stat-num">2</div>
-        <div class="hero-stat-label">Episodes<br>Live Now</div>
-      </div>
-      <div class="hero-stat">
-        <div class="hero-stat-num">∞</div>
-        <div class="hero-stat-label">The<br>Assignment</div>
-      </div>
-      <div class="hero-stat">
-        <div class="hero-stat-num">1</div>
-        <div class="hero-stat-label">Standard:<br>The Word</div>
-      </div>
-    </div>
   </section>
 
   <!-- TICKER -->
@@ -885,7 +857,7 @@
     }
     animateRing();
 
-    document.querySelectorAll('a, button, .ep-feature, .ctx-card, .hero-dot, .hero-stat').forEach(el => {
+    document.querySelectorAll('a, button, .ep-feature, .ctx-card, .hero-dot').forEach(el => {
       el.addEventListener('mouseenter', () => { dot.classList.add('hovering'); ring.classList.add('hovering'); });
       el.addEventListener('mouseleave', () => { dot.classList.remove('hovering'); ring.classList.remove('hovering'); });
     });
@@ -918,7 +890,6 @@
       setTimeout(() => document.getElementById('heroDivider').classList.add('animate'), 1200);
       setTimeout(() => document.getElementById('heroSubhead').classList.add('animate'), 1400);
       setTimeout(() => document.getElementById('heroActions').classList.add('animate'), 1600);
-      setTimeout(() => document.getElementById('heroStats').classList.add('animate'), 1800);
       setTimeout(() => document.getElementById('videoDots').classList.add('animate'), 2000);
       setTimeout(() => document.getElementById('scrollIndicator').classList.add('animate'), 2200);
     }
