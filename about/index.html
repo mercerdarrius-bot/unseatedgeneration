@@ -134,8 +134,8 @@
     .founder-section { padding: 120px 60px; background: var(--charcoal); position: relative; z-index: 4; margin-top: -40px; border-radius: 40px 40px 0 0; box-shadow: 0 -20px 60px rgba(0,0,0,0.3); overflow: hidden; }
     .founder-section-line { position: absolute; top: 40px; left: 60px; right: 60px; height: 1px; background: linear-gradient(to right, transparent, var(--gold), transparent); transform: scaleX(0); transform-origin: center; transition: transform 1s cubic-bezier(0.16,1,0.3,1); }
     .founder-section-line.animate { transform: scaleX(1); }
-    .founder-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 100px; align-items: center; }
-    .founder-photo-wrap { position: relative; }
+    .founder-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 100px; align-items: start; }
+    .founder-photo-wrap { position: sticky; top: 120px; }
     .founder-photo-frame { position: relative; overflow: hidden; }
     .founder-photo-frame::before { content: ''; position: absolute; top: -3px; left: -3px; right: -3px; bottom: -3px; border: 1px solid var(--border-light); z-index: 2; pointer-events: none; }
     .founder-photo-frame::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--gold); z-index: 3; }
@@ -152,6 +152,11 @@
     .founder-divider.animate { width: 48px; }
     .founder-info p { font-size: 16px; font-weight: 300; line-height: 1.9; color: var(--grey-pale); margin-bottom: 20px; }
     .founder-info p:last-of-type { margin-bottom: 32px; }
+    .founder-info p.founder-beat { font-family: 'Playfair Display', serif; font-size: 21px; font-style: italic; color: var(--white); }
+    .founder-info p.founder-beat em { font-style: italic; color: var(--gold); }
+    .founder-pull { margin: 40px 0 36px; padding: 26px 30px; border-left: 3px solid var(--gold); background: rgba(184,146,42,0.06); }
+    .founder-pull-text { font-family: 'Playfair Display', serif; font-size: clamp(19px, 1.8vw, 24px); font-weight: 700; font-style: italic; line-height: 1.5; color: var(--white); }
+    .founder-pull-source { margin-top: 14px; font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.26em; text-transform: uppercase; color: var(--gold); }
     .founder-credential { display: flex; align-items: center; gap: 16px; padding: 20px 24px; border: 1px solid var(--border-dark); background: rgba(184,146,42,0.04); margin-top: 8px; transition: border-color 0.3s, background 0.3s; }
     .founder-credential:hover { border-color: var(--border-light); background: rgba(184,146,42,0.08); }
     .founder-credential-icon { width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--border-light); display: flex; align-items: center; justify-content: center; color: var(--gold); flex-shrink: 0; }
@@ -207,6 +212,8 @@
       .founder-section { padding: 80px 24px; border-radius: 24px 24px 0 0; margin-top: -24px; }
       .founder-grid { grid-template-columns: 1fr; gap: 48px; }
       .founder-photo-accent { display: none; }
+      .founder-photo-wrap { position: static; }
+      .founder-pull { margin: 32px 0 28px; padding: 20px 22px; }
       .subscribe-section { padding: 80px 24px; border-radius: 24px 24px 0 0; margin-top: -24px; }
       footer { padding: 60px 24px 32px; border-radius: 24px 24px 0 0; margin-top: -24px; }
       .footer-top { grid-template-columns: 1fr 1fr; gap: 40px; }
@@ -352,8 +359,21 @@
         <div class="founder-name">Darrius</div>
         <div class="founder-title">Founder · Unseated Generation</div>
         <div class="founder-divider" id="founderDivider"></div>
-        <p>Like many, Darrius once walked in the ignorance that performative church culture produces. But by the leading of the Holy Spirit, he began to pursue truth and study the Scriptures deeply, and his eyes were opened to the drift, in the church and in himself. What he saw became a burden, and that burden became this assignment.</p>
-        <p>That season of formation gave him clarity, not only that something had to be confronted, but a clear picture of what this assignment was to be and how it would be built. The call is plain to him now. <em style="font-style:italic;color:var(--gold);">Called to confront systems. Formed to love. Assigned to build.</em></p>
+        <p>Unseated Generation began in prayer. In 2022, Darrius received the name and the burden for a generation being called, formed, and prepared to take its place in what God was doing. The vision was to strengthen believers who had heard the call of God, restore those who had lost their zeal, reach those who did not yet know Christ, and create a community where a generation could be discipled, formed, and sent.</p>
+        <p>But before Darrius could fully understand the depth of what God had placed in his hands, God would first deepen the work within him.</p>
+        <p>After stepping away from Unseated Generation during a season marked by health challenges, personal loss, and obscurity, much of the noise that had surrounded ministry grew quiet. What initially felt like an interruption became a season of formation. Darrius began sitting with God and Scripture in a way he had not before. As his approach to biblical study changed, familiar passages began demanding a second look. Teachings he had accepted for years became difficult to sustain once they were examined in their biblical context.</p>
+        <p>And the Holy Spirit did not first show him what was wrong with everyone else. He showed Darrius himself.</p>
+        <p>He began to recognize how deeply performance had shaped his own understanding of God. Prayer, study, preaching, giving, and ministry had quietly become measurements of spiritual worth, as though God's acceptance could be earned and believers could be ranked according to how well they performed. As Scripture confronted those assumptions, Darrius began rediscovering the gospel, surrendering beliefs he once considered foundational, and coming out of agreement with parts of church culture he had once accepted without question.</p>
+        <p>That awakening gave greater depth to the assignment God had already spoken years before.</p>
+        <p>Unseated Generation still exists to disciple, serve, evangelize, build community, and tangibly demonstrate the love of Jesus. But the burden is clearer now: to confront what has taken God's place, reform what has drifted from His truth, and help rebuild lives upon the foundation of Scripture. Because when Scripture is removed from its context, sincere people can inherit beliefs that leave them misaligned with the very God they desire to serve.</p>
+        <p class="founder-beat">That is what it means to be <em>Unseated.</em></p>
+        <p>Everything occupying a seat that belongs to God must be removed so that He can take His rightful place. At the same time, there is a generation that has not yet been seated in the fullness of its assignment, a people being formed, refined, and prepared before they are sent.</p>
+        <p>Darrius understands the person who loves God yet senses that something is off. He understands what it is to discover that sincerity and truth are not always the same thing, and what it costs to surrender an old understanding when Scripture reveals something different. His own journey became part of the assignment: to confront, reform, and rebuild, helping form a generation that is submitted to God, rooted in His truth, committed to formation, and determined to make the love of Christ tangible in the world.</p>
+        <p>The vision did not change. It grew deeper.</p>
+        <div class="founder-pull">
+          <div class="founder-pull-text">"Called to confront systems. Formed to love. Assigned to build."</div>
+          <div class="founder-pull-source">Darrius · Founder, Unseated Generation</div>
+        </div>
         <div class="founder-credential">
           <div class="founder-credential-icon">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
