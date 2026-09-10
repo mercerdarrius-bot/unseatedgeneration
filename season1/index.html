@@ -17,6 +17,8 @@
     html { scroll-behavior: smooth; }
     body { font-family: 'Barlow', sans-serif; background: var(--black); color: var(--white); overflow-x: hidden; }
     body::after { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E"); pointer-events: none; z-index: 9999; opacity: 0.5; }
+    ::selection { background: var(--gold); color: var(--black); }
+    ::-moz-selection { background: var(--gold); color: var(--black); }
 
     /* PROGRESS BAR */
     .progress-bar { position: fixed; top: 0; left: 0; height: 2px; background: linear-gradient(to right, var(--gold-light), var(--gold)); width: 0%; z-index: 9998; transition: width 0.1s linear; box-shadow: 0 0 8px rgba(184,146,42,0.6); }
@@ -41,200 +43,43 @@
     .nav-center a:hover::after { transform: scaleX(1); }
     .nav-center a.active { color: var(--gold); }
     .nav-center a.active::after { transform: scaleX(1); }
-    .nav-cta { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--black) !important; background: var(--gold); padding: 12px 28px; text-decoration: none; transition: background 0.25s, transform 0.2s, box-shadow 0.25s; clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%); }
-    .nav-cta:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(184,146,42,0.3); }
+    .nav-cta { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--black) !important; background: var(--gold); padding: 12px 28px; text-decoration: none; transition: background 0.25s, transform 0.2s, box-shadow 0.25s; clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%); position: relative; overflow: hidden; }
+    .nav-cta::before { content: ''; position: absolute; inset: 0; background: var(--gold-light); transform: translateX(-100%); transition: transform 0.4s cubic-bezier(0.16,1,0.3,1); z-index: 0; }
+    .nav-cta:hover::before { transform: translateX(0); }
+    .nav-cta span { position: relative; z-index: 1; }
+    .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(184,146,42,0.3); }
     .nav-cta::after { display: none !important; }
     .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; }
     .hamburger span { display: block; width: 28px; height: 2px; background: var(--white); }
 
-    /* Word animation */
+    /* WORD ANIMATION */
     .word { display: inline-block; overflow: visible; padding-bottom: 0.15em; margin-bottom: -0.15em; }
     .word-inner { display: inline-block; transform: translateY(110%); opacity: 0; transition: transform 0.7s cubic-bezier(0.16,1,0.3,1), opacity 0.5s; }
     .word-inner.animate { transform: translateY(0); opacity: 1; }
-    .gold-shimmer {
-      background: linear-gradient(90deg, var(--gold) 0%, var(--gold-light) 40%, #fff8e7 50%, var(--gold-light) 60%, var(--gold) 100%);
-      background-size: 200% auto;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      animation: shimmer 4s linear infinite;
-      animation-delay: 2s;
-    }
+    .gold-shimmer { background: linear-gradient(90deg, var(--gold) 0%, var(--gold-light) 40%, #fff8e7 50%, var(--gold-light) 60%, var(--gold) 100%); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; animation: shimmer 4s linear infinite; animation-delay: 2s; }
     @keyframes shimmer { 0%{background-position:200% center;} 100%{background-position:-200% center;} }
 
-    /* PAGE HERO: WHITE with overlap */
-    .page-hero {
-      padding: 160px 60px 120px;
-      background: var(--pure-white);
-      position: relative;
-      overflow: hidden;
-      z-index: 2;
-      margin-bottom: -60px;
-      border-radius: 0 0 40px 40px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-    }
+    /* PAGE HERO */
     .hero-top-line { position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--gold); transform: scaleX(0); transform-origin: left; transition: transform 1s cubic-bezier(0.16,1,0.3,1); }
     .hero-top-line.animate { transform: scaleX(1); }
-    .page-hero-bg { position: absolute; inset: 0; background-image: linear-gradient(rgba(184,146,42,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(184,146,42,0.06) 1px, transparent 1px); background-size: 60px 60px; }
-    .page-hero-word { position: absolute; right: -20px; bottom: -40px; font-family: 'Barlow Condensed', sans-serif; font-size: clamp(120px, 16vw, 240px); font-weight: 800; color: rgba(0,0,0,0.05); line-height: 1; pointer-events: none; text-transform: uppercase; }
-    .page-hero-inner { position: relative; z-index: 2; max-width: 800px; }
-
-    .back-link { display: inline-flex; align-items: center; gap: 8px; font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.26em; text-transform: uppercase; color: var(--gold); text-decoration: none; margin-bottom: 32px; transition: gap 0.25s; opacity: 0; transform: translateX(-10px); }
-    .back-link.animate { opacity: 1; transform: translateX(0); transition: opacity 0.6s 0.1s, transform 0.6s 0.1s, gap 0.25s; }
-    .back-link:hover { gap: 14px; }
-
-    .page-eyebrow { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; }
+    .page-eyebrow { display: flex; align-items: center; gap: 14px; margin-bottom: 24px; }
     .page-eyebrow-line { width: 0; height: 1px; background: var(--gold); transition: width 0.8s 0.3s ease; }
     .page-eyebrow-line.animate { width: 36px; }
     .page-eyebrow-text { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.34em; text-transform: uppercase; color: var(--gold); opacity: 0; transform: translateX(-8px); transition: opacity 0.6s 0.5s, transform 0.6s 0.5s; }
     .page-eyebrow-text.animate { opacity: 1; transform: translateX(0); }
-    .page-season-label { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(13px, 1.5vw, 16px); font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: #888888; margin-bottom: 12px; opacity: 0; transition: opacity 0.6s 0.6s; }
-    .page-season-label.animate { opacity: 1; }
-    .page-title { font-family: 'Playfair Display', serif; font-size: clamp(40px, 5.5vw, 72px); font-weight: 900; line-height: 1.0; color: var(--black); margin-bottom: 24px; }
-    .page-title em { font-style: italic; color: var(--gold); }
-    .page-divider { width: 0; height: 2px; background: linear-gradient(to right, var(--gold), transparent); margin-bottom: 28px; transition: width 0.8s 0.9s ease; }
-    .page-divider.animate { width: 60px; }
-    .page-desc { font-size: 17px; font-weight: 300; line-height: 1.8; color: #444444; max-width: 600px; margin-bottom: 32px; opacity: 0; transform: translateY(16px); transition: opacity 0.8s 1.1s, transform 0.8s 1.1s; }
-    .page-desc.animate { opacity: 1; transform: translateY(0); }
-    .page-meta { display: flex; align-items: center; gap: 32px; opacity: 0; transition: opacity 0.8s 1.3s; }
-    .page-meta.animate { opacity: 1; }
-    .page-meta-item { display: flex; flex-direction: column; gap: 4px; }
-    .page-meta-label { font-size: 9px; font-weight: 700; letter-spacing: 0.28em; text-transform: uppercase; color: #999999; }
-    .page-meta-value { font-family: 'Barlow Condensed', sans-serif; font-size: 16px; font-weight: 700; letter-spacing: 0.1em; color: var(--black); }
-    .page-meta-value.gold { color: var(--gold); }
-    .page-meta-divider { width: 1px; height: 36px; background: rgba(0,0,0,0.1); }
 
-    /* EPISODES SECTION: overlapping hero */
-    .episodes-section {
-      padding: 120px 60px 100px;
-      background: var(--black);
-      position: relative;
-      z-index: 1;
-    }
+    /* MISSION AND BURDEN */
 
-    /* Sticky season label */
-    .sticky-label {
-      position: sticky;
-      top: 80px;
-      z-index: 10;
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      padding: 14px 0;
-      margin-bottom: 40px;
-      background: var(--black);
-      border-bottom: 1px solid var(--border-dark);
-    }
-    .sticky-label-line { width: 36px; height: 1px; background: var(--gold); }
-    .sticky-label-text { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.34em; text-transform: uppercase; color: var(--gold); }
+    /* ASSIGNMENT */
 
-    /* Episode Cards: PREMIUM horizontal list with tilt */
-    .ep-list { display: flex; flex-direction: column; gap: 3px; }
+    /* PULLQUOTE */
 
-    .ep-item {
-      display: grid;
-      grid-template-columns: 260px 1fr auto;
-      overflow: hidden;
-      background: rgba(255,255,255,0.02);
-      border: 1px solid rgba(255,255,255,0.06);
-      position: relative;
-      transition: border-color 0.3s, background 0.3s, transform 0.4s cubic-bezier(0.16,1,0.3,1), box-shadow 0.4s;
-    }
-    .ep-item::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--gold); transform: scaleY(0); transform-origin: bottom; transition: transform 0.4s cubic-bezier(0.16,1,0.3,1); }
-
-    /* Shine */
-    .ep-item-shine { position: absolute; inset: 0; background: linear-gradient(105deg, transparent 35%, rgba(255,255,255,0.03) 50%, transparent 65%); transform: translateX(-100%); pointer-events: none; z-index: 2; }
-
-    .ep-item:hover { border-color: var(--border-light); background: rgba(184,146,42,0.04); transform: translateX(6px); box-shadow: -6px 0 32px rgba(184,146,42,0.1), inset 0 0 0 1px rgba(184,146,42,0.1); }
-    .ep-item:hover::before { transform: scaleY(1); }
-    .ep-item:hover .ep-item-shine { transform: translateX(100%); transition: transform 0.6s ease; }
-    .ep-item.live { border-color: var(--border-dark); background: rgba(184,146,42,0.05); }
-    .ep-item.live::before { transform: scaleY(1); }
-
-    .ep-thumb { position: relative; overflow: hidden; min-height: 180px; }
-    .ep-thumb-bg { position: absolute; inset: 0; transition: transform 0.6s cubic-bezier(0.16,1,0.3,1); }
-    .ep-item:hover .ep-thumb-bg { transform: scale(1.06); }
-    .ep-thumb-overlay { position: absolute; inset: 0; background: linear-gradient(to right, rgba(0,0,0,0.2), transparent); }
-    .ep1-bg { background: linear-gradient(135deg, #1a1408 0%, #3d2d10 50%, #1a1408 100%); }
-    /* S1E1 square thumbnail on the live (Episode 01) panel. Position biased slightly up so
-       faces survive the wide top/bottom trim on mobile; desktop trim is only ~5%. */
-    .ep-item.live .ep-thumb-bg { background: #1a1408 url('/Photos/S1E1-Square.jpg') center center / cover no-repeat; }
-    /* Mobile: the thumb becomes a wide short band, so bias the crop upward to keep both faces in view. */
-    @media (max-width: 1024px) { .ep-item.live .ep-thumb-bg { background-position: center 32%; } }
-    /* Legibility scrim: very strong at top (gold EPISODE 01 label over bright blue lights),
-       clear through the middle (subjects), moderate at bottom (LIVE NOW over dark crowd). */
-    .ep-item.live .ep-thumb-overlay { background: linear-gradient(to bottom, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.9) 10%, rgba(0,0,0,0.5) 24%, rgba(0,0,0,0.12) 40%, transparent 56%, transparent 76%, rgba(0,0,0,0.32) 90%, rgba(0,0,0,0.52) 100%); }
-    .ep2-bg { background: linear-gradient(135deg, #0d0614 0%, #2a1040 50%, #0d0614 100%); }
-    .ep3-bg { background: linear-gradient(135deg, #060810 0%, #0d1c3d 50%, #060810 100%); }
-    .ep4-bg { background: linear-gradient(135deg, #0a0f06 0%, #1a2d0a 50%, #0a0f06 100%); }
-    .ep-thumb-num { position: absolute; top: 16px; left: 16px; font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.28em; color: var(--gold); text-transform: uppercase; transition: letter-spacing 0.3s; }
-    .ep-item:hover .ep-thumb-num { letter-spacing: 0.36em; }
-    .ep-thumb-play { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%) scale(0); width: 48px; height: 48px; border-radius: 50%; border: 2px solid var(--gold); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s, transform 0.4s cubic-bezier(0.34,1.56,0.64,1); background: rgba(184,146,42,0.1); backdrop-filter: blur(4px); }
-    .ep-item:hover .ep-thumb-play { opacity: 1; transform: translate(-50%,-50%) scale(1); }
-    .ep-thumb-status { position: absolute; bottom: 14px; left: 14px; font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; padding: 4px 10px; }
-    .ep-thumb-status.live { background: rgba(184,146,42,0.9); color: var(--black); }
-    .ep-thumb-status.coming { background: rgba(255,255,255,0.08); color: var(--grey-pale); border: 1px solid rgba(255,255,255,0.12); }
-
-    .ep-info { padding: 32px 40px; display: flex; flex-direction: column; justify-content: center; gap: 12px; position: relative; z-index: 1; }
-    .ep-tag { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.28em; color: var(--grey-mid); text-transform: uppercase; }
-    .ep-title { font-family: 'Playfair Display', serif; font-size: clamp(18px, 2vw, 28px); font-weight: 700; color: var(--white); line-height: 1.2; transition: transform 0.3s; }
-    .ep-item:hover .ep-title { transform: translateX(4px); }
-    .ep-verse { font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.18em; color: var(--gold); text-transform: uppercase; }
-    .ep-desc { font-size: 14px; font-weight: 300; line-height: 1.75; color: var(--grey-light); max-width: 500px; }
-
-    .ep-actions { padding: 32px 40px; display: flex; flex-direction: column; align-items: flex-end; justify-content: center; gap: 12px; border-left: 1px solid rgba(255,255,255,0.04); min-width: 200px; position: relative; z-index: 1; }
-    .btn-watch { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--black); background: var(--gold); padding: 14px 28px; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: background 0.25s, transform 0.2s, box-shadow 0.25s; clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%); white-space: nowrap; }
-    .btn-watch:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 8px 20px rgba(184,146,42,0.3); }
-    .btn-youtube { font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--grey-light); border: 1px solid rgba(255,255,255,0.12); padding: 12px 24px; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: border-color 0.25s, color 0.25s, transform 0.2s; white-space: nowrap; }
-    .btn-youtube:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
-    .ep-coming-tag { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.26em; color: var(--grey-mid); text-transform: uppercase; text-align: center; }
-
-    /* WATCH EMBED: overlapping episodes */
-    .embed-section {
-      padding: 120px 60px 100px;
-      background: var(--charcoal);
-      position: relative;
-      z-index: 2;
-      margin-top: -40px;
-      border-radius: 40px 40px 0 0;
-      box-shadow: 0 -20px 60px rgba(0,0,0,0.3);
-    }
-    .embed-section-line { position: absolute; top: 40px; left: 60px; right: 60px; height: 1px; background: linear-gradient(to right, transparent, var(--gold), transparent); transform: scaleX(0); transform-origin: center; transition: transform 1s cubic-bezier(0.16,1,0.3,1); }
-    .embed-section-line.animate { transform: scaleX(1); }
-    .embed-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
-    .embed-left .eyebrow { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; }
-    .embed-left .eyebrow-line { width: 36px; height: 1px; background: var(--gold); }
-    .embed-left .eyebrow-text { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.34em; text-transform: uppercase; color: var(--gold); }
-    .embed-left h2 { font-family: 'Playfair Display', serif; font-size: clamp(28px, 3vw, 42px); font-weight: 900; line-height: 1.1; color: var(--white); margin-bottom: 20px; }
-    .embed-left h2 em { font-style: italic; color: var(--gold); }
-    .embed-left p { font-size: 15px; font-weight: 300; line-height: 1.8; color: var(--grey-pale); margin-bottom: 32px; }
-    .embed-wrapper { position: relative; padding-bottom: 56.25%; background: var(--grey-dark); overflow: hidden; }
-    .embed-wrapper iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; }
-    .embed-placeholder { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; background: var(--grey-dark); border: 1px solid var(--border-dark); }
-    .embed-placeholder-icon { width: 64px; height: 64px; border-radius: 50%; border: 2px solid var(--border-light); display: flex; align-items: center; justify-content: center; color: var(--gold); }
-    .embed-placeholder strong { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; color: var(--gold); display: block; text-align: center; }
-    .embed-placeholder p { font-size: 13px; color: var(--grey-light); text-align: center; line-height: 1.6; max-width: 240px; }
+    /* FOUNDER */
 
     /* SUBSCRIBE */
-    .subscribe-section {
-      padding: 120px 60px 100px;
-      background: var(--black);
-      position: relative;
-      z-index: 1;
-      text-align: center;
-    }
-    .subscribe-section-line { position: absolute; top: 0; left: 60px; right: 60px; height: 1px; background: linear-gradient(to right, transparent, var(--gold), transparent); transform: scaleX(0); transform-origin: center; transition: transform 1s cubic-bezier(0.16,1,0.3,1); }
-    .subscribe-section-line.animate { transform: scaleX(1); }
-    .subscribe-inner { max-width: 640px; margin: 0 auto; }
-    .subscribe-eyebrow { display: flex; align-items: center; justify-content: center; gap: 14px; margin-bottom: 20px; }
-    .subscribe-eyebrow-line { width: 36px; height: 1px; background: var(--gold); }
-    .subscribe-eyebrow-text { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.34em; text-transform: uppercase; color: var(--gold); }
-    .subscribe-title { font-family: 'Playfair Display', serif; font-size: clamp(32px, 4vw, 52px); font-weight: 900; line-height: 1.1; color: var(--white); margin-bottom: 20px; }
-    .subscribe-title em { font-style: italic; color: var(--gold); }
-    .subscribe-desc { font-size: 16px; font-weight: 300; line-height: 1.8; color: var(--grey-pale); margin-bottom: 48px; }
 
     /* FOOTER */
-    footer { background: var(--black); border-top: 1px solid var(--border-dark); padding: 80px 60px 40px; }
+    footer { background: var(--black); border-top: 1px solid var(--border-dark); padding: 80px 60px 40px; position: relative; z-index: 6; margin-top: -40px; border-radius: 40px 40px 0 0; box-shadow: 0 -20px 60px rgba(0,0,0,0.3); }
     .footer-top { display: grid; grid-template-columns: 2.5fr 1fr 1fr 1fr; gap: 60px; padding-bottom: 60px; border-bottom: 1px solid rgba(255,255,255,0.06); margin-bottom: 40px; }
     .footer-brand .wordmark { font-family: 'Barlow Condensed', sans-serif; font-size: 30px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; color: var(--white); margin-bottom: 4px; }
     .footer-brand .wordmark span { color: var(--gold); }
@@ -254,31 +99,171 @@
     .reveal { opacity: 0; transform: translateY(48px); transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1); }
     .reveal.visible { opacity: 1; transform: translateY(0); }
     .reveal-delay-1 { transition-delay: 0.1s; }
-    .reveal-delay-2 { transition-delay: 0.2s; }
-    .reveal-delay-3 { transition-delay: 0.3s; }
-    .reveal-delay-4 { transition-delay: 0.4s; }
+    .reveal-delay-2 { transition-delay: 0.22s; }
+    .reveal-delay-3 { transition-delay: 0.34s; }
 
     @media (max-width: 1024px) {
       nav { padding: 0 24px; }
       .nav-center { display: none; }
       .hamburger { display: flex; }
-      .page-hero { padding: 120px 24px 80px; border-radius: 0 0 24px 24px; margin-bottom: -40px; }
-      .episodes-section { padding: 80px 24px; }
-      .ep-item { grid-template-columns: 1fr; }
-      .ep-thumb { min-height: 200px; }
-      .ep-actions { flex-direction: row; border-left: none; border-top: 1px solid rgba(255,255,255,0.04); padding: 20px 32px; min-width: unset; align-items: center; justify-content: flex-start; }
-      .embed-section { padding: 80px 24px; border-radius: 24px 24px 0 0; margin-top: -24px; }
-      .embed-inner { grid-template-columns: 1fr; gap: 40px; }
-      .subscribe-section { padding: 80px 24px; }
-      footer { padding: 60px 24px 32px; }
+      footer { padding: 60px 24px 32px; border-radius: 24px 24px 0 0; margin-top: -24px; }
       .footer-top { grid-template-columns: 1fr 1fr; gap: 40px; }
       .footer-bottom { flex-direction: column; gap: 20px; text-align: center; }
-      .page-meta { flex-wrap: wrap; gap: 20px; }
-      .page-meta-divider { display: none; }
     }
-    .join-cta { display: inline-flex; align-items: center; align-self: flex-start; width: fit-content; gap: 10px; font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--black); background: var(--gold); padding: 18px 36px; text-decoration: none; transition: background 0.25s, transform 0.2s, box-shadow 0.25s; clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%); }
-    .join-cta:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 10px 26px rgba(184,146,42,0.28); }
+
+    /* ===== GIVE PAGE ADDITIONS ===== */
+
+    /* Primary giving block */
+
+    /* Not-yet-wired state: link placeholder still in place */
+    [data-give-link][data-pending="true"] { opacity: 0.55; cursor: not-allowed; }
+    [data-give-link][data-pending="true"]:hover { transform: none; box-shadow: none; background: var(--gold); }
+
+    /* Trust and disclosure */
+
+    @media (max-width: 1024px) {
+    }
+
+    /* SEASON ONE: premiere page */
+    .s1-label { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.34em; text-transform: uppercase; color: var(--gold); }
+    .s1-section-line { position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--gold); transform: scaleX(0); transform-origin: left; transition: transform 1s cubic-bezier(0.16,1,0.3,1); z-index: 3; }
+    .s1-section-line.animate { transform: scaleX(1); }
+    .btn-s1 { display: inline-flex; align-items: center; gap: 12px; font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; text-decoration: none; padding: 18px 36px; transition: background 0.25s, color 0.25s, border-color 0.25s, transform 0.2s, box-shadow 0.25s; clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%); }
+    .btn-s1.gold { background: var(--gold); color: var(--black); }
+    .btn-s1.gold:hover { background: var(--gold-light); box-shadow: 0 12px 30px rgba(184,146,42,0.3); }
+    .btn-s1.ghost { color: var(--white); border: 1px solid rgba(242,240,237,0.35); clip-path: none; }
+    .btn-s1.ghost:hover { border-color: var(--gold); color: var(--gold-light); }
+    .btn-s1.dark { background: var(--black); color: var(--white); }
+    .btn-s1.dark:hover { background: #1f1f1f; box-shadow: 0 12px 30px rgba(0,0,0,0.25); }
+    .btn-s1.ghost-dark { color: var(--black); border: 1px solid rgba(10,10,10,0.4); clip-path: none; }
+    .btn-s1.ghost-dark:hover { border-color: var(--black); background: rgba(10,10,10,0.06); }
+    .btn-s1[hidden] { display: none; }
+
+    /* HERO */
+    .s1-hero { position: relative; min-height: 92vh; display: flex; align-items: flex-end; overflow: hidden; background: var(--black); padding: 160px 60px 110px; z-index: 2; margin-bottom: -60px; border-radius: 0 0 40px 40px; box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
+    .s1-hero-art { position: absolute; inset: 0; z-index: 0; }
+    .s1-hero-art img { width: 100%; height: 100%; object-fit: cover; object-position: 62% 40%; display: block; transform: scale(1.02); animation: s1Drift 24s ease-in-out infinite alternate; will-change: transform; }
+    @keyframes s1Drift { from { transform: scale(1.02) translate3d(0,0,0); } to { transform: scale(1.09) translate3d(-1.5%, -1%, 0); } }
+    .s1-hero-scrim { position: absolute; inset: 0; z-index: 1; background:
+      linear-gradient(90deg, rgba(10,10,10,0.94) 0%, rgba(10,10,10,0.82) 34%, rgba(10,10,10,0.45) 62%, rgba(10,10,10,0.25) 100%),
+      linear-gradient(180deg, rgba(10,10,10,0.55) 0%, rgba(10,10,10,0) 30%, rgba(10,10,10,0.35) 70%, rgba(10,10,10,0.96) 100%); }
+    .s1-hero-inner { position: relative; z-index: 2; max-width: 860px; }
+    .back-link { display: inline-flex; align-items: center; gap: 8px; font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.26em; text-transform: uppercase; color: var(--gold); text-decoration: none; margin-bottom: 30px; opacity: 0; transform: translateX(-10px); transition: opacity 0.6s 0.1s, transform 0.6s 0.1s, gap 0.25s; }
+    .back-link.animate { opacity: 1; transform: translateX(0); }
+    .back-link:hover { gap: 14px; }
+    .s1-title { font-family: 'Playfair Display', serif; font-size: clamp(52px, 8.4vw, 124px); font-weight: 900; line-height: 0.96; letter-spacing: -0.01em; color: var(--white); margin: 6px 0 28px; }
+    .s1-sub { font-family: 'Playfair Display', serif; font-style: italic; font-size: clamp(18px, 1.7vw, 24px); font-weight: 400; line-height: 1.45; color: var(--grey-pale); max-width: 620px; opacity: 0; transform: translateY(14px); transition: opacity 0.8s, transform 0.8s; }
+    .s1-sub.animate { opacity: 1; transform: translateY(0); }
+    .s1-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin: 34px 0 36px; font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: var(--white); opacity: 0; transform: translateY(12px); transition: opacity 0.8s, transform 0.8s; }
+    .s1-meta.animate { opacity: 1; transform: translateY(0); }
+    .s1-meta b { font-weight: 700; color: var(--gold-light); }
+    .s1-meta i { width: 5px; height: 5px; border-radius: 50%; background: var(--gold); display: inline-block; }
+    .s1-actions { display: flex; flex-wrap: wrap; gap: 16px; opacity: 0; transform: translateY(12px); transition: opacity 0.8s, transform 0.8s; }
+    .s1-actions.animate { opacity: 1; transform: translateY(0); }
+
+    /* TEASER */
+    .s1-teaser { position: relative; background: var(--charcoal); padding: 170px 60px 150px; z-index: 3; margin-bottom: -60px; border-radius: 40px 40px 0 0; box-shadow: 0 -20px 60px rgba(0,0,0,0.35); overflow: hidden; text-align: center; }
+    .s1-teaser-bg { position: absolute; left: 50%; bottom: -70px; transform: translateX(-50%); font-family: 'Barlow Condensed', sans-serif; font-size: clamp(160px, 24vw, 380px); font-weight: 800; letter-spacing: -0.02em; line-height: 1; color: rgba(255,255,255,0.025); pointer-events: none; text-transform: uppercase; white-space: nowrap; }
+    .s1-teaser-inner { position: relative; z-index: 2; max-width: 980px; margin: 0 auto; }
+    .s1-teaser h2 { font-family: 'Playfair Display', serif; font-size: clamp(32px, 4.6vw, 66px); font-weight: 900; line-height: 1.08; color: var(--white); margin-bottom: 30px; }
+    .s1-teaser h2 em { font-style: italic; color: var(--gold); }
+    .s1-teaser p { font-size: clamp(16px, 1.35vw, 19px); font-weight: 300; line-height: 1.75; color: var(--grey-pale); max-width: 640px; margin: 0 auto; }
+    .s1-teaser-close { margin-top: 40px; font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.36em; text-transform: uppercase; color: var(--gold); }
+
+    /* FEATURE: EPISODE ONE */
+    .s1-feature { position: relative; background: var(--pure-white); padding: 170px 60px 150px; z-index: 4; margin-bottom: -60px; border-radius: 40px 40px 0 0; box-shadow: 0 -20px 60px rgba(0,0,0,0.3); overflow: hidden; }
+    .s1-feature-inner { display: grid; grid-template-columns: 1.25fr 1fr; gap: 72px; align-items: center; max-width: 1320px; margin: 0 auto; }
+    .s1-feature-art { position: relative; aspect-ratio: 16 / 9; overflow: hidden; background: #0d0a04; box-shadow: 0 30px 70px rgba(0,0,0,0.28); }
+    .s1-feature-art img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.8s cubic-bezier(0.16,1,0.3,1); }
+    .s1-feature-art:hover img { transform: scale(1.035); }
+    .s1-feature-badge { position: absolute; left: 20px; top: 20px; z-index: 2; font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.28em; text-transform: uppercase; color: var(--black); background: var(--gold); padding: 8px 14px; }
+    .s1-feature-body { position: relative; }
+    .s1-feature-num { font-family: 'Playfair Display', serif; font-size: clamp(88px, 9vw, 150px); font-weight: 900; line-height: 0.9; color: rgba(10,10,10,0.06); position: absolute; right: -8px; top: -46px; pointer-events: none; }
+    .s1-feature-title { font-family: 'Playfair Display', serif; font-size: clamp(32px, 3.4vw, 50px); font-weight: 900; line-height: 1.08; color: var(--black); margin: 18px 0 22px; position: relative; }
+    .s1-feature-title em { font-style: italic; color: var(--gold); }
+    .s1-feature-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.24em; text-transform: uppercase; color: #555555; margin-bottom: 22px; }
+    .s1-feature-meta i { width: 5px; height: 5px; border-radius: 50%; background: var(--gold); display: inline-block; }
+    .s1-feature-meta .s1-status { color: var(--black); }
+    .s1-feature-meta .s1-status b { color: #8a6a12; }
+    .s1-feature-desc { font-size: 17px; font-weight: 300; line-height: 1.75; color: #444444; max-width: 460px; margin-bottom: 34px; }
+    .btn-ep { display: inline-flex; align-items: center; gap: 12px; font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; text-decoration: none; padding: 18px 36px; transition: background 0.25s, color 0.25s, box-shadow 0.25s, transform 0.2s; }
+    .btn-ep[data-pending] { color: #6a6a6a; border: 1px dashed rgba(10,10,10,0.3); cursor: default; }
+    .btn-ep:not([data-pending]) { background: var(--gold); color: var(--black); clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%); }
+    .btn-ep:not([data-pending]):hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 12px 30px rgba(184,146,42,0.3); }
+
+    /* COMING THIS SEASON */
+    .s1-coming { position: relative; background: var(--black); padding: 170px 60px 150px; z-index: 5; margin-bottom: -60px; border-radius: 40px 40px 0 0; box-shadow: 0 -20px 60px rgba(0,0,0,0.4); }
+    .s1-coming-head { max-width: 1320px; margin: 0 auto 56px; }
+    .s1-coming-head h2 { font-family: 'Playfair Display', serif; font-size: clamp(34px, 4vw, 58px); font-weight: 900; line-height: 1.05; color: var(--white); margin: 16px 0 18px; }
+    .s1-coming-head h2 em { font-style: italic; color: var(--gold); }
+    .s1-coming-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.28em; text-transform: uppercase; color: var(--grey-light); }
+    .s1-coming-meta b { font-weight: 700; color: var(--gold-light); }
+    .s1-coming-meta i { width: 5px; height: 5px; border-radius: 50%; background: var(--gold); display: inline-block; }
+    .s1-coming-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; max-width: 1320px; margin: 0 auto; }
+    .s1-card { position: relative; aspect-ratio: 4 / 5; overflow: hidden; background: var(--grey-dark); transition: transform 0.5s cubic-bezier(0.16,1,0.3,1), box-shadow 0.5s; }
+    .s1-card:hover { transform: translateY(-10px); box-shadow: 0 34px 70px rgba(0,0,0,0.5), 0 0 0 1px rgba(184,146,42,0.25); }
+    .s1-card-bg { position: absolute; inset: 0; transition: transform 0.8s cubic-bezier(0.16,1,0.3,1); }
+    .s1-card:hover .s1-card-bg { transform: scale(1.06); }
+    .s1-card-bg.ep2 { background: radial-gradient(120% 90% at 30% 20%, #3a1a5a 0%, #1a0d2a 45%, #0d0614 100%); }
+    .s1-card-bg.ep3 { background: radial-gradient(120% 90% at 70% 20%, #16305e 0%, #0d1c3d 45%, #060810 100%); }
+    .s1-card-bg.ep4 { background: radial-gradient(120% 90% at 30% 80%, #2c4a12 0%, #1a2d0a 45%, #0a0f06 100%); }
+    .s1-card-bg::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.2) 45%, rgba(0,0,0,0.85) 100%); }
+    .s1-card-num { position: absolute; left: 26px; top: 14px; font-family: 'Playfair Display', serif; font-size: clamp(88px, 8vw, 128px); font-weight: 900; line-height: 1; color: rgba(255,255,255,0.10); transition: color 0.5s, transform 0.5s; z-index: 2; }
+    .s1-card:hover .s1-card-num { color: rgba(212,168,64,0.9); transform: translateY(-4px); }
+    .s1-card-body { position: absolute; left: 0; right: 0; bottom: 0; padding: 30px 28px; z-index: 3; }
+    .s1-card-ep { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+    .s1-card h3 { font-family: 'Playfair Display', serif; font-size: clamp(22px, 2vw, 30px); font-weight: 700; line-height: 1.18; color: var(--white); margin-bottom: 16px; }
+    .s1-card-tag { display: inline-block; font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.28em; text-transform: uppercase; color: var(--grey-pale); border: 1px solid rgba(242,240,237,0.22); padding: 7px 12px; }
+
+    /* TRAILER */
+    .s1-trailer { position: relative; background: var(--charcoal); padding: 170px 60px 150px; z-index: 6; margin-bottom: -60px; border-radius: 40px 40px 0 0; box-shadow: 0 -20px 60px rgba(0,0,0,0.4); }
+    .s1-trailer-head { text-align: center; max-width: 900px; margin: 0 auto 54px; }
+    .s1-trailer-head h2 { font-family: 'Playfair Display', serif; font-size: clamp(34px, 4.4vw, 62px); font-weight: 900; line-height: 1.05; color: var(--white); margin: 16px 0 18px; }
+    .s1-trailer-head h2 em { font-style: italic; color: var(--gold); }
+    .s1-trailer-sub { font-family: 'Barlow Condensed', sans-serif; font-size: 14px; font-weight: 700; letter-spacing: 0.4em; text-transform: uppercase; color: var(--grey-pale); }
+    .s1-trailer-frame { position: relative; max-width: 1180px; margin: 0 auto; aspect-ratio: 16 / 9; background: #000; overflow: hidden; box-shadow: 0 40px 90px rgba(0,0,0,0.55); }
+    .s1-trailer-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+    .s1-trailer-poster { position: absolute; inset: 0; }
+    .s1-trailer-poster img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 35%; display: block; filter: saturate(0.85); }
+    .s1-trailer-poster::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(10,10,10,0.35) 0%, rgba(10,10,10,0.55) 60%, rgba(10,10,10,0.9) 100%); }
+    .s1-trailer-state { position: absolute; inset: 0; z-index: 2; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px; font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.34em; text-transform: uppercase; color: var(--white); }
+    .s1-play-badge { width: 76px; height: 76px; border-radius: 50%; border: 1px solid rgba(212,168,64,0.8); background: rgba(10,10,10,0.5); backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; }
+    .s1-play-badge svg { margin-left: 4px; }
+
+    /* FINAL CTA */
+    .s1-final { position: relative; background: var(--gold); padding: 160px 60px 140px; z-index: 7; margin-bottom: -40px; border-radius: 40px 40px 0 0; box-shadow: 0 -20px 60px rgba(0,0,0,0.35); overflow: hidden; text-align: center; }
+    .s1-final-bg { position: absolute; inset: 0; background-image: linear-gradient(rgba(0,0,0,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.08) 1px, transparent 1px); background-size: 60px 60px; }
+    .s1-final-inner { position: relative; z-index: 2; max-width: 900px; margin: 0 auto; }
+    .s1-final h2 { font-family: 'Playfair Display', serif; font-size: clamp(38px, 5.4vw, 78px); font-weight: 900; line-height: 1.02; color: var(--black); margin-bottom: 26px; }
+    .s1-final h2 em { font-style: italic; color: #2a2008; }
+    .s1-final p { font-family: 'Playfair Display', serif; font-style: italic; font-size: clamp(18px, 1.7vw, 24px); color: rgba(10,10,10,0.78); margin-bottom: 40px; }
+    .s1-final-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; }
+    .s1-final-line { margin-top: 56px; font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.4em; text-transform: uppercase; color: rgba(10,10,10,0.55); }
+
+    @media (prefers-reduced-motion: reduce) {
+      .s1-hero-art img { animation: none; transform: none; }
+      .s1-card, .s1-card-bg, .s1-feature-art img { transition: none; }
+    }
+    @media (max-width: 900px) {
+      .s1-hero { min-height: 0; padding: 130px 20px 70px; border-radius: 0 0 24px 24px; margin-bottom: -40px; }
+      .s1-hero-art img { object-position: 68% 30%; }
+      .s1-hero-scrim { background: linear-gradient(180deg, rgba(10,10,10,0.6) 0%, rgba(10,10,10,0.55) 35%, rgba(10,10,10,0.9) 70%, rgba(10,10,10,0.98) 100%); }
+      .s1-title { font-size: clamp(46px, 14vw, 64px); }
+      .s1-meta, .s1-feature-meta, .s1-coming-meta { flex-direction: column; align-items: flex-start; gap: 9px; font-size: 11px; letter-spacing: 0.24em; }
+      .s1-meta i, .s1-feature-meta i, .s1-coming-meta i { display: none; }
+      .s1-actions { flex-direction: column; }
+      .s1-actions .btn-s1 { width: 100%; justify-content: center; }
+      .s1-teaser, .s1-feature, .s1-coming, .s1-trailer, .s1-final { padding: 100px 20px 80px; border-radius: 24px 24px 0 0; margin-bottom: -40px; }
+      .s1-feature-inner { grid-template-columns: 1fr; gap: 40px; }
+      .s1-feature-num { right: 0; top: -30px; font-size: 96px; }
+      .s1-coming-grid { grid-template-columns: 1fr; gap: 16px; }
+      .s1-card { aspect-ratio: 16 / 10; }
+      .s1-card-num { font-size: 84px; }
+      .s1-final-actions { flex-direction: column; align-items: stretch; }
+      .s1-final-actions .btn-s1 { justify-content: center; }
+    }
   </style>
+
 </head>
 <body>
 
@@ -296,200 +281,150 @@
       <li><a href="/series" class="active">The Unseated Series</a></li>
       <li><a href="/context">Context Matters</a></li>
       <li><a href="/community">The Remnant</a></li>
-      <li><a href="/give" class="nav-cta">Give</a></li>
+      <li><a href="/give" class="nav-cta"><span>Give</span></a></li>
     </ul>
     <div class="hamburger" id="hamburger">
       <span></span><span></span><span></span>
     </div>
   </nav>
 
-  <!-- PAGE HERO -->
-  <section class="page-hero">
+  <!-- HERO -->
+  <section class="s1-hero">
+    <div class="s1-hero-art"><img src="/Photos/S1E1-Hero.jpg" alt="" aria-hidden="true" id="heroArt" /></div>
+    <div class="s1-hero-scrim"></div>
     <div class="hero-top-line" id="heroTopLine"></div>
-    <div class="page-hero-bg"></div>
-    <div class="page-hero-word">SEASON</div>
-    <div class="page-hero-inner">
+    <div class="s1-hero-inner">
       <a href="/series" class="back-link" id="backLink">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
         All Seasons
       </a>
       <div class="page-eyebrow">
         <div class="page-eyebrow-line" id="eyebrowLine"></div>
-        <span class="page-eyebrow-text" id="eyebrowText">Season One · June 2026</span>
+        <span class="page-eyebrow-text" id="eyebrowText">The Unseated Series</span>
       </div>
-      <div class="page-season-label" id="seasonLabel">The Unseated Series</div>
-      <h1 class="page-title">
-        <span class="word"><span class="word-inner">Unseating</span></span>&#32;<span class="word"><span class="word-inner gold-shimmer" style="font-style:italic;">Performance</span></span>
+      <h1 class="s1-title">
+        <span class="word"><span class="word-inner">Unseating</span></span><br>
+        <span class="word"><span class="word-inner gold-shimmer" style="font-style:italic;">Performance</span></span>
       </h1>
-      <div class="page-divider" id="pageDivider"></div>
-      <p class="page-desc" id="pageDesc">The church hasn't lost its power. It's lost its posture. This season confronts what happens when ministry becomes performance and calls the remnant back to the only thing that produces lasting kingdom impact. Formation.</p>
-      <div class="page-meta" id="pageMeta">
-        <div class="page-meta-item">
-          <span class="page-meta-label">Episodes</span>
-          <span class="page-meta-value" id="epCount">0</span>
+      <p class="s1-sub" id="pageDesc">Before we confront what formed the church, we have to confront what formed us.</p>
+      <div class="s1-meta" id="heroMeta">
+        <span>Season One</span><i></i>
+        <span>Premieres <b data-premiere>Next Week</b></span><i></i>
+        <span>4 Episodes</span>
+      </div>
+      <div class="s1-actions" id="pageActions">
+        <a href="#trailer" class="btn-s1 gold magnetic" data-trailer-cta><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg> Watch the Trailer</a>
+        <a href="/community" class="btn-s1 ghost" data-notify>Get Notified</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEASER -->
+  <section class="s1-teaser">
+    <div class="s1-section-line"></div>
+    <div class="s1-teaser-bg">FORMED</div>
+    <div class="s1-teaser-inner reveal">
+      <h2>What If Performance Has Been Masquerading as <em>Formation?</em></h2>
+      <p>Season One examines what happens when what we do for God begins to define our worth, maturity, and relationship with Him.</p>
+      <div class="s1-teaser-close">It starts with us.</div>
+    </div>
+  </section>
+
+  <!-- FEATURE: EPISODE ONE -->
+  <section class="s1-feature" id="episode-one">
+    <div class="s1-section-line"></div>
+    <div class="s1-feature-inner">
+      <div class="s1-feature-art reveal">
+        <img src="/Photos/S1E1-Wide.jpg" alt="Episode 01 artwork: Gifted But Immature?" />
+        <div class="s1-feature-badge">Episode 01</div>
+      </div>
+      <div class="s1-feature-body reveal reveal-delay-2">
+        <div class="s1-feature-num" aria-hidden="true">01</div>
+        <div class="s1-label">The Series Begins Here</div>
+        <h2 class="s1-feature-title">When Ministry Outpaces <em>Maturity</em></h2>
+        <div class="s1-feature-meta">
+          <span class="s1-status" data-ep1-status>Premieres <b data-premiere>Next Week</b></span><i></i>
+          <span>1 Corinthians 13:1–3 · NASB</span>
         </div>
-        <div class="page-meta-divider"></div>
-        <div class="page-meta-item">
-          <span class="page-meta-label">Status</span>
-          <span class="page-meta-value gold">Now Live</span>
+        <p class="s1-feature-desc">What happens when someone carries a genuine gift but an unformed character?</p>
+        <a class="btn-ep" id="epOneCta" href="#" data-pending="true" aria-disabled="true">Coming Next Week</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMING THIS SEASON -->
+  <section class="s1-coming">
+    <div class="s1-section-line"></div>
+    <div class="s1-coming-head reveal">
+      <div class="s1-label">The Lineup</div>
+      <h2>Coming This <em>Season.</em></h2>
+      <div class="s1-coming-meta">
+        <span>4 Episodes</span><i></i>
+        <span>Premieres <b data-premiere>Next Week</b></span><i></i>
+        <span>New Episodes Weekly</span>
+      </div>
+    </div>
+    <div class="s1-coming-grid">
+      <article class="s1-card reveal reveal-delay-1">
+        <div class="s1-card-bg ep2"></div>
+        <div class="s1-card-num">02</div>
+        <div class="s1-card-body">
+          <div class="s1-card-ep">Episode 02</div>
+          <h3>The Drug Called Power</h3>
+          <span class="s1-card-tag">Coming This Season</span>
         </div>
-        <div class="page-meta-divider"></div>
-        <div class="page-meta-item">
-          <span class="page-meta-label">Launched</span>
-          <span class="page-meta-value">June 2026</span>
+      </article>
+      <article class="s1-card reveal reveal-delay-2">
+        <div class="s1-card-bg ep3"></div>
+        <div class="s1-card-num">03</div>
+        <div class="s1-card-body">
+          <div class="s1-card-ep">Episode 03</div>
+          <h3>When Glory Goes Missing</h3>
+          <span class="s1-card-tag">Coming This Season</span>
         </div>
-        <div class="page-meta-divider"></div>
-        <div class="page-meta-item">
-          <span class="page-meta-label">Scripture</span>
-          <span class="page-meta-value">NASB</span>
+      </article>
+      <article class="s1-card reveal reveal-delay-3">
+        <div class="s1-card-bg ep4"></div>
+        <div class="s1-card-num">04</div>
+        <div class="s1-card-body">
+          <div class="s1-card-ep">Episode 04</div>
+          <h3>The Great Reconstruction</h3>
+          <span class="s1-card-tag">Coming This Season</span>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- TRAILER -->
+  <section class="s1-trailer" id="trailer">
+    <div class="s1-section-line"></div>
+    <div class="s1-trailer-head reveal">
+      <div class="s1-label">Series Trailer</div>
+      <h2>This Is the <em>Unseated</em> Series.</h2>
+      <div class="s1-trailer-sub">Confront. Reform. Rebuild.</div>
+    </div>
+    <div class="s1-trailer-frame reveal reveal-delay-2" id="trailerFrame">
+      <div class="s1-trailer-poster" id="trailerPoster">
+        <img src="/Photos/S1E1-Hero.jpg" alt="" aria-hidden="true" />
+        <div class="s1-trailer-state" id="trailerState">
+          <span class="s1-play-badge"><svg width="22" height="22" viewBox="0 0 24 24" fill="#D4A840"><path d="M8 5v14l11-7z"/></svg></span>
+          <span>Trailer Coming Soon</span>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- EPISODES -->
-  <section class="episodes-section">
-    <div class="sticky-label">
-      <div class="sticky-label-line"></div>
-      <span class="sticky-label-text">Season One · Unseating Performance</span>
-    </div>
-
-    <div class="ep-list">
-
-      <div class="ep-item live reveal reveal-delay-1">
-        <div class="ep-item-shine"></div>
-        <div class="ep-thumb">
-          <div class="ep-thumb-bg ep1-bg"></div>
-          <div class="ep-thumb-overlay"></div>
-          <div class="ep-thumb-num">Episode 01</div>
-          <div class="ep-thumb-play"><svg width="16" height="16" viewBox="0 0 24 24" fill="#B8922A"><path d="M8 5v14l11-7z"/></svg></div>
-          <div class="ep-thumb-status live">Live Now</div>
-        </div>
-        <div class="ep-info">
-          <div class="ep-tag">Unseating Performance · S1E1</div>
-          <div class="ep-title">When Ministry Outpaces Maturity</div>
-          <div class="ep-verse">1 Corinthians 13:1–3 · NASB</div>
-          <div class="ep-desc">What happens when someone carries a genuine gift but an unformed character? This episode confronts the danger of ministry that outpaces the maturity needed to sustain it.</div>
-        </div>
-        <div class="ep-actions">
-          <a href="#" class="btn-watch magnetic">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-            Watch Now
-          </a>
-          <a href="#" target="_blank" class="btn-youtube">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M21.8 8s-.2-1.4-.8-2c-.8-.8-1.6-.8-2-.9C16.8 5 12 5 12 5s-4.8 0-7 .1c-.4.1-1.2.1-2 .9-.6.6-.8 2-.8 2S2 9.6 2 11.2v1.5c0 1.6.2 3.2.2 3.2s.2 1.4.8 2c.8.8 1.8.8 2.2.8C6.8 19 12 19 12 19s4.8 0 7-.2c.4-.1 1.2-.1 2-.9.6-.6.8-2 .8-2s.2-1.6.2-3.2v-1.5C22 9.6 21.8 8 21.8 8zM10 15V9l5.5 3-5.5 3z"/></svg>
-            Open in YouTube
-          </a>
-        </div>
+  <!-- FINAL CTA -->
+  <section class="s1-final">
+    <div class="s1-final-bg"></div>
+    <div class="s1-final-inner reveal">
+      <h2>Don't Just Watch.<br>Be <em>Formed.</em></h2>
+      <p>Season One begins <span data-premiere>next week</span>.</p>
+      <div class="s1-final-actions">
+        <a href="/community" class="btn-s1 dark magnetic" data-notify>Get Notified <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        <a href="#" class="btn-s1 ghost-dark" data-youtube hidden><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M21.8 8s-.2-1.4-.8-2c-.8-.8-1.6-.8-2-.9C16.8 5 12 5 12 5s-4.8 0-7 .1c-.4.1-1.2.1-2 .9-.6.6-.8 2-.8 2S2 9.6 2 11.2v1.5c0 1.6.2 3.2.2 3.2s.2 1.4.8 2c.8.8 1.8.8 2.2.8C6.8 19 12 19 12 19s4.8 0 7-.2c.4-.1 1.2-.1 2-.9.6-.6.8-2 .8-2s.2-1.6.2-3.2v-1.5C22 9.6 21.8 8 21.8 8zM10 15V9l5.5 3-5.5 3z"/></svg> Subscribe on YouTube</a>
       </div>
-
-      <div class="ep-item reveal reveal-delay-2">
-        <div class="ep-item-shine"></div>
-        <div class="ep-thumb">
-          <div class="ep-thumb-bg ep2-bg"></div>
-          <div class="ep-thumb-overlay"></div>
-          <div class="ep-thumb-num">Episode 02</div>
-          <div class="ep-thumb-play"><svg width="16" height="16" viewBox="0 0 24 24" fill="#B8922A"><path d="M8 5v14l11-7z"/></svg></div>
-          <div class="ep-thumb-status coming">Coming Soon</div>
-        </div>
-        <div class="ep-info">
-          <div class="ep-tag">Unseating Performance · S1E2</div>
-          <div class="ep-title">The Drug Called Power</div>
-          <div class="ep-verse">Acts 8:9–11 · NASB</div>
-          <div class="ep-desc">The desire for supernatural power can quietly replace intimacy with God. This episode examines how performance is born when God becomes a means to an end instead of the end.</div>
-        </div>
-        <div class="ep-actions">
-          <span class="ep-coming-tag">Coming Soon</span>
-          <a href="/community" class="btn-youtube">Get Notified</a>
-        </div>
-      </div>
-
-      <div class="ep-item reveal reveal-delay-3">
-        <div class="ep-item-shine"></div>
-        <div class="ep-thumb">
-          <div class="ep-thumb-bg ep3-bg"></div>
-          <div class="ep-thumb-overlay"></div>
-          <div class="ep-thumb-num">Episode 03</div>
-          <div class="ep-thumb-play"><svg width="16" height="16" viewBox="0 0 24 24" fill="#B8922A"><path d="M8 5v14l11-7z"/></svg></div>
-          <div class="ep-thumb-status coming">Coming Soon</div>
-        </div>
-        <div class="ep-info">
-          <div class="ep-tag">Unseating Performance · S1E3</div>
-          <div class="ep-title">When Glory Goes Missing</div>
-          <div class="ep-verse">1 Samuel 4:19–22 · NASB</div>
-          <div class="ep-desc">It is possible for the church to remain active, expressive, and loud while the glory has already departed. This episode examines what happens when a system survives but the presence withdraws.</div>
-        </div>
-        <div class="ep-actions">
-          <span class="ep-coming-tag">Coming Soon</span>
-          <a href="/community" class="btn-youtube">Get Notified</a>
-        </div>
-      </div>
-
-      <div class="ep-item reveal reveal-delay-4">
-        <div class="ep-item-shine"></div>
-        <div class="ep-thumb">
-          <div class="ep-thumb-bg ep4-bg"></div>
-          <div class="ep-thumb-overlay"></div>
-          <div class="ep-thumb-num">Episode 04</div>
-          <div class="ep-thumb-play"><svg width="16" height="16" viewBox="0 0 24 24" fill="#B8922A"><path d="M8 5v14l11-7z"/></svg></div>
-          <div class="ep-thumb-status coming">Coming Soon</div>
-        </div>
-        <div class="ep-info">
-          <div class="ep-tag">Unseating Performance · S1E4</div>
-          <div class="ep-title">The Great Reconstruction</div>
-          <div class="ep-verse">1 Kings 18:30–32 · NASB</div>
-          <div class="ep-desc">We didn't lose the fire. We dismantled the altar. This episode exposes how divided loyalty destroys authority and what it costs to rebuild what was torn down.</div>
-        </div>
-        <div class="ep-actions">
-          <span class="ep-coming-tag">Coming Soon</span>
-          <a href="/community" class="btn-youtube">Get Notified</a>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- WATCH EMBED -->
-  <section class="embed-section">
-    <div class="embed-section-line" id="embedLine"></div>
-    <div class="embed-inner">
-      <div class="embed-left reveal">
-        <div class="eyebrow">
-          <div class="eyebrow-line"></div>
-          <span class="eyebrow-text">Watch Now</span>
-        </div>
-        <h2>Start With <em>Episode One</em></h2>
-        <p>When Ministry Outpaces Maturity is now live. Watch directly here or open in YouTube to subscribe and stay notified when new episodes drop.</p>
-        <a href="#" target="_blank" class="btn-watch magnetic">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M21.8 8s-.2-1.4-.8-2c-.8-.8-1.6-.8-2-.9C16.8 5 12 5 12 5s-4.8 0-7 .1c-.4.1-1.2.1-2 .9-.6.6-.8 2-.8 2S2 9.6 2 11.2v1.5c0 1.6.2 3.2.2 3.2s.2 1.4.8 2c.8.8 1.8.8 2.2.8C6.8 19 12 19 12 19s4.8 0 7-.2c.4-.1 1.2-.1 2-.9.6-.6.8-2 .8-2s.2-1.6.2-3.2v-1.5C22 9.6 21.8 8 21.8 8zM10 15V9l5.5 3-5.5 3z"/></svg>
-          Subscribe on YouTube
-        </a>
-      </div>
-      <div class="reveal reveal-delay-2">
-        <div class="embed-wrapper">
-          <div class="embed-placeholder">
-            <div class="embed-placeholder-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M10 8l6 4-6 4V8z"/></svg></div>
-            <strong>YouTube Embed</strong>
-            <p>When your channel is live, replace this with your episode embed code.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- SUBSCRIBE -->
-  <section class="subscribe-section">
-    <div class="subscribe-section-line" id="subscribeLine"></div>
-    <div class="subscribe-inner reveal">
-      <div class="subscribe-eyebrow">
-        <div class="subscribe-eyebrow-line"></div>
-        <span class="subscribe-eyebrow-text">Get Involved</span>
-      </div>
-      <h2 class="subscribe-title">Help Carry<br>The <em>Work.</em></h2>
-      <p class="subscribe-desc">Every episode takes a team to make. If you want to help move this forward, tell us where you fit.</p>
-      <a href="/#join" class="join-cta">Find Your Place
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-      </a>
+      <div class="s1-final-line">Called. Refined. Sent.</div>
     </div>
   </section>
 
@@ -530,7 +465,7 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <p class="footer-copy">© 2026 Unseated Generation. All rights reserved.</p>
+      <p class="footer-copy">2026 Unseated Generation. All rights reserved.</p>
       <div class="footer-socials">
         <a href="#">YouTube</a>
         <a href="#">Instagram</a>
@@ -541,15 +476,88 @@
   </footer>
 
   <script>
-    // PROGRESS BAR
+    /* ------------------------------------------------------------------
+       SEASON ONE LAUNCH SETTINGS. Everything on this page that changes at
+       launch reads from here, so nothing below needs restructuring.
+         premiereDate   e.g. 'September 18'. Blank shows "Next Week".
+         trailerUrl     YouTube watch, youtu.be, or embed URL. Blank keeps
+                        the poster with "Trailer Coming Soon".
+         episodeOneUrl  Full episode URL. When set, the Episode One button
+                        becomes "Watch Episode One" and its status reads
+                        "Now Streaming".
+         youtubeUrl     Channel URL. Shows the Subscribe on YouTube button.
+         notifyUrl      Where "Get Notified" goes. Blank uses /community.
+       ------------------------------------------------------------------ */
+    const SEASON_ONE = {
+      premiereDate:  '',
+      trailerUrl:    '',
+      episodeOneUrl: '',
+      youtubeUrl:    '',
+      notifyUrl:     ''
+    };
+
+    (function applyLaunchSettings() {
+      const s = SEASON_ONE;
+      const isUrl = v => /^https?:\/\//.test(v || '');
+
+      if (s.premiereDate) {
+        document.querySelectorAll('[data-premiere]').forEach(el => { el.textContent = s.premiereDate; });
+      }
+
+      const notify = isUrl(s.notifyUrl) ? s.notifyUrl : '/community';
+      document.querySelectorAll('[data-notify]').forEach(a => {
+        a.setAttribute('href', notify);
+        if (isUrl(notify)) { a.setAttribute('target', '_blank'); a.setAttribute('rel', 'noopener noreferrer'); }
+      });
+
+      document.querySelectorAll('[data-youtube]').forEach(a => {
+        if (isUrl(s.youtubeUrl)) {
+          a.setAttribute('href', s.youtubeUrl);
+          a.setAttribute('target', '_blank'); a.setAttribute('rel', 'noopener noreferrer');
+          a.hidden = false;
+        }
+      });
+
+      const cta = document.getElementById('epOneCta');
+      if (cta && isUrl(s.episodeOneUrl)) {
+        cta.textContent = 'Watch Episode One';
+        cta.setAttribute('href', s.episodeOneUrl);
+        cta.setAttribute('target', '_blank'); cta.setAttribute('rel', 'noopener noreferrer');
+        cta.removeAttribute('data-pending'); cta.removeAttribute('aria-disabled');
+        const st = document.querySelector('[data-ep1-status]');
+        if (st) st.textContent = 'Now Streaming';
+      } else if (cta) {
+        cta.addEventListener('click', e => e.preventDefault());
+      }
+
+      function toEmbed(u) {
+        try {
+          const url = new URL(u); let id = '';
+          if (url.hostname.includes('youtu.be')) id = url.pathname.slice(1);
+          else if (url.searchParams.get('v')) id = url.searchParams.get('v');
+          else if (url.pathname.includes('/embed/')) id = url.pathname.split('/embed/')[1];
+          return id ? 'https://www.youtube-nocookie.com/embed/' + id + '?rel=0&modestbranding=1' : u;
+        } catch (e) { return u; }
+      }
+      if (isUrl(s.trailerUrl)) {
+        const frame = document.getElementById('trailerFrame');
+        const poster = document.getElementById('trailerPoster');
+        const iframe = document.createElement('iframe');
+        iframe.src = toEmbed(s.trailerUrl);
+        iframe.title = 'The Unseated Series trailer';
+        iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+        iframe.allowFullscreen = true;
+        if (poster) poster.remove();
+        frame.appendChild(iframe);
+      }
+    })();
+
     const progressBar = document.getElementById('progressBar');
     window.addEventListener('scroll', () => {
       const h = document.documentElement;
-      const pct = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
-      progressBar.style.width = pct + '%';
+      progressBar.style.width = (h.scrollTop / (h.scrollHeight - h.clientHeight) * 100) + '%';
     }, { passive: true });
 
-    // PAGE TRANSITION
     const transition = document.getElementById('pageTransition');
     document.querySelectorAll('a[href]').forEach(link => {
       const href = link.getAttribute('href');
@@ -566,34 +574,19 @@
       setTimeout(() => transition.classList.remove('enter'), 600);
     });
 
-    // HERO ANIMATIONS
     setTimeout(() => {
       document.getElementById('heroTopLine').classList.add('animate');
       document.getElementById('backLink').classList.add('animate');
       document.getElementById('eyebrowLine').classList.add('animate');
       document.getElementById('eyebrowText').classList.add('animate');
-      document.getElementById('seasonLabel').classList.add('animate');
     }, 100);
     document.querySelectorAll('.word-inner').forEach((w, i) => {
-      setTimeout(() => w.classList.add('animate'), 400 + i * 140);
+      setTimeout(() => w.classList.add('animate'), 300 + i * 160);
     });
-    setTimeout(() => document.getElementById('pageDivider').classList.add('animate'), 900);
-    setTimeout(() => document.getElementById('pageDesc').classList.add('animate'), 1100);
-    setTimeout(() => document.getElementById('pageMeta').classList.add('animate'), 1300);
+    setTimeout(() => document.getElementById('pageDesc').classList.add('animate'), 900);
+    setTimeout(() => document.getElementById('heroMeta').classList.add('animate'), 1100);
+    setTimeout(() => document.getElementById('pageActions').classList.add('animate'), 1300);
 
-    // COUNTER ANIMATION
-    function animateCounter(el, target, duration) {
-      let start = 0;
-      const step = target / (duration / 16);
-      const timer = setInterval(() => {
-        start += step;
-        if (start >= target) { el.textContent = target; clearInterval(timer); return; }
-        el.textContent = Math.floor(start);
-      }, 16);
-    }
-    setTimeout(() => animateCounter(document.getElementById('epCount'), 4, 1000), 1300);
-
-    // SCROLL REVEAL
     const reveals = document.querySelectorAll('.reveal');
     const revealObs = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -602,32 +595,42 @@
     }, { threshold: 0.08 });
     reveals.forEach(el => revealObs.observe(el));
 
-    // ANIMATED LINES
     const lineObs = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) { entry.target.classList.add('animate'); lineObs.unobserve(entry.target); }
       });
     }, { threshold: 0.3 });
-    document.querySelectorAll('.embed-section-line, .subscribe-section-line').forEach(el => lineObs.observe(el));
+    document.querySelectorAll('.s1-section-line').forEach(el => lineObs.observe(el));
 
-    // MAGNETIC BUTTONS
+    // gentle parallax on the hero art, skipped for reduced motion
+    const heroArt = document.getElementById('heroArt');
+    if (heroArt && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      let ticking = false;
+      window.addEventListener('scroll', () => {
+        if (ticking) return; ticking = true;
+        requestAnimationFrame(() => {
+          const y = Math.min(window.scrollY, 900);
+          heroArt.style.translate = '0 ' + (y * 0.18) + 'px';
+          ticking = false;
+        });
+      }, { passive: true });
+    }
+
     document.querySelectorAll('.magnetic').forEach(btn => {
       btn.addEventListener('mousemove', e => {
         const rect = btn.getBoundingClientRect();
-        const x = (e.clientX - rect.left - rect.width / 2) * 0.25;
-        const y = (e.clientY - rect.top - rect.height / 2) * 0.25;
+        const x = (e.clientX - rect.left - rect.width / 2) * 0.22;
+        const y = (e.clientY - rect.top - rect.height / 2) * 0.22;
         btn.style.transform = `translate(${x}px, ${y}px)`;
       });
       btn.addEventListener('mouseleave', () => {
         btn.style.transform = 'translate(0, 0)';
         btn.style.transition = 'transform 0.5s cubic-bezier(0.16,1,0.3,1)';
       });
-      btn.addEventListener('mouseenter', () => {
-        btn.style.transition = 'transform 0.1s';
-      });
+      btn.addEventListener('mouseenter', () => { btn.style.transition = 'transform 0.1s'; });
     });
 
-    // MOBILE NAV
+
     document.getElementById('hamburger').addEventListener('click', () => {
       const nc = document.querySelector('.nav-center');
       if (nc.style.display === 'flex') {
