@@ -236,14 +236,12 @@
     .board-intro { font-size: 16px; font-weight: 300; line-height: 1.8; color: var(--grey-pale); max-width: 620px; margin-bottom: 56px; }
     .board-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
     .board-card { display: flex; flex-direction: column; }
-    .board-portrait { position: relative; aspect-ratio: 1 / 1; background: linear-gradient(150deg, #15110a 0%, #241b0b 50%, #15110a 100%); border: 1px solid var(--border-light); overflow: hidden; }
-    .board-portrait::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--gold); z-index: 3; }
+    .board-portrait { position: relative; aspect-ratio: 1 / 1; background: linear-gradient(150deg, #15110a 0%, #241b0b 50%, #15110a 100%); overflow: hidden; }
     .board-monogram { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-size: clamp(36px, 4vw, 48px); font-weight: 700; letter-spacing: 0.05em; color: var(--gold); opacity: 0.9; z-index: 1; }
     .board-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 2; filter: grayscale(12%) contrast(1.04); }
     .board-name { font-family: 'Playfair Display', serif; font-size: 19px; font-weight: 700; color: var(--white); margin-top: 20px; line-height: 1.25; }
     .board-title { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-top: 6px; }
     .board-card.seat .board-portrait { background: rgba(255,255,255,0.02); border-style: dashed; }
-    .board-card.seat .board-portrait::after { background: rgba(184,146,42,0.35); }
     .board-card.seat .board-seat-mark { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; color: var(--grey-mid); z-index: 1; }
     .board-card.seat .board-name { color: var(--grey-light); }
     .board-card.seat .board-title { color: var(--grey-mid); }
