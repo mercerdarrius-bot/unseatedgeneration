@@ -80,77 +80,20 @@
     .page-desc strong { color: var(--white); font-weight: 500; }
 
     /* EPISODES SECTION */
-    .episodes-section { padding: 120px 60px 100px; background: var(--black); position: relative; z-index: 1; }
-    .sticky-label { position: sticky; top: 80px; z-index: 10; display: flex; align-items: center; justify-content: space-between; padding: 14px 0; margin-bottom: 48px; background: var(--black); border-bottom: 1px solid var(--border-dark); }
-    .sticky-label-left { display: flex; align-items: center; gap: 14px; }
-    .sticky-label-line { width: 36px; height: 1px; background: var(--gold); }
-    .sticky-label-text { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.34em; text-transform: uppercase; color: var(--gold); }
-    .sticky-label-count { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.2em; color: var(--grey-mid); text-transform: uppercase; }
 
     /* Episode Cards */
-    .ep-list { display: flex; flex-direction: column; gap: 3px; }
-    .ep-item { display: grid; grid-template-columns: 300px 1fr auto; overflow: hidden; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); position: relative; transition: border-color 0.3s, background 0.3s, transform 0.4s cubic-bezier(0.16,1,0.3,1), box-shadow 0.4s; opacity: 1; }
-    .ep-item::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--gold); transform: scaleY(0); transform-origin: bottom; transition: transform 0.4s cubic-bezier(0.16,1,0.3,1); }
-    .ep-item-shine { position: absolute; inset: 0; background: linear-gradient(105deg, transparent 35%, rgba(255,255,255,0.03) 50%, transparent 65%); transform: translateX(-100%); pointer-events: none; z-index: 2; }
-    .ep-item:hover { border-color: var(--border-light); background: rgba(184,146,42,0.04); transform: translateX(6px); box-shadow: -6px 0 32px rgba(184,146,42,0.1); }
-    .ep-item:hover::before { transform: scaleY(1); }
-    .ep-item:hover .ep-item-shine { transform: translateX(100%); transition: transform 0.6s ease; }
-    .ep-item.live { border-color: var(--border-dark); background: rgba(184,146,42,0.05); }
-    .ep-item.live::before { transform: scaleY(1); }
 
     /* Hidden episodes for load more */
-    .ep-item.hidden { display: none; }
-    .ep-item.revealing { animation: fadeUp 0.6s cubic-bezier(0.16,1,0.3,1) forwards; }
     @keyframes fadeUp { from{opacity:0;transform:translateY(24px);} to{opacity:1;transform:translateY(0);} }
 
-    .ep-thumb { position: relative; overflow: hidden; min-height: 200px; }
-    .ep-thumb-bg { position: absolute; inset: 0; transition: transform 0.6s cubic-bezier(0.16,1,0.3,1); }
-    .ep-item:hover .ep-thumb-bg { transform: scale(1.06); }
-    .ep-thumb-overlay { position: absolute; inset: 0; background: linear-gradient(to right, rgba(0,0,0,0.15), transparent); }
-    .ep1-bg { background: linear-gradient(135deg, #0d0a06 0%, #2a1f08 40%, #1a1205 100%); }
-    .ep2-bg { background: linear-gradient(135deg, #06080d 0%, #0d1a2a 40%, #060a10 100%); }
-    .ep3-bg { background: linear-gradient(135deg, #0d0608 0%, #2a0810 40%, #1a0608 100%); }
-    .ep4-bg { background: linear-gradient(135deg, #080d06 0%, #1a2a08 40%, #0a1006 100%); }
-    .ep5-bg { background: linear-gradient(135deg, #0d0a0a 0%, #2a1010 40%, #1a0808 100%); }
-    .ep6-bg { background: linear-gradient(135deg, #0a080d 0%, #1a0828 40%, #0a060d 100%); }
 
-    .ep-thumb-scripture { position: absolute; bottom: 0; left: 0; right: 0; padding: 20px 20px 16px; background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); font-family: 'Playfair Display', serif; font-size: 12px; font-style: italic; color: rgba(255,255,255,0.6); line-height: 1.4; }
-    .ep-thumb-num { position: absolute; top: 16px; left: 16px; font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.28em; color: var(--gold); text-transform: uppercase; transition: letter-spacing 0.3s; }
-    .ep-item:hover .ep-thumb-num { letter-spacing: 0.36em; }
-    .ep-thumb-status { position: absolute; top: 16px; right: 16px; font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; padding: 4px 10px; }
-    .ep-thumb-status.live { background: rgba(184,146,42,0.9); color: var(--black); }
-    .ep-thumb-status.coming { background: rgba(255,255,255,0.08); color: var(--grey-pale); border: 1px solid rgba(255,255,255,0.12); }
 
-    .ep-info { padding: 36px 48px; display: flex; flex-direction: column; justify-content: center; gap: 14px; position: relative; z-index: 1; }
-    .ep-tag { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.28em; color: var(--grey-mid); text-transform: uppercase; }
-    .ep-title { font-family: 'Playfair Display', serif; font-size: clamp(18px, 2vw, 26px); font-weight: 700; color: var(--white); line-height: 1.25; transition: transform 0.3s; }
-    .ep-item:hover .ep-title { transform: translateX(4px); }
-    .ep-verse { font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.18em; color: var(--gold); text-transform: uppercase; }
-    .ep-desc { font-size: 14px; font-weight: 300; line-height: 1.8; color: var(--grey-light); max-width: 500px; }
 
-    .ep-actions { padding: 36px 40px; display: flex; flex-direction: column; align-items: flex-end; justify-content: center; gap: 12px; border-left: 1px solid rgba(255,255,255,0.04); min-width: 200px; position: relative; z-index: 1; }
-    .btn-watch { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--black); background: var(--gold); padding: 14px 28px; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: transform 0.2s, box-shadow 0.25s; clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%); white-space: nowrap; position: relative; overflow: hidden; z-index: 0; }
-    .btn-watch::before { content: ''; position: absolute; inset: 0; background: var(--gold-light); transform: translateX(-100%); transition: transform 0.4s cubic-bezier(0.16,1,0.3,1); z-index: -1; }
-    .btn-watch:hover::before { transform: translateX(0); }
-    .btn-watch:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(184,146,42,0.3); }
-    .btn-youtube { font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--grey-light); border: 1px solid rgba(255,255,255,0.12); padding: 12px 24px; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: border-color 0.25s, color 0.25s, transform 0.2s; white-space: nowrap; }
-    .btn-youtube:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
-    .ep-coming-tag { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.26em; color: var(--grey-mid); text-transform: uppercase; text-align: center; }
 
     /* LOAD MORE */
-    .load-more-wrap { display: flex; flex-direction: column; align-items: center; gap: 16px; padding: 60px 0 0; }
-    .btn-load-more { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--white); border: 1px solid rgba(255,255,255,0.2); padding: 18px 48px; background: transparent; cursor: pointer; display: inline-flex; align-items: center; gap: 12px; transition: border-color 0.25s, color 0.25s, transform 0.2s, box-shadow 0.25s; position: relative; overflow: hidden; }
-    .btn-load-more::before { content: ''; position: absolute; inset: 0; background: rgba(184,146,42,0.08); transform: translateX(-100%); transition: transform 0.4s cubic-bezier(0.16,1,0.3,1); z-index: 0; }
-    .btn-load-more:hover::before { transform: translateX(0); }
-    .btn-load-more:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(184,146,42,0.1); }
-    .btn-load-more span { position: relative; z-index: 1; }
-    .btn-load-more svg { position: relative; z-index: 1; transition: transform 0.3s; }
-    .btn-load-more:hover svg { transform: translateY(3px); }
-    .load-more-count { font-size: 12px; color: var(--grey-mid); letter-spacing: 0.1em; }
-    .load-more-wrap.hidden { display: none; }
 
     /* METHODOLOGY */
-    .mission-section { padding: 100px 60px; background: var(--charcoal); position: relative; z-index: 2; margin-top: -40px; border-radius: 40px 40px 0 0; box-shadow: 0 -20px 60px rgba(0,0,0,0.3); overflow: hidden; }
+    .mission-section { padding: 140px 60px 120px; background: var(--black); position: relative; z-index: 1; overflow: hidden; }
     .mission-bg-text { position: absolute; right: -30px; bottom: -20px; font-family: 'Barlow Condensed', sans-serif; font-size: clamp(100px, 14vw, 200px); font-weight: 800; color: rgba(255,255,255,0.025); line-height: 1; pointer-events: none; text-transform: uppercase; }
     .mission-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 100px; align-items: center; }
     .mission-left .eyebrow { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; }
@@ -170,16 +113,6 @@
     .mission-pillar-desc { font-size: 13px; font-weight: 300; color: var(--grey-light); line-height: 1.6; }
 
     /* SUBSCRIBE */
-    .subscribe-section { padding: 120px 60px 100px; background: var(--pure-white); position: relative; z-index: 3; margin-top: -40px; border-radius: 40px 40px 0 0; box-shadow: 0 -20px 60px rgba(0,0,0,0.2); text-align: center; }
-    .subscribe-section-line { position: absolute; top: 40px; left: 60px; right: 60px; height: 1px; background: linear-gradient(to right, transparent, var(--gold), transparent); transform: scaleX(0); transform-origin: center; transition: transform 1s cubic-bezier(0.16,1,0.3,1); }
-    .subscribe-section-line.animate { transform: scaleX(1); }
-    .subscribe-inner { max-width: 640px; margin: 0 auto; }
-    .subscribe-eyebrow { display: flex; align-items: center; justify-content: center; gap: 14px; margin-bottom: 20px; }
-    .subscribe-eyebrow-line { width: 36px; height: 1px; background: var(--gold); }
-    .subscribe-eyebrow-text { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.34em; text-transform: uppercase; color: var(--gold); }
-    .subscribe-title { font-family: 'Playfair Display', serif; font-size: clamp(32px, 4vw, 52px); font-weight: 900; line-height: 1.1; color: var(--black); margin-bottom: 20px; }
-    .subscribe-title em { font-style: italic; color: var(--gold); }
-    .subscribe-desc { font-size: 16px; font-weight: 300; line-height: 1.8; color: #444444; margin-bottom: 48px; }
 
     /* FOOTER */
     footer { background: var(--black); border-top: 1px solid var(--border-dark); padding: 80px 60px 40px; position: relative; z-index: 4; margin-top: -40px; border-radius: 40px 40px 0 0; box-shadow: 0 -20px 60px rgba(0,0,0,0.3); }
@@ -201,28 +134,33 @@
     /* REVEAL */
     .reveal { opacity: 0; transform: translateY(48px); transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1); }
     .reveal.visible { opacity: 1; transform: translateY(0); }
-    .reveal-delay-1 { transition-delay: 0.1s; }
     .reveal-delay-2 { transition-delay: 0.22s; }
-    .reveal-delay-3 { transition-delay: 0.34s; }
 
     @media (max-width: 1024px) {
       nav { padding: 0 24px; }
       .nav-center { display: none; }
       .hamburger { display: flex; }
       .page-hero { padding: 120px 24px 80px; border-radius: 0 0 24px 24px; margin-bottom: -40px; }
-      .episodes-section { padding: 80px 24px; }
-      .ep-item { grid-template-columns: 1fr; }
-      .ep-thumb { min-height: 200px; }
-      .ep-actions { flex-direction: row; border-left: none; border-top: 1px solid rgba(255,255,255,0.04); padding: 20px 32px; min-width: unset; align-items: center; justify-content: flex-start; }
-      .mission-section { padding: 80px 24px; border-radius: 24px 24px 0 0; margin-top: -24px; }
+      .mission-section { padding: 90px 24px 80px; }
       .mission-inner { grid-template-columns: 1fr; gap: 48px; }
-      .subscribe-section { padding: 80px 24px; border-radius: 24px 24px 0 0; margin-top: -24px; }
+      .coming-section { padding: 90px 24px 80px; border-radius: 24px 24px 0 0; margin-top: -24px; }
       footer { padding: 60px 24px 32px; border-radius: 24px 24px 0 0; margin-top: -24px; }
       .footer-top { grid-template-columns: 1fr 1fr; gap: 40px; }
       .footer-bottom { flex-direction: column; gap: 20px; text-align: center; }
     }
-    .join-cta { display: inline-flex; align-items: center; align-self: flex-start; width: fit-content; gap: 10px; font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--black); background: var(--gold); padding: 18px 36px; text-decoration: none; transition: background 0.25s, transform 0.2s, box-shadow 0.25s; clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%); }
-    .join-cta:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 10px 26px rgba(184,146,42,0.28); }
+    /* EPISODE ONE: coming soon */
+    .coming-section { padding: 140px 60px 130px; background: var(--charcoal); position: relative; z-index: 2; margin-top: -40px; border-radius: 40px 40px 0 0; box-shadow: 0 -20px 60px rgba(0,0,0,0.3); overflow: hidden; }
+    .coming-bg-text { position: absolute; right: -20px; bottom: -70px; font-family: 'Barlow Condensed', sans-serif; font-size: clamp(160px, 22vw, 320px); font-weight: 800; color: rgba(255,255,255,0.022); line-height: 1; pointer-events: none; }
+    .coming-inner { position: relative; z-index: 2; max-width: 860px; }
+    .coming-inner .eyebrow { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; }
+    .coming-inner .eyebrow-line { width: 0; height: 1px; background: var(--gold); transition: width 0.8s cubic-bezier(0.16,1,0.3,1); }
+    .coming-inner .eyebrow-line.animate { width: 36px; }
+    .coming-inner .eyebrow-text { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.34em; text-transform: uppercase; color: var(--gold); }
+    .coming-num { font-family: 'Playfair Display', serif; font-size: clamp(56px, 6vw, 92px); font-weight: 900; line-height: 1; color: rgba(184,146,42,0.28); margin-bottom: 4px; }
+    .coming-title { font-family: 'Playfair Display', serif; font-size: clamp(32px, 4vw, 52px); font-weight: 900; line-height: 1.1; color: var(--white); margin-bottom: 18px; }
+    .coming-title em { font-style: italic; color: var(--gold); }
+    .coming-verse { font-size: 12px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; font-style: italic; color: var(--grey-light); margin-bottom: 30px; }
+    .coming-tag { display: inline-block; font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); border: 1px solid var(--border-light); padding: 13px 24px; }
   </style>
 </head>
 <body>
@@ -256,135 +194,14 @@
     <div class="page-hero-inner">
       <div class="page-eyebrow">
         <div class="page-eyebrow-line" id="eyebrowLine"></div>
-        <span class="page-eyebrow-text" id="eyebrowText">Weekly Scripture Correction</span>
+        <span class="page-eyebrow-text" id="eyebrowText">Bi-Weekly Scripture Correction</span>
       </div>
       <h1 class="page-title">
         <span class="word"><span class="word-inner">Context</span></span><br>
         <span class="word"><span class="word-inner gold-shimmer" style="font-style:italic;">Matters.</span></span>
       </h1>
       <div class="page-divider" id="pageDivider"></div>
-      <p class="page-desc" id="pageDesc">The most dangerous verses in the church aren't the ones people ignore. They're the ones people misquote with <strong>confidence</strong>. Context Matters exists for one reason, to return the text to its original weight, word by word, passage by passage, week by week.</p>
-    </div>
-  </section>
-
-  <!-- EPISODES -->
-  <section class="episodes-section">
-    <div class="sticky-label">
-      <div class="sticky-label-left">
-        <div class="sticky-label-line"></div>
-        <span class="sticky-label-text">All Episodes</span>
-      </div>
-      <span class="sticky-label-count" id="episodeCount">Showing 3 of 3</span>
-    </div>
-
-    <div class="ep-list" id="epList">
-
-      <!-- EP 01: VISIBLE -->
-      <div class="ep-item live reveal reveal-delay-1">
-        <div class="ep-item-shine"></div>
-        <div class="ep-thumb">
-          <div class="ep-thumb-bg ep1-bg"></div>
-          <div class="ep-thumb-overlay"></div>
-          <div class="ep-thumb-num">Episode 01</div>
-          <div class="ep-thumb-status live">Live Now</div>
-          <div class="ep-thumb-scripture">Romans 4:17 · NASB</div>
-        </div>
-        <div class="ep-info">
-          <div class="ep-tag">Context Matters · CM01</div>
-          <div class="ep-title">We've Been Quoting This Scripture Wrong for Years</div>
-          <div class="ep-verse">Romans 4:17 · NASB</div>
-          <div class="ep-desc">This verse is quoted in churches every week with full confidence. But the context tells a completely different story.</div>
-        </div>
-        <div class="ep-actions">
-          <a href="#" class="btn-watch">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-            Watch Now
-          </a>
-          <a href="#" target="_blank" class="btn-youtube">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M21.8 8s-.2-1.4-.8-2c-.8-.8-1.6-.8-2-.9C16.8 5 12 5 12 5s-4.8 0-7 .1c-.4.1-1.2.1-2 .9-.6.6-.8 2-.8 2S2 9.6 2 11.2v1.5c0 1.6.2 3.2.2 3.2s.2 1.4.8 2c.8.8 1.8.8 2.2.8C6.8 19 12 19 12 19s4.8 0 7-.2c.4-.1 1.2-.1 2-.9.6-.6.8-2 .8-2s.2-1.6.2-3.2v-1.5C22 9.6 21.8 8 21.8 8zM10 15V9l5.5 3-5.5 3z"/></svg>
-            Open in YouTube
-          </a>
-        </div>
-      </div>
-
-      <!-- EP 02: VISIBLE -->
-      <div class="ep-item reveal reveal-delay-2">
-        <div class="ep-item-shine"></div>
-        <div class="ep-thumb">
-          <div class="ep-thumb-bg ep2-bg"></div>
-          <div class="ep-thumb-overlay"></div>
-          <div class="ep-thumb-num">Episode 02</div>
-          <div class="ep-thumb-status coming">Coming Soon</div>
-          <div class="ep-thumb-scripture">Psalm 37:4 · NASB</div>
-        </div>
-        <div class="ep-info">
-          <div class="ep-tag">Context Matters · CM02</div>
-          <div class="ep-title">Did David Promise You Your Dream Life?</div>
-          <div class="ep-verse">Psalm 37:4 · NASB</div>
-          <div class="ep-desc">It's been preached as a promise. Printed on mugs. Posted on walls. But have we actually understood what David was saying?</div>
-        </div>
-        <div class="ep-actions">
-          <span class="ep-coming-tag">Coming Soon</span>
-        </div>
-      </div>
-
-      <!-- EP 03: VISIBLE -->
-      <div class="ep-item reveal reveal-delay-3">
-        <div class="ep-item-shine"></div>
-        <div class="ep-thumb">
-          <div class="ep-thumb-bg ep3-bg"></div>
-          <div class="ep-thumb-overlay"></div>
-          <div class="ep-thumb-num">Episode 03</div>
-          <div class="ep-thumb-status coming">Coming Soon</div>
-          <div class="ep-thumb-scripture">Job 2:9 · NASB</div>
-        </div>
-        <div class="ep-info">
-          <div class="ep-tag">Context Matters · CM03</div>
-          <div class="ep-title">Do We Owe Job's Wife an Apology?</div>
-          <div class="ep-verse">Job 2:9 · NASB</div>
-          <div class="ep-desc">Everyone knows what she said. Almost no one has asked why.</div>
-        </div>
-        <div class="ep-actions">
-          <span class="ep-coming-tag">Coming Soon</span>
-        </div>
-      </div>
-
-      <!--
-        TO ADD NEW EPISODES:
-        Copy the block below, remove the "hidden" class when the episode is ready,
-        update the episode number, title, scripture, description, and status.
-        The Load More button will appear automatically when there are more than 3 episodes.
-
-      <div class="ep-item hidden">
-        <div class="ep-item-shine"></div>
-        <div class="ep-thumb">
-          <div class="ep-thumb-bg ep4-bg"></div>
-          <div class="ep-thumb-overlay"></div>
-          <div class="ep-thumb-num">Episode 04</div>
-          <div class="ep-thumb-status coming">Coming Soon</div>
-          <div class="ep-thumb-scripture">REFERENCE · NASB</div>
-        </div>
-        <div class="ep-info">
-          <div class="ep-tag">Context Matters · CM04</div>
-          <div class="ep-title">Episode Title Here</div>
-          <div class="ep-verse">REFERENCE · NASB</div>
-          <div class="ep-desc">Episode description here.</div>
-        </div>
-        <div class="ep-actions">
-          <span class="ep-coming-tag">Coming Soon</span>
-        </div>
-      </div>
-      -->
-
-    </div>
-
-    <!-- LOAD MORE -->
-    <div class="load-more-wrap hidden" id="loadMoreWrap">
-      <button class="btn-load-more" id="loadMoreBtn">
-        <span>Load More Episodes</span>
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
-      </button>
-      <span class="load-more-count" id="loadMoreCount"></span>
+      <p class="page-desc" id="pageDesc">The most dangerous verses in the church aren't the ones people ignore. They're the ones people misquote with <strong>confidence</strong>. Context Matters exists for one reason, to return the text to its original weight, word by word, passage by passage, episode by episode.</p>
     </div>
   </section>
 
@@ -420,19 +237,18 @@
     </div>
   </section>
 
-  <!-- SUBSCRIBE -->
-  <section class="subscribe-section">
-    <div class="subscribe-section-line" id="subscribeLine"></div>
-    <div class="subscribe-inner reveal">
-      <div class="subscribe-eyebrow">
-        <div class="subscribe-eyebrow-line"></div>
-        <span class="subscribe-eyebrow-text">Get Involved</span>
+  <!-- EPISODE ONE -->
+  <section class="coming-section">
+    <div class="coming-bg-text">01</div>
+    <div class="coming-inner reveal">
+      <div class="eyebrow">
+        <div class="eyebrow-line"></div>
+        <span class="eyebrow-text">The First Correction</span>
       </div>
-      <h2 class="subscribe-title">Help Carry<br>The <em>Work.</em></h2>
-      <p class="subscribe-desc">Context Matters takes research, production, and people who care about handling Scripture well. Tell us where you fit.</p>
-      <a href="/#join" class="join-cta">Find Your Place
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-      </a>
+      <div class="coming-num">01</div>
+      <h2 class="coming-title">We've Been Quoting This Scripture <em>Wrong</em> for Years</h2>
+      <div class="coming-verse">Romans 4:17 · NASB</div>
+      <span class="coming-tag">Coming Soon</span>
     </div>
   </section>
 
@@ -484,7 +300,6 @@
   </footer>
 
   <script>
-    const EPISODES_PER_PAGE = 6;
 
     // PROGRESS BAR
     const progressBar = document.getElementById('progressBar');
@@ -524,49 +339,6 @@
 
     // COUNTER
 
-    // LOAD MORE SYSTEM
-    function initLoadMore() {
-      const allEpisodes = Array.from(document.querySelectorAll('.ep-item'));
-      const hiddenEpisodes = allEpisodes.filter(ep => ep.classList.contains('hidden'));
-      const totalEpisodes = allEpisodes.length;
-      const visibleCount = totalEpisodes - hiddenEpisodes.length;
-
-      document.getElementById('episodeCount').textContent = 'Showing ' + visibleCount + ' of ' + totalEpisodes;
-
-      // Show load more if needed
-      const loadMoreWrap = document.getElementById('loadMoreWrap');
-      if (hiddenEpisodes.length > 0) {
-        loadMoreWrap.classList.remove('hidden');
-        document.getElementById('loadMoreCount').textContent = hiddenEpisodes.length + ' more episode' + (hiddenEpisodes.length > 1 ? 's' : '') + ' available';
-      }
-
-      // Load more click
-      let currentlyVisible = visibleCount;
-      document.getElementById('loadMoreBtn').addEventListener('click', () => {
-        const stillHidden = Array.from(document.querySelectorAll('.ep-item.hidden'));
-        const toReveal = stillHidden.slice(0, EPISODES_PER_PAGE);
-
-        toReveal.forEach((ep, i) => {
-          setTimeout(() => {
-            ep.classList.remove('hidden');
-            ep.classList.add('revealing');
-            currentlyVisible++;
-            document.getElementById('episodeCount').textContent = 'Showing ' + currentlyVisible + ' of ' + totalEpisodes;
-            setTimeout(() => ep.classList.remove('revealing'), 600);
-          }, i * 100);
-        });
-
-        const remaining = stillHidden.length - toReveal.length;
-        if (remaining <= 0) {
-          setTimeout(() => loadMoreWrap.classList.add('hidden'), toReveal.length * 100 + 200);
-        } else {
-          setTimeout(() => {
-            document.getElementById('loadMoreCount').textContent = remaining + ' more episode' + (remaining > 1 ? 's' : '') + ' available';
-          }, 200);
-        }
-      });
-    }
-    initLoadMore();
 
     // SCROLL REVEAL
     const reveals = document.querySelectorAll('.reveal');
@@ -583,7 +355,7 @@
         if (entry.isIntersecting) { entry.target.classList.add('animate'); lineObs.unobserve(entry.target); }
       });
     }, { threshold: 0.3 });
-    document.querySelectorAll('.eyebrow-line, .subscribe-section-line').forEach(el => lineObs.observe(el));
+    document.querySelectorAll('.eyebrow-line').forEach(el => lineObs.observe(el));
 
     // MOBILE NAV
     document.getElementById('hamburger').addEventListener('click', () => {
