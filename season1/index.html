@@ -145,8 +145,6 @@
     .back-link.animate { opacity: 1; transform: translateX(0); }
     .back-link:hover { gap: 14px; }
     .s1-title { font-family: 'Playfair Display', serif; font-size: clamp(44px, 6vw, 82px); font-weight: 900; line-height: 1.0; color: var(--white); margin: 6px 0 28px; }
-    .s1-sub { font-size: 18px; font-weight: 300; line-height: 1.9; color: var(--grey-pale); max-width: 700px; opacity: 0; transform: translateY(16px); transition: opacity 0.8s, transform 0.8s; }
-    .s1-sub.animate { opacity: 1; transform: translateY(0); }
     .s1-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin: 34px 0 36px; font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: var(--white); opacity: 0; transform: translateY(12px); transition: opacity 0.8s, transform 0.8s; }
     .s1-meta.animate { opacity: 1; transform: translateY(0); }
     .s1-meta b { font-weight: 700; color: var(--gold-light); }
@@ -288,7 +286,6 @@
         <span class="word"><span class="word-inner">Unseating</span></span><br>
         <span class="word"><span class="word-inner gold-shimmer" style="font-style:italic;">Performance</span></span>
       </h1>
-      <p class="s1-sub" id="pageDesc">Before we confront what formed the church, we have to confront what formed us.</p>
       <div class="s1-meta" id="heroMeta">
         <span>Season One</span><i></i>
         <span>Premieres <b data-premiere>Next Week</b></span><i></i>
@@ -523,7 +520,6 @@
     document.querySelectorAll('.word-inner').forEach((w, i) => {
       setTimeout(() => w.classList.add('animate'), 300 + i * 160);
     });
-    setTimeout(() => document.getElementById('pageDesc').classList.add('animate'), 900);
     setTimeout(() => document.getElementById('heroMeta').classList.add('animate'), 1100);
     setTimeout(() => document.getElementById('pageActions').classList.add('animate'), 1300);
 
