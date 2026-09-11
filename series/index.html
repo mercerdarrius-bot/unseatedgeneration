@@ -17,6 +17,8 @@
     html { scroll-behavior: smooth; }
     body { font-family: 'Barlow', sans-serif; background: var(--black); color: var(--white); overflow-x: hidden; }
     body::after { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E"); pointer-events: none; z-index: 9999; opacity: 0.5; }
+    ::selection { background: var(--gold); color: var(--black); }
+    ::-moz-selection { background: var(--gold); color: var(--black); }
 
     /* PROGRESS BAR */
     .progress-bar { position: fixed; top: 0; left: 0; height: 2px; background: linear-gradient(to right, var(--gold-light), var(--gold)); width: 0%; z-index: 9998; transition: width 0.1s linear; box-shadow: 0 0 8px rgba(184,146,42,0.6); }
@@ -41,142 +43,43 @@
     .nav-center a:hover::after { transform: scaleX(1); }
     .nav-center a.active { color: var(--gold); }
     .nav-center a.active::after { transform: scaleX(1); }
-    .nav-cta { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--black) !important; background: var(--gold); padding: 12px 28px; text-decoration: none; transition: background 0.25s, transform 0.2s, box-shadow 0.25s; clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%); }
-    .nav-cta:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(184,146,42,0.3); }
+    .nav-cta { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--black) !important; background: var(--gold); padding: 12px 28px; text-decoration: none; transition: background 0.25s, transform 0.2s, box-shadow 0.25s; clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%); position: relative; overflow: hidden; }
+    .nav-cta::before { content: ''; position: absolute; inset: 0; background: var(--gold-light); transform: translateX(-100%); transition: transform 0.4s cubic-bezier(0.16,1,0.3,1); z-index: 0; }
+    .nav-cta:hover::before { transform: translateX(0); }
+    .nav-cta span { position: relative; z-index: 1; }
+    .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(184,146,42,0.3); }
     .nav-cta::after { display: none !important; }
     .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; }
     .hamburger span { display: block; width: 28px; height: 2px; background: var(--white); }
 
-    /* PAGE HERO: WHITE with overlap */
-    .page-hero {
-      padding: 160px 60px 120px;
-      background: var(--pure-white);
-      position: relative;
-      overflow: hidden;
-      z-index: 2;
-      margin-bottom: -60px;
-      border-radius: 0 0 40px 40px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-    }
-    .page-hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--gold); transform: scaleX(0); transform-origin: left; transition: transform 1s cubic-bezier(0.16,1,0.3,1); }
-    .page-hero::before.animate { transform: scaleX(1); }
-    .hero-top-line { position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--gold); transform: scaleX(0); transform-origin: left; transition: transform 1s cubic-bezier(0.16,1,0.3,1); }
-    .hero-top-line.animate { transform: scaleX(1); }
-
-    .page-hero-bg { position: absolute; inset: 0; background-image: linear-gradient(rgba(184,146,42,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(184,146,42,0.06) 1px, transparent 1px); background-size: 60px 60px; }
-    .page-hero-word { position: absolute; right: -20px; bottom: -40px; font-family: 'Barlow Condensed', sans-serif; font-size: clamp(120px, 16vw, 240px); font-weight: 800; color: rgba(0,0,0,0.05); line-height: 1; pointer-events: none; text-transform: uppercase; }
-    .page-hero-inner { position: relative; z-index: 2; max-width: 800px; }
-
-    /* Word animation */
+    /* WORD ANIMATION */
     .word { display: inline-block; overflow: visible; padding-bottom: 0.15em; margin-bottom: -0.15em; }
     .word-inner { display: inline-block; transform: translateY(110%); opacity: 0; transition: transform 0.7s cubic-bezier(0.16,1,0.3,1), opacity 0.5s; }
     .word-inner.animate { transform: translateY(0); opacity: 1; }
-    .gold-shimmer {
-      background: linear-gradient(90deg, var(--gold) 0%, var(--gold-light) 40%, #fff8e7 50%, var(--gold-light) 60%, var(--gold) 100%);
-      background-size: 200% auto;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      animation: shimmer 4s linear infinite;
-      animation-delay: 2s;
-    }
+    .gold-shimmer { background: linear-gradient(90deg, var(--gold) 0%, var(--gold-light) 40%, #fff8e7 50%, var(--gold-light) 60%, var(--gold) 100%); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; animation: shimmer 4s linear infinite; animation-delay: 2s; }
     @keyframes shimmer { 0%{background-position:200% center;} 100%{background-position:-200% center;} }
 
+    /* PAGE HERO */
+    .hero-top-line { position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--gold); transform: scaleX(0); transform-origin: left; transition: transform 1s cubic-bezier(0.16,1,0.3,1); }
+    .hero-top-line.animate { transform: scaleX(1); }
     .page-eyebrow { display: flex; align-items: center; gap: 14px; margin-bottom: 24px; }
     .page-eyebrow-line { width: 0; height: 1px; background: var(--gold); transition: width 0.8s 0.3s ease; }
     .page-eyebrow-line.animate { width: 36px; }
     .page-eyebrow-text { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.34em; text-transform: uppercase; color: var(--gold); opacity: 0; transform: translateX(-8px); transition: opacity 0.6s 0.5s, transform 0.6s 0.5s; }
     .page-eyebrow-text.animate { opacity: 1; transform: translateX(0); }
-    .page-title { font-family: 'Playfair Display', serif; font-size: clamp(44px, 6vw, 80px); font-weight: 900; line-height: 1.0; color: var(--black); margin-bottom: 24px; }
-    .page-title em { font-style: italic; color: var(--gold); }
-    .page-divider { width: 0; height: 2px; background: linear-gradient(to right, var(--gold), transparent); margin-bottom: 28px; transition: width 0.8s 0.8s ease; }
-    .page-divider.animate { width: 60px; }
-    .page-desc { font-size: 17px; font-weight: 300; line-height: 1.8; color: #444444; max-width: 600px; opacity: 0; transform: translateY(16px); transition: opacity 0.8s 1s, transform 0.8s 1s; }
-    .page-desc.animate { opacity: 1; transform: translateY(0); }
 
-    /* SEASONS: overlapping the hero */
-    .seasons-section {
-      padding: 100px 60px 100px;
-      background: var(--black);
-      position: relative;
-      z-index: 1;
-      padding-top: 120px;
-    }
-    .seasons-eyebrow { display: flex; align-items: center; gap: 14px; margin-bottom: 60px; }
-    .seasons-eyebrow-line { width: 0; height: 1px; background: var(--gold); transition: width 0.8s cubic-bezier(0.16,1,0.3,1); }
-    .seasons-eyebrow-line.animate { width: 36px; }
-    .seasons-eyebrow-text { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.34em; text-transform: uppercase; color: var(--gold); }
-    .seasons-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px; }
+    /* MISSION AND BURDEN */
 
-    /* Season Cards: PREMIUM tilt + lift */
-    .season-card { cursor: auto;
-      position: relative; overflow: hidden; text-decoration: none; display: block;
-      transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), box-shadow 0.4s;
-      transform-style: preserve-3d;
-      will-change: transform;
-    }
-    .season-card::before { content: ''; display: block; padding-top: 130%; }
-    .season-card:hover { box-shadow: 0 32px 64px rgba(0,0,0,0.5), 0 0 40px rgba(184,146,42,0.15); }
+    /* ASSIGNMENT */
 
-    .season-card-bg { position: absolute; inset: 0; transition: transform 0.6s cubic-bezier(0.16,1,0.3,1); }
-    .season-card:hover .season-card-bg { transform: scale(1.04); }
+    /* PULLQUOTE */
 
-    /* Shine sweep */
-    .season-card-shine { position: absolute; inset: 0; z-index: 3; pointer-events: none; background: linear-gradient(105deg, transparent 35%, rgba(255,255,255,0.07) 50%, transparent 65%); transform: translateX(-100%); }
-    .season-card:hover .season-card-shine { transform: translateX(100%); transition: transform 0.7s ease; }
+    /* FOUNDER */
 
-    /* Gold border glow */
-    .season-card-glow { position: absolute; inset: 0; z-index: 4; pointer-events: none; border: 1px solid transparent; transition: border-color 0.4s; }
-    .season-card:hover .season-card-glow { border-color: rgba(184,146,42,0.5); }
-
-    .s1-bg { background: linear-gradient(160deg, #0f0c06 0%, #2a1f08 40%, #1a1408 100%); }
-    .s2-bg { background: linear-gradient(160deg, #0a0810 0%, #1a1428 50%, #0a0810 100%); }
-    .s3-bg { background: var(--grey-dark); }
-    .season-card-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.1) 100%); transition: background 0.4s; }
-    .season-card:hover .season-card-overlay { background: linear-gradient(to top, rgba(0,0,0,0.98) 0%, rgba(0,0,0,0.55) 50%, rgba(184,146,42,0.06) 100%); }
-    .season-card.active::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--gold); z-index: 5; }
-    .season-card-content { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: flex-end; padding: 36px; z-index: 2; }
-    .season-num { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.3em; color: var(--gold); text-transform: uppercase; margin-bottom: 10px; transition: letter-spacing 0.3s; }
-    .season-card:hover .season-num { letter-spacing: 0.4em; }
-    .season-title { font-family: 'Playfair Display', serif; font-size: clamp(18px, 2vw, 26px); font-weight: 700; color: var(--white); line-height: 1.2; margin-bottom: 10px; transition: transform 0.3s; }
-    .season-card:hover .season-title { transform: translateY(-4px); }
-    .season-date { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.2em; color: var(--grey-light); text-transform: uppercase; margin-bottom: 16px; }
-    .season-cta { display: inline-flex; align-items: center; gap: 8px; font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--black); background: var(--gold); padding: 12px 24px; clip-path: polygon(6px 0%, 100% 0%, calc(100% - 6px) 100%, 0% 100%); transition: background 0.25s, transform 0.2s, box-shadow 0.25s; margin-top: 8px; align-self: flex-start; }
-    .season-card:hover .season-cta { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 8px 20px rgba(184,146,42,0.3); }
-    .season-coming-badge { display: inline-flex; align-items: center; gap: 8px; font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.24em; text-transform: uppercase; color: var(--grey-mid); border: 1px solid rgba(255,255,255,0.1); padding: 10px 20px; margin-top: 8px; }
-    .season-card.locked { cursor: default; }
-    .season-card.locked .season-card-bg { filter: brightness(0.6); }
-    .season-card.locked:hover .season-card-bg { transform: none; }
-    .season-card.locked:hover { box-shadow: none; }
-    .s3-placeholder { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; }
-    .s3-placeholder-icon { width: 48px; height: 48px; border: 1px solid var(--border-light); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--gold); opacity: 0.4; }
-    .s3-placeholder-text { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.28em; color: var(--grey-mid); text-transform: uppercase; }
-
-    /* SUBSCRIBE: overlapping seasons */
-    .subscribe-section {
-      padding: 120px 60px 100px;
-      background: var(--charcoal);
-      position: relative;
-      z-index: 2;
-      margin-top: -40px;
-      border-radius: 40px 40px 0 0;
-      box-shadow: 0 -20px 60px rgba(0,0,0,0.3);
-    }
-    .subscribe-line { position: absolute; top: 40px; left: 60px; right: 60px; height: 1px; background: linear-gradient(to right, transparent, var(--gold), transparent); transform: scaleX(0); transform-origin: center; transition: transform 1s cubic-bezier(0.16,1,0.3,1); }
-    .subscribe-line.animate { transform: scaleX(1); }
-    .subscribe-inner { max-width: 640px; margin: 0 auto; text-align: center; }
-    .subscribe-eyebrow { display: flex; align-items: center; justify-content: center; gap: 14px; margin-bottom: 20px; }
-    .subscribe-eyebrow-line { width: 36px; height: 1px; background: var(--gold); }
-    .subscribe-eyebrow-text { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.34em; text-transform: uppercase; color: var(--gold); }
-    .subscribe-title { font-family: 'Playfair Display', serif; font-size: clamp(32px, 4vw, 52px); font-weight: 900; line-height: 1.1; color: var(--white); margin-bottom: 20px; }
-    .subscribe-title em { font-style: italic; color: var(--gold); }
-    .subscribe-desc { font-size: 16px; font-weight: 300; line-height: 1.8; color: var(--grey-pale); margin-bottom: 48px; }
-
-    /* MAGNETIC BUTTON */
-    .magnetic { display: inline-block; }
+    /* SUBSCRIBE */
 
     /* FOOTER */
-    footer { background: var(--black); border-top: 1px solid var(--border-dark); padding: 80px 60px 40px; position: relative; z-index: 1; }
+    footer { background: var(--black); border-top: 1px solid var(--border-dark); padding: 80px 60px 40px; position: relative; z-index: 6; margin-top: -40px; border-radius: 40px 40px 0 0; box-shadow: 0 -20px 60px rgba(0,0,0,0.3); }
     .footer-top { display: grid; grid-template-columns: 2.5fr 1fr 1fr 1fr; gap: 60px; padding-bottom: 60px; border-bottom: 1px solid rgba(255,255,255,0.06); margin-bottom: 40px; }
     .footer-brand .wordmark { font-family: 'Barlow Condensed', sans-serif; font-size: 30px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; color: var(--white); margin-bottom: 4px; }
     .footer-brand .wordmark span { color: var(--gold); }
@@ -203,17 +106,138 @@
       nav { padding: 0 24px; }
       .nav-center { display: none; }
       .hamburger { display: flex; }
-      .page-hero { padding: 120px 24px 80px; border-radius: 0 0 24px 24px; margin-bottom: -40px; }
-      .seasons-section { padding: 80px 24px; padding-top: 80px; }
-      .seasons-grid { grid-template-columns: 1fr; gap: 3px; }
-      .season-card::before { padding-top: 80%; }
-      .subscribe-section { padding: 80px 24px; border-radius: 24px 24px 0 0; margin-top: -24px; }
-      footer { padding: 60px 24px 32px; }
+      footer { padding: 60px 24px 32px; border-radius: 24px 24px 0 0; margin-top: -24px; }
       .footer-top { grid-template-columns: 1fr 1fr; gap: 40px; }
       .footer-bottom { flex-direction: column; gap: 20px; text-align: center; }
     }
-    .join-cta { display: inline-flex; align-items: center; align-self: flex-start; width: fit-content; gap: 10px; font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--black); background: var(--gold); padding: 18px 36px; text-decoration: none; transition: background 0.25s, transform 0.2s, box-shadow 0.25s; clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%); }
-    .join-cta:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 10px 26px rgba(184,146,42,0.28); }
+
+    /* ===== GIVE PAGE ADDITIONS ===== */
+
+    /* Primary giving block */
+
+    /* Not-yet-wired state: link placeholder still in place */
+    [data-give-link][data-pending="true"] { opacity: 0.55; cursor: not-allowed; }
+    [data-give-link][data-pending="true"]:hover { transform: none; box-shadow: none; background: var(--gold); }
+
+    /* Trust and disclosure */
+
+    @media (max-width: 1024px) {
+    }
+
+    /* SEASON ONE: premiere page */
+    .s1-label { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.34em; text-transform: uppercase; color: var(--gold); }
+    .s1-section-line { position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--gold); transform: scaleX(0); transform-origin: left; transition: transform 1s cubic-bezier(0.16,1,0.3,1); z-index: 3; }
+    .s1-section-line.animate { transform: scaleX(1); }
+    .btn-s1 { display: inline-flex; align-items: center; gap: 12px; font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; text-decoration: none; padding: 18px 36px; transition: background 0.25s, color 0.25s, border-color 0.25s, transform 0.2s, box-shadow 0.25s; clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%); }
+    .btn-s1.gold { background: var(--gold); color: var(--black); }
+    .btn-s1.gold:hover { background: var(--gold-light); box-shadow: 0 12px 30px rgba(184,146,42,0.3); }
+    .btn-s1.ghost { color: var(--white); border: 1px solid rgba(242,240,237,0.35); clip-path: none; }
+    .btn-s1.ghost:hover { border-color: var(--gold); color: var(--gold-light); }
+    .btn-s1.dark { background: var(--black); color: var(--white); }
+    .btn-s1.dark:hover { background: #1f1f1f; box-shadow: 0 12px 30px rgba(0,0,0,0.25); }
+    .btn-s1.ghost-dark { color: var(--black); border: 1px solid rgba(10,10,10,0.4); clip-path: none; }
+    .btn-s1.ghost-dark:hover { border-color: var(--black); background: rgba(10,10,10,0.06); }
+    .btn-s1[hidden] { display: none; }
+
+    /* HERO */
+
+    /* TEASER */
+
+    /* FEATURE: EPISODE ONE */
+
+    /* COMING THIS SEASON */
+
+    /* TRAILER */
+
+    /* FINAL CTA */
+    .s1-final { position: relative; background: var(--gold); padding: 160px 60px 140px; z-index: 7; margin-bottom: -40px; border-radius: 40px 40px 0 0; box-shadow: 0 -20px 60px rgba(0,0,0,0.35); overflow: hidden; text-align: center; }
+    .s1-final-bg { position: absolute; inset: 0; background-image: linear-gradient(rgba(0,0,0,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.08) 1px, transparent 1px); background-size: 60px 60px; }
+    .s1-final-inner { position: relative; z-index: 2; max-width: 900px; margin: 0 auto; }
+    .s1-final h2 { font-family: 'Playfair Display', serif; font-size: clamp(38px, 5.4vw, 78px); font-weight: 900; line-height: 1.02; color: var(--black); margin-bottom: 26px; }
+    .s1-final h2 em { font-style: italic; color: #2a2008; }
+    .s1-final p { font-family: 'Playfair Display', serif; font-style: italic; font-size: clamp(18px, 1.7vw, 24px); color: rgba(10,10,10,0.78); margin-bottom: 40px; }
+    .s1-final-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; }
+
+    @media (prefers-reduced-motion: reduce) {
+    }
+    @media (max-width: 900px) {
+      .s1-final { padding: 100px 20px 80px; border-radius: 24px 24px 0 0; margin-bottom: -40px; }
+      .s1-final-actions { flex-direction: column; align-items: stretch; }
+      .s1-final-actions .btn-s1 { justify-content: center; }
+    }
+
+    /* SERIES: landing page */
+    .sr-hero { position: relative; min-height: 88vh; display: flex; align-items: center; overflow: hidden; background: var(--black); padding: 170px 60px 120px; z-index: 2; margin-bottom: -60px; border-radius: 0 0 40px 40px; box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
+    .sr-hero-bg { position: absolute; inset: 0; background-image: linear-gradient(rgba(184,146,42,0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(184,146,42,0.035) 1px, transparent 1px); background-size: 80px 80px; }
+    .sr-hero-word { position: absolute; left: -24px; bottom: -70px; font-family: 'Barlow Condensed', sans-serif; font-size: clamp(160px, 24vw, 380px); font-weight: 800; color: rgba(255,255,255,0.025); line-height: 1; pointer-events: none; text-transform: uppercase; letter-spacing: -0.02em; z-index: 0; }
+    .sr-hero-art { position: absolute; top: 0; right: 0; bottom: 0; width: 46%; z-index: 1; overflow: hidden; }
+    .sr-hero-art img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 28%; display: block; animation: srDrift 26s ease-in-out infinite alternate; will-change: transform; }
+    @keyframes srDrift { from { transform: scale(1.02) translate3d(0,0,0); } to { transform: scale(1.09) translate3d(-1%, -1.2%, 0); } }
+    .sr-hero-art::before { content: ''; position: absolute; inset: 0; z-index: 1; background:
+      linear-gradient(90deg, var(--black) 0%, rgba(10,10,10,0.72) 24%, rgba(10,10,10,0.18) 58%, rgba(10,10,10,0.12) 100%),
+      linear-gradient(180deg, rgba(10,10,10,0.55) 0%, rgba(10,10,10,0) 28%, rgba(10,10,10,0.25) 66%, var(--black) 100%); }
+    .sr-hero-inner { position: relative; z-index: 2; max-width: 840px; }
+    .sr-title { font-family: 'Playfair Display', serif; font-size: clamp(48px, 7.2vw, 108px); font-weight: 900; line-height: 0.98; letter-spacing: -0.01em; color: var(--white); margin: 6px 0 30px; }
+    .sr-line { font-family: 'Playfair Display', serif; font-style: italic; font-size: clamp(19px, 1.8vw, 26px); font-weight: 400; line-height: 1.45; color: var(--grey-pale); max-width: 640px; opacity: 0; transform: translateY(14px); transition: opacity 0.8s, transform 0.8s; }
+    .sr-line.animate { opacity: 1; transform: translateY(0); }
+    .sr-line2 { margin-top: 22px; font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.34em; text-transform: uppercase; color: var(--gold); opacity: 0; transform: translateY(12px); transition: opacity 0.8s, transform 0.8s; }
+    .sr-line2.animate { opacity: 1; transform: translateY(0); }
+    .sr-actions { margin-top: 40px; display: flex; flex-wrap: wrap; gap: 16px; opacity: 0; transform: translateY(12px); transition: opacity 0.8s, transform 0.8s; }
+    .sr-actions.animate { opacity: 1; transform: translateY(0); }
+
+    /* FRAMEWORK */
+    .sr-frame { position: relative; background: var(--charcoal); padding: 160px 60px 130px; z-index: 3; margin-bottom: -60px; border-radius: 40px 40px 0 0; box-shadow: 0 -20px 60px rgba(0,0,0,0.35); overflow: hidden; }
+    .sr-frame-head { max-width: 1320px; margin: 0 auto 54px; }
+    .sr-frame-grid { display: grid; grid-template-columns: repeat(3, 1fr); max-width: 1320px; margin: 0 auto; border-top: 1px solid rgba(242,240,237,0.1); }
+    .sr-step { position: relative; padding: 50px 40px 10px 0; border-right: 1px solid rgba(242,240,237,0.1); }
+    .sr-step + .sr-step { padding-left: 40px; }
+    .sr-step:last-child { border-right: none; padding-right: 0; }
+    .sr-step::before { content: ''; position: absolute; top: -1px; left: 0; width: 36px; height: 2px; background: var(--gold); transition: width 0.6s cubic-bezier(0.16,1,0.3,1); }
+    .sr-step + .sr-step::before { left: 40px; }
+    .sr-step:hover::before { width: calc(100% - 40px); }
+    .sr-step:first-child:hover::before { width: calc(100% - 40px); }
+    .sr-step h3 { font-family: 'Playfair Display', serif; font-size: clamp(34px, 3.4vw, 54px); font-weight: 900; line-height: 1; color: var(--white); margin-bottom: 18px; transition: color 0.35s; }
+    .sr-step:hover h3 { color: var(--gold); }
+    .sr-step p { font-size: 15.5px; font-weight: 300; line-height: 1.7; color: var(--grey-pale); max-width: 320px; }
+
+    /* BEGIN HERE: SEASON ONE */
+    .sr-feature { position: relative; background: var(--pure-white); padding: 170px 60px 150px; z-index: 4; margin-bottom: -60px; border-radius: 40px 40px 0 0; box-shadow: 0 -20px 60px rgba(0,0,0,0.3); overflow: hidden; }
+    .sr-feature-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 84px; align-items: center; max-width: 1320px; margin: 0 auto; }
+    .sr-poster { position: relative; aspect-ratio: 1 / 1; overflow: hidden; background: #0d0a04; box-shadow: 0 36px 84px rgba(0,0,0,0.3); }
+    .sr-poster img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.9s cubic-bezier(0.16,1,0.3,1); }
+    .sr-poster:hover img { transform: scale(1.035); }
+    .sr-poster-badge { position: absolute; left: 20px; top: 20px; z-index: 2; font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.28em; text-transform: uppercase; color: var(--black); background: var(--gold); padding: 8px 14px; }
+    .sr-feature-body { position: relative; }
+    .sr-season-tag { font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: #6a6a6a; margin: 20px 0 10px; }
+    .sr-feature-title { font-family: 'Playfair Display', serif; font-size: clamp(40px, 4.6vw, 70px); font-weight: 900; line-height: 1.0; color: var(--black); margin-bottom: 24px; }
+    .sr-feature-title em { font-style: italic; color: var(--gold); }
+    .sr-question { font-family: 'Playfair Display', serif; font-style: italic; font-size: clamp(19px, 1.7vw, 24px); line-height: 1.5; color: #333333; max-width: 520px; margin-bottom: 26px; }
+    .sr-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.26em; text-transform: uppercase; color: #555555; margin-bottom: 34px; }
+    .sr-meta b { font-weight: 700; color: #8a6a12; }
+    .sr-meta i { width: 5px; height: 5px; border-radius: 50%; background: var(--gold); display: inline-block; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .sr-hero-art img { animation: none; transform: none; }
+      .sr-poster img, .sr-step::before, .sr-step h3 { transition: none; }
+    }
+    @media (max-width: 900px) {
+      .sr-hero { min-height: 0; padding: 130px 20px 70px; border-radius: 0 0 24px 24px; margin-bottom: -40px; }
+      .sr-hero-art { width: 100%; }
+      .sr-hero-art img { object-position: 50% 20%; }
+      .sr-hero-art::before { background: linear-gradient(180deg, rgba(10,10,10,0.55) 0%, rgba(10,10,10,0.6) 30%, rgba(10,10,10,0.92) 65%, var(--black) 100%); }
+      .sr-title { font-size: clamp(44px, 13vw, 62px); }
+      .sr-actions { flex-direction: column; }
+      .sr-actions .btn-s1 { width: 100%; justify-content: center; }
+      .sr-frame, .sr-feature { padding: 100px 20px 80px; border-radius: 24px 24px 0 0; margin-bottom: -40px; }
+      .sr-frame-grid { grid-template-columns: 1fr; border-top: none; }
+      .sr-step, .sr-step + .sr-step { padding: 34px 0 30px; border-right: none; border-top: 1px solid rgba(242,240,237,0.1); }
+      .sr-step + .sr-step::before { left: 0; }
+      .sr-step:hover::before, .sr-step:first-child:hover::before { width: 100%; }
+      .sr-feature-inner { grid-template-columns: 1fr; gap: 40px; }
+      .sr-meta { flex-direction: column; align-items: flex-start; gap: 9px; }
+      .sr-meta i { display: none; }
+      .sr-feature-body .btn-s1 { width: 100%; justify-content: center; }
+    }
   </style>
 </head>
 <body>
@@ -232,106 +256,91 @@
       <li><a href="/series" class="active">The Unseated Series</a></li>
       <li><a href="/context">Context Matters</a></li>
       <li><a href="/community">The Remnant</a></li>
-      <li><a href="/give" class="nav-cta magnetic">Give</a></li>
+      <li><a href="/give" class="nav-cta"><span>Give</span></a></li>
     </ul>
     <div class="hamburger" id="hamburger">
       <span></span><span></span><span></span>
     </div>
   </nav>
 
-  <!-- PAGE HERO -->
-  <section class="page-hero">
+  <!-- HERO -->
+  <section class="sr-hero">
+    <div class="sr-hero-bg"></div>
+    <div class="sr-hero-word">SERIES</div>
+    <div class="sr-hero-art"><img src="/Photos/Series-Hero.jpg" alt="" aria-hidden="true" id="heroArt" /></div>
     <div class="hero-top-line" id="heroTopLine"></div>
-    <div class="page-hero-bg"></div>
-    <div class="page-hero-word">SERIES</div>
-    <div class="page-hero-inner">
+    <div class="sr-hero-inner">
       <div class="page-eyebrow">
         <div class="page-eyebrow-line" id="eyebrowLine"></div>
         <span class="page-eyebrow-text" id="eyebrowText">The Unseated Series</span>
       </div>
-      <h1 class="page-title">
+      <h1 class="sr-title">
         <span class="word"><span class="word-inner">Every</span></span>&#32;<span class="word"><span class="word-inner">Season.</span></span><br>
-        <span class="word"><span class="word-inner">One</span></span>&#32;<span class="word"><span class="word-inner gold-shimmer" style="font-style:italic;color:var(--gold);">Mission.</span></span>
+        <span class="word"><span class="word-inner">One</span></span>&#32;<span class="word"><span class="word-inner gold-shimmer" style="font-style:italic;">Assignment.</span></span>
       </h1>
-      <div class="page-divider" id="pageDivider"></div>
-      <p class="page-desc" id="pageDesc">Every season. One assignment. To confront what has been left unexamined in the church and call the remnant into the depth of formation God requires. Select a season to begin.</p>
+      <p class="sr-line" id="pageDesc">Confront the systems, mindsets, and patterns that prevent maturity and limit Kingdom impact.</p>
+      <div class="sr-line2" id="heroLine2">Whatever has taken God's seat must be unseated.</div>
+      <div class="sr-actions" id="pageActions">
+        <a href="/season1/" class="btn-s1 gold magnetic">Explore Season One <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      </div>
     </div>
   </section>
 
-  <!-- SEASONS -->
-  <section class="seasons-section">
-    <div class="seasons-eyebrow reveal">
-      <div class="seasons-eyebrow-line"></div>
-      <span class="seasons-eyebrow-text">All Seasons</span>
+  <!-- FRAMEWORK -->
+  <section class="sr-frame">
+    <div class="s1-section-line"></div>
+    <div class="sr-frame-head reveal">
+      <div class="s1-label">Every Season</div>
     </div>
-    <div class="seasons-grid">
-
-      <a href="/season1" class="season-card active reveal reveal-delay-1" id="card0">
-        <div class="season-card-bg s1-bg"></div>
-        <div class="season-card-overlay"></div>
-        <div class="season-card-shine"></div>
-        <div class="season-card-glow"></div>
-        <div class="season-card-content">
-          <div class="season-num">Season One · Premieres Next Week</div>
-          <div class="season-title">Unseating Performance</div>
-          <div class="season-date">4 Episodes · New Episodes Weekly</div>
-          <div class="season-cta magnetic">
-            Enter Season
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </div>
-        </div>
-      </a>
-
-      <div class="season-card locked reveal reveal-delay-2" id="card1">
-        <div class="season-card-bg s2-bg"></div>
-        <div class="season-card-overlay"></div>
-        <div class="season-card-shine"></div>
-        <div class="season-card-glow"></div>
-        <div class="season-card-content">
-          <div class="season-num">Season Two · Coming Soon</div>
-          <div class="season-title">Unseating Church Elitism</div>
-          <div class="season-date">Next Season</div>
-          <div class="season-coming-badge">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-            Coming Soon
-          </div>
-        </div>
+    <div class="sr-frame-grid">
+      <div class="sr-step reveal reveal-delay-1">
+        <h3>Confront.</h3>
+        <p>Systems, mindsets, and patterns that have shaped us.</p>
       </div>
-
-      <div class="season-card locked reveal reveal-delay-3" id="card2">
-        <div class="season-card-bg s3-bg">
-          <div class="s3-placeholder">
-            <div class="s3-placeholder-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 5v14M5 12h14"/></svg></div>
-            <div class="s3-placeholder-text">Season Three</div>
-          </div>
-        </div>
-        <div class="season-card-overlay"></div>
-        <div class="season-card-shine"></div>
-        <div class="season-card-glow"></div>
-        <div class="season-card-content">
-          <div class="season-num">Season Three</div>
-          <div class="season-title">Coming Soon</div>
-          <div class="season-date">Future Season</div>
-          <div class="season-coming-badge">In Development</div>
-        </div>
+      <div class="sr-step reveal reveal-delay-2">
+        <h3>Reform.</h3>
+        <p>Bring what we believe and practice back under Scripture.</p>
       </div>
-
+      <div class="sr-step reveal reveal-delay-3">
+        <h3>Rebuild.</h3>
+        <p>Form lives fully submitted to God and prepared for Kingdom impact.</p>
+      </div>
     </div>
   </section>
 
-  <!-- SUBSCRIBE -->
-  <section class="subscribe-section">
-    <div class="subscribe-line" id="subscribeLine"></div>
-    <div class="subscribe-inner reveal">
-      <div class="subscribe-eyebrow">
-        <div class="subscribe-eyebrow-line"></div>
-        <span class="subscribe-eyebrow-text">Get Involved</span>
-      </div>
-      <h2 class="subscribe-title">Help Carry<br>The <em>Work.</em></h2>
-      <p class="subscribe-desc">This series takes a team to make. If you want to help move it forward, tell us where you fit.</p>
-      <a href="/#join" class="join-cta">Find Your Place
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+  <!-- BEGIN HERE: SEASON ONE -->
+  <section class="sr-feature" id="season-one">
+    <div class="s1-section-line"></div>
+    <div class="sr-feature-inner">
+      <a href="/season1/" class="sr-poster reveal" aria-label="Explore Season One">
+        <img src="/Photos/S1E1-Hero.jpg" alt="Season One artwork: a preacher performing under stage lights torn against a man praying over an open Bible" />
+        <div class="sr-poster-badge">Season One</div>
       </a>
+      <div class="sr-feature-body reveal reveal-delay-2">
+        <div class="s1-label">Begin Here</div>
+        <div class="sr-season-tag">Season One</div>
+        <h2 class="sr-feature-title">Unseating <em>Performance.</em></h2>
+        <p class="sr-question">What happens when doing for God becomes more important than becoming in God?</p>
+        <div class="sr-meta">
+          <span>4 Episodes</span><i></i>
+          <span>Premieres <b data-premiere>Next Week</b></span><i></i>
+          <span>Weekly</span>
+        </div>
+        <a href="/season1/" class="btn-s1 gold magnetic">Explore Season One <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="s1-final">
+    <div class="s1-final-bg"></div>
+    <div class="s1-final-inner reveal">
+      <h2>The First Conversation<br>Starts <em>Here.</em></h2>
+      <p>Season One begins with Unseating Performance.</p>
+      <div class="s1-final-actions">
+        <a href="/season1/" class="btn-s1 dark magnetic">Enter Season One <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        <a href="/community" class="btn-s1 ghost-dark" data-notify>Get Notified</a>
+      </div>
     </div>
   </section>
 
@@ -372,7 +381,7 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <p class="footer-copy">© 2026 Unseated Generation. All rights reserved.</p>
+      <p class="footer-copy">2026 Unseated Generation. All rights reserved.</p>
       <div class="footer-socials">
         <a href="#">YouTube</a>
         <a href="#">Instagram</a>
@@ -382,16 +391,30 @@
     </div>
   </footer>
 
+  <script src="/launch.js"></script>
   <script>
-    // PROGRESS BAR
+    // Launch settings live in /launch.js, shared with /season1. Defaults below
+    // only apply if that file fails to load.
+    const SEASON_ONE = Object.assign({ premiereDate: '', notifyUrl: '' }, window.SEASON_ONE || {});
+
+    (function applyLaunchSettings() {
+      const isUrl = v => /^https?:\/\//.test(v || '');
+      if (SEASON_ONE.premiereDate) {
+        document.querySelectorAll('[data-premiere]').forEach(el => { el.textContent = SEASON_ONE.premiereDate; });
+      }
+      const notify = isUrl(SEASON_ONE.notifyUrl) ? SEASON_ONE.notifyUrl : '/community';
+      document.querySelectorAll('[data-notify]').forEach(a => {
+        a.setAttribute('href', notify);
+        if (isUrl(notify)) { a.setAttribute('target', '_blank'); a.setAttribute('rel', 'noopener noreferrer'); }
+      });
+    })();
+
     const progressBar = document.getElementById('progressBar');
     window.addEventListener('scroll', () => {
       const h = document.documentElement;
-      const pct = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
-      progressBar.style.width = pct + '%';
+      progressBar.style.width = (h.scrollTop / (h.scrollHeight - h.clientHeight) * 100) + '%';
     }, { passive: true });
 
-    // PAGE TRANSITION
     const transition = document.getElementById('pageTransition');
     document.querySelectorAll('a[href]').forEach(link => {
       const href = link.getAttribute('href');
@@ -408,70 +431,59 @@
       setTimeout(() => transition.classList.remove('enter'), 600);
     });
 
-    // HERO ANIMATIONS
     setTimeout(() => {
       document.getElementById('heroTopLine').classList.add('animate');
       document.getElementById('eyebrowLine').classList.add('animate');
       document.getElementById('eyebrowText').classList.add('animate');
     }, 100);
     document.querySelectorAll('.word-inner').forEach((w, i) => {
-      setTimeout(() => w.classList.add('animate'), 300 + i * 120);
+      setTimeout(() => w.classList.add('animate'), 300 + i * 140);
     });
-    setTimeout(() => document.getElementById('pageDivider').classList.add('animate'), 900);
-    setTimeout(() => document.getElementById('pageDesc').classList.add('animate'), 1100);
+    setTimeout(() => document.getElementById('pageDesc').classList.add('animate'), 1000);
+    setTimeout(() => document.getElementById('heroLine2').classList.add('animate'), 1200);
+    setTimeout(() => document.getElementById('pageActions').classList.add('animate'), 1400);
 
-    // SCROLL REVEAL
     const reveals = document.querySelectorAll('.reveal');
     const revealObs = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) { entry.target.classList.add('visible'); revealObs.unobserve(entry.target); }
       });
-    }, { threshold: 0.1 });
+    }, { threshold: 0.08 });
     reveals.forEach(el => revealObs.observe(el));
 
-    // ANIMATED LINES
     const lineObs = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) { entry.target.classList.add('animate'); lineObs.unobserve(entry.target); }
       });
     }, { threshold: 0.3 });
-    document.querySelectorAll('.seasons-eyebrow-line, .subscribe-line').forEach(el => lineObs.observe(el));
+    document.querySelectorAll('.s1-section-line').forEach(el => lineObs.observe(el));
 
-    // CARD 3D TILT
-    document.querySelectorAll('.season-card:not(.locked)').forEach(card => {
-      card.addEventListener('mousemove', e => {
-        const rect = card.getBoundingClientRect();
-        const x = (e.clientX - rect.left) / rect.width - 0.5;
-        const y = (e.clientY - rect.top) / rect.height - 0.5;
-        card.style.transform = `perspective(800px) rotateY(${x * 8}deg) rotateX(${-y * 8}deg) translateY(-8px)`;
-      });
-      card.addEventListener('mouseleave', () => {
-        card.style.transform = 'perspective(800px) rotateY(0deg) rotateX(0deg) translateY(0)';
-        card.style.transition = 'transform 0.6s cubic-bezier(0.16,1,0.3,1), box-shadow 0.4s';
-      });
-      card.addEventListener('mouseenter', () => {
-        card.style.transition = 'transform 0.1s, box-shadow 0.4s';
-      });
-    });
+    const heroArt = document.getElementById('heroArt');
+    if (heroArt && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      let ticking = false;
+      window.addEventListener('scroll', () => {
+        if (ticking) return; ticking = true;
+        requestAnimationFrame(() => {
+          heroArt.style.translate = '0 ' + (Math.min(window.scrollY, 900) * 0.16) + 'px';
+          ticking = false;
+        });
+      }, { passive: true });
+    }
 
-    // MAGNETIC BUTTONS
     document.querySelectorAll('.magnetic').forEach(btn => {
       btn.addEventListener('mousemove', e => {
         const rect = btn.getBoundingClientRect();
-        const x = (e.clientX - rect.left - rect.width / 2) * 0.25;
-        const y = (e.clientY - rect.top - rect.height / 2) * 0.25;
+        const x = (e.clientX - rect.left - rect.width / 2) * 0.22;
+        const y = (e.clientY - rect.top - rect.height / 2) * 0.22;
         btn.style.transform = `translate(${x}px, ${y}px)`;
       });
       btn.addEventListener('mouseleave', () => {
         btn.style.transform = 'translate(0, 0)';
         btn.style.transition = 'transform 0.5s cubic-bezier(0.16,1,0.3,1)';
       });
-      btn.addEventListener('mouseenter', () => {
-        btn.style.transition = 'transform 0.1s';
-      });
+      btn.addEventListener('mouseenter', () => { btn.style.transition = 'transform 0.1s'; });
     });
 
-    // MOBILE NAV
     document.getElementById('hamburger').addEventListener('click', () => {
       const nc = document.querySelector('.nav-center');
       if (nc.style.display === 'flex') {

@@ -305,6 +305,7 @@
 
     .ep-feature-body { display: flex; flex-direction: column; justify-content: center; padding: 48px 52px; }
     .ep-live { display: inline-flex; align-items: center; gap: 9px; font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 22px; }
+    .ep-live b { font-weight: inherit; }
     .ep-feature-num { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.26em; text-transform: uppercase; color: var(--grey-light); margin-bottom: 12px; }
     .ep-feature-title { font-family: 'Playfair Display', serif; font-size: clamp(26px, 2.3vw, 36px); font-weight: 700; line-height: 1.14; color: var(--white); margin-bottom: 16px; }
     .ep-feature-verse { font-size: 11px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; font-style: italic; color: var(--grey-light); margin-bottom: 30px; }
@@ -657,7 +658,7 @@
         <div class="ep-play"><svg width="20" height="20" viewBox="0 0 24 24" fill="#D4A840"><path d="M8 5v14l11-7z"/></svg></div>
       </div>
       <div class="ep-feature-body">
-        <span class="ep-live">Premieres Next Week</span>
+        <span class="ep-live">Premieres <b data-premiere>Next Week</b></span>
         <div class="ep-feature-num">Episode 01</div>
         <h3 class="ep-feature-title">When Ministry Outpaces Maturity</h3>
         <div class="ep-feature-verse">1 Corinthians 13:1–3 · NASB</div>
@@ -1093,6 +1094,12 @@
         }
       });
     })();
+  </script>
+  <script src="/launch.js"></script>
+  <script>
+    if (window.SEASON_ONE && SEASON_ONE.premiereDate) {
+      document.querySelectorAll('[data-premiere]').forEach(el => { el.textContent = SEASON_ONE.premiereDate; });
+    }
   </script>
 </body>
 </html>

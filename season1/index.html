@@ -475,26 +475,11 @@
     </div>
   </footer>
 
+  <script src="/launch.js"></script>
   <script>
-    /* ------------------------------------------------------------------
-       SEASON ONE LAUNCH SETTINGS. Everything on this page that changes at
-       launch reads from here, so nothing below needs restructuring.
-         premiereDate   e.g. 'September 18'. Blank shows "Next Week".
-         trailerUrl     YouTube watch, youtu.be, or embed URL. Blank keeps
-                        the poster with "Trailer Coming Soon".
-         episodeOneUrl  Full episode URL. When set, the Episode One button
-                        becomes "Watch Episode One" and its status reads
-                        "Now Streaming".
-         youtubeUrl     Channel URL. Shows the Subscribe on YouTube button.
-         notifyUrl      Where "Get Notified" goes. Blank uses /community.
-       ------------------------------------------------------------------ */
-    const SEASON_ONE = {
-      premiereDate:  '',
-      trailerUrl:    '',
-      episodeOneUrl: '',
-      youtubeUrl:    '',
-      notifyUrl:     ''
-    };
+    // Launch settings live in /launch.js, shared with /series and the homepage.
+    // Defaults below only apply if that file fails to load.
+    const SEASON_ONE = Object.assign({ premiereDate: '', trailerUrl: '', episodeOneUrl: '', youtubeUrl: '', notifyUrl: '' }, window.SEASON_ONE || {});
 
     (function applyLaunchSettings() {
       const s = SEASON_ONE;
