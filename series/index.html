@@ -131,13 +131,8 @@
     .btn-s1 { display: inline-flex; align-items: center; gap: 12px; font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; text-decoration: none; padding: 18px 36px; transition: background 0.25s, color 0.25s, border-color 0.25s, transform 0.2s, box-shadow 0.25s; clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%); }
     .btn-s1.gold { background: var(--gold); color: var(--black); }
     .btn-s1.gold:hover { background: var(--gold-light); box-shadow: 0 12px 30px rgba(184,146,42,0.3); }
-    .btn-s1.ghost { color: var(--white); border: 1px solid rgba(242,240,237,0.35); clip-path: none; }
-    .btn-s1.ghost:hover { border-color: var(--gold); color: var(--gold-light); }
     .btn-s1.dark { background: var(--black); color: var(--white); }
     .btn-s1.dark:hover { background: #1f1f1f; box-shadow: 0 12px 30px rgba(0,0,0,0.25); }
-    .btn-s1.ghost-dark { color: var(--black); border: 1px solid rgba(10,10,10,0.4); clip-path: none; }
-    .btn-s1.ghost-dark:hover { border-color: var(--black); background: rgba(10,10,10,0.06); }
-    .btn-s1[hidden] { display: none; }
 
     /* HERO */
 
@@ -325,7 +320,6 @@
       <p>Season One begins with Unseating Performance.</p>
       <div class="s1-final-actions">
         <a href="/season1/" class="btn-s1 dark magnetic">Enter Season One <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-        <a href="/community" class="btn-s1 ghost-dark" data-notify>Get Notified</a>
       </div>
     </div>
   </section>
@@ -381,18 +375,13 @@
   <script>
     // Launch settings live in /launch.js, shared with /season1. Defaults below
     // only apply if that file fails to load.
-    const SEASON_ONE = Object.assign({ premiereDate: '', notifyUrl: '' }, window.SEASON_ONE || {});
+    const SEASON_ONE = Object.assign({ premiereDate: '' }, window.SEASON_ONE || {});
 
     (function applyLaunchSettings() {
       const isUrl = v => /^https?:\/\//.test(v || '');
       if (SEASON_ONE.premiereDate) {
         document.querySelectorAll('[data-premiere]').forEach(el => { el.textContent = SEASON_ONE.premiereDate; });
       }
-      const notify = isUrl(SEASON_ONE.notifyUrl) ? SEASON_ONE.notifyUrl : '/community';
-      document.querySelectorAll('[data-notify]').forEach(a => {
-        a.setAttribute('href', notify);
-        if (isUrl(notify)) { a.setAttribute('target', '_blank'); a.setAttribute('rel', 'noopener noreferrer'); }
-      });
     })();
 
     const progressBar = document.getElementById('progressBar');

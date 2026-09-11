@@ -131,13 +131,6 @@
     .btn-s1 { display: inline-flex; align-items: center; gap: 12px; font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; text-decoration: none; padding: 18px 36px; transition: background 0.25s, color 0.25s, border-color 0.25s, transform 0.2s, box-shadow 0.25s; clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%); }
     .btn-s1.gold { background: var(--gold); color: var(--black); }
     .btn-s1.gold:hover { background: var(--gold-light); box-shadow: 0 12px 30px rgba(184,146,42,0.3); }
-    .btn-s1.ghost { color: var(--white); border: 1px solid rgba(242,240,237,0.35); clip-path: none; }
-    .btn-s1.ghost:hover { border-color: var(--gold); color: var(--gold-light); }
-    .btn-s1.dark { background: var(--black); color: var(--white); }
-    .btn-s1.dark:hover { background: #1f1f1f; box-shadow: 0 12px 30px rgba(0,0,0,0.25); }
-    .btn-s1.ghost-dark { color: var(--black); border: 1px solid rgba(10,10,10,0.4); clip-path: none; }
-    .btn-s1.ghost-dark:hover { border-color: var(--black); background: rgba(10,10,10,0.06); }
-    .btn-s1[hidden] { display: none; }
 
     /* HERO */
     .s1-hero { position: relative; min-height: 92vh; display: flex; align-items: flex-end; overflow: hidden; background: var(--black); padding: 160px 60px 110px; z-index: 2; margin-bottom: -60px; border-radius: 0 0 40px 40px; box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
@@ -216,7 +209,7 @@
     .s1-card-tag { display: inline-block; font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.28em; text-transform: uppercase; color: var(--grey-pale); border: 1px solid rgba(242,240,237,0.22); padding: 7px 12px; }
 
     /* TRAILER */
-    .s1-trailer { position: relative; background: var(--charcoal); padding: 170px 60px 150px; z-index: 6; margin-bottom: -60px; border-radius: 40px 40px 0 0; box-shadow: 0 -20px 60px rgba(0,0,0,0.4); }
+    .s1-trailer { position: relative; background: var(--charcoal); padding: 170px 60px 150px; z-index: 6; margin-bottom: -40px; border-radius: 40px 40px 0 0; box-shadow: 0 -20px 60px rgba(0,0,0,0.4); }
     .s1-trailer-head { text-align: center; max-width: 900px; margin: 0 auto 54px; }
     .s1-trailer-head h2 { font-family: 'Playfair Display', serif; font-size: clamp(36px, 4vw, 58px); font-weight: 900; line-height: 1.05; color: var(--white); margin: 16px 0 18px; }
     .s1-trailer-head h2 em { font-style: italic; color: var(--gold); }
@@ -231,14 +224,6 @@
     .s1-play-badge svg { margin-left: 4px; }
 
     /* FINAL CTA */
-    .s1-final { position: relative; background: var(--gold); padding: 160px 60px 140px; z-index: 7; margin-bottom: -40px; border-radius: 40px 40px 0 0; box-shadow: 0 -20px 60px rgba(0,0,0,0.35); overflow: hidden; text-align: center; }
-    .s1-final-bg { position: absolute; inset: 0; background-image: linear-gradient(rgba(0,0,0,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.08) 1px, transparent 1px); background-size: 60px 60px; }
-    .s1-final-inner { position: relative; z-index: 2; max-width: 900px; margin: 0 auto; }
-    .s1-final h2 { font-family: 'Playfair Display', serif; font-size: clamp(36px, 4vw, 58px); font-weight: 900; line-height: 1.05; color: var(--black); margin-bottom: 26px; }
-    .s1-final h2 em { font-style: italic; color: #2a2008; }
-    .s1-final p { font-size: 18px; font-weight: 300; line-height: 1.9; color: rgba(10,10,10,0.78); margin-bottom: 40px; }
-    .s1-final-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; }
-    .s1-final-line { margin-top: 56px; font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.4em; text-transform: uppercase; color: rgba(10,10,10,0.55); }
 
     @media (prefers-reduced-motion: reduce) {
       .s1-hero-art img { animation: none; transform: none; }
@@ -252,14 +237,12 @@
       .s1-meta i, .s1-feature-meta i, .s1-coming-meta i { display: none; }
       .s1-actions { flex-direction: column; }
       .s1-actions .btn-s1 { width: 100%; justify-content: center; }
-      .s1-teaser, .s1-feature, .s1-coming, .s1-trailer, .s1-final { padding: 100px 20px 80px; border-radius: 24px 24px 0 0; margin-bottom: -40px; }
+      .s1-teaser, .s1-feature, .s1-coming, .s1-trailer { padding: 100px 20px 80px; border-radius: 24px 24px 0 0; margin-bottom: -40px; }
       .s1-feature-inner { grid-template-columns: 1fr; gap: 40px; }
       .s1-feature-num { right: 0; top: -30px; font-size: 96px; }
       .s1-coming-grid { grid-template-columns: 1fr; gap: 16px; }
       .s1-card { aspect-ratio: 16 / 10; }
       .s1-card-num { font-size: 84px; }
-      .s1-final-actions { flex-direction: column; align-items: stretch; }
-      .s1-final-actions .btn-s1 { justify-content: center; }
     }
   </style>
 
@@ -313,7 +296,6 @@
       </div>
       <div class="s1-actions" id="pageActions">
         <a href="#trailer" class="btn-s1 gold magnetic" data-trailer-cta><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg> Watch the Trailer</a>
-        <a href="/community" class="btn-s1 ghost" data-notify>Get Notified</a>
       </div>
     </div>
   </section>
@@ -413,20 +395,6 @@
     </div>
   </section>
 
-  <!-- FINAL CTA -->
-  <section class="s1-final">
-    <div class="s1-final-bg"></div>
-    <div class="s1-final-inner reveal">
-      <h2>Don't Just Watch.<br>Be <em>Formed.</em></h2>
-      <p>Season One begins <span data-premiere>next week</span>.</p>
-      <div class="s1-final-actions">
-        <a href="/community" class="btn-s1 dark magnetic" data-notify>Get Notified <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-        <a href="#" class="btn-s1 ghost-dark" data-youtube hidden><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M21.8 8s-.2-1.4-.8-2c-.8-.8-1.6-.8-2-.9C16.8 5 12 5 12 5s-4.8 0-7 .1c-.4.1-1.2.1-2 .9-.6.6-.8 2-.8 2S2 9.6 2 11.2v1.5c0 1.6.2 3.2.2 3.2s.2 1.4.8 2c.8.8 1.8.8 2.2.8C6.8 19 12 19 12 19s4.8 0 7-.2c.4-.1 1.2-.1 2-.9.6-.6.8-2 .8-2s.2-1.6.2-3.2v-1.5C22 9.6 21.8 8 21.8 8zM10 15V9l5.5 3-5.5 3z"/></svg> Subscribe on YouTube</a>
-      </div>
-      <div class="s1-final-line">Called. Refined. Sent.</div>
-    </div>
-  </section>
-
   <!-- FOOTER -->
   <footer>
     <div class="footer-top">
@@ -478,7 +446,7 @@
   <script>
     // Launch settings live in /launch.js, shared with /series and the homepage.
     // Defaults below only apply if that file fails to load.
-    const SEASON_ONE = Object.assign({ premiereDate: '', trailerUrl: '', episodeOneUrl: '', youtubeUrl: '', notifyUrl: '' }, window.SEASON_ONE || {});
+    const SEASON_ONE = Object.assign({ premiereDate: '', trailerUrl: '', episodeOneUrl: '' }, window.SEASON_ONE || {});
 
     (function applyLaunchSettings() {
       const s = SEASON_ONE;
@@ -488,19 +456,7 @@
         document.querySelectorAll('[data-premiere]').forEach(el => { el.textContent = s.premiereDate; });
       }
 
-      const notify = isUrl(s.notifyUrl) ? s.notifyUrl : '/community';
-      document.querySelectorAll('[data-notify]').forEach(a => {
-        a.setAttribute('href', notify);
-        if (isUrl(notify)) { a.setAttribute('target', '_blank'); a.setAttribute('rel', 'noopener noreferrer'); }
-      });
 
-      document.querySelectorAll('[data-youtube]').forEach(a => {
-        if (isUrl(s.youtubeUrl)) {
-          a.setAttribute('href', s.youtubeUrl);
-          a.setAttribute('target', '_blank'); a.setAttribute('rel', 'noopener noreferrer');
-          a.hidden = false;
-        }
-      });
 
       const cta = document.getElementById('epOneCta');
       if (cta && isUrl(s.episodeOneUrl)) {
