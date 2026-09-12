@@ -81,9 +81,6 @@
     .nav-center a::after { content: ''; position: absolute; bottom: -4px; left: 0; right: 0; height: 1px; background: var(--gold); transform: scaleX(0); transform-origin: left; transition: transform 0.3s; }
     .nav-center a:hover { color: var(--white); }
     .nav-center a:hover::after { transform: scaleX(1); }
-    .nav-cta { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--black) !important; background: var(--gold); padding: 12px 28px; text-decoration: none; transition: background 0.25s, transform 0.2s; clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%); }
-    .nav-cta:hover { background: var(--gold-light); transform: translateY(-1px); }
-    .nav-cta::after { display: none !important; }
     .hamburger { display: none; flex-direction: column; gap: 5px;  padding: 8px; }
     .hamburger span { display: block; width: 28px; height: 2px; background: var(--white); }
 
@@ -551,7 +548,6 @@
       <li><a href="/series">The Unseated Series</a></li>
       <li><a href="/context">Context Matters</a></li>
       <li><a href="/community">The Remnant</a></li>
-      <li><a href="/give" class="nav-cta">Give</a></li>
     </ul>
     <div class="hamburger" id="hamburger">
       <span></span><span></span><span></span>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>About · Unseated Generation</title>
+  <title>Give · Unseated Generation</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@400;600;700;800&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -43,6 +43,12 @@
     .nav-center a:hover::after { transform: scaleX(1); }
     .nav-center a.active { color: var(--gold); }
     .nav-center a.active::after { transform: scaleX(1); }
+    .nav-cta { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--black) !important; background: var(--gold); padding: 12px 28px; text-decoration: none; transition: background 0.25s, transform 0.2s, box-shadow 0.25s; clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%); position: relative; overflow: hidden; }
+    .nav-cta::before { content: ''; position: absolute; inset: 0; background: var(--gold-light); transform: translateX(-100%); transition: transform 0.4s cubic-bezier(0.16,1,0.3,1); z-index: 0; }
+    .nav-cta:hover::before { transform: translateX(0); }
+    .nav-cta span { position: relative; z-index: 1; }
+    .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(184,146,42,0.3); }
+    .nav-cta::after { display: none !important; }
     .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; }
     .hamburger span { display: block; width: 28px; height: 2px; background: var(--white); }
 
@@ -128,8 +134,8 @@
     .founder-section { padding: 120px 60px; background: var(--charcoal); position: relative; z-index: 4; margin-top: -40px; border-radius: 40px 40px 0 0; box-shadow: 0 -20px 60px rgba(0,0,0,0.3); overflow: hidden; }
     .founder-section-line { position: absolute; top: 40px; left: 60px; right: 60px; height: 1px; background: linear-gradient(to right, transparent, var(--gold), transparent); transform: scaleX(0); transform-origin: center; transition: transform 1s cubic-bezier(0.16,1,0.3,1); }
     .founder-section-line.animate { transform: scaleX(1); }
-    .founder-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 100px; align-items: start; }
-    .founder-photo-wrap { position: sticky; top: 120px; }
+    .founder-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 100px; align-items: center; }
+    .founder-photo-wrap { position: relative; }
     .founder-photo-frame { position: relative; overflow: hidden; }
     .founder-photo-frame::before { content: ''; position: absolute; top: -3px; left: -3px; right: -3px; bottom: -3px; border: 1px solid var(--border-light); z-index: 2; pointer-events: none; }
     .founder-photo-frame::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--gold); z-index: 3; }
@@ -146,11 +152,6 @@
     .founder-divider.animate { width: 48px; }
     .founder-info p { font-size: 16px; font-weight: 300; line-height: 1.9; color: var(--grey-pale); margin-bottom: 20px; }
     .founder-info p:last-of-type { margin-bottom: 32px; }
-    .founder-info p.founder-beat { font-family: 'Playfair Display', serif; font-size: 21px; font-style: italic; color: var(--white); }
-    .founder-info p.founder-beat em { font-style: italic; color: var(--gold); }
-    .founder-pull { margin: 40px 0 36px; padding: 26px 30px; border-left: 3px solid var(--gold); background: rgba(184,146,42,0.06); }
-    .founder-pull-text { font-family: 'Playfair Display', serif; font-size: clamp(19px, 1.8vw, 24px); font-weight: 700; font-style: italic; line-height: 1.5; color: var(--white); }
-    .founder-pull-source { margin-top: 14px; font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.26em; text-transform: uppercase; color: var(--gold); }
     .founder-credential { display: flex; align-items: center; gap: 16px; padding: 20px 24px; border: 1px solid var(--border-dark); background: rgba(184,146,42,0.04); margin-top: 8px; transition: border-color 0.3s, background 0.3s; }
     .founder-credential:hover { border-color: var(--border-light); background: rgba(184,146,42,0.08); }
     .founder-credential-icon { width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--border-light); display: flex; align-items: center; justify-content: center; color: var(--gold); flex-shrink: 0; }
@@ -206,15 +207,51 @@
       .founder-section { padding: 80px 24px; border-radius: 24px 24px 0 0; margin-top: -24px; }
       .founder-grid { grid-template-columns: 1fr; gap: 48px; }
       .founder-photo-accent { display: none; }
-      .founder-photo-wrap { position: static; }
-      .founder-pull { margin: 32px 0 28px; padding: 20px 22px; }
       .subscribe-section { padding: 80px 24px; border-radius: 24px 24px 0 0; margin-top: -24px; }
       footer { padding: 60px 24px 32px; border-radius: 24px 24px 0 0; margin-top: -24px; }
       .footer-top { grid-template-columns: 1fr 1fr; gap: 40px; }
       .footer-bottom { flex-direction: column; gap: 20px; text-align: center; }
     }
-    .join-cta { display: inline-flex; align-items: center; align-self: flex-start; width: fit-content; gap: 10px; font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--black); background: var(--gold); padding: 18px 36px; text-decoration: none; transition: background 0.25s, transform 0.2s, box-shadow 0.25s; clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%); }
-    .join-cta:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 10px 26px rgba(184,146,42,0.28); }
+
+    /* ===== GIVE PAGE ADDITIONS ===== */
+    .page-actions { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; margin-top: 44px; opacity: 0; transform: translateY(16px); transition: opacity 0.8s 1.3s, transform 0.8s 1.3s; }
+    .page-actions.animate { opacity: 1; transform: translateY(0); }
+    .btn-gold { font-family: 'Barlow Condensed', sans-serif; font-size: 14px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--black); background: var(--gold); padding: 18px 44px; text-decoration: none; display: inline-flex; align-items: center; gap: 10px; transition: background 0.25s, transform 0.2s, box-shadow 0.25s; clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%); }
+    .btn-gold:hover { background: var(--gold-light); transform: translateY(-3px); box-shadow: 0 12px 32px rgba(184,146,42,0.35); }
+    .btn-outline-light { font-family: 'Barlow Condensed', sans-serif; font-size: 14px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--white); border: 1px solid rgba(255,255,255,0.3); padding: 17px 40px; text-decoration: none; display: inline-flex; align-items: center; gap: 10px; transition: border-color 0.25s, color 0.25s, transform 0.2s, box-shadow 0.25s; background: rgba(255,255,255,0.05); }
+    .btn-outline-light:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.3); }
+
+    /* Primary giving block */
+    .give-cta { margin-top: 48px; padding: 40px 44px; border: 1px solid var(--border-light); background: rgba(184,146,42,0.05); max-width: 760px; }
+    .give-cta h3 { font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 700; color: var(--white); margin-bottom: 12px; }
+    .give-cta p { font-size: 15px; font-weight: 300; line-height: 1.8; color: var(--grey-pale); margin-bottom: 28px; max-width: 560px; }
+    .btn-give { font-family: 'Barlow Condensed', sans-serif; font-size: 15px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--black); background: var(--gold); padding: 20px 52px; text-decoration: none; display: inline-flex; align-items: center; gap: 12px; transition: background 0.25s, transform 0.2s, box-shadow 0.25s; clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%); }
+    .btn-give:hover { background: var(--gold-light); transform: translateY(-3px); box-shadow: 0 12px 32px rgba(184,146,42,0.35); }
+    .give-note { font-size: 13px; font-weight: 300; color: var(--grey-light); margin-top: 20px; margin-bottom: 0; }
+    .give-sub { font-size: 13px; font-weight: 300; color: var(--grey-light); margin-top: 18px; letter-spacing: 0.02em; }
+
+    /* Not-yet-wired state: link placeholder still in place */
+    [data-give-link][data-pending="true"] { opacity: 0.55; cursor: not-allowed; }
+    [data-give-link][data-pending="true"]:hover { transform: none; box-shadow: none; background: var(--gold); }
+    .give-pending-note { display: none; font-size: 13px; font-weight: 300; line-height: 1.7; color: var(--gold); margin-top: 10px; }
+    .give-pending-note.show { display: block; }
+
+    /* Trust and disclosure */
+    .trust-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 3px; margin-top: 52px; }
+    .trust-item { padding: 30px 32px; border: 1px solid rgba(255,255,255,0.06); background: rgba(255,255,255,0.02); transition: border-color 0.3s, background 0.3s; }
+    .trust-item:hover { border-color: var(--border-light); background: rgba(184,146,42,0.04); }
+    .trust-label { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.28em; color: var(--gold); text-transform: uppercase; margin-bottom: 10px; }
+    .trust-text { font-size: 14px; font-weight: 300; line-height: 1.8; color: var(--grey-pale); }
+    .disclosure { margin-top: 40px; padding: 26px 30px; border: 1px solid var(--border-dark); border-left: 3px solid var(--gold); background: rgba(255,255,255,0.02); }
+    .disclosure p { font-size: 12px; font-weight: 400; line-height: 1.85; color: var(--grey-light); letter-spacing: 0.04em; margin: 0; max-width: none; }
+    .disclosure p + p { margin-top: 12px; }
+
+    @media (max-width: 1024px) {
+      .page-actions { flex-direction: column; align-items: stretch; }
+      .btn-gold, .btn-outline-light, .btn-give { justify-content: center; }
+      .give-cta { padding: 28px 22px; }
+      .trust-grid { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
@@ -229,170 +266,110 @@
     </a>
     <ul class="nav-center">
       <li><a href="/mission">The Mission</a></li>
-      <li><a href="/about" class="active">About</a></li>
+      <li><a href="/about">About</a></li>
       <li><a href="/series">The Unseated Series</a></li>
       <li><a href="/context">Context Matters</a></li>
       <li><a href="/community">The Remnant</a></li>
+      <li><a href="/give" class="nav-cta"><span>Give</span></a></li>
     </ul>
     <div class="hamburger" id="hamburger">
       <span></span><span></span><span></span>
     </div>
   </nav>
 
-  <!-- HERO -->
+  <!-- HERO: the ask, and the button, immediately -->
   <section class="page-hero">
     <div class="hero-top-line" id="heroTopLine"></div>
     <div class="page-hero-bg"></div>
-    <div class="page-hero-bg-word">UNSEATED</div>
+    <div class="page-hero-bg-word">GIVE</div>
     <div class="hero-bar"></div>
     <div class="page-hero-inner">
       <div class="page-eyebrow">
         <div class="page-eyebrow-line" id="eyebrowLine"></div>
-        <span class="page-eyebrow-text" id="eyebrowText">The Platform</span>
+        <span class="page-eyebrow-text" id="eyebrowText">Give</span>
       </div>
       <h1 class="page-title">
-        <span class="word"><span class="word-inner">About</span></span><br>
-        <span class="word"><span class="word-inner">Unseated</span></span>&#32;<span class="word"><span class="word-inner gold-shimmer" style="font-style:italic;">Generation.</span></span>
+        <span class="word"><span class="word-inner">Generosity</span></span>&#32;<span class="word"><span class="word-inner">Made</span></span>&#32;<span class="word"><span class="word-inner gold-shimmer" style="font-style:italic;">Tangible.</span></span>
       </h1>
       <div class="page-divider" id="pageDivider"></div>
-      <p class="page-desc" id="pageDesc">This is not a platform built around a personality. It is a platform built around a burden. A burden for the people of God to be free, formed, and walking in the fullness of their identity in Christ.</p>
+      <p class="page-desc" id="pageDesc">Your gift funds discipleship and practical help in Jacksonville and beyond. Give once, or give monthly.</p>
+      <div class="page-actions" id="pageActions">
+        <a href="#" data-give-link class="btn-give">Give Now
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+      <p class="give-sub">Secure giving through Givelify. Tax-deductible.</p>
+      <p class="give-pending-note">Online giving opens as soon as our Givelify account setup is complete.</p>
     </div>
   </section>
 
-  <!-- MISSION AND BURDEN -->
+  <!-- WHERE IT GOES: brief, scannable -->
   <section class="mission-section">
-    <div class="mission-section-line" id="missionLine"></div>
-    <div class="mission-bg">BURDEN</div>
-    <div class="mission-grid">
-      <div class="mission-left reveal">
-        <div class="eyebrow">
-          <div class="eyebrow-line"></div>
-          <span class="eyebrow-text">The Burden</span>
-        </div>
-        <h2>The Church Has <em>Drifted.</em></h2>
-        <p>Many of us were never taught any differently. What we call church culture is simply the water we grew up in. Performance wasn't chosen. It was inherited. And what is inherited feels like truth until something or Someone shows you otherwise.</p>
-        <p>The desire to be financially prosperous, to have huge followings, to carry enormous influence. These things were presented to us as the fruit of faithfulness. But all of it is meaningless apart from the transformative power of Christ.</p>
-        <p>This is the burden Unseated Generation was built to address. Not to condemn the people formed by these systems, but to offer what the Holy Spirit offered us, a clearer picture of what God actually intended.</p>
-      </div>
-      <div class="mission-pillars reveal reveal-delay-2">
-        <div class="mission-pillar">
-          <div class="mission-pillar-label">The Problem</div>
-          <div class="mission-pillar-text">Most people in performative culture are sincere. They love God genuinely. But sincerity without formation produces people who are devoted and yet still distant from the depth God intended.</div>
-        </div>
-        <div class="mission-pillar">
-          <div class="mission-pillar-label">The Pattern</div>
-          <div class="mission-pillar-text">When performance is all you have seen modeled, it becomes your standard. Not by rebellion but by formation. The environment shapes us more than we realize.</div>
-        </div>
-        <div class="mission-pillar">
-          <div class="mission-pillar-label">The Drift</div>
-          <div class="mission-pillar-text">This is not about bad intentions. It is about inherited frameworks. We carry what we were given until the Holy Spirit shows us something better.</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- THE ASSIGNMENT -->
-  <section class="assignment-section">
-    <div class="assignment-section-line" id="assignmentLine"></div>
-    <div class="assignment-bg">CALL</div>
+    <div class="mission-section-line" id="givingLine"></div>
+    <div class="mission-bg">GIVE</div>
     <div class="assignment-inner">
       <div class="assignment-eyebrow reveal">
         <div class="assignment-eyebrow-line"></div>
-        <span class="assignment-eyebrow-text">The Assignment</span>
+        <span class="assignment-eyebrow-text">Your Gift</span>
       </div>
-      <h2 class="reveal" style="font-family:'Playfair Display',serif;font-size:clamp(32px,3.5vw,52px);font-weight:900;line-height:1.05;color:var(--white);margin-bottom:32px;">To Awaken the <em style="font-style:italic;color:var(--gold);">Remnant.</em></h2>
-      <p class="reveal">The assignment of Unseated Generation is to call the church back into alignment with its identity. To expose what has occupied the seat that belongs to God and to call for the rebuilding of the sacred altar.</p>
-      <p class="reveal">That calling moves through a specific confrontation, of the systems, patterns, and mindsets that prevent alignment with God. Because the remnant cannot walk in their assignment until what has formed them out of alignment has been named, confronted, and surrendered. This is preparation. Confrontation is not the end. It is the doorway to the call God has placed on this generation and to being part of what He is doing in this hour.</p>
-      <p class="reveal">That rebuilding does not happen through better programming or larger platforms. It happens through surrender to God, offering our bodies as living sacrifices, and returning to the truth of Scripture handled with integrity and reverence.</p>
+      <h2 class="reveal">Where It <em>Goes.</em></h2>
       <div class="assignment-three">
         <div class="assignment-item reveal reveal-delay-1">
           <div class="assignment-item-num">01</div>
-          <div class="assignment-item-title">Surrender to God</div>
-          <div class="assignment-item-desc">Not to a system. Not to a movement. Not to a personality. Full surrender to the Lordship of Christ over every area of life and ministry.</div>
+          <div class="assignment-item-title">Formation &amp; Discipleship</div>
+          <div class="assignment-item-desc">Teaching and content that forms people in the truth of Scripture.</div>
         </div>
         <div class="assignment-item reveal reveal-delay-2">
           <div class="assignment-item-num">02</div>
-          <div class="assignment-item-title">Rebuild the Altar</div>
-          <div class="assignment-item-desc">The altar of genuine relationship with God. Of daily surrender. Of private devotion that has no audience. Of letting formation do its work.</div>
+          <div class="assignment-item-title">Community Programs</div>
+          <div class="assignment-item-desc">Youth outreach, family support, financial literacy, and practical care.</div>
         </div>
         <div class="assignment-item reveal reveal-delay-3">
           <div class="assignment-item-num">03</div>
-          <div class="assignment-item-title">Return to Truth</div>
-          <div class="assignment-item-desc">Scripture handled with rigor, reverence, and honesty. Not mined for comfort but received for formation. The text prosecutes first.</div>
+          <div class="assignment-item-title">Faithful Operations</div>
+          <div class="assignment-item-desc">The steady infrastructure that keeps the work running and accountable.</div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- PULLQUOTE -->
-  <section class="quote-section">
-    <div class="quote-bg"></div>
-    <div class="quote-inner reveal">
-      <div class="quote-mark">"</div>
-      <p class="quote-text">I am not qualified by ability. I am qualified by identity. And my identity is found in Christ alone.</p>
-      <div class="quote-source">Darrius · Founder, Unseated Generation</div>
-    </div>
-  </section>
-
-  <!-- FOUNDER -->
-  <section class="founder-section">
-    <div class="founder-section-line" id="founderLine"></div>
-    <div class="founder-grid">
-      <div class="founder-photo-wrap reveal">
-        <div class="founder-photo-frame">
-          <img src="/Photos/DarriusPhoto.JPG" alt="Darrius, Founder of Unseated Generation" class="founder-photo" />
-        </div>
-        <div class="founder-photo-accent"></div>
+  <!-- CREDIBILITY: for anyone who wants the details -->
+  <section class="assignment-section">
+    <div class="assignment-section-line" id="trustLine"></div>
+    <div class="assignment-bg">TRUST</div>
+    <div class="assignment-inner">
+      <div class="assignment-eyebrow reveal">
+        <div class="assignment-eyebrow-line"></div>
+        <span class="assignment-eyebrow-text">The Details</span>
       </div>
-      <div class="founder-info reveal reveal-delay-2">
-        <div class="eyebrow">
-          <div class="eyebrow-line"></div>
-          <span class="eyebrow-text">The Founder</span>
+      <h2 class="reveal">Registered and <em>Accountable.</em></h2>
+      <p class="reveal">If you want the paperwork before you give, here it is.</p>
+      <div class="trust-grid">
+        <div class="trust-item reveal reveal-delay-1">
+          <div class="trust-label">501(c)(3) Nonprofit</div>
+          <div class="trust-text">The Unseated Generation Network Inc is a 501(c)(3) public charity. EIN 42-3479798. Contributions are tax-deductible to the extent allowed by law.</div>
         </div>
-        <div class="founder-name">Darrius</div>
-        <div class="founder-title">Founder · Unseated Generation</div>
-        <div class="founder-divider" id="founderDivider"></div>
-        <p>Unseated Generation began in prayer. In 2022, Darrius received the name and the burden for a generation being called, formed, and prepared to take its place in what God was doing. The vision was to strengthen believers who had heard the call of God, restore those who had lost their zeal, reach those who did not yet know Christ, and create a community where a generation could be discipled, formed, and sent.</p>
-        <p>But before Darrius could fully understand the depth of what God had placed in his hands, God would first deepen the work within him.</p>
-        <p>After stepping away from Unseated Generation during a season marked by health challenges, personal loss, and obscurity, much of the noise that had surrounded ministry grew quiet. What initially felt like an interruption became a season of formation. Darrius began sitting with God and Scripture in a way he had not before. As his approach to biblical study changed, familiar passages began demanding a second look. Teachings he had accepted for years became difficult to sustain once they were examined in their biblical context.</p>
-        <p>And the Holy Spirit did not first show him what was wrong with everyone else. He showed Darrius himself.</p>
-        <p>He began to recognize how deeply performance had shaped his own understanding of God. Prayer, study, preaching, giving, and ministry had quietly become measurements of spiritual worth, as though God's acceptance could be earned and believers could be ranked according to how well they performed. As Scripture confronted those assumptions, Darrius began rediscovering the gospel, surrendering beliefs he once considered foundational, and coming out of agreement with parts of church culture he had once accepted without question.</p>
-        <p>That awakening gave greater depth to the assignment God had already spoken years before.</p>
-        <p>Unseated Generation still exists to disciple, serve, evangelize, build community, and tangibly demonstrate the love of Jesus. But the burden is clearer now: to confront what has taken God's place, reform what has drifted from His truth, and help rebuild lives upon the foundation of Scripture. Because when Scripture is removed from its context, sincere people can inherit beliefs that leave them misaligned with the very God they desire to serve.</p>
-        <p class="founder-beat">That is what it means to be <em>Unseated.</em></p>
-        <p>Everything occupying a seat that belongs to God must be removed so that He can take His rightful place. At the same time, there is a generation that has not yet been seated in the fullness of its assignment, a people being formed, refined, and prepared before they are sent.</p>
-        <p>Darrius understands the person who loves God yet senses that something is off. He understands what it is to discover that sincerity and truth are not always the same thing, and what it costs to surrender an old understanding when Scripture reveals something different. His own journey became part of the assignment: to confront, reform, and rebuild, helping form a generation that is submitted to God, rooted in His truth, committed to formation, and determined to make the love of Christ tangible in the world.</p>
-        <p>The vision did not change. It grew deeper.</p>
-        <div class="founder-pull">
-          <div class="founder-pull-text">"Called to confront systems. Formed to love. Assigned to build."</div>
-          <div class="founder-pull-source">Darrius · Founder, Unseated Generation</div>
-        </div>
-        <div class="founder-credential">
-          <div class="founder-credential-icon">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
-          </div>
-          <div class="founder-credential-text">
-            <strong>Gordon-Conwell Theological Seminary</strong>
-            Currently pursuing a Master of Divinity (M.Div)
-          </div>
+        <div class="trust-item reveal reveal-delay-2">
+          <div class="trust-label">Registered in Florida</div>
+          <div class="trust-text">Registered with the Florida Department of Agriculture and Consumer Services to solicit charitable contributions. Florida Registration CH84182.</div>
         </div>
       </div>
-    </div>
-  </section>
-
-  <!-- SUBSCRIBE -->
-  <section class="subscribe-section">
-    <div class="subscribe-section-line" id="subscribeLine"></div>
-    <div class="subscribe-inner reveal">
-      <div class="subscribe-eyebrow">
-        <div class="subscribe-eyebrow-line"></div>
-        <span class="subscribe-eyebrow-text">Get Involved</span>
+      <!-- Required Florida solicitation disclosure. Wording and registration number
+           are taken verbatim from the FDACS letter dated July 8, 2026 (DTN4281021).
+           The statement must stay in capital letters and the registration number
+           must stay conspicuously displayed. Registration renews July 8, 2027. -->
+      <div class="disclosure reveal">
+        <p>FLORIDA REGISTRATION #CH84182</p>
+        <p>"A COPY OF THE OFFICIAL REGISTRATION AND FINANCIAL INFORMATION MAY BE OBTAINED FROM THE DIVISION OF CONSUMER SERVICES BY CALLING TOLL-FREE (800-435-7352) WITHIN THE STATE. REGISTRATION DOES NOT IMPLY ENDORSEMENT, APPROVAL, OR RECOMMENDATION BY THE STATE."</p>
       </div>
-      <h2 class="subscribe-title">You Were Made<br>For <em>More.</em></h2>
-      <p class="subscribe-desc">This work was never meant to be carried alone. It moves through people who share the same burden. If that conviction is yours, there is a place for you here.</p>
-      <a href="/#join" class="join-cta">Find Your Place
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-      </a>
+      <div class="give-cta reveal">
+        <h3>Ready When You Are</h3>
+        <p>Give once or set up a monthly gift. Givelify processes the transaction. We never see or store your card information.</p>
+        <a href="#" data-give-link class="btn-give">Give Now
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <p class="give-pending-note">Online giving opens as soon as our Givelify account setup is complete.</p>
+      </div>
     </div>
   </section>
 
@@ -476,6 +453,7 @@
     });
     setTimeout(() => document.getElementById('pageDivider').classList.add('animate'), 900);
     setTimeout(() => document.getElementById('pageDesc').classList.add('animate'), 1100);
+    setTimeout(() => document.getElementById('pageActions').classList.add('animate'), 1300);
 
     const reveals = document.querySelectorAll('.reveal');
     const revealObs = new IntersectionObserver((entries) => {
@@ -491,6 +469,34 @@
       });
     }, { threshold: 0.3 });
     document.querySelectorAll('.mission-section-line, .assignment-section-line, .founder-section-line, .subscribe-section-line, .eyebrow-line, .assignment-eyebrow-line, .founder-divider').forEach(el => lineObs.observe(el));
+
+    // ── GIVELIFY LINK ─────────────────────────────────────────────────
+    // WIRE THIS: paste the Givelify giving URL between the quotes below.
+    // Format looks like https://giv.li/xxxxxx or https://www.givelify.com/donate/...
+    // While it stays the placeholder, the Give buttons render but are not
+    // clickable, so a dead donate link is never published.
+    const GIVELIFY_URL = 'PASTE_GIVELIFY_URL_HERE';
+
+    (function wireGiving() {
+      const ready = GIVELIFY_URL && GIVELIFY_URL.indexOf('PASTE_GIVELIFY_URL') === -1;
+      document.querySelectorAll('[data-give-link]').forEach(function (el) {
+        if (ready) {
+          el.setAttribute('href', GIVELIFY_URL);
+          el.setAttribute('target', '_blank');
+          el.setAttribute('rel', 'noopener noreferrer');
+          el.removeAttribute('data-pending');
+          el.removeAttribute('aria-disabled');
+        } else {
+          el.setAttribute('href', '#');
+          el.setAttribute('data-pending', 'true');
+          el.setAttribute('aria-disabled', 'true');
+          el.addEventListener('click', function (e) { e.preventDefault(); });
+        }
+      });
+      document.querySelectorAll('.give-pending-note').forEach(function (n) {
+        n.classList.toggle('show', !ready);
+      });
+    })();
 
     document.getElementById('hamburger').addEventListener('click', () => {
       const nc = document.querySelector('.nav-center');

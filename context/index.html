@@ -43,12 +43,6 @@
     .nav-center a:hover::after { transform: scaleX(1); }
     .nav-center a.active { color: var(--gold); }
     .nav-center a.active::after { transform: scaleX(1); }
-    .nav-cta { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--black) !important; background: var(--gold); padding: 12px 28px; text-decoration: none; transition: background 0.25s, transform 0.2s, box-shadow 0.25s; clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%); position: relative; overflow: hidden; }
-    .nav-cta::before { content: ''; position: absolute; inset: 0; background: var(--gold-light); transform: translateX(-100%); transition: transform 0.4s cubic-bezier(0.16,1,0.3,1); z-index: 0; }
-    .nav-cta:hover::before { transform: translateX(0); }
-    .nav-cta span { position: relative; z-index: 1; }
-    .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(184,146,42,0.3); }
-    .nav-cta::after { display: none !important; }
     .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; }
     .hamburger span { display: block; width: 28px; height: 2px; background: var(--white); }
 
@@ -203,7 +197,6 @@
       <li><a href="/series">The Unseated Series</a></li>
       <li><a href="/context" class="active">Context Matters</a></li>
       <li><a href="/community">The Remnant</a></li>
-      <li><a href="/give" class="nav-cta"><span>Give</span></a></li>
     </ul>
     <div class="hamburger" id="hamburger">
       <span></span><span></span><span></span>
