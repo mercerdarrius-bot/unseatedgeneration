@@ -143,7 +143,6 @@
       .page-hero { padding: 120px 24px 80px; border-radius: 0 0 24px 24px; margin-bottom: -40px; }
       .mission-section { padding: 90px 24px 80px; }
       .mission-inner { grid-template-columns: 1fr; gap: 48px; }
-      .coming-section { padding: 90px 24px 80px; border-radius: 24px 24px 0 0; margin-top: -24px; }
       footer { padding: 60px 24px 32px; border-radius: 24px 24px 0 0; margin-top: -24px; }
       .footer-top { grid-template-columns: 1fr 1fr; gap: 40px; }
       .footer-bottom { flex-direction: column; gap: 20px; text-align: center; }
@@ -151,16 +150,41 @@
     /* EPISODE ONE: coming soon */
     .coming-section { padding: 140px 60px 130px; background: var(--charcoal); position: relative; z-index: 2; margin-top: -40px; border-radius: 40px 40px 0 0; box-shadow: 0 -20px 60px rgba(0,0,0,0.3); overflow: hidden; }
     .coming-bg-text { position: absolute; right: -20px; bottom: -70px; font-family: 'Barlow Condensed', sans-serif; font-size: clamp(160px, 22vw, 320px); font-weight: 800; color: rgba(255,255,255,0.022); line-height: 1; pointer-events: none; }
-    .coming-inner { position: relative; z-index: 2; max-width: 860px; }
+    .coming-grid { position: relative; z-index: 2; display: grid; grid-template-columns: 1.15fr 1fr; gap: 72px; align-items: center; max-width: 1320px; margin: 0 auto; }
+    .coming-kicker { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.28em; text-transform: uppercase; color: var(--grey-light); margin-bottom: 14px; }
+    .coming-desc { font-size: 16px; font-weight: 300; line-height: 1.8; color: var(--grey-pale); max-width: 460px; margin-bottom: 28px; }
+    .ep-frame { position: relative; aspect-ratio: 16 / 9; overflow: hidden; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #0d0a06 0%, #2a1f08 45%, #140e04 100%); border: 1px solid rgba(184,146,42,0.18); box-shadow: 0 30px 70px rgba(0,0,0,0.45); }
+    .ep-frame::after { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at center, transparent 35%, rgba(0,0,0,0.55) 100%); pointer-events: none; z-index: 1; }
+    .ep-frame-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(184,146,42,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(184,146,42,0.05) 1px, transparent 1px); background-size: 48px 48px; }
+    .ep-frame-mark { position: absolute; right: -8px; bottom: -30px; font-family: 'Barlow Condensed', sans-serif; font-size: clamp(110px, 13vw, 190px); font-weight: 800; line-height: 1; color: rgba(184,146,42,0.07); pointer-events: none; }
+    .ep-frame-badge { position: absolute; left: 18px; top: 18px; z-index: 3; font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.28em; text-transform: uppercase; color: var(--black); background: var(--gold); padding: 8px 14px; }
+    .ep-frame-status { position: absolute; right: 18px; top: 18px; z-index: 3; font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.26em; text-transform: uppercase; color: var(--grey-pale); border: 1px solid rgba(242,240,237,0.25); background: rgba(10,10,10,0.45); padding: 7px 12px; }
+    .ep-frame-quote { position: relative; z-index: 2; padding: 0 14%; text-align: center; font-family: 'Playfair Display', serif; font-style: italic; font-weight: 700; font-size: clamp(20px, 2vw, 29px); line-height: 1.35; color: var(--white); }
+    .ep-frame-foot { position: absolute; left: 18px; right: 18px; bottom: 16px; z-index: 3; display: flex; align-items: center; gap: 12px; }
+    .ep-frame-play { width: 42px; height: 42px; border-radius: 50%; border: 1px solid rgba(212,168,64,0.7); background: rgba(10,10,10,0.5); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .ep-frame-play svg { margin-left: 3px; }
+    .ep-frame-series { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); }
+    .coming-inner { position: relative; z-index: 2; }
     .coming-inner .eyebrow { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; }
     .coming-inner .eyebrow-line { width: 0; height: 1px; background: var(--gold); transition: width 0.8s cubic-bezier(0.16,1,0.3,1); }
     .coming-inner .eyebrow-line.animate { width: 36px; }
     .coming-inner .eyebrow-text { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.34em; text-transform: uppercase; color: var(--gold); }
-    .coming-num { font-family: 'Playfair Display', serif; font-size: clamp(56px, 6vw, 92px); font-weight: 900; line-height: 1; color: rgba(184,146,42,0.28); margin-bottom: 4px; }
-    .coming-title { font-family: 'Playfair Display', serif; font-size: clamp(32px, 4vw, 52px); font-weight: 900; line-height: 1.1; color: var(--white); margin-bottom: 18px; }
+    .coming-title { font-family: 'Playfair Display', serif; font-size: clamp(30px, 3.2vw, 46px); font-weight: 900; line-height: 1.1; color: var(--white); margin-bottom: 16px; }
     .coming-title em { font-style: italic; color: var(--gold); }
-    .coming-verse { font-size: 12px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; font-style: italic; color: var(--grey-light); margin-bottom: 30px; }
+    .coming-verse { font-size: 12px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; font-style: italic; color: var(--grey-light); margin-bottom: 18px; }
     .coming-tag { display: inline-block; font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); border: 1px solid var(--border-light); padding: 13px 24px; }
+    @media (max-width: 900px) {
+      .coming-section { padding: 90px 24px 80px; border-radius: 24px 24px 0 0; margin-top: -24px; }
+      .coming-grid { grid-template-columns: 1fr; gap: 36px; }
+      .ep-frame-badge, .ep-frame-status { top: 12px; }
+      .ep-frame-badge { left: 12px; padding: 6px 10px; font-size: 10px; }
+      .ep-frame-status { right: 12px; padding: 5px 9px; font-size: 9px; }
+      .ep-frame-quote { font-size: 15px; padding: 0 15%; }
+      .ep-frame-foot { left: 12px; right: 12px; bottom: 11px; gap: 9px; }
+      .ep-frame-play { width: 32px; height: 32px; }
+      .ep-frame-series { font-size: 10px; }
+      .ep-frame-mark { font-size: 96px; bottom: -18px; }
+    }
   </style>
 </head>
 <body>
@@ -240,15 +264,29 @@
   <!-- EPISODE ONE -->
   <section class="coming-section">
     <div class="coming-bg-text">01</div>
-    <div class="coming-inner reveal">
-      <div class="eyebrow">
-        <div class="eyebrow-line"></div>
-        <span class="eyebrow-text">The First Correction</span>
+    <div class="coming-grid">
+      <div class="ep-frame reveal" role="img" aria-label="Context Matters, Episode 01, coming soon">
+        <div class="ep-frame-grid"></div>
+        <div class="ep-frame-mark">CM</div>
+        <div class="ep-frame-badge">Episode 01</div>
+        <div class="ep-frame-status">Coming Soon</div>
+        <div class="ep-frame-quote">"Call those things that be not as though they were"</div>
+        <div class="ep-frame-foot">
+          <span class="ep-frame-play" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="#D4A840"><path d="M8 5v14l11-7z"/></svg></span>
+          <span class="ep-frame-series">Context Matters</span>
+        </div>
       </div>
-      <div class="coming-num">01</div>
-      <h2 class="coming-title">We've Been Quoting This Scripture <em>Wrong</em> for Years</h2>
-      <div class="coming-verse">Romans 4:17 · NASB</div>
-      <span class="coming-tag">Coming Soon</span>
+      <div class="coming-inner reveal reveal-delay-2">
+        <div class="eyebrow">
+          <div class="eyebrow-line"></div>
+          <span class="eyebrow-text">The First Correction</span>
+        </div>
+        <div class="coming-kicker">Context Matters · Episode 01</div>
+        <h2 class="coming-title">We've Been Quoting This Scripture <em>Wrong</em> for Years</h2>
+        <div class="coming-verse">Romans 4:17 · NASB</div>
+        <p class="coming-desc">This verse is quoted in churches every week with full confidence. But the context tells a completely different story.</p>
+        <span class="coming-tag">Coming Soon</span>
+      </div>
     </div>
   </section>
 
