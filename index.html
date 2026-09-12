@@ -389,11 +389,6 @@
     }
     .signup-section-line { position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--gold); transform: scaleX(0); transform-origin: left; transition: transform 1s cubic-bezier(0.16,1,0.3,1); }
     .signup-section-line.animate { transform: scaleX(1); }
-    .signup-grid { display: grid; grid-template-columns: 0.86fr 1.14fr; min-height: 560px; }
-    .signup-left { padding: 100px 80px; position: relative; display: flex; flex-direction: column; justify-content: space-between; }
-    .signup-left::after { content: ''; position: absolute; right: 0; top: 20%; bottom: 20%; width: 1px; background: linear-gradient(to bottom, transparent, rgba(184,146,42,0.2), transparent); }
-    .signup-right { padding: 100px 80px; display: flex; flex-direction: column; justify-content: flex-start; position: relative; overflow: hidden; }
-    .signup-right::before { content: '01'; position: absolute; bottom: -40px; right: -20px; font-family: 'Barlow Condensed', sans-serif; font-size: 260px; font-weight: 800; color: rgba(0,0,0,0.04); line-height: 1; pointer-events: none; }
     .signup-eyebrow-line { width: 36px; height: 1px; background: var(--gold); }
     .signup-eyebrow-text { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.34em; text-transform: uppercase; color: var(--gold); }
     .signup-tagline { font-size: 16px; font-weight: 300; line-height: 1.8; color: #444444; margin-top: 26px; max-width: 460px; }
@@ -469,10 +464,6 @@
       .ctx-title { font-size: 17px; }
 
       /* SIGNUP MOBILE */
-      .signup-grid { grid-template-columns: 1fr; }
-      .signup-left { padding: 60px 20px 32px; }
-      .signup-right { padding: 0 20px 60px; }
-      .signup-left::after { display: none; }
       .signup-pillars { gap: 20px; }
 
       /* FOOTER MOBILE */
@@ -489,41 +480,15 @@
       .series-section, .context-section { padding: 60px 16px; }
       .footer-top { grid-template-columns: 1fr; gap: 32px; }
       nav { padding: 0 16px; }
-      .signup-left, .signup-right { padding-left: 16px; padding-right: 16px; }
       footer { padding: 48px 16px 28px; }
     }
-    /* INTEREST FORM */
-    .field { margin-bottom: 26px; }
-    .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-    .field-label { display: block; font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.26em; text-transform: uppercase; color: #1A1A1A; margin-bottom: 10px; }
-    .field-label .req { color: var(--gold); }
-    .field-label .opt-tag { color: #A5A5A5; letter-spacing: 0.2em; }
-    .field-hint { font-size: 12.5px; color: #8A8A8A; margin: -4px 0 12px; }
-    .field input[type="text"], .field input[type="email"], .field textarea {
-      width: 100%; padding: 15px 18px; border: 1px solid rgba(0,0,0,0.16); background: var(--pure-white);
-      font-family: 'Barlow', sans-serif; font-size: 15px; color: var(--black); outline: none;
-      transition: border-color 0.25s, box-shadow 0.25s;
-    }
-    .field textarea { min-height: 104px; resize: vertical; line-height: 1.6; }
-    .field input:focus, .field textarea:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(184,146,42,0.10); }
-    .field input::placeholder, .field textarea::placeholder { color: #ADADAD; }
-    .field input[aria-invalid="true"], .field textarea[aria-invalid="true"] { border-color: #A6392F; }
-    .opt-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
-    .opt { display: flex; align-items: center; gap: 11px; padding: 12px 14px; border: 1px solid rgba(0,0,0,0.13); cursor: pointer; font-size: 13.5px; color: #333333; line-height: 1.35; transition: border-color 0.25s, background 0.25s; }
-    .opt:hover { border-color: rgba(184,146,42,0.55); background: rgba(184,146,42,0.035); }
-    .opt input { accent-color: #B8922A; width: 16px; height: 16px; flex-shrink: 0; margin: 0; }
-    .opt:has(input:checked) { border-color: var(--gold); background: rgba(184,146,42,0.08); }
-    .opt-grid[aria-invalid="true"] .opt { border-color: rgba(166,57,47,0.5); }
-    .btn-submit { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--black); background: var(--gold); border: none; padding: 18px 42px; margin-top: 6px; cursor: pointer; align-self: flex-start; transition: background 0.25s, transform 0.2s, box-shadow 0.25s; clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%); }
-    .btn-submit:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 10px 26px rgba(184,146,42,0.28); }
-    .btn-submit:disabled { opacity: 0.55; cursor: not-allowed; transform: none; box-shadow: none; }
-    .form-msg { margin-top: 20px; padding: 16px 18px; border-left: 3px solid var(--gold); background: rgba(184,146,42,0.07); font-size: 14px; line-height: 1.65; color: #2C2C2C; }
-    .form-msg.is-error { border-left-color: #A6392F; background: rgba(166,57,47,0.06); }
+    /* HOMEPAGE INVITATION */
+    .invite-inner { max-width: 760px; margin: 0 auto; padding: 120px 40px 110px; text-align: center; display: flex; flex-direction: column; align-items: center; }
+    .invite-eyebrow { display: flex; align-items: center; justify-content: center; gap: 14px; margin-bottom: 20px; }
+    .invite-inner .signup-tagline { margin: 22px auto 36px; max-width: 560px; }
+    .invite-inner .signup-pillars { justify-content: center; margin-top: 52px; }
     @media (max-width: 900px) {
-      .opt-grid { grid-template-columns: 1fr; }
-      .field-row { grid-template-columns: 1fr; gap: 0; }
-      .signup-left { justify-content: flex-start; }
-      .btn-submit { width: 100%; }
+      .invite-inner { padding: 80px 20px 70px; }
     }
   </style>
 </head>
@@ -547,7 +512,7 @@
       <li><a href="/about">About</a></li>
       <li><a href="/series">The Unseated Series</a></li>
       <li><a href="/context">Context Matters</a></li>
-      <li><a href="/community">The Remnant</a></li>
+      <li><a href="/get-involved/">Get Involved</a></li>
     </ul>
     <div class="hamburger" id="hamburger">
       <span></span><span></span><span></span>
@@ -590,8 +555,8 @@
             <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
             Watch the Series
           </a>
-          <a href="/community" class="btn-outline-light">
-            Join the Remnant
+          <a href="/get-involved/" class="btn-outline-light">
+            Get Involved
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </a>
         </div>
@@ -759,63 +724,18 @@
   <!-- SIGNUP -->
   <section class="signup-section" id="join">
     <div class="signup-section-line" id="signupLine"></div>
-    <div class="signup-grid">
-      <div class="signup-left reveal">
-        <div class="signup-head">
-          <div style="display:flex;align-items:center;gap:14px;margin-bottom:20px;">
-            <div class="signup-eyebrow-line"></div>
-            <span class="signup-eyebrow-text">Get Involved</span>
-          </div>
-          <h2 class="section-title-light">
-            You Were Made<br>For <em>More.</em>
-          </h2>
-          <p class="signup-tagline">This work was never meant to be carried alone. It moves through people who share the same burden. If that conviction is yours, there is a place for you here.</p>
-        </div>
-        <div class="signup-pillars">
-          <div class="pillar"><div class="pillar-label">Called</div></div>
-          <div class="pillar"><div class="pillar-label">Refined</div></div>
-          <div class="pillar"><div class="pillar-label">Sent</div></div>
-        </div>
+    <div class="invite-inner reveal">
+      <div class="invite-eyebrow">
+        <div class="signup-eyebrow-line"></div>
+        <span class="signup-eyebrow-text">Get Involved</span>
       </div>
-      <div class="signup-right reveal reveal-delay-2">
-        <form id="joinForm" novalidate>
-          <div class="field-row">
-            <div class="field">
-              <label class="field-label" for="jf-name">Name <span class="req">*</span></label>
-              <input type="text" id="jf-name" name="name" autocomplete="name" placeholder="First and last" required />
-            </div>
-            <div class="field">
-              <label class="field-label" for="jf-email">Email <span class="req">*</span></label>
-              <input type="email" id="jf-email" name="email" autocomplete="email" placeholder="you@example.com" required />
-            </div>
-          </div>
-          <div class="field">
-            <label class="field-label" for="jf-city">City <span class="opt-tag">(Optional)</span></label>
-            <input type="text" id="jf-city" name="city" autocomplete="address-level2" placeholder="Where you are based" />
-          </div>
-          <div class="field">
-            <span class="field-label">Where do you want to help? <span class="req">*</span></span>
-            <div class="field-hint">Choose as many as apply. If none of them fit yet, pick the last one.</div>
-            <div class="opt-grid" id="areaGrid">
-            <label class="opt"><input type="checkbox" name="areas" value="Spiritual Formation and Discipleship" />Spiritual Formation &amp; Discipleship</label>
-            <label class="opt"><input type="checkbox" name="areas" value="Youth and Collegiate Outreach" />Youth &amp; Collegiate Outreach</label>
-            <label class="opt"><input type="checkbox" name="areas" value="Financial Literacy" />Financial Literacy</label>
-            <label class="opt"><input type="checkbox" name="areas" value="Family Support" />Family Support</label>
-            <label class="opt"><input type="checkbox" name="areas" value="Housing and Stability" />Housing &amp; Stability</label>
-            <label class="opt"><input type="checkbox" name="areas" value="Mental and Emotional Health" />Mental &amp; Emotional Health</label>
-            <label class="opt"><input type="checkbox" name="areas" value="Feeding and Practical Care" />Feeding &amp; Practical Care</label>
-            <label class="opt"><input type="checkbox" name="areas" value="Economic Opportunity" />Economic Opportunity</label>
-              <label class="opt"><input type="checkbox" name="areas" value="Not sure yet" />Not sure yet, help me find a fit</label>
-            </div>
-          </div>
-          <div class="field">
-            <label class="field-label" for="jf-notes">Anything else we should know? <span class="opt-tag">(Optional)</span></label>
-            <div class="field-hint">Skills, experience, or questions. Whatever helps us place you well.</div>
-            <textarea id="jf-notes" name="notes" placeholder="Tell us what you bring."></textarea>
-          </div>
-          <button type="submit" class="btn-submit" id="joinSubmit">Submit Interest</button>
-          <div id="formMsg" class="form-msg" hidden role="status" aria-live="polite"></div>
-        </form>
+      <h2 class="section-title-light">You Were Made<br>For <em>More.</em></h2>
+      <p class="signup-tagline">This work was never meant to be carried alone. It moves through people who share the same burden. If that conviction is yours, there is a place for you here.</p>
+      <a href="/get-involved/" class="btn-gold">Get Involved <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      <div class="signup-pillars">
+        <div class="pillar"><div class="pillar-label">Called</div></div>
+        <div class="pillar"><div class="pillar-label">Refined</div></div>
+        <div class="pillar"><div class="pillar-label">Sent</div></div>
       </div>
     </div>
   </section>
@@ -841,29 +761,27 @@
         <ul class="footer-links">
           <li><a href="/mission">The Mission</a></li>
           <li><a href="/about">About</a></li>
-          <li><a href="/community">The Remnant</a></li>
-          <li><a href="/#join">Join the Work</a></li>
+          <li><a href="/get-involved/">Get Involved</a></li>
           <li><a href="#">Contact</a></li>
         </ul>
       </div>
       <div>
         <div class="footer-col-head">Follow</div>
         <ul class="footer-links">
-          <li><a href="#">YouTube</a></li>
-          <li><a href="#">Instagram</a></li>
-          <li><a href="#">TikTok</a></li>
-          <li><a href="#">Facebook</a></li>
-          <li><a href="#">Threads</a></li>
+          <li><a href="https://www.instagram.com/unseatedgen/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+          <li><a href="https://www.facebook.com/unseatedgeneration" target="_blank" rel="noopener noreferrer">Facebook</a></li>
+          <li><a href="https://www.tiktok.com/@unseatedgen" target="_blank" rel="noopener noreferrer">TikTok</a></li>
+          <li><a href="https://www.youtube.com/@unseatedgen" target="_blank" rel="noopener noreferrer">YouTube</a></li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
       <p class="footer-copy">© 2026 Unseated Generation. All rights reserved.</p>
       <div class="footer-socials">
-        <a href="#">YouTube</a>
-        <a href="#">Instagram</a>
-        <a href="#">TikTok</a>
-        <a href="#">Threads</a>
+        <a href="https://www.instagram.com/unseatedgen/" target="_blank" rel="noopener noreferrer">Instagram</a>
+        <a href="https://www.facebook.com/unseatedgeneration" target="_blank" rel="noopener noreferrer">Facebook</a>
+        <a href="https://www.tiktok.com/@unseatedgen" target="_blank" rel="noopener noreferrer">TikTok</a>
+        <a href="https://www.youtube.com/@unseatedgen" target="_blank" rel="noopener noreferrer">YouTube</a>
       </div>
     </div>
   </footer>
@@ -1017,79 +935,6 @@
     videos.forEach((v, i) => { v.addEventListener('ended', () => switchVideo((i + 1) % videos.length)); });
   </script>
 
-  <script>
-    /* ------------------------------------------------------------------
-       WIRE THE FORM HERE.
-       Replace the placeholder with your form endpoint URL, for example a
-       Formspree endpoint that looks like https://formspree.io/f/abcdwxyz
-       ------------------------------------------------------------------ */
-    const FORM_ENDPOINT = 'PASTE_FORM_ENDPOINT_HERE';
-
-    (function () {
-      const form = document.getElementById('joinForm');
-      const btn  = document.getElementById('joinSubmit');
-      const msg  = document.getElementById('formMsg');
-      const grid = document.getElementById('areaGrid');
-      if (!form) return;
-
-      const isWired = /^https?:\/\//.test(FORM_ENDPOINT);
-
-      function show(text, isError) {
-        msg.textContent = text;
-        msg.classList.toggle('is-error', !!isError);
-        msg.hidden = false;
-      }
-
-      form.addEventListener('submit', async function (e) {
-        e.preventDefault();
-        msg.hidden = true;
-
-        const name  = document.getElementById('jf-name');
-        const email = document.getElementById('jf-email');
-        const areas = grid.querySelectorAll('input[name="areas"]:checked');
-
-        [name, email].forEach(el => el.setAttribute('aria-invalid', 'false'));
-        grid.setAttribute('aria-invalid', 'false');
-
-        if (!name.value.trim()) {
-          name.setAttribute('aria-invalid', 'true'); name.focus();
-          return show('Please add your name so we know who we are talking to.', true);
-        }
-        if (!email.value.trim() || !email.checkValidity()) {
-          email.setAttribute('aria-invalid', 'true'); email.focus();
-          return show('Please add an email address we can reach you at.', true);
-        }
-        if (areas.length === 0) {
-          grid.setAttribute('aria-invalid', 'true');
-          grid.scrollIntoView({ behavior: 'smooth', block: 'center' });
-          return show('Please choose at least one area, or pick "Not sure yet".', true);
-        }
-
-        if (!isWired) {
-          return show('Nothing was sent. This form is not connected yet, so please check back shortly.', true);
-        }
-
-        btn.disabled = true;
-        const original = btn.textContent;
-        btn.textContent = 'Sending...';
-        try {
-          const res = await fetch(FORM_ENDPOINT, {
-            method: 'POST',
-            headers: { 'Accept': 'application/json' },
-            body: new FormData(form)
-          });
-          if (!res.ok) throw new Error('Request failed with status ' + res.status);
-          form.hidden = true;
-          show('Thank you. We have your response and someone will follow up with you personally.');
-          msg.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        } catch (err) {
-          btn.disabled = false;
-          btn.textContent = original;
-          show('Something went wrong and your response was not sent. Please try again in a moment.', true);
-        }
-      });
-    })();
-  </script>
   <script src="/launch.js"></script>
   <script>
     if (window.SEASON_ONE && SEASON_ONE.premiereDate) {

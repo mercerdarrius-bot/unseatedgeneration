@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Context Matters · Unseated Generation</title>
+  <title>Get Involved · Unseated Generation</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@400;600;700;800&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -87,24 +87,6 @@
     /* LOAD MORE */
 
     /* METHODOLOGY */
-    .mission-section { padding: 140px 60px 120px; background: var(--black); position: relative; z-index: 1; overflow: hidden; }
-    .mission-bg-text { position: absolute; right: -30px; bottom: -20px; font-family: 'Barlow Condensed', sans-serif; font-size: clamp(100px, 14vw, 200px); font-weight: 800; color: rgba(255,255,255,0.025); line-height: 1; pointer-events: none; text-transform: uppercase; }
-    .mission-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 100px; align-items: center; }
-    .mission-left .eyebrow { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; }
-    .mission-left .eyebrow-line { width: 0; height: 1px; background: var(--gold); transition: width 0.8s cubic-bezier(0.16,1,0.3,1); }
-    .mission-left .eyebrow-line.animate { width: 36px; }
-    .mission-left .eyebrow-text { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.34em; text-transform: uppercase; color: var(--gold); }
-    .mission-left h2 { font-family: 'Playfair Display', serif; font-size: clamp(32px, 3.5vw, 52px); font-weight: 900; line-height: 1.05; color: var(--white); margin-bottom: 24px; }
-    .mission-left h2 em { font-style: italic; color: var(--gold); }
-    .mission-left p { font-size: 16px; font-weight: 300; line-height: 1.85; color: var(--grey-pale); }
-    .mission-pillars { display: flex; flex-direction: column; gap: 3px; }
-    .mission-pillar { padding: 28px 32px; border: 1px solid rgba(255,255,255,0.06); background: rgba(255,255,255,0.02); position: relative; overflow: hidden; transition: border-color 0.3s, background 0.3s, transform 0.35s cubic-bezier(0.16,1,0.3,1); cursor: default; }
-    .mission-pillar::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--gold); transform: scaleY(0); transform-origin: bottom; transition: transform 0.4s cubic-bezier(0.16,1,0.3,1); }
-    .mission-pillar:hover { border-color: var(--border-light); background: rgba(184,146,42,0.04); transform: translateX(6px); }
-    .mission-pillar:hover::before { transform: scaleY(1); }
-    .mission-pillar-num { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.3em; color: var(--gold); text-transform: uppercase; margin-bottom: 8px; }
-    .mission-pillar-title { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; color: var(--white); margin-bottom: 6px; }
-    .mission-pillar-desc { font-size: 13px; font-weight: 300; color: var(--grey-light); line-height: 1.6; }
 
     /* SUBSCRIBE */
 
@@ -135,49 +117,70 @@
       .nav-center { display: none; }
       .hamburger { display: flex; }
       .page-hero { padding: 120px 24px 80px; border-radius: 0 0 24px 24px; margin-bottom: -40px; }
-      .mission-section { padding: 90px 24px 80px; }
-      .mission-inner { grid-template-columns: 1fr; gap: 48px; }
       footer { padding: 60px 24px 32px; border-radius: 24px 24px 0 0; margin-top: -24px; }
       .footer-top { grid-template-columns: 1fr 1fr; gap: 40px; }
       .footer-bottom { flex-direction: column; gap: 20px; text-align: center; }
     }
     /* EPISODE ONE: coming soon */
-    .coming-section { padding: 140px 60px 130px; background: var(--charcoal); position: relative; z-index: 2; margin-top: -40px; border-radius: 40px 40px 0 0; box-shadow: 0 -20px 60px rgba(0,0,0,0.3); overflow: hidden; }
-    .coming-bg-text { position: absolute; right: -20px; bottom: -70px; font-family: 'Barlow Condensed', sans-serif; font-size: clamp(160px, 22vw, 320px); font-weight: 800; color: rgba(255,255,255,0.022); line-height: 1; pointer-events: none; }
-    .coming-grid { position: relative; z-index: 2; display: grid; grid-template-columns: 1.15fr 1fr; gap: 72px; align-items: center; max-width: 1320px; margin: 0 auto; }
-    .coming-kicker { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.28em; text-transform: uppercase; color: var(--grey-light); margin-bottom: 14px; }
-    .coming-desc { font-size: 16px; font-weight: 300; line-height: 1.8; color: var(--grey-pale); max-width: 460px; margin-bottom: 28px; }
-    .ep-frame { position: relative; aspect-ratio: 16 / 9; overflow: hidden; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #0d0a06 0%, #2a1f08 45%, #140e04 100%); border: 1px solid rgba(184,146,42,0.18); box-shadow: 0 30px 70px rgba(0,0,0,0.45); }
-    .ep-frame::after { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at center, transparent 35%, rgba(0,0,0,0.55) 100%); pointer-events: none; z-index: 1; }
-    .ep-frame-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(184,146,42,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(184,146,42,0.05) 1px, transparent 1px); background-size: 48px 48px; }
-    .ep-frame-mark { position: absolute; right: -8px; bottom: -30px; font-family: 'Barlow Condensed', sans-serif; font-size: clamp(110px, 13vw, 190px); font-weight: 800; line-height: 1; color: rgba(184,146,42,0.07); pointer-events: none; }
-    .ep-frame-badge { position: absolute; left: 18px; top: 18px; z-index: 3; font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.28em; text-transform: uppercase; color: var(--black); background: var(--gold); padding: 8px 14px; }
-    .ep-frame-status { position: absolute; right: 18px; top: 18px; z-index: 3; font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.26em; text-transform: uppercase; color: var(--grey-pale); border: 1px solid rgba(242,240,237,0.25); background: rgba(10,10,10,0.45); padding: 7px 12px; }
-    .ep-frame-quote { position: relative; z-index: 2; padding: 0 14%; text-align: center; font-family: 'Playfair Display', serif; font-style: italic; font-weight: 700; font-size: clamp(20px, 2vw, 29px); line-height: 1.35; color: var(--white); }
-    .ep-frame-foot { position: absolute; left: 18px; right: 18px; bottom: 16px; z-index: 3; display: flex; align-items: center; gap: 12px; }
-    .ep-frame-play { width: 42px; height: 42px; border-radius: 50%; border: 1px solid rgba(212,168,64,0.7); background: rgba(10,10,10,0.5); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-    .ep-frame-play svg { margin-left: 3px; }
-    .ep-frame-series { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); }
-    .coming-inner { position: relative; z-index: 2; }
-    .coming-inner .eyebrow { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; }
-    .coming-inner .eyebrow-line { width: 0; height: 1px; background: var(--gold); transition: width 0.8s cubic-bezier(0.16,1,0.3,1); }
-    .coming-inner .eyebrow-line.animate { width: 36px; }
-    .coming-inner .eyebrow-text { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.34em; text-transform: uppercase; color: var(--gold); }
-    .coming-title { font-family: 'Playfair Display', serif; font-size: clamp(30px, 3.2vw, 46px); font-weight: 900; line-height: 1.1; color: var(--white); margin-bottom: 16px; }
-    .coming-title em { font-style: italic; color: var(--gold); }
-    .coming-verse { font-size: 12px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; font-style: italic; color: var(--grey-light); margin-bottom: 18px; }
-    .coming-tag { display: inline-block; font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); border: 1px solid var(--border-light); padding: 13px 24px; }
     @media (max-width: 900px) {
-      .coming-section { padding: 90px 24px 80px; border-radius: 24px 24px 0 0; margin-top: -24px; }
-      .coming-grid { grid-template-columns: 1fr; gap: 36px; }
-      .ep-frame-badge, .ep-frame-status { top: 12px; }
-      .ep-frame-badge { left: 12px; padding: 6px 10px; font-size: 10px; }
-      .ep-frame-status { right: 12px; padding: 5px 9px; font-size: 9px; }
-      .ep-frame-quote { font-size: 15px; padding: 0 15%; }
-      .ep-frame-foot { left: 12px; right: 12px; bottom: 11px; gap: 9px; }
-      .ep-frame-play { width: 32px; height: 32px; }
-      .ep-frame-series { font-size: 10px; }
-      .ep-frame-mark { font-size: 96px; bottom: -18px; }
+    }
+
+    /* GET INVOLVED */
+    .gi-eyebrow { display: flex; align-items: center; gap: 14px; margin-bottom: 18px; }
+    .gi-eyebrow-line { width: 36px; height: 1px; background: var(--gold); flex-shrink: 0; }
+    .gi-eyebrow-text { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.34em; text-transform: uppercase; color: var(--gold); }
+    .gi-interest { position: relative; z-index: 1; background: var(--pure-white); padding: 150px 60px 140px; }
+    .gi-interest-grid { display: grid; grid-template-columns: 0.86fr 1.14fr; gap: 80px; max-width: 1320px; margin: 0 auto; align-items: stretch; }
+    .gi-interest-head { display: flex; flex-direction: column; justify-content: space-between; }
+    .gi-interest-head h2 { font-family: 'Playfair Display', serif; font-size: clamp(36px, 4vw, 58px); font-weight: 900; line-height: 1.05; color: var(--black); }
+    .gi-interest-head h2 em { font-style: italic; color: var(--gold); }
+    .gi-triad { display: flex; gap: 40px; margin-top: 44px; padding-top: 30px; border-top: 1px solid rgba(0,0,0,0.10); }
+    .gi-triad span { font-family: 'Barlow Condensed', sans-serif; font-size: 15px; font-weight: 700; letter-spacing: 0.26em; text-transform: uppercase; color: #1A1A1A; }
+    .gi-follow { position: relative; z-index: 2; background: var(--charcoal); margin-top: -40px; border-radius: 40px 40px 0 0; box-shadow: 0 -20px 60px rgba(0,0,0,0.3); padding: 140px 60px 150px; text-align: center; overflow: hidden; }
+    .gi-follow-inner { max-width: 1020px; margin: 0 auto; }
+    .gi-follow .gi-eyebrow { justify-content: center; }
+    .gi-follow h2 { font-family: 'Playfair Display', serif; font-size: clamp(36px, 4vw, 58px); font-weight: 900; line-height: 1.05; color: var(--white); margin-bottom: 48px; }
+    .gi-follow h2 em { font-style: italic; color: var(--gold); }
+    .gi-socials { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    .gi-social { display: flex; align-items: center; justify-content: center; gap: 12px; padding: 22px 18px; border: 1px solid rgba(242,240,237,0.16); color: var(--white); text-decoration: none; font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; transition: border-color 0.3s, background 0.3s, color 0.3s, transform 0.3s; }
+    .gi-social svg { width: 20px; height: 20px; flex-shrink: 0; }
+    .gi-social:hover { border-color: var(--gold); background: rgba(184,146,42,0.08); color: var(--gold-light); transform: translateY(-3px); }
+    /* INTEREST FORM */
+    .field { margin-bottom: 26px; }
+    .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .field-label { display: block; font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.26em; text-transform: uppercase; color: #1A1A1A; margin-bottom: 10px; }
+    .field-label .req { color: var(--gold); }
+    .field-label .opt-tag { color: #A5A5A5; letter-spacing: 0.2em; }
+    .field-hint { font-size: 12.5px; color: #8A8A8A; margin: -4px 0 12px; }
+    .field input[type="text"], .field input[type="email"], .field textarea {
+      width: 100%; padding: 15px 18px; border: 1px solid rgba(0,0,0,0.16); background: var(--pure-white);
+      font-family: 'Barlow', sans-serif; font-size: 15px; color: var(--black); outline: none;
+      transition: border-color 0.25s, box-shadow 0.25s;
+    }
+    .field textarea { min-height: 104px; resize: vertical; line-height: 1.6; }
+    .field input:focus, .field textarea:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(184,146,42,0.10); }
+    .field input::placeholder, .field textarea::placeholder { color: #ADADAD; }
+    .field input[aria-invalid="true"], .field textarea[aria-invalid="true"] { border-color: #A6392F; }
+    .opt-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
+    .opt { display: flex; align-items: center; gap: 11px; padding: 12px 14px; border: 1px solid rgba(0,0,0,0.13); cursor: pointer; font-size: 13.5px; color: #333333; line-height: 1.35; transition: border-color 0.25s, background 0.25s; }
+    .opt:hover { border-color: rgba(184,146,42,0.55); background: rgba(184,146,42,0.035); }
+    .opt input { accent-color: #B8922A; width: 16px; height: 16px; flex-shrink: 0; margin: 0; }
+    .opt:has(input:checked) { border-color: var(--gold); background: rgba(184,146,42,0.08); }
+    .opt-grid[aria-invalid="true"] .opt { border-color: rgba(166,57,47,0.5); }
+    .btn-submit { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--black); background: var(--gold); border: none; padding: 18px 42px; margin-top: 6px; cursor: pointer; align-self: flex-start; transition: background 0.25s, transform 0.2s, box-shadow 0.25s; clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%); }
+    .btn-submit:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 10px 26px rgba(184,146,42,0.28); }
+    .btn-submit:disabled { opacity: 0.55; cursor: not-allowed; transform: none; box-shadow: none; }
+    .form-msg { margin-top: 20px; padding: 16px 18px; border-left: 3px solid var(--gold); background: rgba(184,146,42,0.07); font-size: 14px; line-height: 1.65; color: #2C2C2C; }
+    .form-msg.is-error { border-left-color: #A6392F; background: rgba(166,57,47,0.06); }
+    @media (max-width: 900px) {
+      .gi-interest { padding: 90px 20px 90px; }
+      .gi-interest-grid { grid-template-columns: 1fr; gap: 44px; }
+      .gi-interest-head { justify-content: flex-start; }
+      .gi-follow { padding: 90px 20px 100px; border-radius: 24px 24px 0 0; margin-top: -24px; }
+      .gi-socials { grid-template-columns: 1fr 1fr; gap: 12px; }
+      .opt-grid { grid-template-columns: 1fr; }
+      .field-row { grid-template-columns: 1fr; gap: 0; }
+      .btn-submit { width: 100%; }
     }
   </style>
 </head>
@@ -195,8 +198,8 @@
       <li><a href="/mission">The Mission</a></li>
       <li><a href="/about">About</a></li>
       <li><a href="/series">The Unseated Series</a></li>
-      <li><a href="/context" class="active">Context Matters</a></li>
-      <li><a href="/get-involved/">Get Involved</a></li>
+      <li><a href="/context">Context Matters</a></li>
+      <li><a href="/get-involved/" class="active">Get Involved</a></li>
     </ul>
     <div class="hamburger" id="hamburger">
       <span></span><span></span><span></span>
@@ -207,78 +210,84 @@
   <section class="page-hero">
     <div class="hero-top-line" id="heroTopLine"></div>
     <div class="page-hero-bg"></div>
-    <div class="page-hero-cm">CM</div>
+    <div class="page-hero-cm">UNSEATED</div>
     <div class="page-hero-inner">
       <div class="page-eyebrow">
         <div class="page-eyebrow-line" id="eyebrowLine"></div>
-        <span class="page-eyebrow-text" id="eyebrowText">Bi-Weekly Scripture Correction</span>
+        <span class="page-eyebrow-text" id="eyebrowText">Get Involved</span>
       </div>
       <h1 class="page-title">
-        <span class="word"><span class="word-inner">Context</span></span><br>
-        <span class="word"><span class="word-inner gold-shimmer" style="font-style:italic;">Matters.</span></span>
+        <span class="word"><span class="word-inner">You</span></span>&#32;<span class="word"><span class="word-inner">Were</span></span>&#32;<span class="word"><span class="word-inner">Made</span></span><br>
+        <span class="word"><span class="word-inner">For</span></span>&#32;<span class="word"><span class="word-inner gold-shimmer" style="font-style:italic;">More.</span></span>
       </h1>
       <div class="page-divider" id="pageDivider"></div>
-      <p class="page-desc" id="pageDesc">The most dangerous verses in the church aren't the ones people ignore. They're the ones people misquote with <strong>confidence</strong>. Context Matters exists for one reason, to return the text to its original weight, word by word, passage by passage, episode by episode.</p>
+      <p class="page-desc" id="pageDesc">This work was never meant to be carried alone. It moves through people who share the same burden. If that conviction is yours, there is a place for you here.</p>
     </div>
   </section>
 
-  <!-- METHODOLOGY -->
-  <section class="mission-section">
-    <div class="mission-bg-text">CONTEXT</div>
-    <div class="mission-inner">
-      <div class="mission-left reveal">
-        <div class="eyebrow">
-          <div class="eyebrow-line"></div>
-          <span class="eyebrow-text">The Standard</span>
+  <!-- EXPRESS INTEREST -->
+  <section class="gi-interest" id="interest">
+    <div class="gi-interest-grid">
+      <div class="gi-interest-head reveal">
+        <div class="gi-interest-title">
+          <div class="gi-eyebrow"><div class="gi-eyebrow-line"></div><span class="gi-eyebrow-text">Express Interest</span></div>
+          <h2>Tell Us Where<br>You <em>Fit.</em></h2>
         </div>
-        <h2>How We <em>Handle</em><br>The Text</h2>
-        <p>Every episode follows the same discipline. Who wrote it. Why they wrote it. What the words actually meant in their original context. Then and only then, what it means for us today. The text always goes first.</p>
+        <div class="gi-triad"><span>Called</span><span>Refined</span><span>Sent</span></div>
       </div>
-      <div class="mission-pillars reveal reveal-delay-2">
-        <div class="mission-pillar">
-          <div class="mission-pillar-num">Step 01</div>
-          <div class="mission-pillar-title">Historical Context</div>
-          <div class="mission-pillar-desc">Who wrote it, who received it, and what was happening in the world when they did.</div>
-        </div>
-        <div class="mission-pillar">
-          <div class="mission-pillar-num">Step 02</div>
-          <div class="mission-pillar-title">Linguistic Precision</div>
-          <div class="mission-pillar-desc">What the original words actually meant. Not what we want them to mean.</div>
-        </div>
-        <div class="mission-pillar">
-          <div class="mission-pillar-num">Step 03</div>
-          <div class="mission-pillar-title">Honest Application</div>
-          <div class="mission-pillar-desc">What the passage asks of us when we've understood it correctly.</div>
-        </div>
+      <div class="reveal reveal-delay-2">
+        <form id="joinForm" novalidate>
+          <div class="field-row">
+            <div class="field">
+              <label class="field-label" for="jf-name">Name <span class="req">*</span></label>
+              <input type="text" id="jf-name" name="name" autocomplete="name" placeholder="First and last" required />
+            </div>
+            <div class="field">
+              <label class="field-label" for="jf-email">Email <span class="req">*</span></label>
+              <input type="email" id="jf-email" name="email" autocomplete="email" placeholder="you@example.com" required />
+            </div>
+          </div>
+          <div class="field">
+            <label class="field-label" for="jf-city">City <span class="opt-tag">(Optional)</span></label>
+            <input type="text" id="jf-city" name="city" autocomplete="address-level2" placeholder="Where you are based" />
+          </div>
+          <div class="field">
+            <span class="field-label">Where do you want to help? <span class="req">*</span></span>
+            <div class="field-hint">Choose as many as apply. If none of them fit yet, pick the last one.</div>
+            <div class="opt-grid" id="areaGrid">
+            <label class="opt"><input type="checkbox" name="areas" value="Spiritual Formation and Discipleship" />Spiritual Formation &amp; Discipleship</label>
+            <label class="opt"><input type="checkbox" name="areas" value="Youth and Collegiate Outreach" />Youth &amp; Collegiate Outreach</label>
+            <label class="opt"><input type="checkbox" name="areas" value="Financial Literacy" />Financial Literacy</label>
+            <label class="opt"><input type="checkbox" name="areas" value="Family Support" />Family Support</label>
+            <label class="opt"><input type="checkbox" name="areas" value="Housing and Stability" />Housing &amp; Stability</label>
+            <label class="opt"><input type="checkbox" name="areas" value="Mental and Emotional Health" />Mental &amp; Emotional Health</label>
+            <label class="opt"><input type="checkbox" name="areas" value="Feeding and Practical Care" />Feeding &amp; Practical Care</label>
+            <label class="opt"><input type="checkbox" name="areas" value="Economic Opportunity" />Economic Opportunity</label>
+              <label class="opt"><input type="checkbox" name="areas" value="Not sure yet" />Not sure yet, help me find a fit</label>
+            </div>
+          </div>
+          <div class="field">
+            <label class="field-label" for="jf-notes">Anything else we should know? <span class="opt-tag">(Optional)</span></label>
+            <div class="field-hint">Skills, experience, or questions. Whatever helps us place you well.</div>
+            <textarea id="jf-notes" name="notes" placeholder="Tell us what you bring."></textarea>
+          </div>
+          <button type="submit" class="btn-submit" id="joinSubmit">Submit Interest</button>
+          <div id="formMsg" class="form-msg" hidden role="status" aria-live="polite"></div>
+        </form>
       </div>
     </div>
   </section>
 
-  <!-- EPISODE ONE -->
-  <section class="coming-section">
-    <div class="coming-bg-text">01</div>
-    <div class="coming-grid">
-      <div class="ep-frame reveal" role="img" aria-label="Context Matters, Episode 01, coming soon">
-        <div class="ep-frame-grid"></div>
-        <div class="ep-frame-mark">CM</div>
-        <div class="ep-frame-badge">Episode 01</div>
-        <div class="ep-frame-status">Coming Soon</div>
-        <div class="ep-frame-quote">"Call those things that be not as though they were"</div>
-        <div class="ep-frame-foot">
-          <span class="ep-frame-play" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="#D4A840"><path d="M8 5v14l11-7z"/></svg></span>
-          <span class="ep-frame-series">Context Matters</span>
-        </div>
-      </div>
-      <div class="coming-inner reveal reveal-delay-2">
-        <div class="eyebrow">
-          <div class="eyebrow-line"></div>
-          <span class="eyebrow-text">The First Correction</span>
-        </div>
-        <div class="coming-kicker">Context Matters · Episode 01</div>
-        <h2 class="coming-title">We've Been Quoting This Scripture <em>Wrong</em> for Years</h2>
-        <div class="coming-verse">Romans 4:17 · NASB</div>
-        <p class="coming-desc">This verse is quoted in churches every week with full confidence. But the context tells a completely different story.</p>
-        <span class="coming-tag">Coming Soon</span>
+  <!-- FOLLOW -->
+  <section class="gi-follow" id="follow">
+    <div class="gi-follow-inner reveal">
+      <div class="gi-eyebrow"><div class="gi-eyebrow-line"></div><span class="gi-eyebrow-text">Follow</span></div>
+      <h2>Follow <em>Unseated.</em></h2>
+      <div class="gi-socials">
+        <a class="gi-social" href="https://www.instagram.com/unseatedgen/" target="_blank" rel="noopener noreferrer" aria-label="Unseated Generation on Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r="0.9" fill="currentColor" stroke="none"/></svg><span>Instagram</span></a>
+        <a class="gi-social" href="https://www.facebook.com/unseatedgeneration" target="_blank" rel="noopener noreferrer" aria-label="Unseated Generation on Facebook"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14 8.5V6.8c0-.8.5-1 .9-1h2.3V2.2L14.1 2C10.7 2 10 4.5 10 6.1v2.4H7.8V12H10v10h4V12h2.9l.4-3.5H14z"/></svg><span>Facebook</span></a>
+        <a class="gi-social" href="https://www.tiktok.com/@unseatedgen" target="_blank" rel="noopener noreferrer" aria-label="Unseated Generation on TikTok"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.6 5.8A4.3 4.3 0 0 1 15.5 3h-3.1v12.4a2.6 2.6 0 1 1-2.6-2.6c.3 0 .5 0 .8.1V9.7a5.7 5.7 0 0 0-.8-.1 5.7 5.7 0 1 0 5.7 5.7V9a7.4 7.4 0 0 0 4.3 1.4V7.3a4.3 4.3 0 0 1-3.2-1.5z"/></svg><span>TikTok</span></a>
+        <a class="gi-social" href="https://www.youtube.com/@unseatedgen" target="_blank" rel="noopener noreferrer" aria-label="Unseated Generation on YouTube"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.8 8s-.2-1.4-.8-2c-.8-.8-1.6-.8-2-.9C16.8 5 12 5 12 5s-4.8 0-7 .1c-.4.1-1.2.1-2 .9-.6.6-.8 2-.8 2S2 9.6 2 11.2v1.5c0 1.6.2 3.2.2 3.2s.2 1.4.8 2c.8.8 1.8.8 2.2.8C6.8 19 12 19 12 19s4.8 0 7-.2c.4-.1 1.2-.1 2-.9.6-.6.8-2 .8-2s.2-1.6.2-3.2v-1.5C22 9.6 21.8 8 21.8 8zM10 15V9l5.5 3-5.5 3z"/></svg><span>YouTube</span></a>
       </div>
     </div>
   </section>
@@ -329,15 +338,12 @@
   </footer>
 
   <script>
-
-    // PROGRESS BAR
     const progressBar = document.getElementById('progressBar');
     window.addEventListener('scroll', () => {
       const h = document.documentElement;
       progressBar.style.width = (h.scrollTop / (h.scrollHeight - h.clientHeight) * 100) + '%';
     }, { passive: true });
 
-    // PAGE TRANSITION
     const transition = document.getElementById('pageTransition');
     document.querySelectorAll('a[href]').forEach(link => {
       const href = link.getAttribute('href');
@@ -354,22 +360,17 @@
       setTimeout(() => transition.classList.remove('enter'), 600);
     });
 
-    // HERO ANIMATIONS
     setTimeout(() => {
       document.getElementById('heroTopLine').classList.add('animate');
       document.getElementById('eyebrowLine').classList.add('animate');
       document.getElementById('eyebrowText').classList.add('animate');
     }, 100);
     document.querySelectorAll('.word-inner').forEach((w, i) => {
-      setTimeout(() => w.classList.add('animate'), 300 + i * 150);
+      setTimeout(() => w.classList.add('animate'), 300 + i * 130);
     });
-    setTimeout(() => document.getElementById('pageDivider').classList.add('animate'), 800);
-    setTimeout(() => document.getElementById('pageDesc').classList.add('animate'), 1000);
+    setTimeout(() => document.getElementById('pageDivider').classList.add('animate'), 900);
+    setTimeout(() => document.getElementById('pageDesc').classList.add('animate'), 1100);
 
-    // COUNTER
-
-
-    // SCROLL REVEAL
     const reveals = document.querySelectorAll('.reveal');
     const revealObs = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -378,15 +379,6 @@
     }, { threshold: 0.08 });
     reveals.forEach(el => revealObs.observe(el));
 
-    // ANIMATED LINES
-    const lineObs = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) { entry.target.classList.add('animate'); lineObs.unobserve(entry.target); }
-      });
-    }, { threshold: 0.3 });
-    document.querySelectorAll('.eyebrow-line').forEach(el => lineObs.observe(el));
-
-    // MOBILE NAV
     document.getElementById('hamburger').addEventListener('click', () => {
       const nc = document.querySelector('.nav-center');
       if (nc.style.display === 'flex') {
@@ -395,6 +387,79 @@
         nc.style.cssText = 'display:flex;flex-direction:column;position:absolute;top:80px;left:0;right:0;background:rgba(10,10,10,0.98);padding:32px;gap:24px;border-bottom:1px solid rgba(184,146,42,0.15);z-index:500;';
       }
     });
+  </script>
+  <script>
+    /* ------------------------------------------------------------------
+       WIRE THE FORM HERE.
+       Replace the placeholder with your form endpoint URL, for example a
+       Formspree endpoint that looks like https://formspree.io/f/abcdwxyz
+       ------------------------------------------------------------------ */
+    const FORM_ENDPOINT = 'PASTE_FORM_ENDPOINT_HERE';
+
+    (function () {
+      const form = document.getElementById('joinForm');
+      const btn  = document.getElementById('joinSubmit');
+      const msg  = document.getElementById('formMsg');
+      const grid = document.getElementById('areaGrid');
+      if (!form) return;
+
+      const isWired = /^https?:\/\//.test(FORM_ENDPOINT);
+
+      function show(text, isError) {
+        msg.textContent = text;
+        msg.classList.toggle('is-error', !!isError);
+        msg.hidden = false;
+      }
+
+      form.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        msg.hidden = true;
+
+        const name  = document.getElementById('jf-name');
+        const email = document.getElementById('jf-email');
+        const areas = grid.querySelectorAll('input[name="areas"]:checked');
+
+        [name, email].forEach(el => el.setAttribute('aria-invalid', 'false'));
+        grid.setAttribute('aria-invalid', 'false');
+
+        if (!name.value.trim()) {
+          name.setAttribute('aria-invalid', 'true'); name.focus();
+          return show('Please add your name so we know who we are talking to.', true);
+        }
+        if (!email.value.trim() || !email.checkValidity()) {
+          email.setAttribute('aria-invalid', 'true'); email.focus();
+          return show('Please add an email address we can reach you at.', true);
+        }
+        if (areas.length === 0) {
+          grid.setAttribute('aria-invalid', 'true');
+          grid.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          return show('Please choose at least one area, or pick "Not sure yet".', true);
+        }
+
+        if (!isWired) {
+          return show('Nothing was sent. This form is not connected yet, so please check back shortly.', true);
+        }
+
+        btn.disabled = true;
+        const original = btn.textContent;
+        btn.textContent = 'Sending...';
+        try {
+          const res = await fetch(FORM_ENDPOINT, {
+            method: 'POST',
+            headers: { 'Accept': 'application/json' },
+            body: new FormData(form)
+          });
+          if (!res.ok) throw new Error('Request failed with status ' + res.status);
+          form.hidden = true;
+          show('Thank you. We have your response and someone will follow up with you personally.');
+          msg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        } catch (err) {
+          btn.disabled = false;
+          btn.textContent = original;
+          show('Something went wrong and your response was not sent. Please try again in a moment.', true);
+        }
+      });
+    })();
   </script>
 </body>
 </html>
