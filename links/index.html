@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Unseated Generation · Links</title>
+  <meta name="description" content="Every place Unseated Generation speaks, in one place. Instagram, YouTube, TikTok, Facebook and unseatedgen.org." />
+  <meta name="theme-color" content="#0A0A0A" />
+  <link rel="canonical" href="https://unseatedgen.org/links/" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Unseated Generation" />
+  <meta property="og:title" content="Unseated Generation · Links" />
+  <meta property="og:description" content="Called. Refined. Sent. Every place we speak, in one place." />
+  <meta property="og:url" content="https://unseatedgen.org/links/" />
+  <meta property="og:image" content="https://unseatedgen.org/Photos/S1E1-Square.jpg" />
+  <meta name="twitter:card" content="summary" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@500;600;700;800&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #0A0A0A; --charcoal: #141412; --raised: #1A1A18;
+      --grey-mid: #4A4A4A; --grey-light: #8A8A8A; --grey-pale: #C8C8C8;
+      --white: #F2F0ED;
+      --gold: #B8922A; --gold-light: #D4A840; --gold-dim: #7A601C;
+      --hair: rgba(184,146,42,0.16);
+      --hair-strong: rgba(184,146,42,0.42);
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    html { -webkit-text-size-adjust: 100%; }
+
+    body {
+      min-height: 100vh;
+      min-height: 100dvh;
+      font-family: 'Barlow', sans-serif;
+      background: var(--black);
+      color: var(--white);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: calc(56px + env(safe-area-inset-top)) 20px calc(40px + env(safe-area-inset-bottom));
+      position: relative;
+    }
+
+    /* Ambient light: one warm source above the seal, nothing else. */
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background:
+        radial-gradient(ellipse 70% 45% at 50% -8%, rgba(184,146,42,0.20), transparent 70%),
+        radial-gradient(ellipse 100% 60% at 50% 110%, rgba(184,146,42,0.05), transparent 70%);
+    }
+
+    /* Film grain, same recipe as the main site. */
+    body::after {
+      content: '';
+      position: fixed; inset: 0; z-index: 50; pointer-events: none; opacity: 0.5;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    }
+
+    .page {
+      position: relative; z-index: 1;
+      width: 100%; max-width: 440px;
+      display: flex; flex-direction: column; align-items: center;
+    }
+
+    /* Entrance choreography */
+    .rise { opacity: 0; transform: translateY(14px); animation: rise 0.9s var(--ease-out) forwards; }
+    @keyframes rise { to { opacity: 1; transform: translateY(0); } }
+
+    /* SEAL */
+    .seal {
+      width: 116px; height: 116px; border-radius: 50%;
+      position: relative;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 30px;
+      animation-delay: 0.05s;
+    }
+    .seal::before {
+      content: ''; position: absolute; inset: 0; border-radius: 50%;
+      border: 1px solid var(--hair-strong);
+    }
+    .seal::after {
+      content: ''; position: absolute; inset: 6px; border-radius: 50%;
+      border: 1px solid var(--hair);
+      background: radial-gradient(circle at 50% 30%, var(--raised), var(--charcoal) 70%);
+      box-shadow: inset 0 1px 0 rgba(242,240,237,0.04), 0 18px 40px rgba(0,0,0,0.55);
+    }
+    .seal-ring {
+      position: absolute; inset: -1px; border-radius: 50%;
+      background: conic-gradient(from 210deg, transparent 0 62%, var(--gold) 74%, var(--gold-light) 78%, transparent 92%);
+      -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 1.5px), #000 calc(100% - 1px));
+              mask: radial-gradient(farthest-side, transparent calc(100% - 1.5px), #000 calc(100% - 1px));
+      animation: sweep 14s linear infinite;
+    }
+    @keyframes sweep { to { transform: rotate(360deg); } }
+    .seal-mark {
+      position: relative; z-index: 1;
+      font-family: 'Playfair Display', serif;
+      font-weight: 700; font-size: 44px; line-height: 1; letter-spacing: -0.02em;
+      color: var(--white);
+      display: flex; align-items: baseline;
+    }
+    .seal-mark em { font-style: italic; color: var(--gold); margin-left: 1px; }
+
+    /* WORDMARK */
+    .wordmark {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 30px; font-weight: 800; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--white);
+      padding-left: 0.22em; /* balances trailing tracking */
+      animation-delay: 0.14s;
+    }
+    .wordmark span { color: var(--gold); }
+    .sub {
+      margin-top: 8px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 11px; font-weight: 600; letter-spacing: 0.42em;
+      text-transform: uppercase; color: var(--grey-light);
+      padding-left: 0.42em;
+      animation-delay: 0.2s;
+    }
+
+    .rule {
+      width: 28px; height: 1px; background: var(--gold);
+      margin: 26px 0 22px;
+      transform-origin: center;
+      animation: rule 0.9s 0.34s var(--ease-out) both;
+    }
+    @keyframes rule { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+    .lede {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px; line-height: 1.32; font-weight: 400;
+      text-align: center; color: var(--grey-pale);
+      max-width: 320px;
+      text-wrap: balance;
+      animation-delay: 0.3s;
+    }
+    .lede em { font-style: italic; color: var(--gold); }
+
+    /* LINKS */
+    .links {
+      list-style: none;
+      width: 100%;
+      margin-top: 40px;
+      display: flex; flex-direction: column; gap: 12px;
+    }
+    .links li { animation-delay: var(--d); }
+
+    .link {
+      position: relative;
+      display: grid; grid-template-columns: 44px 1fr auto; align-items: center; gap: 16px;
+      min-height: 72px; padding: 0 20px 0 16px;
+      border-radius: 14px;
+      border: 1px solid var(--hair);
+      background: linear-gradient(180deg, rgba(242,240,237,0.025), rgba(242,240,237,0)) , var(--charcoal);
+      color: var(--white); text-decoration: none;
+      overflow: hidden;
+      transition: border-color 0.35s, transform 0.5s var(--ease-out), box-shadow 0.5s var(--ease-out), background-color 0.35s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    /* gold thread that draws along the left edge on hover */
+    .link::before {
+      content: ''; position: absolute; left: 0; top: 18px; bottom: 18px; width: 2px;
+      background: linear-gradient(to bottom, transparent, var(--gold), transparent);
+      transform: scaleY(0); transform-origin: center;
+      transition: transform 0.45s var(--ease-out);
+    }
+    /* sheen that passes across on hover */
+    .link::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(105deg, transparent 35%, rgba(212,168,64,0.07) 50%, transparent 65%);
+      transform: translateX(-120%);
+      transition: transform 0.9s var(--ease-out);
+      pointer-events: none;
+    }
+    .link:hover, .link:focus-visible {
+      border-color: var(--hair-strong);
+      transform: translateY(-2px);
+      box-shadow: 0 16px 36px -12px rgba(0,0,0,0.7), 0 0 0 1px rgba(184,146,42,0.05);
+      outline: none;
+    }
+    .link:hover::before, .link:focus-visible::before { transform: scaleY(1); }
+    .link:hover::after, .link:focus-visible::after { transform: translateX(120%); }
+    .link:active { transform: translateY(0) scale(0.995); transition-duration: 0.1s; }
+
+    .icon {
+      width: 44px; height: 44px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      border: 1px solid var(--hair);
+      background: var(--black);
+      color: var(--gold-light);
+      transition: border-color 0.35s, color 0.35s;
+    }
+    .icon svg { width: 19px; height: 19px; display: block; }
+    .link:hover .icon, .link:focus-visible .icon { border-color: var(--hair-strong); color: var(--gold-light); }
+
+    .label {
+      display: flex; flex-direction: column; gap: 3px; min-width: 0;
+    }
+    .name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 17px; font-weight: 700; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--white); line-height: 1;
+    }
+    .handle {
+      font-size: 13px; font-weight: 400; letter-spacing: 0.02em;
+      color: var(--grey-light); line-height: 1;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+
+    .arrow {
+      width: 18px; height: 18px; color: var(--grey-mid);
+      transition: transform 0.45s var(--ease-out), color 0.35s;
+    }
+    .arrow svg { width: 100%; height: 100%; display: block; }
+    .link:hover .arrow, .link:focus-visible .arrow { transform: translateX(4px); color: var(--gold); }
+
+    /* The one gold moment: the website row. */
+    .link.primary {
+      border-color: rgba(184,146,42,0.55);
+      background: linear-gradient(135deg, #C79C2F 0%, var(--gold) 45%, #A07E22 100%);
+      color: var(--black);
+      box-shadow: 0 18px 44px -14px rgba(184,146,42,0.45);
+    }
+    .link.primary::before { display: none; }
+    .link.primary::after { background: linear-gradient(105deg, transparent 35%, rgba(255,255,255,0.22) 50%, transparent 65%); }
+    .link.primary:hover, .link.primary:focus-visible {
+      border-color: var(--gold-light);
+      box-shadow: 0 24px 52px -14px rgba(184,146,42,0.6);
+    }
+    .link.primary .icon { background: rgba(10,10,10,0.14); border-color: rgba(10,10,10,0.22); color: var(--black); }
+    .link.primary:hover .icon { border-color: rgba(10,10,10,0.4); color: var(--black); }
+    .link.primary .name { color: var(--black); }
+    .link.primary .handle { color: rgba(10,10,10,0.68); font-weight: 500; }
+    .link.primary .arrow, .link.primary:hover .arrow { color: var(--black); }
+
+    /* FOOT */
+    .foot {
+      margin-top: 44px;
+      display: flex; flex-direction: column; align-items: center; gap: 18px;
+      animation-delay: 1.05s;
+    }
+    .share {
+      appearance: none; border: 1px solid var(--hair); background: transparent;
+      color: var(--grey-pale); cursor: pointer;
+      font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 600;
+      letter-spacing: 0.24em; text-transform: uppercase;
+      padding: 12px 22px 12px 26px; border-radius: 999px;
+      display: inline-flex; align-items: center; gap: 10px;
+      transition: border-color 0.3s, color 0.3s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .share svg { width: 14px; height: 14px; }
+    .share:hover, .share:focus-visible { border-color: var(--hair-strong); color: var(--white); outline: none; }
+    .share.done { color: var(--gold-light); border-color: var(--hair-strong); }
+
+    .fine {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 11px; font-weight: 500; letter-spacing: 0.3em;
+      text-transform: uppercase; color: var(--grey-mid);
+      text-align: center; line-height: 1.8;
+    }
+    .fine a { color: inherit; text-decoration: none; transition: color 0.3s; }
+    .fine a:hover { color: var(--grey-light); }
+
+    @media (max-width: 380px) {
+      body { padding-left: 16px; padding-right: 16px; }
+      .wordmark { font-size: 27px; }
+      .lede { font-size: 20px; }
+      .link { padding-right: 16px; gap: 14px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .rise, .rule { animation: none; opacity: 1; transform: none; }
+      .seal-ring { animation: none; }
+      .link, .link::before, .link::after, .arrow, .icon { transition: none; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+
+    <div class="seal rise" aria-hidden="true">
+      <div class="seal-ring"></div>
+      <div class="seal-mark">U<em>G</em></div>
+    </div>
+
+    <h1 class="wordmark rise">UN/<span>SEATED</span></h1>
+    <div class="sub rise">Generation</div>
+
+    <div class="rule"></div>
+
+    <p class="lede rise">Called. Refined. <em>Sent.</em><br>Every place we speak, in one place.</p>
+
+    <ul class="links">
+      <li class="rise" style="--d:.42s">
+        <a class="link primary" href="https://unseatedgen.org" data-track="website">
+          <span class="icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          </span>
+          <span class="label">
+            <span class="name">Website</span>
+            <span class="handle">unseatedgen.org</span>
+          </span>
+          <span class="arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+        </a>
+      </li>
+
+      <li class="rise" style="--d:.52s">
+        <a class="link" href="https://www.youtube.com/@unseatedgen" target="_blank" rel="noopener noreferrer" data-track="youtube">
+          <span class="icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+          </span>
+          <span class="label">
+            <span class="name">YouTube</span>
+            <span class="handle">@unseatedgen</span>
+          </span>
+          <span class="arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+        </a>
+      </li>
+
+      <li class="rise" style="--d:.62s">
+        <a class="link" href="https://www.instagram.com/unseatedgen/" target="_blank" rel="noopener noreferrer" data-track="instagram">
+          <span class="icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="0.6" fill="currentColor"/></svg>
+          </span>
+          <span class="label">
+            <span class="name">Instagram</span>
+            <span class="handle">@unseatedgen</span>
+          </span>
+          <span class="arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+        </a>
+      </li>
+
+      <li class="rise" style="--d:.72s">
+        <a class="link" href="https://www.tiktok.com/@unseatedgen" target="_blank" rel="noopener noreferrer" data-track="tiktok">
+          <span class="icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+          </span>
+          <span class="label">
+            <span class="name">TikTok</span>
+            <span class="handle">@unseatedgen</span>
+          </span>
+          <span class="arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+        </a>
+      </li>
+
+      <li class="rise" style="--d:.82s">
+        <a class="link" href="https://www.facebook.com/unseatedgeneration" target="_blank" rel="noopener noreferrer" data-track="facebook">
+          <span class="icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          </span>
+          <span class="label">
+            <span class="name">Facebook</span>
+            <span class="handle">Unseated Generation</span>
+          </span>
+          <span class="arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+        </a>
+      </li>
+    </ul>
+
+    <div class="foot rise">
+      <button class="share" type="button" id="share">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7"/><path d="M16 6l-4-4-4 4"/><path d="M12 2v13"/></svg>
+        <span id="share-text">Share this page</span>
+      </button>
+      <div class="fine">
+        &copy; <span id="year">2026</span> Unseated Generation<br>
+        <a href="https://unseatedgen.org">unseatedgen.org</a>
+      </div>
+    </div>
+
+  </main>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    var shareBtn = document.getElementById('share');
+    var shareText = document.getElementById('share-text');
+    var url = 'https://unseatedgen.org/links/';
+    var resetTimer;
+
+    function flash(msg) {
+      shareText.textContent = msg;
+      shareBtn.classList.add('done');
+      clearTimeout(resetTimer);
+      resetTimer = setTimeout(function () {
+        shareText.textContent = 'Share this page';
+        shareBtn.classList.remove('done');
+      }, 2200);
+    }
+
+    shareBtn.addEventListener('click', function () {
+      if (navigator.share) {
+        navigator.share({ title: 'Unseated Generation', text: 'Called. Refined. Sent.', url: url }).catch(function () {});
+        return;
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(url).then(function () { flash('Link copied'); }, function () { flash(url); });
+      } else {
+        flash(url);
+      }
+    });
+  </script>
+</body>
+</html>
