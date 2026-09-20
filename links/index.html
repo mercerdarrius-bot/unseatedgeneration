@@ -13,7 +13,7 @@
   <meta property="og:title" content="Unseated Generation · Links" />
   <meta property="og:description" content="Called. Refined. Sent. Every place we speak, in one place." />
   <meta property="og:url" content="https://unseatedgen.org/links/" />
-  <meta property="og:image" content="https://unseatedgen.org/Photos/S1E1-Square.jpg" />
+  <meta property="og:image" content="https://unseatedgen.org/Photos/ug-logo.png" />
   <meta name="twitter:card" content="summary" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -78,7 +78,7 @@
 
     /* SEAL */
     .seal {
-      width: 116px; height: 116px; border-radius: 50%;
+      width: 172px; height: 172px; border-radius: 50%;
       position: relative;
       display: flex; align-items: center; justify-content: center;
       margin-bottom: 30px;
@@ -102,36 +102,18 @@
       animation: sweep 14s linear infinite;
     }
     @keyframes sweep { to { transform: rotate(360deg); } }
-    .seal-mark {
+    .seal-logo {
       position: relative; z-index: 1;
-      font-family: 'Playfair Display', serif;
-      font-weight: 700; font-size: 44px; line-height: 1; letter-spacing: -0.02em;
-      color: var(--white);
-      display: flex; align-items: baseline;
+      width: calc(100% - 14px); height: calc(100% - 14px);
+      border-radius: 50%; display: block;
+      object-fit: cover;
+      -webkit-user-drag: none; user-select: none;
     }
-    .seal-mark em { font-style: italic; color: var(--gold); margin-left: 1px; }
-
-    /* WORDMARK */
-    .wordmark {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 30px; font-weight: 800; letter-spacing: 0.22em;
-      text-transform: uppercase; color: var(--white);
-      padding-left: 0.22em; /* balances trailing tracking */
-      animation-delay: 0.14s;
-    }
-    .wordmark span { color: var(--gold); }
-    .sub {
-      margin-top: 8px;
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 11px; font-weight: 600; letter-spacing: 0.42em;
-      text-transform: uppercase; color: var(--grey-light);
-      padding-left: 0.42em;
-      animation-delay: 0.2s;
-    }
+    .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
     .rule {
       width: 28px; height: 1px; background: var(--gold);
-      margin: 26px 0 22px;
+      margin: 2px 0 22px;
       transform-origin: center;
       animation: rule 0.9s 0.34s var(--ease-out) both;
     }
@@ -275,7 +257,7 @@
 
     @media (max-width: 380px) {
       body { padding-left: 16px; padding-right: 16px; }
-      .wordmark { font-size: 27px; }
+      .seal { width: 156px; height: 156px; }
       .lede { font-size: 20px; }
       .link { padding-right: 16px; gap: 14px; }
     }
@@ -290,13 +272,11 @@
 <body>
   <main class="page">
 
-    <div class="seal rise" aria-hidden="true">
-      <div class="seal-ring"></div>
-      <div class="seal-mark">U<em>G</em></div>
+    <div class="seal rise">
+      <div class="seal-ring" aria-hidden="true"></div>
+      <img class="seal-logo" src="/Photos/ug-logo.png" width="308" height="308" alt="Unseated Generation" fetchpriority="high" />
     </div>
-
-    <h1 class="wordmark rise">UN/<span>SEATED</span></h1>
-    <div class="sub rise">Generation</div>
+    <h1 class="sr-only">Unseated Generation</h1>
 
     <div class="rule"></div>
 
