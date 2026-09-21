@@ -129,10 +129,10 @@
     /* HERO */
     .s1-hero { position: relative; min-height: 92vh; display: flex; align-items: flex-end; overflow: hidden; background: var(--black); padding: 160px 60px 110px; z-index: 2; margin-bottom: -60px; border-radius: 0 0 40px 40px; box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
     .s1-hero-art { position: absolute; inset: 0; z-index: 0; }
-    .s1-hero-art img { width: 100%; height: 100%; object-fit: cover; object-position: 62% 40%; display: block; transform: scale(1.02); animation: s1Drift 24s ease-in-out infinite alternate; will-change: transform; }
+    .s1-hero-art img { width: 100%; height: 100%; object-fit: cover; object-position: 100% 45%; display: block; transform: scale(1.02); animation: s1Drift 24s ease-in-out infinite alternate; will-change: transform; }
     @keyframes s1Drift { from { transform: scale(1.02) translate3d(0,0,0); } to { transform: scale(1.09) translate3d(-1.5%, -1%, 0); } }
     .s1-hero-scrim { position: absolute; inset: 0; z-index: 1; background:
-      linear-gradient(90deg, rgba(10,10,10,0.94) 0%, rgba(10,10,10,0.82) 34%, rgba(10,10,10,0.45) 62%, rgba(10,10,10,0.25) 100%),
+      linear-gradient(90deg, rgba(10,10,10,0.97) 0%, rgba(10,10,10,0.88) 30%, rgba(10,10,10,0.45) 62%, rgba(10,10,10,0.25) 100%),
       linear-gradient(180deg, rgba(10,10,10,0.55) 0%, rgba(10,10,10,0) 30%, rgba(10,10,10,0.35) 70%, rgba(10,10,10,0.96) 100%); }
     .s1-hero-inner { position: relative; z-index: 2; max-width: 860px; }
     .back-link { display: inline-flex; align-items: center; gap: 8px; font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.26em; text-transform: uppercase; color: var(--gold); text-decoration: none; margin-bottom: 30px; opacity: 0; transform: translateX(-10px); transition: opacity 0.6s 0.1s, transform 0.6s 0.1s, gap 0.25s; }
@@ -243,7 +243,7 @@
     }
     @media (max-width: 900px) {
       .s1-hero { min-height: 0; padding: 130px 20px 70px; border-radius: 0 0 24px 24px; margin-bottom: -40px; }
-      .s1-hero-art img { object-position: 68% 30%; }
+      .s1-hero-art img { object-position: 100% 40%; }
       .s1-hero-scrim { background: linear-gradient(180deg, rgba(10,10,10,0.6) 0%, rgba(10,10,10,0.55) 35%, rgba(10,10,10,0.9) 70%, rgba(10,10,10,0.98) 100%); }
       .s1-meta, .s1-feature-meta, .s1-coming-meta { flex-direction: column; align-items: flex-start; gap: 9px; font-size: 11px; letter-spacing: 0.24em; }
       .s1-meta i, .s1-feature-meta i, .s1-coming-meta i { display: none; }
@@ -283,7 +283,7 @@
 
   <!-- HERO -->
   <section class="s1-hero">
-    <div class="s1-hero-art"><img src="/Photos/S1E1-Hero.jpg" alt="" aria-hidden="true" id="heroArt" /></div>
+    <div class="s1-hero-art"><img src="/Photos/S1E1-Hero-Art.jpg" alt="" aria-hidden="true" id="heroArt" /></div>
     <div class="s1-hero-scrim"></div>
     <div class="hero-top-line" id="heroTopLine"></div>
     <div class="s1-hero-inner">
@@ -326,7 +326,7 @@
     <div class="s1-section-line"></div>
     <div class="s1-feature-inner">
       <div class="s1-feature-art reveal">
-        <img src="/Photos/S1E1-Wide.jpg" alt="Episode 01 artwork: Gifted But Immature?" />
+        <img src="/Photos/S1E1-Thumbnail.jpg" alt="Episode 01 artwork: When Ministry Outpaces Maturity" />
         <div class="s1-feature-badge">Episode 01</div>
       </div>
       <div class="s1-feature-body reveal reveal-delay-2">
