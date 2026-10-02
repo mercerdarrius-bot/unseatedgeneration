@@ -36,14 +36,14 @@
     .nav-wordmark { font-family: 'Barlow Condensed', sans-serif; font-size: 26px; font-weight: 800; letter-spacing: 0.18em; color: var(--white); text-transform: uppercase; }
     .nav-wordmark span { color: var(--gold); }
     .nav-sub { font-size: 8px; letter-spacing: 0.38em; text-transform: uppercase; color: var(--grey-light); margin-top: 3px; }
-    .nav-center { display: flex; align-items: center; gap: 44px; list-style: none; }
+    .nav-center { display: flex; align-items: center; gap: clamp(22px, 2.6vw, 44px); list-style: none; }
     .nav-center a { font-size: 12px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--grey-pale); text-decoration: none; position: relative; transition: color 0.25s; }
     .nav-center a::after { content: ''; position: absolute; bottom: -4px; left: 0; right: 0; height: 1px; background: var(--gold); transform: scaleX(0); transform-origin: left; transition: transform 0.3s; }
     .nav-center a:hover { color: var(--white); }
     .nav-center a:hover::after { transform: scaleX(1); }
     .nav-center a.active { color: var(--gold); }
     .nav-center a.active::after { transform: scaleX(1); }
-    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; cursor: pointer; background: none; border: 0; }
     .hamburger span { display: block; width: 28px; height: 2px; background: var(--white); }
 
     /* WORD ANIMATION */
@@ -256,6 +256,27 @@
       .s1-card { aspect-ratio: 16 / 10; }
       .s1-card-num { font-size: 84px; }
     }
+
+    /* EPISODE STATES: live episodes link to their page, upcoming ones show their date */
+    .btn-s1.ghost { border: 1px solid rgba(242,240,237,0.35); color: var(--white); clip-path: none; background: rgba(255,255,255,0.04); }
+    .btn-s1.ghost:hover { border-color: var(--gold); color: var(--gold-light); }
+    .s1-label.on-light { color: #8a6a12; }
+    a.s1-feature-art { display: block; }
+    .s1-feature-play { position: absolute; left: 20px; bottom: 20px; z-index: 2; width: 52px; height: 52px; border-radius: 50%; border: 1px solid rgba(212,168,64,0.7); background: rgba(10,10,10,0.55); backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1), background 0.35s; }
+    .s1-feature-play svg { margin-left: 3px; transition: fill 0.35s; }
+    .s1-feature-art:hover .s1-feature-play { transform: scale(1.09); background: rgba(184,146,42,0.9); }
+    .s1-feature-art:hover .s1-feature-play svg { fill: var(--black); }
+    .s1-coming-grid { grid-template-columns: repeat(4, 1fr); }
+    a.s1-card { display: block; text-decoration: none; color: inherit; }
+    .s1-card-bg.ep1 { background: radial-gradient(120% 90% at 70% 80%, #7a4e14 0%, #3a240a 45%, #120b04 100%); }
+    .s1-card h3 { font-size: clamp(20px, 1.6vw, 26px); }
+    .s1-card-tag.live { color: var(--black); background: var(--gold); border-color: var(--gold); }
+    a.s1-card:focus-visible, .s1-feature-art:focus-visible, .btn-ep:focus-visible, .btn-s1:focus-visible { outline: 2px solid var(--gold-light); outline-offset: 4px; }
+    @media (max-width: 1100px) { .s1-coming-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 900px) {
+      .s1-coming-grid { grid-template-columns: 1fr; }
+      .s1-card-num { left: auto; right: 22px; top: 12px; font-size: 64px; }
+    }
   </style>
 
 </head>
@@ -270,15 +291,16 @@
       <div class="nav-sub">Generation</div>
     </a>
     <ul class="nav-center">
+      <li><a href="/watch/">Watch</a></li>
       <li><a href="/mission">The Mission</a></li>
       <li><a href="/about">About</a></li>
       <li><a href="/series" class="active">The Unseated Series</a></li>
       <li><a href="/context">Context Matters</a></li>
       <li><a href="/get-involved/">Get Involved</a></li>
     </ul>
-    <div class="hamburger" id="hamburger">
+    <button class="hamburger" id="hamburger" type="button" aria-label="Menu" aria-expanded="false">
       <span></span><span></span><span></span>
-    </div>
+    </button>
   </nav>
 
   <!-- HERO -->
@@ -299,14 +321,17 @@
         <span class="word"><span class="word-inner">Unseating</span></span><br>
         <span class="word"><span class="word-inner gold-shimmer" style="font-style:italic;">Performance</span></span>
       </h1>
+      <!-- BUILD:season-hero -->
       <div class="s1-meta" id="heroMeta">
         <span>Season One</span><i></i>
-        <span>Premieres <b data-premiere>Next Week</b></span><i></i>
-        <span>4 Episodes</span>
+        <span>4 Episodes</span><i></i>
+        <span><b>Now Streaming</b></span>
       </div>
       <div class="s1-actions" id="pageActions">
-        <a href="#trailer" class="btn-s1 gold magnetic" data-trailer-cta><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg> Watch the Trailer</a>
+        <a href="/season1/episode-1/" class="btn-s1 gold magnetic"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg> Watch Episode 1</a>
+        <a href="#trailer" class="btn-s1 ghost magnetic" data-trailer-cta>Watch the Trailer</a>
       </div>
+      <!-- /BUILD:season-hero -->
     </div>
   </section>
 
@@ -324,66 +349,81 @@
   <!-- FEATURE: EPISODE ONE -->
   <section class="s1-feature" id="episode-one">
     <div class="s1-section-line"></div>
+    <!-- BUILD:season-feature -->
     <div class="s1-feature-inner">
-      <div class="s1-feature-art reveal">
-        <img src="/Photos/S1E1-Thumbnail.jpg" alt="Episode 01 artwork: When Ministry Outpaces Maturity" />
+      <a class="s1-feature-art reveal" href="/season1/episode-1/" aria-label="Watch Episode 1: When Ministry Outpaces Maturity">
+        <img src="/Photos/S1E1-Thumbnail.jpg" alt="" />
         <div class="s1-feature-badge">Episode 01</div>
-      </div>
+        <span class="s1-feature-play" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="#D4A840"><path d="M8 5v14l11-7z"/></svg></span>
+      </a>
       <div class="s1-feature-body reveal reveal-delay-2">
         <div class="s1-feature-num" aria-hidden="true">01</div>
-        <div class="s1-label">The Series Begins Here</div>
+        <div class="s1-label on-light">The Series Begins Here</div>
         <h2 class="s1-feature-title">When Ministry Outpaces <em>Maturity</em></h2>
         <div class="s1-feature-meta">
-          <span class="s1-status" data-ep1-status>Premieres <b data-premiere>Next Week</b></span><i></i>
-          <span>1 Corinthians 13:1–3 · NASB</span>
+          <span class="s1-status"><b>Now Streaming</b></span><i></i>
+          <span>1 Corinthians 13:1–3 · NASB</span><i></i>
+          <span>27 min</span>
         </div>
         <p class="s1-feature-desc">What happens when someone carries a genuine gift but an unformed character?</p>
-        <a class="btn-ep" id="epOneCta" href="#" data-pending="true" aria-disabled="true">Coming Next Week</a>
+        <a class="btn-ep" href="/season1/episode-1/">Watch Episode 1</a>
       </div>
     </div>
+    <!-- /BUILD:season-feature -->
   </section>
 
   <!-- COMING THIS SEASON -->
   <section class="s1-coming">
     <div class="s1-section-line"></div>
+    <!-- BUILD:season-lineup -->
     <div class="s1-coming-head reveal">
       <div class="s1-label">The Lineup</div>
-      <h2>Coming This <em>Season.</em></h2>
+      <h2>The Full <em>Season.</em></h2>
       <div class="s1-coming-meta">
         <span>4 Episodes</span><i></i>
-        <span>Premieres <b data-premiere>Next Week</b></span><i></i>
+        <span>Next Episode <b><time datetime="2026-10-06T18:00:00-04:00" data-airdate>Tue, Oct 6</time></b></span><i></i>
         <span>New Episodes Bi-Weekly</span>
       </div>
     </div>
     <div class="s1-coming-grid">
-      <article class="s1-card reveal reveal-delay-1">
+      <a class="s1-card reveal reveal-delay-1" href="/season1/episode-1/">
+        <div class="s1-card-bg ep1"></div>
+        <div class="s1-card-num" aria-hidden="true">01</div>
+        <div class="s1-card-body">
+          <div class="s1-card-ep">Episode 01</div>
+          <h3>When Ministry Outpaces Maturity</h3>
+          <span class="s1-card-tag live">Watch Now</span>
+        </div>
+      </a>
+      <article class="s1-card reveal reveal-delay-2">
         <div class="s1-card-bg ep2"></div>
-        <div class="s1-card-num">02</div>
+        <div class="s1-card-num" aria-hidden="true">02</div>
         <div class="s1-card-body">
           <div class="s1-card-ep">Episode 02</div>
           <h3>The Drug Called Power</h3>
-          <span class="s1-card-tag">Coming This Season</span>
-        </div>
-      </article>
-      <article class="s1-card reveal reveal-delay-2">
-        <div class="s1-card-bg ep3"></div>
-        <div class="s1-card-num">03</div>
-        <div class="s1-card-body">
-          <div class="s1-card-ep">Episode 03</div>
-          <h3>When Glory Goes Missing</h3>
-          <span class="s1-card-tag">Coming This Season</span>
+          <span class="s1-card-tag"><time datetime="2026-10-06T18:00:00-04:00" data-airdate>Tue, Oct 6</time></span>
         </div>
       </article>
       <article class="s1-card reveal reveal-delay-3">
+        <div class="s1-card-bg ep3"></div>
+        <div class="s1-card-num" aria-hidden="true">03</div>
+        <div class="s1-card-body">
+          <div class="s1-card-ep">Episode 03</div>
+          <h3>When Glory Goes Missing</h3>
+          <span class="s1-card-tag"><time datetime="2026-10-20T18:00:00-04:00" data-airdate>Tue, Oct 20</time></span>
+        </div>
+      </article>
+      <article class="s1-card reveal reveal-delay-1">
         <div class="s1-card-bg ep4"></div>
-        <div class="s1-card-num">04</div>
+        <div class="s1-card-num" aria-hidden="true">04</div>
         <div class="s1-card-body">
           <div class="s1-card-ep">Episode 04</div>
           <h3>The Great Reconstruction</h3>
-          <span class="s1-card-tag">Coming This Season</span>
+          <span class="s1-card-tag"><time datetime="2026-11-03T18:00:00-05:00" data-airdate>Tue, Nov 3</time></span>
         </div>
       </article>
     </div>
+    <!-- /BUILD:season-lineup -->
   </section>
 
   <!-- TRAILER -->
@@ -432,6 +472,7 @@
       <div>
         <div class="footer-col-head">Content</div>
         <ul class="footer-links">
+          <li><a href="/watch/">All Episodes</a></li>
           <li><a href="/series">The Unseated Series</a></li>
           <li><a href="/context">Context Matters</a></li>
         </ul>
@@ -466,36 +507,8 @@
     </div>
   </footer>
 
-  <script src="/launch.js"></script>
+  <script src="/assets/episodes.js" defer></script>
   <script>
-    // Launch settings live in /launch.js, shared with /series and the homepage.
-    // Defaults below only apply if that file fails to load.
-    const SEASON_ONE = Object.assign({ premiereDate: '', episodeOneUrl: '' }, window.SEASON_ONE || {});
-
-    (function applyLaunchSettings() {
-      const s = SEASON_ONE;
-      const isUrl = v => /^https?:\/\//.test(v || '');
-
-      if (s.premiereDate) {
-        document.querySelectorAll('[data-premiere]').forEach(el => { el.textContent = s.premiereDate; });
-      }
-
-
-
-      const cta = document.getElementById('epOneCta');
-      if (cta && isUrl(s.episodeOneUrl)) {
-        cta.textContent = 'Watch Episode One';
-        cta.setAttribute('href', s.episodeOneUrl);
-        cta.setAttribute('target', '_blank'); cta.setAttribute('rel', 'noopener noreferrer');
-        cta.removeAttribute('data-pending'); cta.removeAttribute('aria-disabled');
-        const st = document.querySelector('[data-ep1-status]');
-        if (st) st.textContent = 'Now Streaming';
-      } else if (cta) {
-        cta.addEventListener('click', e => e.preventDefault());
-      }
-
-    })();
-
     const progressBar = document.getElementById('progressBar');
     window.addEventListener('scroll', () => {
       const h = document.documentElement;
@@ -620,6 +633,7 @@
       } else {
         nc.style.cssText = 'display:flex;flex-direction:column;position:absolute;top:80px;left:0;right:0;background:rgba(10,10,10,0.98);padding:32px;gap:24px;border-bottom:1px solid rgba(184,146,42,0.15);z-index:500;';
       }
+      document.getElementById('hamburger').setAttribute('aria-expanded', String(nc.style.display === 'flex'));
     });
   </script>
 </body>

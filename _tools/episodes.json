@@ -1,0 +1,93 @@
+{
+  "site": "https://unseatedgen.org",
+  "premiereTime": "18:00",
+  "timezone": "America/New_York",
+  "channel": "https://www.youtube.com/@unseatedgen",
+
+  "shows": {
+    "series": {
+      "name": "The Unseated Series",
+      "home": "/series/",
+      "episodePath": "/season{season}/episode-{number}/",
+      "playlist": ""
+    },
+    "context": {
+      "name": "Context Matters",
+      "home": "/context/",
+      "episodePath": "/context/episode-{number}/",
+      "playlist": ""
+    }
+  },
+
+  "seasons": {
+    "series-1": { "title": "Unseating Performance", "home": "/season1/" }
+  },
+
+  "episodes": [
+    {
+      "show": "series", "season": 1, "number": 1,
+      "title": "When Ministry Outpaces Maturity",
+      "emphasis": "Maturity",
+      "scripture": "1 Corinthians 13:1–3", "translation": "NASB",
+      "date": "2026-09-22",
+      "youtube": "CvAhWDrNjuU",
+      "runtime": "26:44",
+      "thumb": "/Photos/S1E1-Thumbnail.jpg",
+      "hook": "What happens when someone carries a genuine gift but an unformed character?",
+      "summary": [
+        "You can be gifted and still immature. What happens when ministry grows faster than the person carrying it?",
+        "Season One opens by confronting what happens when gifting, visibility, and ministry activity outpace spiritual formation. Using 1 Corinthians 13:1–3, we examine how performance can quietly replace formation, why spiritual gifts are not evidence of spiritual maturity, and what happens when leaders learn how to function publicly before they have submitted to God's refining work privately.",
+        "This conversation is not an attack on gifting, excellence, or effective ministry. It is a call back to submission, maturity, obedience, and dependence on the Holy Spirit."
+      ]
+    },
+    {
+      "show": "series", "season": 1, "number": 2,
+      "title": "The Drug Called Power",
+      "scripture": "Acts 8:9–11", "translation": "NASB",
+      "date": "2026-10-06"
+    },
+    {
+      "show": "series", "season": 1, "number": 3,
+      "title": "When Glory Goes Missing",
+      "scripture": "1 Samuel 4:19–22", "translation": "NASB",
+      "date": "2026-10-20"
+    },
+    {
+      "show": "series", "season": 1, "number": 4,
+      "title": "The Great Reconstruction",
+      "scripture": "1 Kings 18:30–32", "translation": "NASB",
+      "date": "2026-11-03"
+    },
+
+    {
+      "show": "context", "number": 1,
+      "title": "We've Been Quoting This Scripture Wrong for Years",
+      "emphasis": "Wrong",
+      "scripture": "Romans 4:17", "translation": "NASB",
+      "quote": "Call those things that be not as though they were",
+      "date": "2026-09-29",
+      "youtube": "A8XFDlQLMEQ",
+      "runtime": "16:29",
+      "hook": "This verse is quoted in churches every week with full confidence. But the context tells a completely different story.",
+      "summary": [
+        "For years, \"calling those things that are not as though they were\" has been used to teach believers to declare healing, financial breakthrough, jobs, and desired outcomes into existence. But is that what Paul was actually saying?",
+        "In this episode we return Romans 4:17 to its context and examine what Paul is actually teaching about Abraham, faith, God's promise, and the One who truly calls things into existence.",
+        "Abraham's faith was not in the power of his own words. God spoke. Abraham believed. God fulfilled. The weight was never on Abraham's declaration. It was on God's character."
+      ]
+    },
+    {
+      "show": "context", "number": 2,
+      "title": "Did David Promise You Your Dream Life?",
+      "scripture": "Psalm 37:4", "translation": "NASB",
+      "quote": "Delight yourself in the Lord",
+      "date": "2026-10-13"
+    },
+    {
+      "show": "context", "number": 3,
+      "title": "Do We Owe Job's Wife an Apology?",
+      "scripture": "Job 2:9", "translation": "NASB",
+      "quote": "Curse God and die",
+      "date": "2026-10-27"
+    }
+  ]
+}

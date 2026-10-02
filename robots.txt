@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://unseatedgen.org/sitemap.xml

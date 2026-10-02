@@ -36,14 +36,14 @@
     .nav-wordmark { font-family: 'Barlow Condensed', sans-serif; font-size: 26px; font-weight: 800; letter-spacing: 0.18em; color: var(--white); text-transform: uppercase; }
     .nav-wordmark span { color: var(--gold); }
     .nav-sub { font-size: 8px; letter-spacing: 0.38em; text-transform: uppercase; color: var(--grey-light); margin-top: 3px; }
-    .nav-center { display: flex; align-items: center; gap: 44px; list-style: none; }
+    .nav-center { display: flex; align-items: center; gap: clamp(22px, 2.6vw, 44px); list-style: none; }
     .nav-center a { font-size: 12px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--grey-pale); text-decoration: none; position: relative; transition: color 0.25s; }
     .nav-center a::after { content: ''; position: absolute; bottom: -4px; left: 0; right: 0; height: 1px; background: var(--gold); transform: scaleX(0); transform-origin: left; transition: transform 0.3s; }
     .nav-center a:hover { color: var(--white); }
     .nav-center a:hover::after { transform: scaleX(1); }
     .nav-center a.active { color: var(--gold); }
     .nav-center a.active::after { transform: scaleX(1); }
-    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; cursor: pointer; background: none; border: 0; }
     .hamburger span { display: block; width: 28px; height: 2px; background: var(--white); }
 
     /* WORD ANIMATION */
@@ -215,6 +215,8 @@
       .sr-meta i { display: none; }
       .sr-feature-body .btn-s1 { width: 100%; justify-content: center; }
     }
+    /* Gold labels on the white section use the darker gold so they stay readable */
+    .sr-feature .s1-label { color: #8a6a12; }
   </style>
 </head>
 <body>
@@ -228,15 +230,16 @@
       <div class="nav-sub">Generation</div>
     </a>
     <ul class="nav-center">
+      <li><a href="/watch/">Watch</a></li>
       <li><a href="/mission">The Mission</a></li>
       <li><a href="/about">About</a></li>
       <li><a href="/series" class="active">The Unseated Series</a></li>
       <li><a href="/context">Context Matters</a></li>
       <li><a href="/get-involved/">Get Involved</a></li>
     </ul>
-    <div class="hamburger" id="hamburger">
+    <button class="hamburger" id="hamburger" type="button" aria-label="Menu" aria-expanded="false">
       <span></span><span></span><span></span>
-    </div>
+    </button>
   </nav>
 
   <!-- HERO -->
@@ -295,11 +298,13 @@
         <div class="s1-label">Begin Here</div>
         <div class="sr-season-tag">Season One</div>
         <h2 class="sr-feature-title">Unseating <em>Performance.</em></h2>
+        <!-- BUILD:series-meta -->
         <div class="sr-meta">
           <span>4 Episodes</span><i></i>
-          <span>Premieres <b data-premiere>Next Week</b></span><i></i>
+          <span><b>Now Streaming</b></span><i></i>
           <span>Bi-Weekly</span>
         </div>
+        <!-- /BUILD:series-meta -->
         <a href="/season1/" class="btn-s1 gold magnetic">Explore Season One <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
       </div>
     </div>
@@ -328,6 +333,7 @@
       <div>
         <div class="footer-col-head">Content</div>
         <ul class="footer-links">
+          <li><a href="/watch/">All Episodes</a></li>
           <li><a href="/series">The Unseated Series</a></li>
           <li><a href="/context">Context Matters</a></li>
         </ul>
@@ -362,19 +368,8 @@
     </div>
   </footer>
 
-  <script src="/launch.js"></script>
+  <script src="/assets/episodes.js" defer></script>
   <script>
-    // Launch settings live in /launch.js, shared with /season1. Defaults below
-    // only apply if that file fails to load.
-    const SEASON_ONE = Object.assign({ premiereDate: '' }, window.SEASON_ONE || {});
-
-    (function applyLaunchSettings() {
-      const isUrl = v => /^https?:\/\//.test(v || '');
-      if (SEASON_ONE.premiereDate) {
-        document.querySelectorAll('[data-premiere]').forEach(el => { el.textContent = SEASON_ONE.premiereDate; });
-      }
-    })();
-
     const progressBar = document.getElementById('progressBar');
     window.addEventListener('scroll', () => {
       const h = document.documentElement;
@@ -446,6 +441,7 @@
       } else {
         nc.style.cssText = 'display:flex;flex-direction:column;position:absolute;top:80px;left:0;right:0;background:rgba(10,10,10,0.98);padding:32px;gap:24px;border-bottom:1px solid rgba(184,146,42,0.15);z-index:500;';
       }
+      document.getElementById('hamburger').setAttribute('aria-expanded', String(nc.style.display === 'flex'));
     });
   </script>
 </body>
