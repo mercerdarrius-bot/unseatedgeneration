@@ -32,6 +32,8 @@ FONTS = ("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,
 PLAY = '<svg width="{0}" height="{0}" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>'
 ARROW = ('<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" '
          'aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>')
+CHEVRON = ('<svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" '
+           'aria-hidden="true"><path d="M5 9l7 7 7-7"/></svg>')
 ORDINALS = ["Zero", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten"]
 
 # Hand-built pages that belong in the sitemap. Episode pages and /watch/ are added by the build.
@@ -225,21 +227,31 @@ def head(data, title, description, path, image, og_type="website", extra=""):
 
 
 def nav(active):
-    items = [("/watch/", "Watch"), ("/mission", "The Mission"), ("/about", "About"),
-             ("/series", "The Unseated Series"), ("/context", "Context Matters"), ("/get-involved/", "Get Involved")]
-    rows = []
-    for href, label in items:
+    """Main nav. Watch opens to the archive and both series. `active` is the href of the current section."""
+    def item(href, label):
         mark = ""
         if href == active:
             mark = ' class="active"' + (' aria-current="page"' if href == "/watch/" else "")
-        rows.append(f'      <li><a href="{href}"{mark}>{label}</a></li>')
+        return f'          <li><a href="{href}"{mark}>{label}</a></li>'
+
+    watching = " active" if active in ("/watch/", "/series", "/context") else ""
     return f"""  <nav class="site-nav" aria-label="Main">
     <a href="/" class="nav-logo" aria-label="Unseated Generation home">
       <div class="nav-wordmark">UN/<span>SEATED</span></div>
       <div class="nav-sub">Generation</div>
     </a>
     <ul class="nav-center" id="navLinks">
-{chr(10).join(rows)}
+      <li class="nav-group">
+        <button class="nav-group-btn{watching}" type="button" aria-expanded="false" aria-controls="navWatchMenu">Watch {CHEVRON}</button>
+        <ul class="nav-menu" id="navWatchMenu">
+{item("/watch/", "All Episodes")}
+{item("/series", "The Unseated Series")}
+{item("/context", "Context Matters")}
+        </ul>
+      </li>
+      <li><a href="/mission">The Mission</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/get-involved/">Get Involved</a></li>
     </ul>
     <button class="hamburger" id="hamburger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks">
       <span></span><span></span><span></span>

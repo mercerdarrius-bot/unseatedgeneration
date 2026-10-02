@@ -17,7 +17,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@400;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/assets/episodes.css?v=c4dd51bc" />
+  <link rel="stylesheet" href="/assets/episodes.css?v=569534a9" />
 </head>
 <body>
   <!-- Built by _tools/build.py from _tools/episodes.json. Edit those, not this file. -->
@@ -30,11 +30,16 @@
       <div class="nav-sub">Generation</div>
     </a>
     <ul class="nav-center" id="navLinks">
-      <li><a href="/watch/" class="active" aria-current="page">Watch</a></li>
+      <li class="nav-group">
+        <button class="nav-group-btn active" type="button" aria-expanded="false" aria-controls="navWatchMenu">Watch <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M5 9l7 7 7-7"/></svg></button>
+        <ul class="nav-menu" id="navWatchMenu">
+          <li><a href="/watch/" class="active" aria-current="page">All Episodes</a></li>
+          <li><a href="/series">The Unseated Series</a></li>
+          <li><a href="/context">Context Matters</a></li>
+        </ul>
+      </li>
       <li><a href="/mission">The Mission</a></li>
       <li><a href="/about">About</a></li>
-      <li><a href="/series">The Unseated Series</a></li>
-      <li><a href="/context">Context Matters</a></li>
       <li><a href="/get-involved/">Get Involved</a></li>
     </ul>
     <button class="hamburger" id="hamburger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks">
@@ -222,7 +227,7 @@
     </div>
   </footer>
 
-  <script src="/assets/chrome.js?v=6ea0d25b" defer></script>
+  <script src="/assets/chrome.js?v=bea0d7a2" defer></script>
   <script src="/assets/episodes.js?v=6d26b590" defer></script>
 </body>
 </html>

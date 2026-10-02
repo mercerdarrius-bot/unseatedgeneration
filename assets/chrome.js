@@ -20,6 +20,29 @@
     });
   }
 
+  /* Watch menu: hover opens it for a mouse; this adds click, keyboard, and
+     the state screen readers hear. On small screens it is always open. */
+  var group = document.querySelector('.nav-group');
+  if (group) {
+    var gbtn = group.querySelector('.nav-group-btn');
+    var small = window.matchMedia('(max-width: 1024px)');
+    var setGroup = function (open) {
+      group.classList.toggle('open', open);
+      gbtn.setAttribute('aria-expanded', String(open || small.matches));
+    };
+    var syncGroup = function () { gbtn.tabIndex = small.matches ? -1 : 0; setGroup(false); };
+    syncGroup();
+    small.addEventListener('change', syncGroup);
+    gbtn.addEventListener('click', function (e) { e.stopPropagation(); setGroup(!group.classList.contains('open')); });
+    group.addEventListener('mouseenter', function () { gbtn.setAttribute('aria-expanded', 'true'); });
+    group.addEventListener('mouseleave', function () { setGroup(false); });
+    group.addEventListener('focusout', function (e) { if (!group.contains(e.relatedTarget)) setGroup(false); });
+    document.addEventListener('click', function (e) { if (!group.contains(e.target)) setGroup(false); });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && group.classList.contains('open')) { setGroup(false); gbtn.focus(); }
+    });
+  }
+
   /* Scroll progress */
   var bar = document.getElementById('progressBar');
   if (bar) {

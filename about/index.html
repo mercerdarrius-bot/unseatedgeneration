@@ -215,6 +215,30 @@
     }
     .join-cta { display: inline-flex; align-items: center; align-self: flex-start; width: fit-content; gap: 10px; font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--black); background: var(--gold); padding: 18px 36px; text-decoration: none; transition: background 0.25s, transform 0.2s, box-shadow 0.25s; clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%); }
     .join-cta:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 10px 26px rgba(184,146,42,0.28); }
+
+    /* WATCH MENU: one nav item that opens to the archive and both series */
+    .nav-group { position: relative; }
+    .nav-group-btn { display: inline-flex; align-items: center; gap: 8px; font-family: inherit; font-size: 12px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--grey-pale); background: none; border: 0; padding: 0; cursor: pointer; transition: color 0.25s; }
+    .nav-group-btn svg { transition: transform 0.3s; }
+    .nav-group-btn:hover, .nav-group:hover .nav-group-btn, .nav-group.open .nav-group-btn { color: var(--white); }
+    .nav-group-btn.active { color: var(--gold); }
+    .nav-group:hover .nav-group-btn svg, .nav-group.open .nav-group-btn svg { transform: rotate(180deg); }
+    .nav-group-btn:focus-visible, .nav-menu a:focus-visible { outline: 2px solid var(--gold-light); outline-offset: 4px; }
+    .nav-menu { list-style: none; position: absolute; top: calc(100% + 33px); left: -26px; min-width: 250px; padding: 12px 0; background: rgba(10,10,10,0.98); border: 1px solid var(--border-dark); border-top: 2px solid var(--gold); box-shadow: 0 26px 54px rgba(0,0,0,0.55); opacity: 0; visibility: hidden; transform: translateY(-8px); transition: opacity 0.22s, transform 0.22s, visibility 0s 0.22s; }
+    .nav-menu::before { content: ''; position: absolute; left: 0; right: 0; top: -35px; height: 35px; }
+    .nav-group:hover .nav-menu, .nav-group.open .nav-menu { opacity: 1; visibility: visible; transform: translateY(0); transition-delay: 0s; }
+    .nav-center .nav-menu a { display: block; padding: 13px 26px; white-space: nowrap; }
+    .nav-center .nav-menu a::after { display: none; }
+    .nav-center .nav-menu a:hover { color: var(--gold-light); background: rgba(184,146,42,0.07); }
+    .nav-center .nav-menu a.active { color: var(--gold); }
+    @media (max-width: 1024px) {
+      .nav-group { display: flex; flex-direction: column; align-items: center; gap: 20px; }
+      .nav-group-btn { pointer-events: none; font-size: 10px; letter-spacing: 0.34em; color: var(--gold); }
+      .nav-group-btn svg { display: none; }
+      .nav-menu { position: static; display: flex; flex-direction: column; align-items: center; gap: 22px; min-width: 0; padding: 0 0 24px; background: none; border: 0; border-bottom: 1px solid rgba(255,255,255,0.08); box-shadow: none; opacity: 1; visibility: visible; transform: none; }
+      .nav-menu::before { display: none; }
+      .nav-center .nav-menu a { padding: 0; }
+    }
   </style>
 </head>
 <body>
@@ -228,11 +252,16 @@
       <div class="nav-sub">Generation</div>
     </a>
     <ul class="nav-center">
-      <li><a href="/watch/">Watch</a></li>
+      <li class="nav-group">
+        <button class="nav-group-btn" type="button" aria-expanded="false" aria-controls="navWatchMenu">Watch <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M5 9l7 7 7-7"/></svg></button>
+        <ul class="nav-menu" id="navWatchMenu">
+          <li><a href="/watch/">All Episodes</a></li>
+          <li><a href="/series">The Unseated Series</a></li>
+          <li><a href="/context">Context Matters</a></li>
+        </ul>
+      </li>
       <li><a href="/mission">The Mission</a></li>
       <li><a href="/about" class="active">About</a></li>
-      <li><a href="/series">The Unseated Series</a></li>
-      <li><a href="/context">Context Matters</a></li>
       <li><a href="/get-involved/">Get Involved</a></li>
     </ul>
     <button class="hamburger" id="hamburger" type="button" aria-label="Menu" aria-expanded="false">
@@ -491,6 +520,25 @@
       });
     }, { threshold: 0.3 });
     document.querySelectorAll('.mission-section-line, .assignment-section-line, .founder-section-line, .subscribe-section-line, .eyebrow-line, .assignment-eyebrow-line, .founder-divider').forEach(el => lineObs.observe(el));
+
+    // WATCH MENU: hover opens it for a mouse; this adds click, keyboard, and the state screen readers hear
+    (function () {
+      const group = document.querySelector('.nav-group');
+      if (!group) return;
+      const btn = group.querySelector('.nav-group-btn');
+      const small = window.matchMedia('(max-width: 1024px)');
+      const set = open => { group.classList.toggle('open', open); btn.setAttribute('aria-expanded', String(open || small.matches)); };
+      const sync = () => { btn.tabIndex = small.matches ? -1 : 0; set(false); };
+      sync(); small.addEventListener('change', sync);
+      btn.addEventListener('click', e => { e.stopPropagation(); set(!group.classList.contains('open')); });
+      group.addEventListener('mouseenter', () => btn.setAttribute('aria-expanded', 'true'));
+      group.addEventListener('mouseleave', () => set(false));
+      group.addEventListener('focusout', e => { if (!group.contains(e.relatedTarget)) set(false); });
+      document.addEventListener('click', e => { if (!group.contains(e.target)) set(false); });
+      document.addEventListener('keydown', e => {
+        if (e.key === 'Escape' && group.classList.contains('open')) { set(false); btn.focus(); }
+      });
+    })();
 
     document.getElementById('hamburger').addEventListener('click', () => {
       const nc = document.querySelector('.nav-center');
