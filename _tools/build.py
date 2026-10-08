@@ -4,9 +4,9 @@
     python3 _tools/build.py
 
 Reads   _tools/episodes.json   (the only file you edit to add an episode)
-Writes  /watch/index.html                     the archive
-        /<show>/.../episode-N/index.html       one page per live episode
-        the marked regions inside index.html, series/, season1/, context/
+Writes  /watch/index.html                     the catalog: every episode, by show
+        /<show>/.../episode-N/index.html       one page per live episode (for sharing)
+        the marked regions inside index.html
         sitemap.xml and robots.txt
 
 An episode is "live" once it has a "youtube" id. Until then it shows as
@@ -32,12 +32,11 @@ FONTS = ("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,
 PLAY = '<svg width="{0}" height="{0}" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>'
 ARROW = ('<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" '
          'aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>')
-CHEVRON = ('<svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" '
-           'aria-hidden="true"><path d="M5 9l7 7 7-7"/></svg>')
-ORDINALS = ["Zero", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten"]
+DOWN = ('<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" '
+        'aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7"/></svg>')
 
 # Hand-built pages that belong in the sitemap. Episode pages and /watch/ are added by the build.
-STATIC_PAGES = ["/", "/watch/", "/series/", "/season1/", "/context/", "/mission/", "/about/", "/get-involved/"]
+STATIC_PAGES = ["/", "/watch/", "/mission/", "/about/", "/get-involved/"]
 
 
 # ---------------------------------------------------------------- helpers
@@ -48,10 +47,6 @@ def esc(text):
 
 def two(n):
     return f"{n:02d}"
-
-
-def ordinal(n):
-    return ORDINALS[n] if n < len(ORDINALS) else str(n)
 
 
 def asset(path):
@@ -124,6 +119,9 @@ def load():
     zone = ZoneInfo(data["timezone"])
     hh, mm = (int(x) for x in data["premiereTime"].split(":"))
     seen = set()
+    for key, show in data["shows"].items():
+        show["key"] = key
+        show["home"] = "/watch/#" + show["anchor"]
 
     for ep in data["episodes"]:
         name = f'{ep.get("show")} #{ep.get("number")} "{ep.get("title", "")}"'
@@ -157,6 +155,7 @@ def load():
         ep["path"] = show["episodePath"].format(season=ep.get("season"), number=ep["number"])
         ep["season_info"] = data["seasons"].get(f'{ep["show"]}-{ep.get("season")}')
         ep["label"] = (f'Season {ep["season"]} · ' if ep.get("season") else "") + f'Episode {ep["number"]}'
+        ep["key"] = "-".join(str(x) for x in (ep["show"], ep.get("season"), ep["number"]) if x)
 
         if ep["live"]:
             for field in ("runtime", "hook", "summary"):
@@ -226,32 +225,22 @@ def head(data, title, description, path, image, og_type="website", extra=""):
 """
 
 
-def nav(active):
-    """Main nav. Watch opens to the archive and both series. `active` is the href of the current section."""
-    def item(href, label):
+def nav(active=None):
+    """Main nav. `active` is the href to mark; aria-current only when it is this very page."""
+    items = [("/watch/", "Watch"), ("/mission", "The Mission"), ("/about", "About"), ("/get-involved/", "Get Involved")]
+    rows = []
+    for href, label in items:
         mark = ""
         if href == active:
-            mark = ' class="active"' + (' aria-current="page"' if href == "/watch/" else "")
-        return f'          <li><a href="{href}"{mark}>{label}</a></li>'
-
-    watching = " active" if active in ("/watch/", "/series", "/context") else ""
+            mark = ' class="active"' + (' aria-current="page"' if active == "/watch/" and CURRENT == "/watch/" else "")
+        rows.append(f'      <li><a href="{href}"{mark}>{label}</a></li>')
     return f"""  <nav class="site-nav" aria-label="Main">
     <a href="/" class="nav-logo" aria-label="Unseated Generation home">
       <div class="nav-wordmark">UN/<span>SEATED</span></div>
       <div class="nav-sub">Generation</div>
     </a>
     <ul class="nav-center" id="navLinks">
-      <li class="nav-group">
-        <button class="nav-group-btn{watching}" type="button" aria-expanded="false" aria-controls="navWatchMenu">Watch {CHEVRON}</button>
-        <ul class="nav-menu" id="navWatchMenu">
-{item("/watch/", "All Episodes")}
-{item("/series", "The Unseated Series")}
-{item("/context", "Context Matters")}
-        </ul>
-      </li>
-      <li><a href="/mission">The Mission</a></li>
-      <li><a href="/about">About</a></li>
-      <li><a href="/get-involved/">Get Involved</a></li>
+{chr(10).join(rows)}
     </ul>
     <button class="hamburger" id="hamburger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks">
       <span></span><span></span><span></span>
@@ -277,8 +266,8 @@ def footer(data):
         <div class="footer-col-head">Content</div>
         <ul class="footer-links">
           <li><a href="/watch/">All Episodes</a></li>
-          <li><a href="/series">The Unseated Series</a></li>
-          <li><a href="/context">Context Matters</a></li>
+          <li><a href="/watch/#unseated-series">The Unseated Series</a></li>
+          <li><a href="/watch/#context-matters">Context Matters</a></li>
         </ul>
       </div>
       <div>
@@ -335,117 +324,200 @@ def kicker(ep, season_title=False):
 
 # ---------------------------------------------------------------- /watch/
 
+def player_data(data):
+    """What the on-page player needs for every live episode and trailer, as a
+    JSON script tag. assets/episodes.js reads it; [data-episode] keys point into it."""
+    items = []
+    for key in data["shows"]:
+        eps = of_show(data, key)
+        for i, ep in enumerate(eps):
+            if not ep["live"]:
+                continue
+            later = next((e for e in eps[i + 1:] if e["live"]), None)
+            items.append({
+                "key": ep["key"], "youtube": ep["youtube"], "title": ep["title"],
+                "kicker": f'{ep["show_name"]} · {ep["label"]}',
+                "meta": f'{ep["scripture"]} · {ep["translation"]} · {runtime_minutes(ep["runtime"])} min · {day_medium(ep["air"].date())}',
+                "hook": ep["hook"], "page": ep["path"], "next": later["key"] if later else None,
+            })
+    for skey, season in data["seasons"].items():
+        trailer = season.get("trailer")
+        if not trailer:
+            continue
+        show_key, number = skey.rsplit("-", 1)
+        show = data["shows"][show_key]
+        items.append({
+            "key": f"trailer-{skey}", "video": trailer["video"], "poster": trailer.get("poster"), "vertical": True,
+            "title": f"Season {number} Trailer", "kicker": f'{show["name"]} · Season {number}: {season["title"]}',
+            "meta": show.get("tagline"),
+        })
+    payload = json.dumps(items, ensure_ascii=False).replace("</", "<\\/")
+    return f'<script type="application/json" id="ugEpisodes">{payload}</script>'
+
+
+def runtime_chip(ep):
+    return (f'<span class="c-time">{PLAY.format(10)}<span class="sr-only">Runtime </span>{esc(ep["runtime"])}</span>')
+
+
+def tile(ep, level):
+    """One episode in the catalog. Live: plays in one press. Upcoming: holds its place with a date."""
+    h = f"h{level}"
+    if ep["live"]:
+        return f"""        <li class="c-tile">
+          <a class="c-card" href="{ep['path']}" data-episode="{ep['key']}">
+            <span class="c-thumb">
+              <img src="{esc(ep['image'])}" alt="" width="1280" height="720" loading="lazy" />
+              <span class="c-play" aria-hidden="true">{PLAY.format(22)}</span>
+              {runtime_chip(ep)}
+            </span>
+            <span class="c-num">Episode {ep['number']}</span>
+            <{h} class="c-title">{esc(ep['title'])}</{h}>
+            <span class="c-meta">{esc(ep['scripture'])} · {when(ep)}</span>
+          </a>
+        </li>"""
+    tone = f"tone-{(ep['number'] - 1) % 4 + 1}" if ep["show"] == "series" else "tone-cm"
+    return f"""        <li class="c-tile is-soon">
+          <div class="c-card">
+            <span class="c-thumb {tone}">
+              <span class="c-soon-num" aria-hidden="true">{two(ep['number'])}</span>
+              <span class="c-soon-date">Premieres {when(ep)}</span>
+            </span>
+            <span class="c-num">Episode {ep['number']} · Upcoming</span>
+            <{h} class="c-title">{esc(ep['title'])}</{h}>
+            <span class="c-meta">{verse(ep)}</span>
+          </div>
+        </li>"""
+
+
+def show_section(data, key, raised):
+    """Every episode of one show, grouped by season, in order."""
+    show = data["shows"][key]
+    eps = of_show(data, key)
+    live = [e for e in eps if e["live"]]
+    upcoming = [e for e in eps if not e["live"]]
+    heading = esc(show["name"])
+    if show.get("emphasis") and esc(show["emphasis"]) in heading:
+        heading = heading.replace(esc(show["emphasis"]), f"<em>{esc(show['emphasis'])}.</em>", 1)
+    nxt = f'<span>Next Episode <b>{when(upcoming[0])}</b></span>' if upcoming else "<span>All Episodes Streaming</span>"
+    title_id = show["anchor"] + "-title"
+
+    seasons = sorted({e.get("season") for e in eps}, key=lambda n: n or 0)
+    trailer = ""
+    blocks = []
+    for number in seasons:
+        group = [e for e in eps if e.get("season") == number]
+        if number:
+            info = data["seasons"][f"{key}-{number}"]
+            name = esc(info["title"])
+            if info.get("emphasis") and esc(info["emphasis"]) in name:
+                name = name.replace(esc(info["emphasis"]), f"<em>{esc(info['emphasis'])}</em>", 1)
+            if info.get("trailer") and not trailer:
+                trailer = (f'<a class="btn btn-ghost reveal reveal-2" href="{info["trailer"]["video"]}" data-episode="trailer-{key}-{number}">'
+                           f'{PLAY.format(12)} Watch the Season {number} Trailer</a>')
+            soon = [e for e in group if not e["live"]]
+            count = f'{len(group)} Episodes' + (f' · {len(group) - len(soon)} Streaming' if soon else '')
+            blocks.append(f"""      <div class="c-season reveal">
+        <h3 class="c-season-title">Season {number}: {name}</h3>
+        <p class="meta"><span>{count}</span></p>
+      </div>
+      <ul class="c-grid">
+{chr(10).join(tile(e, 4) for e in group)}
+      </ul>""")
+        else:
+            blocks.append(f"""      <ul class="c-grid">
+{chr(10).join(tile(e, 3) for e in group)}
+      </ul>""")
+
+    return f"""
+    <section class="c-show{' c-show-raised' if raised else ''}" id="{show['anchor']}" aria-labelledby="{title_id}">
+      <div class="c-wrap">
+      <header class="c-show-head">
+        <div class="reveal">
+          <div class="eyebrow"><span>{esc(show['tagline'])}</span></div>
+          <h2 class="h2" id="{title_id}">{heading}</h2>
+          <p class="c-show-desc">{esc(show['about'])}</p>
+          <p class="meta"><span>{len(live)} Streaming</span><i></i>{nxt}<i></i><span>New Episodes Bi-Weekly</span></p>
+        </div>
+        {trailer}
+      </header>
+{chr(10).join(blocks)}
+      </div>
+    </section>
+"""
+
+
 def build_watch(data):
+    """/watch/: the catalog. Latest episode up top, then every show with every episode."""
     live, upcoming = data["live"], data["upcoming"]
     newest = live[0] if live else None
     desc = ("Every episode of The Unseated Series and Context Matters in one place. "
             "New teaching premieres Tuesdays at 6 PM ET.")
     image = newest["image_abs"] if newest else data["site"] + "/Photos/S1E1-Thumbnail.jpg"
+    extra = f'\n  <link rel="stylesheet" href="{asset("/assets/player.css")}" />'
 
-    out = [head(data, "Watch · Unseated Generation", desc, "/watch/", image), nav("/watch/")]
-    out.append("""  <main id="main">
-    <section class="page-hero">
+    global CURRENT
+    CURRENT = "/watch/"
+    out = [head(data, "Watch · Unseated Generation", desc, "/watch/", image, extra=extra), nav("/watch/")]
+    CURRENT = None
+
+    jumps = []
+    for key, show in data["shows"].items():
+        count = sum(1 for e in live if e["show"] == key)
+        jumps.append(f'<li><a href="#{show["anchor"]}">{esc(show["name"])} '
+                     f'<span>{count} {"Episode" if count == 1 else "Episodes"} {DOWN}</span></a></li>')
+    next_line = ""
+    if upcoming:
+        u = upcoming[0]
+        next_line = f'<p class="c-next fade">Next premiere: <b>{esc(u["show_name"])}, Episode {u["number"]}</b> · {when(u)} at 6 PM ET</p>'
+
+    feature = ""
+    if newest:
+        feature = f"""
+        <div class="c-latest reveal reveal-2">
+          <a class="c-feature" href="{newest['path']}" data-episode="{newest['key']}">
+            <span class="c-thumb">
+              <img src="{esc(newest['image'])}" alt="" width="1280" height="720" fetchpriority="high" />
+              <span class="c-play" aria-hidden="true">{PLAY.format(30)}</span>
+              {runtime_chip(newest)}
+            </span>
+            <span class="c-feature-body">
+              <span class="c-label"><b>Latest Episode</b> · {esc(newest['show_name'])} · {newest['label']}</span>
+              <h2 class="c-feature-title">{emphasize(newest)}</h2>
+              <span class="c-meta">{verse(newest)} · {runtime_minutes(newest['runtime'])} min · {when(newest)}</span>
+            </span>
+          </a>
+        </div>"""
+
+    out.append(f"""  <main id="main">
+    <section class="page-hero c-top">
       <div class="page-hero-bg"></div>
-      <div class="page-hero-word" aria-hidden="true">Watch</div>
-      <div class="page-hero-inner">
+      <div class="c-top-inner">
         <div class="eyebrow"><span>Watch</span></div>
         <h1 class="page-title">
-          <span class="word"><span class="word-inner">Every</span></span> <span class="word"><span class="word-inner">Episode.</span></span><br>
+          <span class="word"><span class="word-inner">Every</span></span> <span class="word"><span class="word-inner">Episode.</span></span>
           <span class="word"><span class="word-inner">One</span></span> <span class="word"><span class="word-inner gold-shimmer">Place.</span></span>
         </h1>
-        <p class="page-desc fade">The Unseated Series and Context Matters, together. <strong>New teaching premieres Tuesdays at 6 PM ET.</strong></p>
-      </div>
-    </section>
-""")
-
-    if newest:
-        out.append(f"""
-    <section class="w-latest" aria-labelledby="latestTitle">
-      <div class="w-latest-inner">
-        <div class="reveal">
-        {player(newest, eager=True)}
-        </div>
-        <div class="w-latest-body reveal reveal-2">
-          <div class="eyebrow"><span>Latest Episode</span></div>
-          {kicker(newest)}
-          <h2 class="ep-title" id="latestTitle">{emphasize(newest)}</h2>
-          <div class="meta"><span>{verse(newest)}</span><i></i><span>{runtime_minutes(newest['runtime'])} min</span><i></i><span>{when(newest)}</span></div>
-          <p class="w-desc">{esc(newest['hook'])}</p>
-          <a class="text-link" href="{newest['path']}">Episode Details {ARROW}</a>
+        <div class="c-row">
+          <div class="c-intro">
+            <p class="page-desc fade">The Unseated Series and Context Matters, together. Press any episode to watch it right here.</p>
+            {next_line}
+            <nav class="c-jump fade" aria-label="Jump to a series">
+              <ul>
+                {(chr(10) + '                ').join(jumps)}
+              </ul>
+            </nav>
+          </div>{feature}
         </div>
       </div>
     </section>
 """)
+    for i, key in enumerate(data["shows"]):
+        out.append(show_section(data, key, raised=i > 0))
+    out.append(f"""  </main>
 
-    # Archive grid with the series filter
-    counts = {key: sum(1 for e in live if e["show"] == key) for key in data["shows"]}
-    buttons = [f'<button type="button" data-show="all" data-name="all series" aria-pressed="true">All <span>{len(live)}</span></button>']
-    for key, show in data["shows"].items():
-        buttons.append(f'<button type="button" data-show="{key}" data-name="{esc(show["name"])}" aria-pressed="false">'
-                       f'{esc(show["name"])} <span>{counts[key]}</span></button>')
-    cards = []
-    for ep in live:
-        cards.append(f"""        <li class="reveal" data-show-item="{ep['show']}" data-live>
-          <a class="ep-card" href="{ep['path']}">
-            <div class="ep-card-thumb">
-              <img src="{esc(ep['image'])}" alt="" width="1280" height="720" loading="lazy" />
-              <span class="ep-card-play" aria-hidden="true">{PLAY.format(15)}</span>
-              <span class="ep-card-time"><span class="sr-only">Runtime </span>{esc(ep['runtime'])}</span>
-            </div>
-            {kicker(ep)}
-            <h3>{esc(ep['title'])}</h3>
-            <p class="ep-card-foot">{esc(ep['scripture'])} · {when(ep)}</p>
-          </a>
-        </li>""")
-    few = " few" if len(live) <= 2 else ""
-    out.append(f"""
-    <section class="w-archive" aria-labelledby="archiveTitle">
-      <div class="w-head">
-        <div class="reveal">
-          <div class="eyebrow"><span>The Archive</span></div>
-          <h2 class="h2" id="archiveTitle">Browse the <em>Teaching.</em></h2>
-        </div>
-        <div class="filter reveal reveal-2" role="group" aria-label="Filter episodes by series" data-filter>
-          {(chr(10) + '          ').join(buttons)}
-        </div>
-      </div>
-      <p class="sr-only" id="filterStatus" role="status" aria-live="polite"></p>
-      <ul class="ep-grid{few}" id="epGrid">
-{chr(10).join(cards)}
-      </ul>
-      <p class="w-empty" data-empty="epGrid" hidden>No episodes from this series yet. The first one is on the calendar below.</p>
-    </section>
+  {player_data(data)}
+
 """)
-
-    if upcoming:
-        rows = []
-        for ep in upcoming:
-            rows.append(f"""        <li class="up-row reveal" data-show-item="{ep['show']}">
-          <div class="up-date">{when(ep)}</div>
-          <div>
-            {kicker(ep)}
-            <h3>{esc(ep['title'])}</h3>
-            <p class="up-verse">{verse(ep)}</p>
-          </div>
-          <span class="up-tag">Upcoming</span>
-        </li>""")
-        out.append(f"""
-    <section class="w-up" aria-labelledby="upTitle">
-      <div class="w-head">
-        <div class="reveal">
-          <div class="eyebrow"><span>On the Calendar</span></div>
-          <h2 class="h2" id="upTitle">Coming <em>Up.</em></h2>
-        </div>
-        <p class="w-up-note reveal reveal-2">Episodes premiere on YouTube, Tuesdays at 6 PM ET, and land here the same night.</p>
-      </div>
-      <ul class="up-list" id="upList">
-{chr(10).join(rows)}
-      </ul>
-      <p class="w-empty" data-empty="upList" hidden>Nothing scheduled for this series yet.</p>
-    </section>
-""")
-
-    out.append("  </main>\n\n")
     out.append(footer(data))
     write("watch/index.html", "".join(out))
 
@@ -486,10 +558,8 @@ def build_episode(data, ep):
     }
     extra = '\n  <script type="application/ld+json">' + json.dumps(ld, ensure_ascii=False).replace("</", "<\\/") + "</script>"
 
-    crumbs = [f'<li><a href="/watch/">Watch</a></li>', f'<li><a href="{show["home"]}">{esc(show["name"])}</a></li>']
-    if ep.get("season_info"):
-        crumbs.append(f'<li><a href="{ep["season_info"]["home"]}">Season {ep["season"]}</a></li>')
-    crumbs.append(f'<li aria-current="page">Episode {ep["number"]}</li>')
+    crumbs = [f'<li><a href="/watch/">Watch</a></li>', f'<li><a href="{show["home"]}">{esc(show["name"])}</a></li>',
+              f'<li aria-current="page">{ep["label"]}</li>']
 
     passage = esc(ep["scripture"]) + f'<span>{esc(ep["translation"])}</span>'
     if ep.get("quote"):
@@ -507,7 +577,7 @@ def build_episode(data, ep):
     paragraphs = "\n".join(f"          <p>{esc(p)}</p>" for p in ep["summary"])
 
     page = [head(data, title, description, ep["path"], ep["image_abs"], og_type="video.other", extra=extra),
-            nav("/series" if ep["show"] == "series" else "/context")]
+            nav("/watch/")]
     page.append(f"""  <main id="main">
     <section class="e-top">
       <div class="e-wrap">
@@ -590,7 +660,7 @@ def home_series(data):
     nxt = [e for e in data["upcoming"] if e["show"] == "series"][:3]
     out = []
     if ep:
-        out.append(f"""    <a href="{ep['path']}" class="ep-feature reveal">
+        out.append(f"""    <a href="{ep['path']}" class="ep-feature reveal" data-episode="{ep['key']}">
       <div class="ep-feature-media">
         <img src="{esc(ep['image'])}" alt="" />
         <div class="ep-feature-veil"></div>
@@ -643,146 +713,18 @@ def home_context(data):
           <div class="ctx-title">{esc(e['title'])}</div>
           <div class="ctx-verse">{line}</div>"""
         if e["live"]:
-            cards.append(f'        <a class="ctx-card" href="{e["path"]}">\n{inner}\n          <div class="ctx-arrow" aria-hidden="true">→</div>\n        </a>')
+            cards.append(f'        <a class="ctx-card" href="{e["path"]}" data-episode="{e["key"]}">\n{inner}\n          <div class="ctx-arrow" aria-hidden="true">→</div>\n        </a>')
         else:
             cards.append(f'        <div class="ctx-card">\n{inner}\n        </div>')
     region("index.html", "home-context", "\n".join(cards))
 
 
-def season_page(data, show, season, path):
-    """/season1/: hero status, the featured (newest) episode, and the full lineup."""
-    eps = of_show(data, show, season)
-    newest = latest_live(data, show, season)
-    first = next((e for e in eps if e["live"]), None)
-    nxt = next((e for e in eps if not e["live"]), None)
-    count = f"{len(eps)} Episodes"
-
-    # Hero meta and buttons
-    if newest:
-        status = "<span><b>Now Streaming</b></span>"
-        actions = (f'        <a href="{first["path"]}" class="btn-s1 gold magnetic"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg> Watch Episode {first["number"]}</a>\n'
-                   '        <a href="#trailer" class="btn-s1 ghost magnetic" data-trailer-cta>Watch the Trailer</a>')
-    else:
-        status = f"<span>Premieres <b>{when(eps[0])}</b></span>"
-        actions = ('        <a href="#trailer" class="btn-s1 gold magnetic" data-trailer-cta><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg> Watch the Trailer</a>')
-    region(path, "season-hero", f"""      <div class="s1-meta" id="heroMeta">
-        <span>Season {ordinal(season)}</span><i></i>
-        <span>{count}</span><i></i>
-        {status}
-      </div>
-      <div class="s1-actions" id="pageActions">
-{actions}
-      </div>""")
-
-    # Featured episode
-    if newest:
-        label = "The Series Begins Here" if newest["number"] == 1 else "Latest Episode"
-        region(path, "season-feature", f"""    <div class="s1-feature-inner">
-      <a class="s1-feature-art reveal" href="{newest['path']}" aria-label="Watch Episode {newest['number']}: {esc(newest['title'])}">
-        <img src="{esc(newest['image'])}" alt="" />
-        <div class="s1-feature-badge">Episode {two(newest['number'])}</div>
-        <span class="s1-feature-play" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="#D4A840"><path d="M8 5v14l11-7z"/></svg></span>
-      </a>
-      <div class="s1-feature-body reveal reveal-delay-2">
-        <div class="s1-feature-num" aria-hidden="true">{two(newest['number'])}</div>
-        <div class="s1-label on-light">{label}</div>
-        <h2 class="s1-feature-title">{emphasize(newest)}</h2>
-        <div class="s1-feature-meta">
-          <span class="s1-status"><b>Now Streaming</b></span><i></i>
-          <span>{verse(newest)}</span><i></i>
-          <span>{runtime_minutes(newest['runtime'])} min</span>
-        </div>
-        <p class="s1-feature-desc">{esc(newest['hook'])}</p>
-        <a class="btn-ep" href="{newest['path']}">Watch Episode {newest['number']}</a>
-      </div>
-    </div>""")
-
-    # Lineup: every episode of the season, in order, each in its current state
-    middle = f"<span>Next Episode <b>{when(nxt)}</b></span>" if nxt else "<span><b>Season Complete</b></span>"
-    cards = []
-    for i, e in enumerate(eps):
-        tag = '<span class="s1-card-tag live">Watch Now</span>' if e["live"] else f'<span class="s1-card-tag">{when(e)}</span>'
-        inner = f"""        <div class="s1-card-bg ep{(e['number'] - 1) % 4 + 1}"></div>
-        <div class="s1-card-num" aria-hidden="true">{two(e['number'])}</div>
-        <div class="s1-card-body">
-          <div class="s1-card-ep">Episode {two(e['number'])}</div>
-          <h3>{esc(e['title'])}</h3>
-          {tag}
-        </div>"""
-        delay = f" reveal-delay-{i % 3 + 1}"
-        if e["live"]:
-            cards.append(f'      <a class="s1-card reveal{delay}" href="{e["path"]}">\n{inner}\n      </a>')
-        else:
-            cards.append(f'      <article class="s1-card reveal{delay}">\n{inner}\n      </article>')
-    region(path, "season-lineup", f"""    <div class="s1-coming-head reveal">
-      <div class="s1-label">The Lineup</div>
-      <h2>The Full <em>Season.</em></h2>
-      <div class="s1-coming-meta">
-        <span>{count}</span><i></i>
-        {middle}<i></i>
-        <span>New Episodes Bi-Weekly</span>
-      </div>
-    </div>
-    <div class="s1-coming-grid">
-{chr(10).join(cards)}
-    </div>""")
-
-
-def series_page(data):
-    """/series/: the one status line under the Season One feature."""
-    eps = of_show(data, "series", 1)
-    live = any(e["live"] for e in eps)
-    status = "<span><b>Now Streaming</b></span>" if live else f"<span>Premieres <b>{when(eps[0])}</b></span>"
-    region("series/index.html", "series-meta", f"""        <div class="sr-meta">
-          <span>{len(eps)} Episodes</span><i></i>
-          {status}<i></i>
-          <span>Bi-Weekly</span>
-        </div>""")
-
-
-def context_page(data):
-    """/context/: the newest episode as the feature, then what is next."""
-    newest = latest_live(data, "context")
-    nxt = [e for e in data["upcoming"] if e["show"] == "context"][:3]
-    if not newest:
-        return
-    eyebrow = "The First Correction" if newest["number"] == 1 else "Latest Episode"
-    rows = "\n".join(f"""        <li class="cm-row">
-          <span class="cm-row-num" aria-hidden="true">{two(e['number'])}</span>
-          <div>
-            <h3 class="cm-row-title">{esc(e['title'])}</h3>
-            <p class="cm-row-verse">{('"' + esc(e['quote']) + '" · ') if e.get('quote') else ''}{esc(e['scripture'])}</p>
-          </div>
-          <span class="cm-row-status">{when(e)}</span>
-        </li>""" for e in nxt)
-    up_next = f"""
-    <div class="cm-next reveal">
-      <div class="eyebrow">
-        <div class="eyebrow-line"></div>
-        <span class="eyebrow-text">Up Next</span>
-      </div>
-      <ul class="cm-list">
-{rows}
-      </ul>
-    </div>""" if nxt else ""
-    region("context/index.html", "context-episodes", f"""    <div class="coming-bg-text" aria-hidden="true">{two(newest['number'])}</div>
-    <div class="coming-grid">
-      <a class="ep-thumb reveal" href="{newest['path']}" aria-label="Watch Episode {newest['number']}: {esc(newest['title'])}">
-        <img src="{esc(newest['image'])}" alt="" loading="lazy" />
-        <span class="ep-thumb-time"><svg width="11" height="11" viewBox="0 0 24 24" fill="#D4A840" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>{esc(newest['runtime'])}</span>
-      </a>
-      <div class="coming-inner reveal reveal-delay-2">
-        <div class="eyebrow">
-          <div class="eyebrow-line"></div>
-          <span class="eyebrow-text">{eyebrow}</span>
-        </div>
-        <div class="coming-kicker">Context Matters · Episode {two(newest['number'])} · Now Streaming</div>
-        <h2 class="coming-title">{emphasize(newest)}</h2>
-        <div class="coming-verse">{verse(newest)}</div>
-        <p class="coming-desc">{esc(newest['hook'])}</p>
-        <a class="coming-cta" href="{newest['path']}">Watch Episode {newest['number']}</a>
-      </div>
-    </div>{up_next}""")
+def home_data(data):
+    """Homepage: the player's stylesheet, the details it needs, and its script, so
+    episode cards play in place. Asset links carry a content hash so a returning
+    visitor never pairs new markup with an old cached script."""
+    region("index.html", "home-head", f'  <link rel="stylesheet" href="{asset("/assets/player.css")}" />')
+    region("index.html", "home-data", f'  {player_data(data)}\n  <script src="{asset("/assets/episodes.js")}" defer></script>')
 
 
 # ---------------------------------------------------------------- sitemap
@@ -798,6 +740,7 @@ def build_sitemap(data):
 # ---------------------------------------------------------------- run
 
 CHANGED = []
+CURRENT = None
 
 
 def write(path, content):
@@ -815,9 +758,7 @@ def main():
         build_episode(data, ep)
     home_series(data)
     home_context(data)
-    season_page(data, "series", 1, "season1/index.html")
-    series_page(data)
-    context_page(data)
+    home_data(data)
     build_sitemap(data)
 
     print(f"{len(data['live'])} live, {len(data['upcoming'])} upcoming.")

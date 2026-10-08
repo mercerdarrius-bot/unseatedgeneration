@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Unseated Generation · Called. Refined. Sent.</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <!-- BUILD:home-head -->
+  <link rel="stylesheet" href="/assets/player.css?v=b35a9451" />
+  <!-- /BUILD:home-head -->
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -500,29 +503,6 @@
     .series-eyebrow-text, .signup-eyebrow-text { color: #8a6a12; }
     .ep-feature:focus-visible, a.ctx-card:focus-visible { outline: 2px solid var(--gold-light); outline-offset: 4px; }
 
-    /* WATCH MENU: one nav item that opens to the archive and both series */
-    .nav-group { position: relative; }
-    .nav-group-btn { display: inline-flex; align-items: center; gap: 8px; font-family: inherit; font-size: 12px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--grey-pale); background: none; border: 0; padding: 0; cursor: pointer; transition: color 0.25s; }
-    .nav-group-btn svg { transition: transform 0.3s; }
-    .nav-group-btn:hover, .nav-group:hover .nav-group-btn, .nav-group.open .nav-group-btn { color: var(--white); }
-    .nav-group-btn.active { color: var(--gold); }
-    .nav-group:hover .nav-group-btn svg, .nav-group.open .nav-group-btn svg { transform: rotate(180deg); }
-    .nav-group-btn:focus-visible, .nav-menu a:focus-visible { outline: 2px solid var(--gold-light); outline-offset: 4px; }
-    .nav-menu { list-style: none; position: absolute; top: calc(100% + 33px); left: -26px; min-width: 250px; padding: 12px 0; background: rgba(10,10,10,0.98); border: 1px solid var(--border-dark); border-top: 2px solid var(--gold); box-shadow: 0 26px 54px rgba(0,0,0,0.55); opacity: 0; visibility: hidden; transform: translateY(-8px); transition: opacity 0.22s, transform 0.22s, visibility 0s 0.22s; }
-    .nav-menu::before { content: ''; position: absolute; left: 0; right: 0; top: -35px; height: 35px; }
-    .nav-group:hover .nav-menu, .nav-group.open .nav-menu { opacity: 1; visibility: visible; transform: translateY(0); transition-delay: 0s; }
-    .nav-center .nav-menu a { display: block; padding: 13px 26px; white-space: nowrap; }
-    .nav-center .nav-menu a::after { display: none; }
-    .nav-center .nav-menu a:hover { color: var(--gold-light); background: rgba(184,146,42,0.07); }
-    .nav-center .nav-menu a.active { color: var(--gold); }
-    @media (max-width: 1024px) {
-      .nav-group { display: flex; flex-direction: column; align-items: center; gap: 20px; }
-      .nav-group-btn { pointer-events: none; font-size: 10px; letter-spacing: 0.34em; color: var(--gold); }
-      .nav-group-btn svg { display: none; }
-      .nav-menu { position: static; display: flex; flex-direction: column; align-items: center; gap: 22px; min-width: 0; padding: 0 0 24px; background: none; border: 0; border-bottom: 1px solid rgba(255,255,255,0.08); box-shadow: none; opacity: 1; visibility: visible; transform: none; }
-      .nav-menu::before { display: none; }
-      .nav-center .nav-menu a { padding: 0; }
-    }
   </style>
 </head>
 <body>
@@ -541,14 +521,7 @@
       <div class="nav-sub">Generation</div>
     </a>
     <ul class="nav-center">
-      <li class="nav-group">
-        <button class="nav-group-btn" type="button" aria-expanded="false" aria-controls="navWatchMenu">Watch <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M5 9l7 7 7-7"/></svg></button>
-        <ul class="nav-menu" id="navWatchMenu">
-          <li><a href="/watch/">All Episodes</a></li>
-          <li><a href="/series">The Unseated Series</a></li>
-          <li><a href="/context">Context Matters</a></li>
-        </ul>
-      </li>
+      <li><a href="/watch/">Watch</a></li>
       <li><a href="/mission">The Mission</a></li>
       <li><a href="/about">About</a></li>
       <li><a href="/get-involved/">Get Involved</a></li>
@@ -655,7 +628,7 @@
     </div>
 
     <!-- BUILD:home-series -->
-    <a href="/season1/episode-2/" class="ep-feature reveal">
+    <a href="/season1/episode-2/" class="ep-feature reveal" data-episode="series-1-2">
       <div class="ep-feature-media">
         <img src="https://i.ytimg.com/vi/AbEz3ExjYRY/maxresdefault.jpg" alt="" />
         <div class="ep-feature-veil"></div>
@@ -710,14 +683,14 @@
         </div>
         <h2 class="section-title-dark" style="margin-bottom:24px;">The Context<br>Changes <em>Everything.</em></h2>
         <p style="font-size:16px;font-weight:300;line-height:1.8;color:var(--grey-pale);max-width:420px;margin-bottom:36px;">Some of the scriptures we quote most confidently are the ones we understand least. Context Matters exists to bring awareness, not condemnation, to the way we handle God's word. Because faithful interpretation isn't optional. It's formational.</p>
-        <a href="/context" class="btn-gold">
+        <a href="/watch/#context-matters" class="btn-gold">
           Explore the Series
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </a>
       </div>
       <div class="context-cards reveal reveal-delay-2">
         <!-- BUILD:home-context -->
-        <a class="ctx-card" href="/context/episode-1/">
+        <a class="ctx-card" href="/context/episode-1/" data-episode="context-1">
           <div class="ctx-card-shine"></div>
           <div class="ctx-card-top"><div class="ctx-ep">Episode 01</div><div class="ctx-status live">Watch Now</div></div>
           <div class="ctx-title">Romans 4:17 Does NOT Say What You Think It Says</div>
@@ -789,8 +762,8 @@
         <div class="footer-col-head">Content</div>
         <ul class="footer-links">
           <li><a href="/watch/">All Episodes</a></li>
-          <li><a href="/series">The Unseated Series</a></li>
-          <li><a href="/context">Context Matters</a></li>
+          <li><a href="/watch/#unseated-series">The Unseated Series</a></li>
+          <li><a href="/watch/#context-matters">Context Matters</a></li>
         </ul>
       </div>
       <div>
@@ -907,25 +880,6 @@
     }, { threshold: 0.3 });
     document.querySelectorAll('.series-section-line, .context-section-line, .sent-bridge-line, .signup-section-line, .section-eyebrow-line').forEach(el => lineObs.observe(el));
 
-    // WATCH MENU: hover opens it for a mouse; this adds click, keyboard, and the state screen readers hear
-    (function () {
-      const group = document.querySelector('.nav-group');
-      if (!group) return;
-      const btn = group.querySelector('.nav-group-btn');
-      const small = window.matchMedia('(max-width: 1024px)');
-      const set = open => { group.classList.toggle('open', open); btn.setAttribute('aria-expanded', String(open || small.matches)); };
-      const sync = () => { btn.tabIndex = small.matches ? -1 : 0; set(false); };
-      sync(); small.addEventListener('change', sync);
-      btn.addEventListener('click', e => { e.stopPropagation(); set(!group.classList.contains('open')); });
-      group.addEventListener('mouseenter', () => btn.setAttribute('aria-expanded', 'true'));
-      group.addEventListener('mouseleave', () => set(false));
-      group.addEventListener('focusout', e => { if (!group.contains(e.relatedTarget)) set(false); });
-      document.addEventListener('click', e => { if (!group.contains(e.target)) set(false); });
-      document.addEventListener('keydown', e => {
-        if (e.key === 'Escape' && group.classList.contains('open')) { set(false); btn.focus(); }
-      });
-    })();
-
     // ── MOBILE NAV ──
     document.getElementById('hamburger').addEventListener('click', () => {
       const nc = document.querySelector('.nav-center');
@@ -986,6 +940,9 @@
     videos.forEach((v, i) => { v.addEventListener('ended', () => switchVideo((i + 1) % videos.length)); });
   </script>
 
-  <script src="/assets/episodes.js" defer></script>
+  <!-- BUILD:home-data -->
+  <script type="application/json" id="ugEpisodes">[{"key": "series-1-1", "youtube": "CvAhWDrNjuU", "title": "When Ministry Outpaces Maturity", "kicker": "The Unseated Series · Season 1 · Episode 1", "meta": "1 Corinthians 13:1–3 · NASB · 27 min · Sep 22, 2026", "hook": "What happens when someone carries a genuine gift but an unformed character?", "page": "/season1/episode-1/", "next": "series-1-2"}, {"key": "series-1-2", "youtube": "AbEz3ExjYRY", "title": "The Drug Called Power", "kicker": "The Unseated Series · Season 1 · Episode 2", "meta": "Acts 8:9–11 · NASB · 25 min · Oct 6, 2026", "hook": "What happens when we become more impressed by the manifestation of power than we are committed to being formed by God?", "page": "/season1/episode-2/", "next": null}, {"key": "context-1", "youtube": "A8XFDlQLMEQ", "title": "Romans 4:17 Does NOT Say What You Think It Says", "kicker": "Context Matters · Episode 1", "meta": "Romans 4:17 · NASB · 16 min · Sep 29, 2026", "hook": "This verse is quoted in churches every week with full confidence. But the context tells a completely different story.", "page": "/context/episode-1/", "next": null}, {"key": "trailer-series-1", "video": "/Videos/S1-Trailer.mp4", "poster": "/Photos/S1-Trailer-Poster.jpg", "vertical": true, "title": "Season 1 Trailer", "kicker": "The Unseated Series · Season 1: Unseating Performance", "meta": "Confront. Reform. Rebuild."}]</script>
+  <script src="/assets/episodes.js?v=9b64bdcf" defer></script>
+  <!-- /BUILD:home-data -->
 </body>
 </html>

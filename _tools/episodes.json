@@ -7,20 +7,30 @@
   "shows": {
     "series": {
       "name": "The Unseated Series",
-      "home": "/series/",
+      "emphasis": "Series",
+      "anchor": "unseated-series",
+      "tagline": "Confront. Reform. Rebuild.",
+      "about": "Confronting the systems, mindsets, and patterns that prevent maturity and limit Kingdom impact. Whatever has taken God's seat must be unseated.",
       "episodePath": "/season{season}/episode-{number}/",
       "playlist": ""
     },
     "context": {
       "name": "Context Matters",
-      "home": "/context/",
+      "emphasis": "Matters",
+      "anchor": "context-matters",
+      "tagline": "Scripture in Context",
+      "about": "The verses we quote most confidently are often the ones we understand least. Every episode returns one passage to its original weight: who wrote it, why, what the words meant, then what it asks of us today.",
       "episodePath": "/context/episode-{number}/",
       "playlist": ""
     }
   },
 
   "seasons": {
-    "series-1": { "title": "Unseating Performance", "home": "/season1/" }
+    "series-1": {
+      "title": "Unseating Performance",
+      "emphasis": "Performance",
+      "trailer": { "video": "/Videos/S1-Trailer.mp4", "poster": "/Photos/S1-Trailer-Poster.jpg" }
+    }
   },
 
   "episodes": [

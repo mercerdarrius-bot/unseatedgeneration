@@ -17,7 +17,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@400;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/assets/episodes.css?v=569534a9" />
+  <link rel="stylesheet" href="/assets/episodes.css?v=dec244d0" />
+  <link rel="stylesheet" href="/assets/player.css?v=b35a9451" />
 </head>
 <body>
   <!-- Built by _tools/build.py from _tools/episodes.json. Edit those, not this file. -->
@@ -30,14 +31,7 @@
       <div class="nav-sub">Generation</div>
     </a>
     <ul class="nav-center" id="navLinks">
-      <li class="nav-group">
-        <button class="nav-group-btn active" type="button" aria-expanded="false" aria-controls="navWatchMenu">Watch <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M5 9l7 7 7-7"/></svg></button>
-        <ul class="nav-menu" id="navWatchMenu">
-          <li><a href="/watch/" class="active" aria-current="page">All Episodes</a></li>
-          <li><a href="/series">The Unseated Series</a></li>
-          <li><a href="/context">Context Matters</a></li>
-        </ul>
-      </li>
+      <li><a href="/watch/" class="active" aria-current="page">Watch</a></li>
       <li><a href="/mission">The Mission</a></li>
       <li><a href="/about">About</a></li>
       <li><a href="/get-involved/">Get Involved</a></li>
@@ -47,144 +41,161 @@
     </button>
   </nav>
   <main id="main">
-    <section class="page-hero">
+    <section class="page-hero c-top">
       <div class="page-hero-bg"></div>
-      <div class="page-hero-word" aria-hidden="true">Watch</div>
-      <div class="page-hero-inner">
+      <div class="c-top-inner">
         <div class="eyebrow"><span>Watch</span></div>
         <h1 class="page-title">
-          <span class="word"><span class="word-inner">Every</span></span> <span class="word"><span class="word-inner">Episode.</span></span><br>
+          <span class="word"><span class="word-inner">Every</span></span> <span class="word"><span class="word-inner">Episode.</span></span>
           <span class="word"><span class="word-inner">One</span></span> <span class="word"><span class="word-inner gold-shimmer">Place.</span></span>
         </h1>
-        <p class="page-desc fade">The Unseated Series and Context Matters, together. <strong>New teaching premieres Tuesdays at 6 PM ET.</strong></p>
+        <div class="c-row">
+          <div class="c-intro">
+            <p class="page-desc fade">The Unseated Series and Context Matters, together. Press any episode to watch it right here.</p>
+            <p class="c-next fade">Next premiere: <b>Context Matters, Episode 2</b> · <time datetime="2026-10-13T18:00:00-04:00" data-airdate>Tue, Oct 13</time> at 6 PM ET</p>
+            <nav class="c-jump fade" aria-label="Jump to a series">
+              <ul>
+                <li><a href="#unseated-series">The Unseated Series <span>2 Episodes <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7"/></svg></span></a></li>
+                <li><a href="#context-matters">Context Matters <span>1 Episode <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7"/></svg></span></a></li>
+              </ul>
+            </nav>
+          </div>
+        <div class="c-latest reveal reveal-2">
+          <a class="c-feature" href="/season1/episode-2/" data-episode="series-1-2">
+            <span class="c-thumb">
+              <img src="https://i.ytimg.com/vi/AbEz3ExjYRY/maxresdefault.jpg" alt="" width="1280" height="720" fetchpriority="high" />
+              <span class="c-play" aria-hidden="true"><svg width="30" height="30" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span>
+              <span class="c-time"><svg width="10" height="10" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg><span class="sr-only">Runtime </span>25:28</span>
+            </span>
+            <span class="c-feature-body">
+              <span class="c-label"><b>Latest Episode</b> · The Unseated Series · Season 1 · Episode 2</span>
+              <h2 class="c-feature-title">The Drug Called <em>Power</em></h2>
+              <span class="c-meta">Acts 8:9–11 · NASB · 25 min · <time datetime="2026-10-06T18:00:00-04:00">Oct 6, 2026</time></span>
+            </span>
+          </a>
+        </div>
+        </div>
       </div>
     </section>
 
-    <section class="w-latest" aria-labelledby="latestTitle">
-      <div class="w-latest-inner">
+    <section class="c-show" id="unseated-series" aria-labelledby="unseated-series-title">
+      <div class="c-wrap">
+      <header class="c-show-head">
         <div class="reveal">
-        <div class="yt" data-yt="AbEz3ExjYRY" data-title="The Unseated Series, Episode 2: The Drug Called Power">
-          <a class="yt-link" href="https://www.youtube.com/watch?v=AbEz3ExjYRY" aria-label="Play Episode 2: The Drug Called Power, 25 minutes">
-            <img src="https://i.ytimg.com/vi/AbEz3ExjYRY/maxresdefault.jpg" alt="" width="1280" height="720" fetchpriority="high" />
-            <span class="yt-play" aria-hidden="true"><svg width="30" height="30" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span>
-            <span class="yt-cap" aria-hidden="true"><b>Play</b> 25:28</span>
-          </a>
+          <div class="eyebrow"><span>Confront. Reform. Rebuild.</span></div>
+          <h2 class="h2" id="unseated-series-title">The Unseated <em>Series.</em></h2>
+          <p class="c-show-desc">Confronting the systems, mindsets, and patterns that prevent maturity and limit Kingdom impact. Whatever has taken God&#x27;s seat must be unseated.</p>
+          <p class="meta"><span>2 Streaming</span><i></i><span>Next Episode <b><time datetime="2026-10-20T18:00:00-04:00" data-airdate>Tue, Oct 20</time></b></span><i></i><span>New Episodes Bi-Weekly</span></p>
         </div>
-        </div>
-        <div class="w-latest-body reveal reveal-2">
-          <div class="eyebrow"><span>Latest Episode</span></div>
-          <p class="kicker"><b>The Unseated Series</b> · Season 1 · Episode 2</p>
-          <h2 class="ep-title" id="latestTitle">The Drug Called <em>Power</em></h2>
-          <div class="meta"><span>Acts 8:9–11 · NASB</span><i></i><span>25 min</span><i></i><span><time datetime="2026-10-06T18:00:00-04:00">Oct 6, 2026</time></span></div>
-          <p class="w-desc">What happens when we become more impressed by the manifestation of power than we are committed to being formed by God?</p>
-          <a class="text-link" href="/season1/episode-2/">Episode Details <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-        </div>
+        <a class="btn btn-ghost reveal reveal-2" href="/Videos/S1-Trailer.mp4" data-episode="trailer-series-1"><svg width="12" height="12" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg> Watch the Season 1 Trailer</a>
+      </header>
+      <div class="c-season reveal">
+        <h3 class="c-season-title">Season 1: Unseating <em>Performance</em></h3>
+        <p class="meta"><span>4 Episodes · 2 Streaming</span></p>
       </div>
-    </section>
-
-    <section class="w-archive" aria-labelledby="archiveTitle">
-      <div class="w-head">
-        <div class="reveal">
-          <div class="eyebrow"><span>The Archive</span></div>
-          <h2 class="h2" id="archiveTitle">Browse the <em>Teaching.</em></h2>
-        </div>
-        <div class="filter reveal reveal-2" role="group" aria-label="Filter episodes by series" data-filter>
-          <button type="button" data-show="all" data-name="all series" aria-pressed="true">All <span>3</span></button>
-          <button type="button" data-show="series" data-name="The Unseated Series" aria-pressed="false">The Unseated Series <span>2</span></button>
-          <button type="button" data-show="context" data-name="Context Matters" aria-pressed="false">Context Matters <span>1</span></button>
-        </div>
-      </div>
-      <p class="sr-only" id="filterStatus" role="status" aria-live="polite"></p>
-      <ul class="ep-grid" id="epGrid">
-        <li class="reveal" data-show-item="series" data-live>
-          <a class="ep-card" href="/season1/episode-2/">
-            <div class="ep-card-thumb">
-              <img src="https://i.ytimg.com/vi/AbEz3ExjYRY/maxresdefault.jpg" alt="" width="1280" height="720" loading="lazy" />
-              <span class="ep-card-play" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span>
-              <span class="ep-card-time"><span class="sr-only">Runtime </span>25:28</span>
-            </div>
-            <p class="kicker"><b>The Unseated Series</b> · Season 1 · Episode 2</p>
-            <h3>The Drug Called Power</h3>
-            <p class="ep-card-foot">Acts 8:9–11 · <time datetime="2026-10-06T18:00:00-04:00">Oct 6, 2026</time></p>
-          </a>
-        </li>
-        <li class="reveal" data-show-item="context" data-live>
-          <a class="ep-card" href="/context/episode-1/">
-            <div class="ep-card-thumb">
-              <img src="https://i.ytimg.com/vi/A8XFDlQLMEQ/maxresdefault.jpg" alt="" width="1280" height="720" loading="lazy" />
-              <span class="ep-card-play" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span>
-              <span class="ep-card-time"><span class="sr-only">Runtime </span>16:29</span>
-            </div>
-            <p class="kicker"><b>Context Matters</b> · Episode 1</p>
-            <h3>Romans 4:17 Does NOT Say What You Think It Says</h3>
-            <p class="ep-card-foot">Romans 4:17 · <time datetime="2026-09-29T18:00:00-04:00">Sep 29, 2026</time></p>
-          </a>
-        </li>
-        <li class="reveal" data-show-item="series" data-live>
-          <a class="ep-card" href="/season1/episode-1/">
-            <div class="ep-card-thumb">
+      <ul class="c-grid">
+        <li class="c-tile">
+          <a class="c-card" href="/season1/episode-1/" data-episode="series-1-1">
+            <span class="c-thumb">
               <img src="/Photos/S1E1-Thumbnail.jpg" alt="" width="1280" height="720" loading="lazy" />
-              <span class="ep-card-play" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span>
-              <span class="ep-card-time"><span class="sr-only">Runtime </span>26:44</span>
-            </div>
-            <p class="kicker"><b>The Unseated Series</b> · Season 1 · Episode 1</p>
-            <h3>When Ministry Outpaces Maturity</h3>
-            <p class="ep-card-foot">1 Corinthians 13:1–3 · <time datetime="2026-09-22T18:00:00-04:00">Sep 22, 2026</time></p>
+              <span class="c-play" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span>
+              <span class="c-time"><svg width="10" height="10" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg><span class="sr-only">Runtime </span>26:44</span>
+            </span>
+            <span class="c-num">Episode 1</span>
+            <h4 class="c-title">When Ministry Outpaces Maturity</h4>
+            <span class="c-meta">1 Corinthians 13:1–3 · <time datetime="2026-09-22T18:00:00-04:00">Sep 22, 2026</time></span>
           </a>
         </li>
+        <li class="c-tile">
+          <a class="c-card" href="/season1/episode-2/" data-episode="series-1-2">
+            <span class="c-thumb">
+              <img src="https://i.ytimg.com/vi/AbEz3ExjYRY/maxresdefault.jpg" alt="" width="1280" height="720" loading="lazy" />
+              <span class="c-play" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span>
+              <span class="c-time"><svg width="10" height="10" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg><span class="sr-only">Runtime </span>25:28</span>
+            </span>
+            <span class="c-num">Episode 2</span>
+            <h4 class="c-title">The Drug Called Power</h4>
+            <span class="c-meta">Acts 8:9–11 · <time datetime="2026-10-06T18:00:00-04:00">Oct 6, 2026</time></span>
+          </a>
+        </li>
+        <li class="c-tile is-soon">
+          <div class="c-card">
+            <span class="c-thumb tone-3">
+              <span class="c-soon-num" aria-hidden="true">03</span>
+              <span class="c-soon-date">Premieres <time datetime="2026-10-20T18:00:00-04:00" data-airdate>Tue, Oct 20</time></span>
+            </span>
+            <span class="c-num">Episode 3 · Upcoming</span>
+            <h4 class="c-title">When Glory Goes Missing</h4>
+            <span class="c-meta">1 Samuel 4:19–22 · NASB</span>
+          </div>
+        </li>
+        <li class="c-tile is-soon">
+          <div class="c-card">
+            <span class="c-thumb tone-4">
+              <span class="c-soon-num" aria-hidden="true">04</span>
+              <span class="c-soon-date">Premieres <time datetime="2026-11-03T18:00:00-05:00" data-airdate>Tue, Nov 3</time></span>
+            </span>
+            <span class="c-num">Episode 4 · Upcoming</span>
+            <h4 class="c-title">The Great Reconstruction</h4>
+            <span class="c-meta">1 Kings 18:30–32 · NASB</span>
+          </div>
+        </li>
       </ul>
-      <p class="w-empty" data-empty="epGrid" hidden>No episodes from this series yet. The first one is on the calendar below.</p>
+      </div>
     </section>
 
-    <section class="w-up" aria-labelledby="upTitle">
-      <div class="w-head">
+    <section class="c-show c-show-raised" id="context-matters" aria-labelledby="context-matters-title">
+      <div class="c-wrap">
+      <header class="c-show-head">
         <div class="reveal">
-          <div class="eyebrow"><span>On the Calendar</span></div>
-          <h2 class="h2" id="upTitle">Coming <em>Up.</em></h2>
+          <div class="eyebrow"><span>Scripture in Context</span></div>
+          <h2 class="h2" id="context-matters-title">Context <em>Matters.</em></h2>
+          <p class="c-show-desc">The verses we quote most confidently are often the ones we understand least. Every episode returns one passage to its original weight: who wrote it, why, what the words meant, then what it asks of us today.</p>
+          <p class="meta"><span>1 Streaming</span><i></i><span>Next Episode <b><time datetime="2026-10-13T18:00:00-04:00" data-airdate>Tue, Oct 13</time></b></span><i></i><span>New Episodes Bi-Weekly</span></p>
         </div>
-        <p class="w-up-note reveal reveal-2">Episodes premiere on YouTube, Tuesdays at 6 PM ET, and land here the same night.</p>
-      </div>
-      <ul class="up-list" id="upList">
-        <li class="up-row reveal" data-show-item="context">
-          <div class="up-date"><time datetime="2026-10-13T18:00:00-04:00" data-airdate>Tue, Oct 13</time></div>
-          <div>
-            <p class="kicker"><b>Context Matters</b> · Episode 2</p>
-            <h3>Did David Promise You Your Dream Life?</h3>
-            <p class="up-verse">Psalm 37:4 · NASB</p>
-          </div>
-          <span class="up-tag">Upcoming</span>
+        
+      </header>
+      <ul class="c-grid">
+        <li class="c-tile">
+          <a class="c-card" href="/context/episode-1/" data-episode="context-1">
+            <span class="c-thumb">
+              <img src="https://i.ytimg.com/vi/A8XFDlQLMEQ/maxresdefault.jpg" alt="" width="1280" height="720" loading="lazy" />
+              <span class="c-play" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span>
+              <span class="c-time"><svg width="10" height="10" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg><span class="sr-only">Runtime </span>16:29</span>
+            </span>
+            <span class="c-num">Episode 1</span>
+            <h3 class="c-title">Romans 4:17 Does NOT Say What You Think It Says</h3>
+            <span class="c-meta">Romans 4:17 · <time datetime="2026-09-29T18:00:00-04:00">Sep 29, 2026</time></span>
+          </a>
         </li>
-        <li class="up-row reveal" data-show-item="series">
-          <div class="up-date"><time datetime="2026-10-20T18:00:00-04:00" data-airdate>Tue, Oct 20</time></div>
-          <div>
-            <p class="kicker"><b>The Unseated Series</b> · Season 1 · Episode 3</p>
-            <h3>When Glory Goes Missing</h3>
-            <p class="up-verse">1 Samuel 4:19–22 · NASB</p>
+        <li class="c-tile is-soon">
+          <div class="c-card">
+            <span class="c-thumb tone-cm">
+              <span class="c-soon-num" aria-hidden="true">02</span>
+              <span class="c-soon-date">Premieres <time datetime="2026-10-13T18:00:00-04:00" data-airdate>Tue, Oct 13</time></span>
+            </span>
+            <span class="c-num">Episode 2 · Upcoming</span>
+            <h3 class="c-title">Did David Promise You Your Dream Life?</h3>
+            <span class="c-meta">Psalm 37:4 · NASB</span>
           </div>
-          <span class="up-tag">Upcoming</span>
         </li>
-        <li class="up-row reveal" data-show-item="context">
-          <div class="up-date"><time datetime="2026-10-27T18:00:00-04:00" data-airdate>Tue, Oct 27</time></div>
-          <div>
-            <p class="kicker"><b>Context Matters</b> · Episode 3</p>
-            <h3>Do We Owe Job&#x27;s Wife an Apology?</h3>
-            <p class="up-verse">Job 2:9 · NASB</p>
+        <li class="c-tile is-soon">
+          <div class="c-card">
+            <span class="c-thumb tone-cm">
+              <span class="c-soon-num" aria-hidden="true">03</span>
+              <span class="c-soon-date">Premieres <time datetime="2026-10-27T18:00:00-04:00" data-airdate>Tue, Oct 27</time></span>
+            </span>
+            <span class="c-num">Episode 3 · Upcoming</span>
+            <h3 class="c-title">Do We Owe Job&#x27;s Wife an Apology?</h3>
+            <span class="c-meta">Job 2:9 · NASB</span>
           </div>
-          <span class="up-tag">Upcoming</span>
-        </li>
-        <li class="up-row reveal" data-show-item="series">
-          <div class="up-date"><time datetime="2026-11-03T18:00:00-05:00" data-airdate>Tue, Nov 3</time></div>
-          <div>
-            <p class="kicker"><b>The Unseated Series</b> · Season 1 · Episode 4</p>
-            <h3>The Great Reconstruction</h3>
-            <p class="up-verse">1 Kings 18:30–32 · NASB</p>
-          </div>
-          <span class="up-tag">Upcoming</span>
         </li>
       </ul>
-      <p class="w-empty" data-empty="upList" hidden>Nothing scheduled for this series yet.</p>
+      </div>
     </section>
   </main>
+
+  <script type="application/json" id="ugEpisodes">[{"key": "series-1-1", "youtube": "CvAhWDrNjuU", "title": "When Ministry Outpaces Maturity", "kicker": "The Unseated Series · Season 1 · Episode 1", "meta": "1 Corinthians 13:1–3 · NASB · 27 min · Sep 22, 2026", "hook": "What happens when someone carries a genuine gift but an unformed character?", "page": "/season1/episode-1/", "next": "series-1-2"}, {"key": "series-1-2", "youtube": "AbEz3ExjYRY", "title": "The Drug Called Power", "kicker": "The Unseated Series · Season 1 · Episode 2", "meta": "Acts 8:9–11 · NASB · 25 min · Oct 6, 2026", "hook": "What happens when we become more impressed by the manifestation of power than we are committed to being formed by God?", "page": "/season1/episode-2/", "next": null}, {"key": "context-1", "youtube": "A8XFDlQLMEQ", "title": "Romans 4:17 Does NOT Say What You Think It Says", "kicker": "Context Matters · Episode 1", "meta": "Romans 4:17 · NASB · 16 min · Sep 29, 2026", "hook": "This verse is quoted in churches every week with full confidence. But the context tells a completely different story.", "page": "/context/episode-1/", "next": null}, {"key": "trailer-series-1", "video": "/Videos/S1-Trailer.mp4", "poster": "/Photos/S1-Trailer-Poster.jpg", "vertical": true, "title": "Season 1 Trailer", "kicker": "The Unseated Series · Season 1: Unseating Performance", "meta": "Confront. Reform. Rebuild."}]</script>
 
   <footer>
     <div class="footer-top">
@@ -197,8 +208,8 @@
         <div class="footer-col-head">Content</div>
         <ul class="footer-links">
           <li><a href="/watch/">All Episodes</a></li>
-          <li><a href="/series">The Unseated Series</a></li>
-          <li><a href="/context">Context Matters</a></li>
+          <li><a href="/watch/#unseated-series">The Unseated Series</a></li>
+          <li><a href="/watch/#context-matters">Context Matters</a></li>
         </ul>
       </div>
       <div>
@@ -230,7 +241,7 @@
     </div>
   </footer>
 
-  <script src="/assets/chrome.js?v=bea0d7a2" defer></script>
-  <script src="/assets/episodes.js?v=6d26b590" defer></script>
+  <script src="/assets/chrome.js?v=6ea0d25b" defer></script>
+  <script src="/assets/episodes.js?v=9b64bdcf" defer></script>
 </body>
 </html>

@@ -17,7 +17,7 @@ Every place an episode appears on unseatedgen.org is built from one file: `episo
 
 4. Commit and push. The site updates in about a minute.
 
-That one change updates the homepage, the show page, the season page, the archive at `/watch/`, the sitemap, and creates the episode's own page.
+That one change updates the catalog at `/watch/`, the homepage, and the sitemap, and creates the episode's own page.
 
 ## Fields
 
@@ -37,10 +37,18 @@ That one change updates the homepage, the show page, the season page, the archiv
 | `summary` | when live | list of short paragraphs for the episode page |
 | `thumb` | optional | a file in `/Photos`. Without it, the YouTube thumbnail is used |
 
+## How the site is laid out
+
+- **`/watch/` is the catalog.** Latest episode up top, then one section per show with every episode in order. Pressing any thumbnail plays it in a player over the page, with a Next Episode button. Nothing else needs to be visited to watch.
+- **Episode pages** (`/season1/episode-2/`, `/context/episode-1/`) exist for sharing. Their links make good previews in texts and social posts. Visitors browsing the catalog never need them.
+- **The homepage** cards play in the same player.
+- `/series/`, `/season1/`, and `/context/` redirect into their section of `/watch/`. The old pages are kept in `_hidden/` (not served).
+- Show details (name, tagline, one-line intro) live under `"shows"` in `episodes.json`. A season's trailer lives under `"seasons"`.
+
 ## Good to know
 
 - An episode with no `youtube` id shows as upcoming with its date. If that date passes before the site is rebuilt, visitors see "Coming Soon" instead of a stale date.
 - To add a brand new episode or season, copy an existing entry. A new season also needs a line under `"seasons"`.
 - The build refuses to run if something is missing or if any text contains an em dash, and tells you what to fix.
-- `/watch/`, the episode pages, `sitemap.xml`, and `robots.txt` are written by the build. Do not edit them by hand. On the other pages, only the parts between `<!-- BUILD:... -->` markers are rewritten.
-- Shared look and behavior for the generated pages live in `/assets/episodes.css`, `/assets/episodes.js`, and `/assets/chrome.js`.
+- `/watch/`, the episode pages, `sitemap.xml`, and `robots.txt` are written by the build. Do not edit them by hand. On the homepage, only the parts between `<!-- BUILD:... -->` markers are rewritten.
+- Shared look and behavior live in `/assets/episodes.css`, `/assets/chrome.js`, `/assets/episodes.js` (stale dates, sharing, and the player), and `/assets/player.css` (the player, also used by the homepage).
