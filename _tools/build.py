@@ -35,6 +35,13 @@ ARROW = ('<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="cu
 DOWN = ('<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" '
         'aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7"/></svg>')
 
+# Merx Analytics, in the head of every built page right after the metas. The hand-built
+# pages carry the same tags. Plain tags on purpose: the daily tag check reads the served HTML.
+ANALYTICS = """  <!-- Merx Analytics: cookieless and first party (see the privacy page). Plain tags on purpose:
+       the daily tag check reads the served HTML. -->
+  <script>window.mx=window.mx||function(){(window.mx.q=window.mx.q||[]).push(arguments)}</script>
+  <script defer src="https://a.merxstudios.com/m.js" data-site="qnutkrkhywct3hyx"></script>"""
+
 # Hand-built pages that belong in the sitemap. Episode pages and /watch/ are added by the build.
 STATIC_PAGES = ["/", "/watch/", "/mission/", "/about/", "/get-involved/"]
 
@@ -201,6 +208,7 @@ def head(data, title, description, path, image, og_type="website", extra=""):
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+{ANALYTICS}
   <title>{esc(title)}</title>
   <meta name="description" content="{esc(description)}" />
   <link rel="canonical" href="{url}" />
@@ -276,6 +284,7 @@ def footer(data):
           <li><a href="/mission">The Mission</a></li>
           <li><a href="/about">About</a></li>
           <li><a href="/get-involved/">Get Involved</a></li>
+          <li><a href="/privacy/">Privacy</a></li>
         </ul>
       </div>
       <div>

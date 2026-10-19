@@ -36,7 +36,7 @@
       e.preventDefault();
       var frame = document.createElement('iframe');
       frame.src = 'https://www.youtube-nocookie.com/embed/' + encodeURIComponent(box.getAttribute('data-yt')) +
-        '?autoplay=1&rel=0&playsinline=1';
+        '?autoplay=1&rel=0&playsinline=1&enablejsapi=1&origin=https://unseatedgen.org';
       frame.title = box.getAttribute('data-title') || 'Episode video';
       frame.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
       frame.setAttribute('allowfullscreen', '');
@@ -179,7 +179,7 @@
       if (started && started.catch) started.catch(function () {});
     } else {
       var f = document.createElement('iframe');
-      f.src = 'https://www.youtube-nocookie.com/embed/' + encodeURIComponent(ep.youtube) + '?autoplay=1&rel=0&playsinline=1';
+      f.src = 'https://www.youtube-nocookie.com/embed/' + encodeURIComponent(ep.youtube) + '?autoplay=1&rel=0&playsinline=1&enablejsapi=1&origin=https://unseatedgen.org';
       f.title = (ep.kicker ? ep.kicker + ', ' : '') + ep.title;
       f.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
       f.setAttribute('allowfullscreen', '');

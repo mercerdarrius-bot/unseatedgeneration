@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Merx Analytics: cookieless and first party (see the privacy page). Plain tags on purpose:
+       the daily tag check reads the served HTML. -->
+  <script>window.mx=window.mx||function(){(window.mx.q=window.mx.q||[]).push(arguments)}</script>
+  <script defer src="https://a.merxstudios.com/m.js" data-site="qnutkrkhywct3hyx"></script>
+  <title>Privacy · Unseated Generation</title>
+  <meta name="description" content="How unseatedgen.org measures visits without cookies, and what happens to what you write in our forms." />
+  <link rel="canonical" href="https://unseatedgen.org/privacy/" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --black: #0A0A0A; --charcoal: #1A1A1A; --grey-dark: #2C2C2C;
+      --grey-mid: #4A4A4A; --grey-light: #8A8A8A; --grey-pale: #C8C8C8;
+      --white: #F2F0ED; --pure-white: #FFFFFF;
+      --gold: #B8922A; --gold-light: #D4A840;
+      --border-dark: rgba(184,146,42,0.15); --border-light: rgba(184,146,42,0.3);
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Barlow', sans-serif; background: var(--black); color: var(--white); overflow-x: hidden; }
+    body::after { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E"); pointer-events: none; z-index: 9999; opacity: 0.5; }
+    ::selection { background: var(--gold); color: var(--black); }
+    ::-moz-selection { background: var(--gold); color: var(--black); }
+
+    /* PROGRESS BAR */
+    .progress-bar { position: fixed; top: 0; left: 0; height: 2px; background: linear-gradient(to right, var(--gold-light), var(--gold)); width: 0%; z-index: 9998; transition: width 0.1s linear; box-shadow: 0 0 8px rgba(184,146,42,0.6); }
+
+    /* PAGE TRANSITION */
+    .page-transition { position: fixed; inset: 0; background: var(--black); z-index: 99990; transform: translateY(100%); pointer-events: none; }
+    .page-transition.exit { animation: pageExit 0.5s cubic-bezier(0.76,0,0.24,1) forwards; }
+    .page-transition.enter { animation: pageEnter 0.5s cubic-bezier(0.76,0,0.24,1) forwards; }
+    @keyframes pageExit { from{transform:translateY(100%);} to{transform:translateY(0);} }
+    @keyframes pageEnter { from{transform:translateY(0);} to{transform:translateY(-100%);} }
+
+    /* NAV */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 500; height: 80px; display: flex; align-items: center; justify-content: space-between; padding: 0 60px; background: rgba(10,10,10,0.96); border-bottom: 1px solid var(--border-dark); backdrop-filter: blur(16px); }
+    .nav-logo { display: flex; flex-direction: column; line-height: 1; text-decoration: none; }
+    .nav-wordmark { font-family: 'Barlow Condensed', sans-serif; font-size: 26px; font-weight: 800; letter-spacing: 0.18em; color: var(--white); text-transform: uppercase; }
+    .nav-wordmark span { color: var(--gold); }
+    .nav-sub { font-size: 8px; letter-spacing: 0.38em; text-transform: uppercase; color: var(--grey-light); margin-top: 3px; }
+    .nav-center { display: flex; align-items: center; gap: clamp(22px, 2.6vw, 44px); list-style: none; }
+    .nav-center a { font-size: 12px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--grey-pale); text-decoration: none; position: relative; transition: color 0.25s; }
+    .nav-center a::after { content: ''; position: absolute; bottom: -4px; left: 0; right: 0; height: 1px; background: var(--gold); transform: scaleX(0); transform-origin: left; transition: transform 0.3s; }
+    .nav-center a:hover { color: var(--white); }
+    .nav-center a:hover::after { transform: scaleX(1); }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; background: none; border: 0; }
+    .hamburger span { display: block; width: 28px; height: 2px; background: var(--white); }
+
+    /* WORD ANIMATION */
+    .word { display: inline-block; overflow: visible; padding-bottom: 0.15em; margin-bottom: -0.15em; }
+    .word-inner { display: inline-block; transform: translateY(110%); opacity: 0; transition: transform 0.7s cubic-bezier(0.16,1,0.3,1), opacity 0.5s; }
+    .word-inner.animate { transform: translateY(0); opacity: 1; }
+
+    /* PAGE HERO */
+    .page-hero { padding: 160px 60px 120px; background: var(--black); position: relative; overflow: hidden; z-index: 2; margin-bottom: -60px; border-radius: 0 0 40px 40px; box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
+    .hero-top-line { position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--gold); transform: scaleX(0); transform-origin: left; transition: transform 1s cubic-bezier(0.16,1,0.3,1); }
+    .hero-top-line.animate { transform: scaleX(1); }
+    .page-hero-bg { position: absolute; inset: 0; background-image: linear-gradient(rgba(184,146,42,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(184,146,42,0.03) 1px, transparent 1px); background-size: 80px 80px; }
+    .hero-bar { position: absolute; left: 0; top: 0; bottom: 0; width: 5px; background: linear-gradient(to bottom, transparent, var(--gold) 30%, var(--gold) 70%, transparent); opacity: 0.7; }
+    .page-hero-inner { position: relative; z-index: 2; max-width: 800px; }
+    .page-title { font-family: 'Playfair Display', serif; font-size: clamp(44px, 6vw, 82px); font-weight: 900; line-height: 1.0; color: var(--white); margin-bottom: 24px; }
+    .page-divider { width: 0; height: 2px; background: linear-gradient(to right, var(--gold), transparent); transition: width 0.8s 0.9s ease; }
+    .page-divider.animate { width: 60px; }
+
+    /* PRIVACY */
+    .privacy-section { padding: 160px 60px 140px; background: var(--charcoal); position: relative; z-index: 1; }
+    .privacy-inner { max-width: 760px; }
+    .privacy-inner p { font-size: 17px; font-weight: 300; line-height: 1.9; color: var(--grey-pale); margin-bottom: 24px; }
+    .privacy-inner p:last-child { margin-bottom: 0; }
+
+    /* FOOTER */
+    footer { background: var(--black); border-top: 1px solid var(--border-dark); padding: 80px 60px 40px; position: relative; z-index: 6; margin-top: -40px; border-radius: 40px 40px 0 0; box-shadow: 0 -20px 60px rgba(0,0,0,0.3); }
+    .footer-top { display: grid; grid-template-columns: 2.5fr 1fr 1fr 1fr; gap: 60px; padding-bottom: 60px; border-bottom: 1px solid rgba(255,255,255,0.06); margin-bottom: 40px; }
+    .footer-brand .wordmark { font-family: 'Barlow Condensed', sans-serif; font-size: 30px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; color: var(--white); margin-bottom: 4px; }
+    .footer-brand .wordmark span { color: var(--gold); }
+    .footer-brand .tagline { font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--grey-mid); margin-bottom: 24px; }
+    .footer-brand p { font-size: 14px; font-weight: 300; line-height: 1.75; color: var(--grey-light); max-width: 300px; }
+    .footer-col-head { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 24px; padding-bottom: 12px; border-bottom: 1px solid var(--border-dark); }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .footer-links a { font-size: 13px; color: var(--grey-light); text-decoration: none; transition: color 0.2s, transform 0.2s; display: inline-block; }
+    .footer-links a:hover { color: var(--gold); transform: translateX(4px); }
+    .footer-links a[aria-current="page"] { color: var(--gold); }
+    .footer-bottom { display: flex; align-items: center; justify-content: space-between; }
+    .footer-copy { font-size: 12px; color: var(--grey-mid); letter-spacing: 0.08em; }
+    .footer-socials { display: flex; gap: 24px; }
+    .footer-socials a { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--grey-mid); text-decoration: none; transition: color 0.2s, transform 0.2s; display: inline-block; }
+    .footer-socials a:hover { color: var(--gold); transform: translateY(-2px); }
+
+    /* REVEAL */
+    .reveal { opacity: 0; transform: translateY(48px); transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1); }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 1024px) {
+      nav { padding: 0 24px; }
+      .nav-center { display: none; }
+      .hamburger { display: flex; }
+      .page-hero { padding: 120px 24px 80px; border-radius: 0 0 24px 24px; margin-bottom: -40px; }
+      .privacy-section { padding: 120px 24px 100px; }
+      footer { padding: 60px 24px 32px; border-radius: 24px 24px 0 0; margin-top: -24px; }
+      .footer-top { grid-template-columns: 1fr 1fr; gap: 40px; }
+      .footer-bottom { flex-direction: column; gap: 20px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="progress-bar" id="progressBar"></div>
+  <div class="page-transition" id="pageTransition"></div>
+
+  <nav>
+    <a href="/" class="nav-logo">
+      <div class="nav-wordmark">UN/<span>SEATED</span></div>
+      <div class="nav-sub">Generation</div>
+    </a>
+    <ul class="nav-center">
+      <li><a href="/watch/">Watch</a></li>
+      <li><a href="/mission">The Mission</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/get-involved/">Get Involved</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" type="button" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <main>
+    <!-- HERO -->
+    <section class="page-hero">
+      <div class="hero-top-line" id="heroTopLine"></div>
+      <div class="page-hero-bg"></div>
+      <div class="hero-bar"></div>
+      <div class="page-hero-inner">
+        <h1 class="page-title">
+          <span class="word"><span class="word-inner">Privacy</span></span>
+        </h1>
+        <div class="page-divider" id="pageDivider"></div>
+      </div>
+    </section>
+
+    <!-- PRIVACY -->
+    <section class="privacy-section">
+      <div class="privacy-inner">
+        <p>This site uses Merx Analytics to understand how visitors use it. Merx Analytics does not use cookies, does not store IP addresses, and does not follow you across other websites. It records the pages visited, links and buttons clicked, whether a form was submitted (never what was written in it), the website that referred you, your general device, browser, and screen size, and your approximate location (city, state, or country). This information is used only in aggregate to improve the site.</p>
+        <p>What you write in the interest form on the Get Involved page is used only by Unseated Generation to follow up with you about where you fit.</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="wordmark">UN/<span>SEATED</span></div>
+        <div class="tagline">Generation · Called. Refined. Sent.</div>
+        <p>Unseated Generation is a faith-based ministry. We confront the systems, mindsets, and patterns that prevent maturity and limit kingdom impact, and we work to express the love of Christ in tangible ways. Called. Refined. Sent.</p>
+      </div>
+      <div>
+        <div class="footer-col-head">Content</div>
+        <ul class="footer-links">
+          <li><a href="/watch/">All Episodes</a></li>
+          <li><a href="/watch/#unseated-series">The Unseated Series</a></li>
+          <li><a href="/watch/#context-matters">Context Matters</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-head">Platform</div>
+        <ul class="footer-links">
+          <li><a href="/mission">The Mission</a></li>
+          <li><a href="/about">About</a></li>
+          <li><a href="/get-involved/">Get Involved</a></li>
+          <li><a href="#">Contact</a></li>
+          <li><a href="/privacy/" aria-current="page">Privacy</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-head">Follow</div>
+        <ul class="footer-links">
+          <li><a href="https://www.instagram.com/unseatedgen/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+          <li><a href="https://www.facebook.com/unseatedgeneration" target="_blank" rel="noopener noreferrer">Facebook</a></li>
+          <li><a href="https://www.tiktok.com/@unseatedgen" target="_blank" rel="noopener noreferrer">TikTok</a></li>
+          <li><a href="https://www.youtube.com/@unseatedgen" target="_blank" rel="noopener noreferrer">YouTube</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">2026 Unseated Generation. All rights reserved.</p>
+      <div class="footer-socials">
+        <a href="https://www.instagram.com/unseatedgen/" target="_blank" rel="noopener noreferrer">Instagram</a>
+        <a href="https://www.facebook.com/unseatedgeneration" target="_blank" rel="noopener noreferrer">Facebook</a>
+        <a href="https://www.tiktok.com/@unseatedgen" target="_blank" rel="noopener noreferrer">TikTok</a>
+        <a href="https://www.youtube.com/@unseatedgen" target="_blank" rel="noopener noreferrer">YouTube</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const progressBar = document.getElementById('progressBar');
+    window.addEventListener('scroll', () => {
+      const h = document.documentElement;
+      progressBar.style.width = (h.scrollTop / (h.scrollHeight - h.clientHeight) * 100) + '%';
+    }, { passive: true });
+
+    const transition = document.getElementById('pageTransition');
+    document.querySelectorAll('a[href]').forEach(link => {
+      const href = link.getAttribute('href');
+      if (!href || href.startsWith('#') || href.startsWith('http') || href.startsWith('mailto')) return;
+      link.addEventListener('click', e => {
+        e.preventDefault();
+        transition.classList.add('exit');
+        setTimeout(() => { window.location.href = href; }, 500);
+      });
+    });
+    window.addEventListener('pageshow', () => {
+      transition.classList.remove('exit');
+      transition.classList.add('enter');
+      setTimeout(() => transition.classList.remove('enter'), 600);
+    });
+
+    setTimeout(() => document.getElementById('heroTopLine').classList.add('animate'), 100);
+    document.querySelectorAll('.word-inner').forEach((w, i) => {
+      setTimeout(() => w.classList.add('animate'), 300 + i * 130);
+    });
+    setTimeout(() => document.getElementById('pageDivider').classList.add('animate'), 900);
+
+    const reveals = document.querySelectorAll('.reveal');
+    const revealObs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) { entry.target.classList.add('visible'); revealObs.unobserve(entry.target); }
+      });
+    }, { threshold: 0.08 });
+    reveals.forEach(el => revealObs.observe(el));
+
+    document.getElementById('hamburger').addEventListener('click', () => {
+      const nc = document.querySelector('.nav-center');
+      if (nc.style.display === 'flex') {
+        nc.style.display = 'none';
+      } else {
+        nc.style.cssText = 'display:flex;flex-direction:column;position:absolute;top:80px;left:0;right:0;background:rgba(10,10,10,0.98);padding:32px;gap:24px;border-bottom:1px solid rgba(184,146,42,0.15);z-index:500;';
+      }
+      document.getElementById('hamburger').setAttribute('aria-expanded', String(nc.style.display === 'flex'));
+    });
+  </script>
+</body>
+</html>
