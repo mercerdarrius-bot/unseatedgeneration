@@ -708,12 +708,16 @@ def home_series(data):
 
 
 def home_context(data):
-    """Homepage: newest Context Matters episode, then the next two on the calendar."""
-    newest = latest_live(data, "context")
-    upcoming = [e for e in data["upcoming"] if e["show"] == "context"]
-    older = [e for e in data["live"] if e["show"] == "context" and e is not newest]
-    picks = ([newest] if newest else []) + upcoming[:2]
-    picks += older[: max(0, 3 - len(picks))]
+    """Homepage: three Context Matters episodes in episode order, the newest that
+    are streaming plus the next one on the calendar."""
+    eps = of_show(data, "context")
+    live = [e for e in eps if e["live"]]
+    upcoming = [e for e in eps if not e["live"]]
+    picks = live[-2:] + upcoming[:1]
+    if len(picks) < 3:
+        picks = (live[:-2][-(3 - len(picks)):] if len(live) > 2 else []) + picks
+        picks += [e for e in upcoming[1:] if e not in picks][: 3 - len(picks)]
+    picks = sorted(picks, key=lambda e: e["number"])
     cards = []
     for e in picks:
         line = (f'"{esc(e["quote"])}" · ' if e.get("quote") else "") + esc(e["scripture"])
