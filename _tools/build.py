@@ -407,7 +407,11 @@ def show_section(data, key, raised):
     heading = esc(show["name"])
     if show.get("emphasis") and esc(show["emphasis"]) in heading:
         heading = heading.replace(esc(show["emphasis"]), f"<em>{esc(show['emphasis'])}.</em>", 1)
-    nxt = f'<span>Next Episode <b>{when(upcoming[0])}</b></span>' if upcoming else "<span>All Episodes Streaming</span>"
+    # Only promise a date the list actually has; with nothing scheduled, say nothing about what is next.
+    status = [f"<span>{len(live)} Streaming</span>"]
+    if upcoming:
+        status.append(f'<span>Next Episode <b>{when(upcoming[0])}</b></span>')
+    status.append("<span>New Episodes Bi-Weekly</span>")
     title_id = show["anchor"] + "-title"
 
     seasons = sorted({e.get("season") for e in eps}, key=lambda n: n or 0)
@@ -424,7 +428,7 @@ def show_section(data, key, raised):
                 trailer = (f'<a class="btn btn-ghost reveal reveal-2" href="{info["trailer"]["video"]}" data-episode="trailer-{key}-{number}">'
                            f'{PLAY.format(12)} Watch the Season {number} Trailer</a>')
             soon = [e for e in group if not e["live"]]
-            count = f'{len(group)} Episodes' + (f' · {len(group) - len(soon)} Streaming' if soon else '')
+            count = f'{len(group)} Episodes · ' + (f'{len(group) - len(soon)} Streaming' if soon else 'Full Season Streaming')
             blocks.append(f"""      <div class="c-season reveal">
         <h3 class="c-season-title">Season {number}: {name}</h3>
         <p class="meta"><span>{count}</span></p>
@@ -445,7 +449,7 @@ def show_section(data, key, raised):
           <div class="eyebrow"><span>{esc(show['tagline'])}</span></div>
           <h2 class="h2" id="{title_id}">{heading}</h2>
           <p class="c-show-desc">{esc(show['about'])}</p>
-          <p class="meta"><span>{len(live)} Streaming</span><i></i>{nxt}<i></i><span>New Episodes Bi-Weekly</span></p>
+          <p class="meta">{"<i></i>".join(status)}</p>
         </div>
         {trailer}
       </header>
