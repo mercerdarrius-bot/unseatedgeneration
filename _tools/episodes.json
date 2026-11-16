@@ -22,6 +22,19 @@
       "about": "The verses we quote most confidently are often the ones we understand least. Every episode returns one passage to its original weight: who wrote it, why, what the words meant, then what it asks of us today.",
       "episodePath": "/context/episode-{number}/",
       "playlist": ""
+    },
+    "trial": {
+      "name": "Truth on Trial",
+      "emphasis": "Trial",
+      "anchor": "truth-on-trial",
+      "tagline": "A New Panel Series",
+      "about": "A panel series where we wrestle with controversial questions, challenge popular interpretations, and examine competing perspectives through the lens of Scripture. The goal is not to win arguments. It is to discover what the Bible actually teaches.",
+      "panel": "Chris, Darrius, and Spenser",
+      "first": "Can you be homosexual and Christian?",
+      "status": "Clips from the first conversation are out now. Full episodes are coming to YouTube.",
+      "trailer": { "video": "/Videos/TOT-Trailer.mp4", "poster": "/Photos/TOT-Trailer-Poster.jpg", "runtime": "0:26" },
+      "episodePath": "/truth-on-trial/episode-{number}/",
+      "playlist": ""
     }
   },
 

@@ -17,7 +17,7 @@ html.pd-lock { overflow: hidden; }
 .pd-frame iframe, .pd-frame video { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; display: block; background: #000; }
 /* The trailer is vertical: size it by height so it fits any screen */
 .pd.is-vertical { width: min(480px, calc(100vw - 24px)); }
-.pd.is-vertical .pd-frame { aspect-ratio: 9 / 16; height: min(68dvh, 720px); width: auto; max-width: 100%; margin: 0 auto; }
+.pd.is-vertical .pd-frame { aspect-ratio: 9 / 16; height: min(62dvh, 700px); width: auto; max-width: 100%; margin: 0 auto; }
 
 .pd-info { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 18px 32px; align-items: center; padding: 22px 26px 26px; }
 .pd.is-vertical .pd-info { grid-template-columns: 1fr; padding: 20px 22px 24px; }

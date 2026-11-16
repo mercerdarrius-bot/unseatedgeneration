@@ -360,6 +360,15 @@ def player_data(data):
             "title": f"Season {number} Trailer", "kicker": f'{show["name"]} · Season {number}: {season["title"]}',
             "meta": show.get("tagline"),
         })
+    for key, show in data["shows"].items():
+        trailer = show.get("trailer")
+        if not trailer:
+            continue
+        items.append({
+            "key": f"trailer-{key}", "video": trailer["video"], "poster": trailer.get("poster"), "vertical": True,
+            "title": f'{show["name"]} Trailer', "kicker": f'{show["name"]} · {show["tagline"]}',
+            "meta": f'Episode 1: {show["first"]}' if show.get("first") else None,
+        })
     payload = json.dumps(items, ensure_ascii=False).replace("</", "<\\/")
     return f'<script type="application/json" id="ugEpisodes">{payload}</script>'
 
@@ -398,10 +407,72 @@ def tile(ep, level):
         </li>"""
 
 
-def show_section(data, key, raised):
+SOCIALS = [("Instagram", "https://www.instagram.com/unseatedgen/"), ("TikTok", "https://www.tiktok.com/@unseatedgen"),
+           ("YouTube", "https://www.youtube.com/@unseatedgen"), ("Facebook", "https://www.facebook.com/unseatedgeneration")]
+
+
+def section_class(index):
+    """Sections stack like cards: each one after the first overlaps the one above and alternates its ground."""
+    if index == 0:
+        return "c-show"
+    return "c-show c-show-raised" + (" c-show-deep" if index % 2 == 0 else "")
+
+
+def spoken_length(runtime):
+    """26 seconds, 1 minute 5 seconds: how a screen reader should say a short runtime."""
+    h, m, sec = runtime_parts(runtime)
+    m += h * 60
+    parts = ([f"{m} minute{'s' if m != 1 else ''}"] if m else []) + ([f"{sec} second{'s' if sec != 1 else ''}"] if sec else [])
+    return " ".join(parts) or "under a second"
+
+
+def coming_section(data, key, index):
+    """A new show with no episodes yet: what it is, who is at the table, and its trailer."""
+    show = data["shows"][key]
+    heading = esc(show["name"])
+    if show.get("emphasis") and esc(show["emphasis"]) in heading:
+        heading = heading.replace(esc(show["emphasis"]), f"<em>{esc(show['emphasis'])}.</em>", 1)
+    title_id = show["anchor"] + "-title"
+    trailer = show["trailer"]
+    follow = "\n".join(f'            <li><a class="btn btn-ghost" href="{u}" target="_blank" rel="noopener noreferrer">{n}'
+                       f'<span class="sr-only"> (opens in a new tab)</span></a></li>' for n, u in SOCIALS)
+    first = (f'<p class="c-first"><span>The first question</span>{esc(show["first"])}</p>' if show.get("first") else "")
+    return f"""
+    <section class="{section_class(index)}" id="{show['anchor']}" aria-labelledby="{title_id}">
+      <div class="c-wrap c-coming">
+        <div class="c-coming-text reveal">
+          <div class="eyebrow"><span>{esc(show['tagline'])}</span></div>
+          <h2 class="h2" id="{title_id}">{heading}</h2>
+          <p class="c-show-desc">{esc(show['about'])}</p>
+          <p class="c-panel">At the table: <b>{esc(show['panel'])}</b></p>
+          {first}
+          <p class="c-show-desc c-status">{esc(show['status'])}</p>
+          <p class="c-follow-label">Follow for the next question</p>
+          <ul class="c-follow">
+{follow}
+          </ul>
+        </div>
+        <div class="c-coming-media reveal reveal-2">
+          <a class="c-trailer" href="{trailer['video']}" data-episode="trailer-{key}" aria-label="Play the {esc(show['name'])} trailer, {spoken_length(trailer['runtime'])}">
+            <span class="c-trailer-frame">
+              <img src="{esc(trailer['poster'])}" alt="" width="720" height="1280" loading="lazy" />
+              <span class="c-play" aria-hidden="true">{PLAY.format(28)}</span>
+              <span class="c-time">{PLAY.format(10)}<span class="sr-only">Runtime </span>{esc(trailer['runtime'])}</span>
+            </span>
+            <span class="c-label"><b>Watch the Trailer</b> · {esc(show['name'])}</span>
+          </a>
+        </div>
+      </div>
+    </section>
+"""
+
+
+def show_section(data, key, index):
     """Every episode of one show, grouped by season, in order."""
     show = data["shows"][key]
     eps = of_show(data, key)
+    if not eps and show.get("trailer"):
+        return coming_section(data, key, index)
     live = [e for e in eps if e["live"]]
     upcoming = [e for e in eps if not e["live"]]
     heading = esc(show["name"])
@@ -442,7 +513,7 @@ def show_section(data, key, raised):
       </ul>""")
 
     return f"""
-    <section class="c-show{' c-show-raised' if raised else ''}" id="{show['anchor']}" aria-labelledby="{title_id}">
+    <section class="{section_class(index)}" id="{show['anchor']}" aria-labelledby="{title_id}">
       <div class="c-wrap">
       <header class="c-show-head">
         <div class="reveal">
@@ -463,8 +534,8 @@ def build_watch(data):
     """/watch/: the catalog. Latest episode up top, then every show with every episode."""
     live, upcoming = data["live"], data["upcoming"]
     newest = live[0] if live else None
-    desc = ("Every episode of The Unseated Series and Context Matters in one place. "
-            "New teaching premieres Tuesdays at 6 PM ET.")
+    desc = ("Every episode of The Unseated Series and Context Matters in one place, plus the trailer for "
+            "Truth on Trial, a new panel series from Unseated Generation.")
     image = newest["image_abs"] if newest else data["site"] + "/Photos/S1E1-Thumbnail.jpg"
     extra = f'\n  <link rel="stylesheet" href="{asset("/assets/player.css")}" />'
 
@@ -476,8 +547,10 @@ def build_watch(data):
     jumps = []
     for key, show in data["shows"].items():
         count = sum(1 for e in live if e["show"] == key)
+        label = (f'{count} {"Episode" if count == 1 else "Episodes"}' if count else
+                 ("New Series · Trailer" if show.get("trailer") else "Coming Soon"))
         jumps.append(f'<li><a href="#{show["anchor"]}">{esc(show["name"])} '
-                     f'<span>{count} {"Episode" if count == 1 else "Episodes"} {DOWN}</span></a></li>')
+                     f'<span>{label} {DOWN}</span></a></li>')
     next_line = ""
     if upcoming:
         u = upcoming[0]
@@ -512,7 +585,7 @@ def build_watch(data):
         </h1>
         <div class="c-row">
           <div class="c-intro">
-            <p class="page-desc fade">The Unseated Series and Context Matters, together. Press any episode to watch it right here.</p>
+            <p class="page-desc fade">The Unseated Series, Context Matters, and the new Truth on Trial, together. Press any episode to watch it right here.</p>
             {next_line}
             <nav class="c-jump fade" aria-label="Jump to a series">
               <ul>
@@ -525,7 +598,7 @@ def build_watch(data):
     </section>
 """)
     for i, key in enumerate(data["shows"]):
-        out.append(show_section(data, key, raised=i > 0))
+        out.append(show_section(data, key, i))
     out.append(f"""  </main>
 
   {player_data(data)}

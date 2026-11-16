@@ -44,6 +44,7 @@ That one change updates the catalog at `/watch/`, the homepage, and the sitemap,
 - **The homepage** cards play in the same player.
 - `/series/`, `/season1/`, and `/context/` redirect into their section of `/watch/`. The old pages are kept in `_hidden/` (not served).
 - Show details (name, tagline, one-line intro) live under `"shows"` in `episodes.json`. A season's trailer lives under `"seasons"`.
+- A show with no episodes yet (Truth on Trial) gets a coming-soon section on `/watch/`: its `about`, `panel`, `first` question, `status`, social follow buttons, and a show-level `"trailer"` (`video`, `poster`, `runtime`). Once its first episode has a `youtube` id, it switches to the normal episode layout on its own.
 
 ## Good to know
 
