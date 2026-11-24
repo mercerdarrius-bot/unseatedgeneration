@@ -482,7 +482,7 @@ def show_section(data, key, index):
     status = [f"<span>{len(live)} Streaming</span>"]
     if upcoming:
         status.append(f'<span>Next Episode <b>{when(upcoming[0])}</b></span>')
-    status.append("<span>New Episodes Bi-Weekly</span>")
+    status.append(f'<span>New Episodes {esc(show.get("cadence", "Bi-Weekly"))}</span>')
     title_id = show["anchor"] + "-title"
 
     seasons = sorted({e.get("season") for e in eps}, key=lambda n: n or 0)
@@ -499,7 +499,7 @@ def show_section(data, key, index):
                 trailer = (f'<a class="btn btn-ghost reveal reveal-2" href="{info["trailer"]["video"]}" data-episode="trailer-{key}-{number}">'
                            f'{PLAY.format(12)} Watch the Season {number} Trailer</a>')
             soon = [e for e in group if not e["live"]]
-            count = f'{len(group)} Episodes · ' + (f'{len(group) - len(soon)} Streaming' if soon else 'Full Season Streaming')
+            count = f'{len(group)} {"Episode" if len(group) == 1 else "Episodes"} · ' + (f'{len(group) - len(soon)} Streaming' if soon else 'Full Season Streaming')
             blocks.append(f"""      <div class="c-season reveal">
         <h3 class="c-season-title">Season {number}: {name}</h3>
         <p class="meta"><span>{count}</span></p>
@@ -534,8 +534,7 @@ def build_watch(data):
     """/watch/: the catalog. Latest episode up top, then every show with every episode."""
     live, upcoming = data["live"], data["upcoming"]
     newest = live[0] if live else None
-    desc = ("Every episode of The Unseated Series and Context Matters in one place, plus the trailer for "
-            "Truth on Trial, a new panel series from Unseated Generation.")
+    desc = "Every episode of The Unseated Series, Context Matters and Truth on Trial in one place."
     image = newest["image_abs"] if newest else data["site"] + "/Photos/S1E1-Thumbnail.jpg"
     extra = f'\n  <link rel="stylesheet" href="{asset("/assets/player.css")}" />'
 

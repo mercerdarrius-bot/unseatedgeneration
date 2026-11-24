@@ -33,6 +33,7 @@
       "first": "Can you be homosexual and Christian?",
       "status": "Clips from the first conversation are out now. Full episodes are coming to YouTube.",
       "trailer": { "video": "/Videos/TOT-Trailer.mp4", "poster": "/Photos/TOT-Trailer-Poster.jpg", "runtime": "0:26" },
+      "cadence": "Monthly",
       "episodePath": "/truth-on-trial/episode-{number}/",
       "playlist": ""
     }
@@ -43,6 +44,10 @@
       "title": "Unseating Performance",
       "emphasis": "Performance",
       "trailer": { "video": "/Videos/S1-Trailer.mp4", "poster": "/Photos/S1-Trailer-Poster.jpg" }
+    },
+    "series-2": {
+      "title": "Unseating Elitism",
+      "emphasis": "Elitism"
     }
   },
 
@@ -177,6 +182,51 @@
         "This episode takes John 14:12 back to the room it was spoken in: a table, eleven grieving men, and a Savior hours from the cross.",
         "Read in context, the greater works are not bigger signs and wonders. They are the gospel reaching further than Jesus' earthly ministry ever did, through the Holy Spirit after Pentecost. The works are greater because of what Jesus did, not because of who we are becoming.",
         "If you have ever been told something is wrong with your faith because the miracle didn't come, this one is for you."
+      ]
+    },
+    {
+      "show": "trial", "number": 2,
+      "title": "Can You Be Christian and Pro-Choice?",
+      "emphasis": "Pro-Choice",
+      "scripture": "Psalm 139:13-16", "translation": "ESV",
+      "date": "2026-11-24",
+      "youtube": "Y7ch0ctnHlQ",
+      "runtime": "1:31:26",
+      "thumb": "/Photos/TOT-EP2-Thumbnail.jpg",
+      "hook": "Can you be Christian and support abortion?",
+      "summary": [
+        "Can you be Christian and support abortion? Spenser Jones, Carrington Mercer, Darrius Mercer and Chris White take the question to Scripture: what the Bible says about life in the womb (Luke 1, Jeremiah 1:5, Psalm 139) and whether it calls abortion a sin (Proverbs 6, Exodus 20:13).",
+        "Then the hardest cases: rape, and a mother's life at stake. The panel does not agree on everything, and the conversation stays honest about it.",
+        "From there it turns to the church itself: the gossip, hypocrisy and abuse that keep people from trusting the church enough to hear what the Bible says, and how that trust is won back.",
+        "It closes with the gospel, healing for anyone carrying an abortion or the trauma of assault, and a prayer for anyone facing the decision."
+      ]
+    },
+    {
+      "show": "series", "season": 2, "number": 1,
+      "title": "The Gospel of Elitism",
+      "emphasis": "Elitism",
+      "scripture": "1 John 2:20, 27", "translation": "NASB",
+      "date": "2026-12-01",
+      "hook": "Is the anointing earned, or is it the Holy Spirit given to every believer?",
+      "summary": [
+        "Many of us have learned to rank the church: the anointed few on the platform and everyone else in the pews.",
+        "This episode sets that teaching beside Scripture, from Paul's warning in Galatians 1, through the anointings of David, Aaron and Saul, to John's words to the believers who stayed in 1 John 2.",
+        "The anointing is not an upgrade you earn. It is the Holy Spirit, given to every believer in Christ, and no one carries a greater portion than the believer beside them."
+      ]
+    },
+    {
+      "show": "context", "number": 5,
+      "title": "Do You Have to Speak in Tongues to Have the Holy Spirit?",
+      "emphasis": "Tongues",
+      "scripture": "1 Corinthians 12:11, 30", "translation": "NASB",
+      "quote": "The evidence of speaking in tongues",
+      "date": "2026-12-08",
+      "hook": "Do you have to speak in tongues to prove you have the Holy Spirit?",
+      "summary": [
+        "Many of us were taught that the Holy Ghost comes with the evidence of speaking in tongues, and that a believer who leaves the altar without them is still missing something.",
+        "This episode takes that teaching back to Scripture: Ephesians 1 and Romans 8 on who has the Spirit, the four outpourings in Acts and what the tongues marked in each, and Paul's teaching in 1 Corinthians 12 to 14 that the Spirit gives His gifts as He wills and that not all speak in tongues.",
+        "Tongues are a genuine gift of the Spirit. They were never the requirement for receiving Him.",
+        "If you have spent years at the altar wondering what was wrong with you, this one is for you."
       ]
     }
   ]
